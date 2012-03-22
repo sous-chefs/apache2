@@ -1,3 +1,7 @@
+## v1.1.4:
+
+* [COOK-1100] - support amazon linux
+
 ## v1.1.2:
 
 * [COOK-996] - apache2::mod_php5 can cause PHP and module API mismatches
