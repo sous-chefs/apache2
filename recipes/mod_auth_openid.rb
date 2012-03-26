@@ -56,7 +56,7 @@ when "redhat", "centos", "scientific", "fedora", "amazon"
   end
 
   bash "install libopkele" do
-    cwd "#{Chef::Config['file_cache_path']}"
+    cwd Chef::Config['file_cache_path']
     # Ruby 1.8.6 does not have rpartition, unfortunately
     syslibdir = node['apache']['lib_dir'][0..node['apache']['lib_dir'].rindex("/")]
     code <<-EOH
