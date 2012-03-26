@@ -31,7 +31,7 @@ when "redhat","centos","scientific","fedora","suse","amazon"
   set['apache']['binary']  = "/usr/sbin/httpd"
   set['apache']['icondir'] = "/var/www/icons"
   set['apache']['cache_dir'] = "/var/cache/httpd"
-  if node.platform_version.to_f >= 6 then
+  if node['platform_version'].to_f >= 6 then
     set['apache']['pid_file'] = "/var/run/httpd/httpd.pid"
   else
     set['apache']['pid_file'] = "/var/run/httpd.pid"
@@ -137,5 +137,5 @@ default['apache']['default_modules'] = %w{
 }
 
 %w{ log_config logio }.each do |log_mod|
-  default['apache']['default_modules'] << log_mod if ["redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon"].include?(node.platform)
+  default['apache']['default_modules'] << log_mod if ["redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon"].include?(node['platform'])
 end
