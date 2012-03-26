@@ -18,12 +18,12 @@
 #
 
 package "apache2" do
-  package_name node[:apache][:package]
+  package_name node['apache']['package']
   action :install
 end
 
 service "apache2" do
-  case node[:platform]
+  case node['platform']
   when "redhat","centos","scientific","fedora","suse","amazon"
     service_name "httpd"
     # If restarted/reloaded too quickly httpd has a habit of failing.
@@ -57,7 +57,7 @@ service "apache2" do
 end
 
 if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebsd", "amazon")
-  directory node[:apache][:log_dir] do
+  directory node['apache']['log_dir'] do
     mode 0755
     action :create
   end
@@ -68,20 +68,20 @@ if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebs
     source "apache2_module_conf_generate.pl"
     mode 0755
     owner "root"
-    group node[:apache][:root_group]
+    group node['apache']['root_group']
   end
 
   %w{sites-available sites-enabled mods-available mods-enabled}.each do |dir|
-    directory "#{node[:apache][:dir]}/#{dir}" do
+    directory "#{node['apache']['dir']}/#{dir}" do
       mode 0755
       owner "root"
-      group node[:apache][:root_group]
+      group node['apache']['root_group']
       action :create
     end
   end
 
   execute "generate-module-list" do
-    command "/usr/local/bin/apache2_module_conf_generate.pl #{node[:apache][:lib_dir]} #{node[:apache][:dir]}/mods-available"
+    command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{node['apache']['dir']}/mods-available"
     action :run
   end
 
@@ -90,31 +90,31 @@ if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebs
       source "#{modscript}.erb"
       mode 0755
       owner "root"
-      group node[:apache][:root_group]
+      group node['apache']['root_group']
     end
   end
 
   # installed by default on centos/rhel, remove in favour of mods-enabled
   %w{ proxy_ajp auth_pam authz_ldap webalizer ssl welcome }.each do |f|
-    file "#{node[:apache][:dir]}/conf.d/#{f}.conf" do
+    file "#{node['apache']['dir']}/conf.d/#{f}.conf" do
       action :delete
       backup false
     end
   end
 
   # installed by default on centos/rhel, remove in favour of mods-enabled
-  file "#{node[:apache][:dir]}/conf.d/README" do
+  file "#{node['apache']['dir']}/conf.d/README" do
     action :delete
     backup false
   end
 end
 
 if platform?("freebsd")
-  file "#{node[:apache][:dir]}/Includes/no-accf.conf" do
+  file "#{node['apache']['dir']}/Includes/no-accf.conf" do
     action :delete
     backup false
   end
-  directory "#{node[:apache][:dir]}/Includes" do
+  directory "#{node['apache']['dir']}/Includes" do
     action :delete
   end
 
@@ -122,86 +122,86 @@ if platform?("freebsd")
      httpd-languages.conf httpd-manual.conf httpd-mpm.conf
      httpd-multilang-errordoc.conf httpd-ssl.conf httpd-userdir.conf
      httpd-vhosts.conf}.each do |f|
-    file "#{node[:apache][:dir]}/extra/#{f}" do
+    file "#{node['apache']['dir']}/extra/#{f}" do
       action :delete
       backup false
     end
   end
-  directory "#{node[:apache][:dir]}/extra" do
+  directory "#{node['apache']['dir']}/extra" do
     action :delete
   end
 end
 
-directory "#{node[:apache][:dir]}/ssl" do
+directory "#{node['apache']['dir']}/ssl" do
   action :create
   mode 0755
   owner "root"
-  group node[:apache][:root_group]
+  group node['apache']['root_group']
 end
 
-directory "#{node[:apache][:dir]}/conf.d" do
+directory "#{node['apache']['dir']}/conf.d" do
   action :create
   mode 0755
   owner "root"
-  group node[:apache][:root_group]
+  group node['apache']['root_group']
 end
 
-directory node[:apache][:cache_dir] do
+directory node['apache']['cache_dir'] do
   action :create
   mode 0755
   owner "root"
-  group node[:apache][:root_group]
+  group node['apache']['root_group']
 end
 
 template "apache2.conf" do
-  case node[:platform]
+  case node['platform']
   when "redhat", "centos", "scientific", "fedora", "arch", "amazon"
-    path "#{node[:apache][:dir]}/conf/httpd.conf"
+    path "#{node['apache']['dir']}/conf/httpd.conf"
   when "debian","ubuntu"
-    path "#{node[:apache][:dir]}/apache2.conf"
+    path "#{node['apache']['dir']}/apache2.conf"
   when "freebsd"
-    path "#{node[:apache][:dir]}/httpd.conf"
+    path "#{node['apache']['dir']}/httpd.conf"
   end
   source "apache2.conf.erb"
   owner "root"
-  group node[:apache][:root_group]
+  group node['apache']['root_group']
   mode 0644
   notifies :restart, resources(:service => "apache2")
 end
 
 template "security" do
-  path "#{node[:apache][:dir]}/conf.d/security"
+  path "#{node['apache']['dir']}/conf.d/security"
   source "security.erb"
   owner "root"
-  group node[:apache][:root_group]
+  group node['apache']['root_group']
   mode 0644
   backup false
   notifies :restart, resources(:service => "apache2")
 end
 
 template "charset" do
-  path "#{node[:apache][:dir]}/conf.d/charset"
+  path "#{node['apache']['dir']}/conf.d/charset"
   source "charset.erb"
   owner "root"
-  group node[:apache][:root_group]
+  group node['apache']['root_group']
   mode 0644
   backup false
   notifies :restart, resources(:service => "apache2")
 end
 
-template "#{node[:apache][:dir]}/ports.conf" do
+template "#{node['apache']['dir']}/ports.conf" do
   source "ports.conf.erb"
   owner "root"
-  group node[:apache][:root_group]
-  variables :apache_listen_ports => node[:apache][:listen_ports].map{|p| p.to_i}.uniq
+  group node['apache']['root_group']
+  variables :apache_listen_ports => node['apache']['listen_ports'].map{|p| p.to_i}.uniq
   mode 0644
   notifies :restart, resources(:service => "apache2")
 end
 
-template "#{node[:apache][:dir]}/sites-available/default" do
+template "#{node['apache']['dir']}/sites-available/default" do
   source "default-site.erb"
   owner "root"
-  group node[:apache][:root_group]
+  group node['apache']['root_group']
   mode 0644
   notifies :restart, resources(:service => "apache2")
 end

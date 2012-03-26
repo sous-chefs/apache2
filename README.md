@@ -104,8 +104,8 @@ Worker attributes are used for tuning the Apache HTTPD worker MPM configuration.
 
 * `node['apache']['worker']['startservers']` - Initial number of server processes to start. Default 4
 * `node['apache']['worker']['maxclients']` - Maximum number of simultaneous connections. Default 1024.
-* `node['apache']['worker']['minsparethreads]` - Minimum number of spare worker threads. Default 64
-* `node['apache']['worker']['maxsparethreads]` - Maximum number of spare worker threads. Default 192.
+* `node['apache']['worker']['minsparethreads']` - Minimum number of spare worker threads. Default 64
+* `node['apache']['worker']['maxsparethreads']` - Maximum number of spare worker threads. Default 192.
 * `node['apache']['worker']['maxrequestsperchild']` - Maximum number of requests a child process will handle.
 
 mod\_auth\_openid attributes
@@ -266,7 +266,7 @@ It will then configure the template (see __Parameters__ and __Examples__ below),
 
 Current parameters used by the definition:
 
-* `name` - The name of the site. The template will be written to `#{node['apache']['dir']}/sites-available/#{params[:name]}.conf`
+* `name` - The name of the site. The template will be written to `#{node['apache']['dir']}/sites-available/#{params['name']}.conf`
 * `cookbook` - Optional. Cookbook where the source template is. If this is not defined, Chef will use the named template in the cookbook where the definition is used.
 * `template` - Default `web_app.conf.erb`, source template file. 
 * `enable` - Default true. Passed to the `apache_site` definition.
@@ -292,9 +292,9 @@ To use the default web_app, for example:
 
 The parameters specified will be used as:
 
-* `@params[:server_name]`
-* `@params[:server_aliases]`
-* `@params[:docroot]`
+* `@params['server_name']`
+* `@params['server_aliases']`
+* `@params['docroot']`
 
 In the template. When you write your own, the `@` is significant.
 

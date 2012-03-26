@@ -23,15 +23,15 @@ if platform?("redhat", "centos", "scientific", "fedora", "amazon")
     notifies :run, resources(:execute => "generate-module-list"), :immediately
   end
 
-  file "#{node[:apache][:dir]}/conf.d/ssl.conf" do
+  file "#{node['apache']['dir']}/conf.d/ssl.conf" do
     action :delete
     backup false 
   end
 end
 
-ports = node[:apache][:listen_ports].include?("443") ? node[:apache][:listen_ports] : [node[:apache][:listen_ports], "443"].flatten
+ports = node['apache']['listen_ports'].include?("443") ? node['apache']['listen_ports'] : [node['apache']['listen_ports'], "443"].flatten
 
-template "#{node[:apache][:dir]}/ports.conf" do
+template "#{node['apache']['dir']}/ports.conf" do
   source "ports.conf.erb"
   variables :apache_listen_ports => ports.map{|p| p.to_i}.uniq
   notifies :restart, resources(:service => "apache2")

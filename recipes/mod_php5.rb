@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-case node[:platform]
+case node['platform']
 when "debian", "ubuntu"
   package "libapache2-mod-php5" do
     action :install
@@ -42,12 +42,12 @@ when "redhat", "centos", "scientific"
   end
 
   # delete stock config
-  file "#{node[:apache][:dir]}/conf.d/php.conf" do
+  file "#{node['apache']['dir']}/conf.d/php.conf" do
     action :delete
   end
 
   # replace with debian style config
-  template "#{node[:apache][:dir]}/mods-available/php5.conf" do
+  template "#{node['apache']['dir']}/mods-available/php5.conf" do
     source "mods/php5.conf.erb" 
     notifies :restart, "service[apache2]"
   end
@@ -61,12 +61,12 @@ when "fedora", "amazon"
   end
 
   # delete stock config
-  file "#{node[:apache][:dir]}/conf.d/php.conf" do
+  file "#{node['apache']['dir']}/conf.d/php.conf" do
     action :delete
   end
 
   # replace with debian style config
-  template "#{node[:apache][:dir]}/mods-available/php5.conf" do
+  template "#{node['apache']['dir']}/mods-available/php5.conf" do
     source "mods/php5.conf.erb" 
     notifies :restart, "service[apache2]"
   end
@@ -85,7 +85,7 @@ when "freebsd"
   end
 
   # replace with debian style config
-  template "#{node[:apache][:dir]}/mods-available/php5.conf" do
+  template "#{node['apache']['dir']}/mods-available/php5.conf" do
     source "mods/php5.conf.erb"
     notifies :restart, "service[apache2]"
   end

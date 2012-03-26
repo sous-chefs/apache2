@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-case node[:platform]
+case node['platform']
   when "debian", "ubuntu"
     package "libapache2-mod-perl2" do
       action :install

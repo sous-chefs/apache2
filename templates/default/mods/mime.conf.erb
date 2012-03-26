@@ -4,7 +4,7 @@
 # TypesConfig points to the file containing the list of mappings from
 # filename extension to MIME-type.
 #
-<% case node[:platform] -%>
+<% case node['platform'] -%>
 <% when "arch" -%>
 TypesConfig <%= node['apache']['dir'] %>/conf/mime.types
 <% when "freebsd" -%>
