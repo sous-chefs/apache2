@@ -31,7 +31,7 @@ when "arch"
 
 when "redhat", "centos", "scientific"
   package "php package" do
-    if node.platform_version.to_f < 6.0
+    if node['platform_version'].to_f < 6.0
       package_name "php53"
     else
       package_name "php"
