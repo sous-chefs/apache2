@@ -29,10 +29,9 @@ elsif platform?("redhat", "centos", "scientific", "fedora", "arch", "amazon")
     backup false
   end
 
-  if node['platform_version'].to_i >= 6
-    directory "/var/run/httpd/mod_fcgid" do
-      recursive true
-    end
+  directory "/var/run/httpd/mod_fcgid" do
+    recursive true
+    only_if { node['platform_version'].to_i >= 6 }
   end
 elsif platform?("suse")
   apache_lib_path = node['apache']['lib_dir']
