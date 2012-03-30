@@ -107,6 +107,9 @@ if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebs
     action :delete
     backup false
   end
+
+  # enable mod_deflate for consistency across distributions
+  include_recipe "apache2::mod_deflate"
 end
 
 if platform?("freebsd")
