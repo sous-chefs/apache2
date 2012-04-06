@@ -48,7 +48,7 @@ On Red Hat Enterprise Linux and derivatives, the EPEL repository may be necessar
 
 ### Notes for FreeBSD:
 
-The `apache2::mod_php5` recipe depends on the `freebsd` cookbook, which it uses to set the correct options for compiling the `php5` port from sources. You need to ensure the `freebsd` is in the expanded run list, or this recipe will fail.
+The `apache2::mod_php5` recipe depends on the `freebsd` cookbook, which it uses to set the correct options for compiling the `php5` port from sources. You need to ensure the `freebsd` is in the expanded run list, or this recipe will fail. We don't set an explicit dependency because we feel the `freebsd` cookbook is something users would want on their nodes, and due to the generality of this cookbook we don't want additional specific dependencies.
 
 Attributes
 ==========

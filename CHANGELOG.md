@@ -1,3 +1,9 @@
+## v1.1.6:
+
+FreeBSD users: This release requires the `freebsd` cookbook. See README.md.
+
+* [COOK-1025] - freebsd support in mod_php5 recipe
+
 ## v1.1.4:
 
 * [COOK-1100] - support amazon linux
