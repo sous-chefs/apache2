@@ -7,6 +7,10 @@ module Helpers
       %x{#{node['apache']['binary']} -t}
       $?.success?
     end
+    def apache_configured_ports
+      port_config = File.read("#{node['apache']['dir']}/ports.conf")
+      port_config.scan(/^Listen ([0-9]+)/).flatten.map{|p| p.to_i}
+    end
     def apache_enabled_modules
       Dir["#{node['apache']['dir']}/mods-enabled/*.load"].map{|s| File.basename(s, '.load')}.sort
     end
