@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: proxy 
+# Recipe:: logio 
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -17,5 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::mod_proxy"
-apache_module "proxy_ajp"
+if platform?("redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon")
+  apache_module "logio"
+else
+  include_recipe "apache2"
+end

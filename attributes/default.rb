@@ -136,4 +136,6 @@ default['apache']['default_modules'] = %w{
   dir env mime negotiation setenvif
 }
 
-default['apache']['default_modules'] << "log_config" if ["redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon"].include?(node.platform)
+%w{ log_config logio }.each do |log_mod|
+  default['apache']['default_modules'] << log_mod if ["redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon"].include?(node.platform)
+end
