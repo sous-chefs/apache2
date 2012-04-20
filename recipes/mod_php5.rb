@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-case node[:platform]
+case node['platform']
 when "debian", "ubuntu"
   package "libapache2-mod-php5" do
     action :install
@@ -29,9 +29,9 @@ when "arch"
     notifies :run, resources(:execute => "generate-module-list"), :immediately
   end
 
-when "redhat", "centos", "scientific"
+when "amazon", "redhat", "centos", "scientific"
   package "php package" do
-    if node.platform_version.to_f < 6.0
+    if node['platform_version'].to_f < 6.0
       package_name "php53"
     else
       package_name "php"
@@ -42,17 +42,17 @@ when "redhat", "centos", "scientific"
   end
 
   # delete stock config
-  file "#{node[:apache][:dir]}/conf.d/php.conf" do
+  file "#{node['apache']['dir']}/conf.d/php.conf" do
     action :delete
   end
 
   # replace with debian style config
-  template "#{node[:apache][:dir]}/mods-available/php5.conf" do
+  template "#{node['apache']['dir']}/mods-available/php5.conf" do
     source "mods/php5.conf.erb" 
     notifies :restart, "service[apache2]"
   end
 
-when "fedora", "amazon"
+when "fedora"
   package "php package" do
     package_name "php"
     action :install
@@ -61,12 +61,12 @@ when "fedora", "amazon"
   end
 
   # delete stock config
-  file "#{node[:apache][:dir]}/conf.d/php.conf" do
+  file "#{node['apache']['dir']}/conf.d/php.conf" do
     action :delete
   end
 
   # replace with debian style config
-  template "#{node[:apache][:dir]}/mods-available/php5.conf" do
+  template "#{node['apache']['dir']}/mods-available/php5.conf" do
     source "mods/php5.conf.erb" 
     notifies :restart, "service[apache2]"
   end
@@ -85,7 +85,7 @@ when "freebsd"
   end
 
   # replace with debian style config
-  template "#{node[:apache][:dir]}/mods-available/php5.conf" do
+  template "#{node['apache']['dir']}/mods-available/php5.conf" do
     source "mods/php5.conf.erb"
     notifies :restart, "service[apache2]"
   end
@@ -93,7 +93,7 @@ end
 
 apache_module "php5" do
   case node['platform']
-  when "redhat","centos","scientific","fedora","freebsd"
+  when "redhat","centos","scientific","amazon","fedora","freebsd"
     filename "libphp5.so"
   end
 end

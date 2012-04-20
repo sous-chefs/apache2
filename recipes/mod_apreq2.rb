@@ -19,12 +19,12 @@
 # limitations under the License.
 #
 
-case node[:platform]
+case node['platform']
   when "debian", "ubuntu"
     package "libapache2-mod-apreq2" do
       action :install
     end
-  when "centos", "redhat", "fedora", "amazon"
+  when "centos", "redhat", "fedora", "amazon", "scientific"
     package "libapreq2" do
       action :install
       notifies :run, resources(:execute => "generate-module-list"), :immediately

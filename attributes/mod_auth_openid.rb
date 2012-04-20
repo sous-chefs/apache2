@@ -21,7 +21,7 @@ default['apache']['mod_auth_openid']['version']  = "0.6"
 default['apache']['mod_auth_openid']['cache_dir']  = "/var/cache/mod_auth_openid"
 default['apache']['mod_auth_openid']['dblocation'] = "#{node['apache']['mod_auth_openid']['cache_dir']}/mod_auth_openid.db"
 
-case node[:platform]
+case node['platform']
 when "freebsd"
   default['apache']['mod_auth_openid']['configure_flags'] = [
       "CPPFLAGS=-I/usr/local/include",
