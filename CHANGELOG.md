@@ -1,3 +1,12 @@
+## v1.1.8:
+
+* Some platforms with minimal installations that don't have perl won't
+  have a `node['languages']['perl']` attribute, so remove the
+  conditional and rely on the power of idempotence in the package
+  resource.
+* [COOK-1214] - address foodcritic warnings
+* [COOK-1180] - add `mod_logio` and fix `mod_proxy`
+
 ## v1.1.6:
 
 FreeBSD users: This release requires the `freebsd` cookbook. See README.md.
