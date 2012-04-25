@@ -62,7 +62,7 @@ if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebs
     action :create
   end
 
-  package "perl" unless (node['languages'].attribute?('perl') && node['languages']['perl'].attribute?('version'))
+  package "perl"
 
   cookbook_file "/usr/local/bin/apache2_module_conf_generate.pl" do
     source "apache2_module_conf_generate.pl"
