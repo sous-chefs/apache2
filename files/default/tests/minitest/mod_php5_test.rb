@@ -6,7 +6,7 @@ describe 'apache2::mod_php5' do
   it 'installs mod_php5' do
     mod_php_pkg = case node['platform']
       when 'debian', 'ubuntu' then 'libapache2-mod-php5'
-      else 'php'
+      else 'php53'
     end
     package(mod_php_pkg).must_be_installed
   end

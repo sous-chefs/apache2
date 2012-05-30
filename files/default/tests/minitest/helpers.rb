@@ -1,7 +1,8 @@
 module Helpers
   module Apache
+    include MiniTest::Chef::Assertions
+    include MiniTest::Chef::Context
     include MiniTest::Chef::Resources
-    include MiniTest::Chef::RunState
 
     def apache_config_parses?
       %x{#{node['apache']['binary']} -t}
@@ -27,6 +28,9 @@ module Helpers
         when "freebsd" then "#{node['apache']['dir']}/httpd.conf"
         else "#{node['apache']['dir']}/conf/httpd.conf"
       end)
+    end
+    def ran_recipe?(recipe)
+      node.run_state[:seen_recipes].keys.include?(recipe)
     end
   end
 end

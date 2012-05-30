@@ -15,7 +15,7 @@ describe 'apache2::default' do
     directory("#{node['apache']['dir']}/conf.d").must_exist.with(:mode, "755")
   end
   it 'creates the logs directory' do
-    directory(node['apache']['log_dir']).must_exist.with(:mode, "755")
+    directory(node['apache']['log_dir']).must_exist
   end
   it 'enables the default site' do
     file("#{node['apache']['dir']}/sites-enabled/000-default").must_exist

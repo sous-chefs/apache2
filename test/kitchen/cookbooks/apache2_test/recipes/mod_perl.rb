@@ -19,10 +19,7 @@
 
 include_recipe "apache2::default"
 
-yum_repository "epel" do
-  url 'http://dl.fedoraproject.org/pub/epel/$releasever/$basearch/'
-  only_if { platform?("redhat", "centos", "scientific", "fedora", "amazon") }
-end
+include_recipe "yum::epel" if platform?("centos")
 
 include_recipe "apache2::mod_perl"
 
