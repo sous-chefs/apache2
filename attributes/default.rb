@@ -38,6 +38,7 @@ when "redhat","centos","scientific","fedora","suse","amazon"
   end
   set['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36']86$/ ? "/usr/lib/httpd" : "/usr/lib64/httpd"
   set['apache']['libexecdir'] = "#{set['apache']['lib_dir']}/modules"
+  set['apache']['default_site_enabled'] = true
 when "debian","ubuntu"
   set['apache']['package'] = "apache2"
   set['apache']['dir']     = "/etc/apache2"
@@ -51,6 +52,7 @@ when "debian","ubuntu"
   set['apache']['pid_file']  = "/var/run/apache2.pid"
   set['apache']['lib_dir'] = "/usr/lib/apache2"
   set['apache']['libexecdir'] = "#{set['apache']['lib_dir']}/modules"
+  set['apache']['default_site_enabled'] = false
 when "arch"
   set['apache']['package'] = "apache"
   set['apache']['dir']     = "/etc/httpd"
@@ -64,6 +66,7 @@ when "arch"
   set['apache']['pid_file']  = "/var/run/httpd/httpd.pid"
   set['apache']['lib_dir'] = "/usr/lib/httpd"
   set['apache']['libexecdir'] = "#{set['apache']['lib_dir']}/modules"
+  set['apache']['default_site_enabled'] = false
 when "freebsd"
   set['apache']['package'] = "apache22"
   set['apache']['dir']     = "/usr/local/etc/apache22"
@@ -78,6 +81,7 @@ when "freebsd"
   set['apache']['pid_file']  = "/var/run/httpd.pid"
   set['apache']['lib_dir'] = "/usr/local/libexec/apache22"
   set['apache']['libexecdir'] = set['apache']['lib_dir']
+  set['apache']['default_site_enabled'] = false
 else
   set['apache']['dir']     = "/etc/apache2"
   set['apache']['log_dir'] = "/var/log/apache2"
@@ -90,6 +94,7 @@ else
   set['apache']['pid_file']  = "logs/httpd.pid"
   set['apache']['lib_dir'] = "/usr/lib/apache2"
   set['apache']['libexecdir'] = "#{set['apache']['lib_dir']}/modules"
+  set['apache']['default_site_enabled'] = false
 end
 
 ###
