@@ -18,7 +18,6 @@
 #
 
 define :apache_module, :enable => true, :conf => false do
-  include_recipe "apache2"
 
   params[:filename] = params[:filename] || "mod_#{params[:name]}.so"
   params[:module_path] = params[:module_path] || "#{node['apache']['libexecdir']}/#{params[:filename]}"

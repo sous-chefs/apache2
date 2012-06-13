@@ -98,12 +98,14 @@ end
 ###
 
 # General settings
+default['apache']['listen_addresses'] = [ "" ]
 default['apache']['listen_ports'] = [ "80","443" ]
 default['apache']['contact'] = "ops@example.com"
 default['apache']['timeout'] = 300
 default['apache']['keepalive'] = "On"
 default['apache']['keepaliverequests'] = 100
 default['apache']['keepalivetimeout'] = 5
+default['apache']['default_charset'] = nil
 
 # Security
 default['apache']['servertokens'] = "Prod"
