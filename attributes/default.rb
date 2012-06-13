@@ -105,6 +105,7 @@ default['apache']['timeout'] = 300
 default['apache']['keepalive'] = "On"
 default['apache']['keepaliverequests'] = 100
 default['apache']['keepalivetimeout'] = 5
+default['apache']['default_charset'] = nil
 
 # Security
 default['apache']['servertokens'] = "Prod"

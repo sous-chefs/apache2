@@ -3,4 +3,8 @@
 # have this encoding. It will override any encoding given in the files
 # in meta http-equiv or xml encoding tags.
 
+<% if node['apache']['default_charset'] %>
+AddDefaultCharset <%= node['apache']['default_charset'] %>
+<% else %>
 #AddDefaultCharset UTF-8
+<% end %>
