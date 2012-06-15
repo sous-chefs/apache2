@@ -88,7 +88,7 @@ if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebs
   %w{a2ensite a2dissite a2enmod a2dismod}.each do |modscript|
     template "/usr/sbin/#{modscript}" do
       source "#{modscript}.erb"
-      mode 0755
+      mode 0700
       owner "root"
       group node['apache']['root_group']
     end
@@ -107,6 +107,9 @@ if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebs
     action :delete
     backup false
   end
+
+  # enable mod_deflate for consistency across distributions
+  include_recipe "apache2::mod_deflate"
 end
 
 if platform?("freebsd")
