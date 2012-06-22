@@ -27,3 +27,8 @@ package "libapache2-svn" do
 end
 
 apache_module "dav_svn"
+
+# In Ubuntu 12.04 authz_svn was moved from dav_svn to its own module
+if node[:platform] = 'ubuntu' && node[:platform_version].to_f >= 12.04
+  apache_module "authz_svn"
+end
