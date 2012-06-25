@@ -1,3 +1,8 @@
+## v1.1.10:
+
+* [COOK-1315] - allow the default site to not be enabled
+* [COOK-1328] - cookbook tests (minitest, cucumber)
+
 ## v1.1.8:
 
 * Some platforms with minimal installations that don't have perl won't

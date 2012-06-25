@@ -54,6 +54,11 @@ On Red Hat Enterprise Linux and derivatives, the EPEL repository may be necessar
 
 The `apache2::mod_php5` recipe depends on the `freebsd` cookbook, which it uses to set the correct options for compiling the `php5` port from sources. You need to ensure the `freebsd` is in the expanded run list, or this recipe will fail. We don't set an explicit dependency because we feel the `freebsd` cookbook is something users would want on their nodes, and due to the generality of this cookbook we don't want additional specific dependencies.
 
+Tests
+=====
+
+This cookbook in the [source repository](https://github.com/opscode-cookbooks/apache2) contains minitest and cucumber tests. This is an initial proof of concept that will be fleshed out with more supporting infrastructure at a future time.
+
 Attributes
 ==========
 
@@ -273,7 +278,7 @@ Current parameters used by the definition:
 
 * `name` - The name of the site. The template will be written to `#{node['apache']['dir']}/sites-available/#{params['name']}.conf`
 * `cookbook` - Optional. Cookbook where the source template is. If this is not defined, Chef will use the named template in the cookbook where the definition is used.
-* `template` - Default `web_app.conf.erb`, source template file. 
+* `template` - Default `web_app.conf.erb`, source template file.
 * `enable` - Default true. Passed to the `apache_site` definition.
 
 Additional parameters can be defined when the definition is called in a recipe, see __Examples__.
