@@ -296,9 +296,9 @@ To use the default web_app, for example:
 
 The parameters specified will be used as:
 
-* `@params['server_name']`
-* `@params['server_aliases']`
-* `@params['docroot']`
+* `@params[:server_name]`
+* `@params[:server_aliases]`
+* `@params[:docroot]`
 
 In the template. When you write your own, the `@` is significant.
 
