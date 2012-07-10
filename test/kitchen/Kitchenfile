@@ -1,5 +1,6 @@
 cookbook "apache2" do
   configuration "default"
+  configuration "basic_web_app"
   configuration "mod_auth_basic"
   configuration "mod_auth_digest"
   configuration "mod_auth_openid"
