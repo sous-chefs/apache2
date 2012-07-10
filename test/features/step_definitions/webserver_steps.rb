@@ -30,6 +30,10 @@ When /^I request the (?:alias|directory listing) path$/ do
   http_request '/icons/'
 end
 
+When 'I request the root path of the webapp' do
+  http_request '/basic_web_app/'
+end
+
 When /^I request the root url( over HTTPS)?$/ do |secure|
   if secure
     https_request '/'
@@ -145,4 +149,8 @@ Then /^the response will be sent (un)?compressed$/ do |expect_uncompressed|
   else
     assert @response_was_compressed
   end
+end
+
+Then 'the webapp default page will be returned' do
+  http_response.body.must_include 'Hello World'
 end
