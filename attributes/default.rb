@@ -118,6 +118,9 @@ default['apache']['traceenable'] = "On"
 # mod_auth_openids
 default['apache']['allowed_openids'] = Array.new
 
+# mod_status ExtendedStatus, set to 'true' to enable
+default['apache']['ext_status'] = false
+
 # Prefork Attributes
 default['apache']['prefork']['startservers'] = 16
 default['apache']['prefork']['minspareservers'] = 16
