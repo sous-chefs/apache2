@@ -164,6 +164,13 @@ Change the DBLocation with the attribute as required; this file is in a differen
 * `require user` instead of `AuthOpenIDUserProgram`.
 * A bug(?) in `mod_auth_openid` causes it to segfault when attempting to update the database file if the containing directory is not writable by the HTTPD process owner (e.g., www-data), even if the file is writable. In order to not interfere with other settings from the default recipe in this cookbook, the db file is moved.
 
+mod\_fastcgi
+------------
+
+Install the fastcgi package and enable the module.
+
+Only work on Debian/Ubuntu
+
 mod\_fcgid
 ----------
 
