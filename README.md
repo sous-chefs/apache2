@@ -79,6 +79,7 @@ In order to support the broadest number of platforms, several attributes are det
 * `node['apache']['pid_file']` - Location of the PID file for Apache httpd
 * `node['apache']['lib_dir']` - Location for shared libraries
 * `node['apache']['default_site_enabled']` - Default site enabled. Defaults to true on redhat-family platforms
+* `node['apache']['ext_status']` - if true, enables ExtendedStatus for `mod_status`
 
 General settings
 ----------------

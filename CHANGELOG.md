@@ -1,3 +1,9 @@
+## v1.1.12:
+
+* [COOK-1436] - restore apache2 web_app definition
+* [COOK-1356] - allow ExtendedStatus via attribute
+* [COOK-1403] - add mod_fastcgi recipe
+
 ## v1.1.10:
 
 * [COOK-1315] - allow the default site to not be enabled

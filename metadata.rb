@@ -3,7 +3,7 @@ maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
 description       "Installs and configures all aspects of apache2 using Debian style symlinks with helper definitions"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "1.1.10"
+version           "1.1.12"
 recipe            "apache2", "Main Apache configuration"
 recipe            "apache2::mod_alias", "Apache module 'alias' with config file"
 recipe            "apache2::mod_apreq2", "Apache module 'apreq'"
@@ -73,7 +73,7 @@ attribute "apache/binary",
   :description => "Apache server daemon program",
   :default => "/usr/sbin/apache2"
 
-attribute "apache/icondir", 
+attribute "apache/icondir",
   :display_name => "Apache Icondir",
   :description => "Directory location for icons",
   :default => "/usr/share/apache2/icons"
