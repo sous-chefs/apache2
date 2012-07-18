@@ -59,11 +59,12 @@ SSLMutex  file:/var/run/ssl_mutex
 SSLMutex  file:/var/run/apache2/ssl_mutex
 <% end -%>
 
+SSLHonorCipherOrder On
 #   SSL Cipher Suite:
 #   List the ciphers that the client is permitted to negotiate.
 #   See the mod_ssl documentation for a complete list.
 #   enable only secure ciphers:
-SSLCipherSuite HIGH:MEDIUM:!ADH
+SSLCipherSuite <%= node['apache']['mod_ssl']['cipher_suite'] %>
 #   Use this instead if you want to allow cipher upgrades via SGC facility.
 #   In this case you also have to use something like 
 #        SSLRequire %{SSL_CIPHER_USEKEYSIZE} >= 128
