@@ -144,6 +144,11 @@ default
 
 The default recipe does a number of things to set up Apache HTTPd. It also includes a number of modules based on the attribute `node['apache']['default_modules']` as recipes.
 
+logrotate
+---------
+
+Logrotate adds a logrotate entry for your apache2 logs. This recipe requires the `logrotate` cookbook.
+
 mod\_auth\_openid
 -----------------
 
