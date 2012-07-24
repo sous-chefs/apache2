@@ -5,6 +5,7 @@ description       "Installs and configures all aspects of apache2 using Debian s
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           "1.1.13"
 recipe            "apache2", "Main Apache configuration"
+recipe            "apache2::logrotate", "Rotate apache2 logs. Requires logrotate cookbook"
 recipe            "apache2::mod_alias", "Apache module 'alias' with config file"
 recipe            "apache2::mod_apreq2", "Apache module 'apreq'"
 recipe            "apache2::mod_auth_basic", "Apache module 'auth_basic'"
