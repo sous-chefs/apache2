@@ -73,7 +73,12 @@ version = node['apache']['mod_auth_openid']['version']
 configure_flags = node['apache']['mod_auth_openid']['configure_flags']
 
 remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.gz" do
-  source "http://butterfat.net/releases/mod_auth_openid/mod_auth_openid-#{version}.tar.gz"
+#  case version
+#  when "0.7"
+      source "http://cloud.github.com/downloads/bmuller/mod_auth_openid/mod_auth_openid-0.7.tar.gz"
+#  else
+#      source "http://butterfat.net/releases/mod_auth_openid/mod_auth_openid-#{version}.tar.gz"
+#  end
   mode 0644
   checksum _checksum
 end

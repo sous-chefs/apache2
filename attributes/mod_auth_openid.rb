@@ -17,7 +17,7 @@
 # 
 
 default['apache']['mod_auth_openid']['checksum'] = "79e7ca52511d1230"
-default['apache']['mod_auth_openid']['version']  = "0.6"
+default['apache']['mod_auth_openid']['version']  = "0.7"
 default['apache']['mod_auth_openid']['cache_dir']  = "/var/cache/mod_auth_openid"
 default['apache']['mod_auth_openid']['dblocation'] = "#{node['apache']['mod_auth_openid']['cache_dir']}/mod_auth_openid.db"
 
