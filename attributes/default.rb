@@ -94,7 +94,7 @@ when "smartos"
   set['apache']['icondir'] = "/opt/local/share/httpd/icons"
   set['apache']['cache_dir'] = "/var/run/httpd"
   set['apache']['pid_file']  = "/var/run/httpd.pid"
-  set['apache']['lib_dir'] = "/usr/local/libexec/cgi-bin"
+  set['apache']['lib_dir'] = "/opt/local/lib/httpd"
   set['apache']['libexecdir'] = set['apache']['lib_dir']
   set['apache']['default_site_enabled'] = false
 else
@@ -168,5 +168,5 @@ default['apache']['default_modules'] = %w{
 }
 
 %w{ log_config logio }.each do |log_mod|
-  default['apache']['default_modules'] << log_mod if ["redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon"].include?(node['platform'])
+  default['apache']['default_modules'] << log_mod if ["redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon", "smartos" ].include?(node['platform'])
 end

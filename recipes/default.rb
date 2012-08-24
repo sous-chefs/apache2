@@ -169,7 +169,7 @@ template "apache2.conf" do
     path "#{node['apache']['dir']}/conf/httpd.conf"
   when "debian","ubuntu"
     path "#{node['apache']['dir']}/apache2.conf"
-  when "freebsd"
+  when "freebsd","smartos"
     path "#{node['apache']['dir']}/httpd.conf"
   end
   source "apache2.conf.erb"
