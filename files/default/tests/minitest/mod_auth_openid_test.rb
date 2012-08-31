@@ -1,4 +1,4 @@
-require File.expand_path('../helpers', __FILE__)
+require File.expand_path('../support/helpers', __FILE__)
 require 'pathname'
 
 describe 'apache2::mod_auth_openid' do
