@@ -29,7 +29,8 @@ if platform?("redhat", "centos", "scientific", "fedora", "amazon")
   end
 end
 
-ports = node['apache']['listen_ports'].include?("443") ? node['apache']['listen_ports'] : [node['apache']['listen_ports'], "443"].flatten
+node.set['apache']['listen_ports'] = node['apache']['listen_ports'] + ["443"] unless node['apache']['listen_ports'].include?("443")
+ports = node['apache']['listen_ports']
 
 template "#{node['apache']['dir']}/ports.conf" do
   source "ports.conf.erb"
