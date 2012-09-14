@@ -1,3 +1,9 @@
+## v1.1.14:
+
+* [COOK-1466] - add `mod_auth_cas` recipe
+* [COOK-1609] - apache2 changes ports.conf twice per run when using
+  apache2::mod_ssl
+
 ## v1.1.12:
 
 * [COOK-1436] - restore apache2 web_app definition
