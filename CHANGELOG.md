@@ -1,4 +1,6 @@
-## v1.1.14:
+## v1.1.16:
+
+re-releasing as .16 due to error on tag 1.1.14
 
 * [COOK-1466] - add `mod_auth_cas` recipe
 * [COOK-1609] - apache2 changes ports.conf twice per run when using
