@@ -23,13 +23,10 @@ openid_dev_pkgs = value_for_platform(
     "default" => %w{ gcc-c++ httpd-devel curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make }
   },
   "arch" => { "default" => ["libopkele"] },
-  "freebsd" => { "default" => %w{libopkele pcre sqlite3} }
+  "freebsd" => { "default" => [] }
 )
 
-make_cmd = value_for_platform(
-  "freebsd" => { "default" => "gmake" },
-  "default" => "make"
-)
+make_cmd = "make"
 
 case node['platform']
 when "arch"
@@ -78,15 +75,20 @@ remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.g
   checksum _checksum
 end
 
-bash "install mod_auth_openid" do
-  cwd Chef::Config['file_cache_path']
-  code <<-EOH
+case node['platform']
+when "freebsd"
+  package "mod_auth_openid"
+else
+  bash "install mod_auth_openid" do
+    cwd Chef::Config['file_cache_path']
+    code <<-EOH
   tar zxvf mod_auth_openid-#{version}.tar.gz
   cd mod_auth_openid-#{version} && ./configure #{configure_flags.join(' ')}
   perl -pi -e "s/-i -a -n 'authopenid'/-i -n 'authopenid'/g" Makefile
   #{make_cmd} && #{make_cmd} install
   EOH
   not_if { ::File.exists?("#{node['apache']['libexecdir']}/mod_auth_openid.so") }
+  end
 end
 
 directory node['apache']['mod_auth_openid']['cache_dir'] do
