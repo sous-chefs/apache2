@@ -69,6 +69,7 @@ when "arch"
   set['apache']['default_site_enabled'] = false
 when "freebsd"
   set['apache']['package'] = "apache22"
+  set['apache']['perl_package'] = "perl5"
   set['apache']['dir']     = "/usr/local/etc/apache22"
   set['apache']['log_dir'] = "/var/log"
   set['apache']['error_log'] = "httpd-error.log"
@@ -109,6 +110,9 @@ default['apache']['timeout'] = 300
 default['apache']['keepalive'] = "On"
 default['apache']['keepaliverequests'] = 100
 default['apache']['keepalivetimeout'] = 5
+
+# Required packages
+default['apache']['perl_package'] = "perl"
 
 # Security
 default['apache']['servertokens'] = "Prod"
