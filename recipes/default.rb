@@ -216,6 +216,12 @@ end
 
 apache_site "default" if node['apache']['default_site_enabled']
 
+execute "restore SELinux permissions" do
+  action :run
+  only_if 'sestatus | grep -P "status:\s+enabled" -q'
+  command "restorecon -R #{node['apache']['dir']}"
+end
+
 service "apache2" do
   action :start
 end
