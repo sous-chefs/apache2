@@ -1,4 +1,4 @@
-require File.expand_path('../helpers', __FILE__)
+require File.expand_path('../support/helpers', __FILE__)
 
 # Many of the apache2 cookbook recipes do nothing more than install the module
 # of the same name. Assert that any included recipe that claims to install a
