@@ -10,7 +10,15 @@ describe 'apache2::mod_auth_openid' do
   end
 
   it "does not add the module to httpd.conf" do
-    httpd_config = File.read("#{node['apache']['dir']}/conf/httpd.conf")
+    conffile = case node['platform']
+               when 'debian', 'ubuntu'
+                 "apache2.conf"
+               when "redhat", "centos", "scientific", "fedora", "arch", "amazon"
+                 "conf/httpd.conf"
+               when "freebsd"
+                 "httpd.conf"
+               end
+    httpd_config = File.read(File.join(node['apache']['dir'], conffile))
     refute_match /^LoadModule authopenid_module /, httpd_config
   end
 
