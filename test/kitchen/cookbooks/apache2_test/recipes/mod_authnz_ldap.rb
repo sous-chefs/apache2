@@ -28,6 +28,9 @@ service "slapd" do
   action :start
 end
 
+cbf = resources("cookbook_file[#{node['openldap']['ssl_dir']}/#{node['openldap']['server']}.pem]")
+cbf.cookbook "apache2_test"
+
 ldif_path = "/tmp/entries.ldif"
 
 template ldif_path do
