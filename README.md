@@ -135,7 +135,7 @@ Recipes
 
 Most of the recipes in the cookbook are for enabling Apache modules. Where additional configuration or behavior is used, it is documented below in more detail.
 
-The following recipes merely enable the specified module: `mod_alias`, `mod_basic`, `mod_digest`, `mod_auth_cas`, `mod_authn_file`, `mod_authnz_ldap`, `mod_authz_default`, `mod_authz_groupfile`, `mod_authz_host`, `mod_authz_user`, `mod_autoindex`, `mod_cgi`, `mod_dav_fs`, `mod_dav_svn`, `mod_deflate`, `mod_dir`, `mod_env`, `mod_expires`, `mod_headers`, `mod_ldap`, `mod_log_config`, `mod_mime`, `mod_negotiation`, `mod_proxy`, `mod_proxy_ajp`, `mod_proxy_balancer`, `mod_proxy_connect`, `mod_proxy_http`, `mod_python`, `mod_rewrite`, `mod_setenvif`, `mod_status`, `mod_wsgi`, `mod_xsendfile`.
+The following recipes merely enable the specified module: `mod_alias`, `mod_basic`, `mod_digest`, `mod_authn_file`, `mod_authnz_ldap`, `mod_authz_default`, `mod_authz_groupfile`, `mod_authz_host`, `mod_authz_user`, `mod_autoindex`, `mod_cgi`, `mod_dav_fs`, `mod_dav_svn`, `mod_deflate`, `mod_dir`, `mod_env`, `mod_expires`, `mod_headers`, `mod_ldap`, `mod_log_config`, `mod_mime`, `mod_negotiation`, `mod_proxy`, `mod_proxy_ajp`, `mod_proxy_balancer`, `mod_proxy_connect`, `mod_proxy_http`, `mod_python`, `mod_rewrite`, `mod_setenvif`, `mod_status`, `mod_wsgi`, `mod_xsendfile`.
 
 On RHEL Family distributions, certain modules ship with a config file with the package. The recipes here may delete those configuration files to ensure they don't conflict with the settings from the cookbook, which will use per-module configuration in `/etc/httpd/mods-enabled`.
 
@@ -148,6 +148,27 @@ logrotate
 ---------
 
 Logrotate adds a logrotate entry for your apache2 logs. This recipe requires the `logrotate` cookbook.
+
+mod\_auth\_cas
+--------------
+
+This recipe installs the proper package and enables the `auth_cas`
+module. It can install from source or package. Package is the default,
+set the attribute `node['apache']['mod_auth_cas']['from_source']` to
+true to enable source installation. Modify the version to install by
+changing the attribute
+`node['apache']['mod_auth_cas']['source_revision']`. It is a version
+tag by default, but could be master, or another tag, or branch.
+
+The module configuration is written out with the `CASCookiePath` set,
+otherwise an error loading the module may cause Apache to not start.
+
+**Note**: This recipe does not work on EL 6 platforms unless
+epel-testing repository is enabled (outside the scope of this
+cookbook), or the package version 1.0.8.1-3.el6 or higher is otherwise
+available to the system due to this bug:
+
+https://bugzilla.redhat.com/show_bug.cgi?format=multiple&id=708550
 
 mod\_auth\_openid
 -----------------

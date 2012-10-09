@@ -20,5 +20,6 @@ cookbook "apache2" do
   configuration "mod_ssl"
   configuration "mod_status_remote"
   exclude :platform => 'centos', :configuration => 'mod_authnz_ldap'
+  exclude :platform => 'centos', :configuration => 'mod_auth_cas'
   run_list_extras ['apache2_test::setup']
 end
