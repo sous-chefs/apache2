@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "apache2::dav"
+
 package "libapache2-svn" do
   case node['platform_family']
   when "rhel", "fedora", "suse"
