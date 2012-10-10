@@ -3,14 +3,12 @@ require File.expand_path('../support/helpers', __FILE__)
 describe 'apache2::mod_dav_svn' do
   include Helpers::Apache
 
-  it 'installs mod_dav_svn' do
-    mod_dav_svn = case node['platform']
-      when "centos","redhat","scientific","fedora","suse","amazon"
-        "mod_dav_svn"
-      else
-        "libapache2-svn"
-      end
-    package(mod_dav_svn).must_be_installed
+  it 'enables dav_svn_module' do
+    apache_enabled_modules.must_include "dav_svn_module"
+  end
+
+  it 'enables dav_module' do
+    apache_enabled_modules.must_include "dav_module"
   end
 
 end

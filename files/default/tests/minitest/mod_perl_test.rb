@@ -3,12 +3,8 @@ require File.expand_path('../support/helpers', __FILE__)
 describe 'apache2::mod_perl' do
   include Helpers::Apache
 
-  it 'installs mod_perl' do
-    mod_perl_pkg = case node['platform']
-      when 'debian', 'ubuntu' then 'libapache2-mod-perl2'
-      else 'mod_perl'
-    end
-    package(mod_perl_pkg).must_be_installed
+  it 'enables perl_module' do
+    apache_enabled_modules.must_include "perl_module"
   end
 
   it 'installs the apache request library' do

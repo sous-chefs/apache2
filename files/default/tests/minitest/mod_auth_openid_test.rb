@@ -30,4 +30,8 @@ describe 'apache2::mod_auth_openid' do
     file(node['apache']['mod_auth_openid']['dblocation']).must_exist.with(:owner, node['apache']['user']).and(:mode, "644")
   end
 
+  it 'enables authopenid_module' do
+    apache_enabled_modules.must_include "authopenid_module"
+  end
+
 end

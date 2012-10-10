@@ -21,15 +21,10 @@ include_recipe "apache2::default"
 
 yum_repository "epel" do
   url 'http://dl.fedoraproject.org/pub/epel/$releasever/$basearch/'
-  only_if { platform?("redhat", "centos", "scientific", "fedora", "amazon") }
+  only_if { platform_family?("rhel", "fedora") }
 end
 
 include_recipe "apache2::mod_python"
-
-file "#{node['apache']['dir']}/conf.d/python.conf" do
-  action :delete
-  only_if { platform?("redhat", "centos", "scientific", "fedora", "amazon") }
-end
 
 directory node['apache_test']['app_dir'] do
   recursive true
