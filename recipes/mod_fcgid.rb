@@ -17,9 +17,10 @@
 # limitations under the License.
 #
 
-if platform?("debian", "ubuntu")
+if platform_family?("debian")
   package "libapache2-mod-fcgid"
-elsif platform?("redhat", "centos", "scientific", "fedora", "arch", "amazon")
+elsif platform_family?("rhel", "fedora")
+
   package "mod_fcgid" do
     notifies :run, resources(:execute => "generate-module-list"), :immediately
   end
@@ -33,7 +34,8 @@ elsif platform?("redhat", "centos", "scientific", "fedora", "arch", "amazon")
     recursive true
     only_if { node['platform_version'].to_i >= 6 }
   end
-elsif platform?("suse")
+
+elsif platform_family?("suse")
   apache_lib_path = node['apache']['lib_dir']
 
   package "httpd-devel"

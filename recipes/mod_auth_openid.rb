@@ -17,42 +17,40 @@
 # limitations under the License.
 #
 
-openid_dev_pkgs = value_for_platform(
-  ["ubuntu","debian"] => { "default" => %w{ g++ apache2-prefork-dev libopkele-dev libopkele3 } },
-  ["centos","redhat","scientific","fedora","amazon"] => {
-    "default" => %w{ gcc-c++ httpd-devel curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make }
-  },
-  "arch" => { "default" => ["libopkele"] },
-  "freebsd" => { "default" => %w{libopkele pcre sqlite3} }
+openid_dev_pkgs = value_for_platform_family(
+  ["debian"] => %w{g++ apache2-prefork-dev libopkele-dev libopkele3},
+  ["rhel","fedora"] => %w{gcc-c++ httpd-devel curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make},
+  "arch" => ["libopkele"],
+  "freebsd" => %w{libopkele pcre sqlite3}
 )
 
-make_cmd = value_for_platform(
+make_cmd = value_for_platform_family(
   "freebsd" => { "default" => "gmake" },
   "default" => "make"
 )
 
-case node['platform']
+case node['platform_family']
 when "arch"
+
   include_recipe "pacman"
   package "tidyhtml"
-end
+  pacman_aur openid_dev_pkgs.first do
+    action [:build, :install]
+  end
 
-openid_dev_pkgs.each do |pkg|
-  case node['platform']
-  when "arch"
-    pacman_aur pkg do
-      action [:build, :install]
-    end
-  else
+else
+  openid_dev_pkgs.each do |pkg|
+
     package pkg
+
   end
 end
 
-case node['platform']
-when "redhat", "centos", "scientific", "fedora", "amazon"
+case node['platform_family']
+when "rhel", "fedora"
   remote_file "#{Chef::Config['file_cache_path']}/libopkele-2.0.4.tar.gz" do
     source "http://kin.klever.net/dist/libopkele-2.0.4.tar.gz"
-    mode 0644
+    mode 00644
   end
 
   bash "install libopkele" do
@@ -74,7 +72,7 @@ configure_flags = node['apache']['mod_auth_openid']['configure_flags']
 
 remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.gz" do
   source "http://butterfat.net/releases/mod_auth_openid/mod_auth_openid-#{version}.tar.gz"
-  mode 0644
+  mode 00644
   checksum _checksum
 end
 
@@ -92,20 +90,20 @@ end
 directory node['apache']['mod_auth_openid']['cache_dir'] do
   owner node['apache']['user']
   group node['apache']['group']
-  mode 0700
+  mode 00700
 end
 
 file node['apache']['mod_auth_openid']['dblocation'] do
   owner node['apache']['user']
   group node['apache']['group']
-  mode 0644
+  mode 00644
 end
 
 template "#{node['apache']['dir']}/mods-available/authopenid.load" do
   source "mods/authopenid.load.erb"
   owner "root"
   group node['apache']['root_group']
-  mode 0644
+  mode 00644
 end
 
 apache_module "authopenid" do

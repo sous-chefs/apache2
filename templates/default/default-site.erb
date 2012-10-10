@@ -24,7 +24,7 @@
                 Allow from all
         </Directory>
 
-        ErrorLog <%= node['apache']['log_dir'] %>/error.log 
+        ErrorLog <%= node['apache']['log_dir'] %>/error.log
 
         # Possible values include: debug, info, notice, warn, error, crit,
         # alert, emerg.
@@ -42,7 +42,7 @@
             Allow from 127.0.0.0/255.0.0.0 ::1/128
         </Directory>
 
-        <% if %w{ redhat centos scientific fedora }.include?(node['platform']) -%>
+        <% if %w{ rhel fedora }.include?(node['platform_family']) -%>
         #
         # This configuration file enables the default "Welcome"
         # page if there is no default index page present for

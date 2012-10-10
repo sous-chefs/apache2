@@ -25,21 +25,18 @@ if node['apache']['mod_auth_cas']['from_source']
     source 'mods/auth_cas.load.erb'
     owner 'root'
     group node['apache']['root_group']
-    mode '0644'
+    mode 00644
   end
 
 else
   case node['platform_family']
   when "debian"
 
-    package "libapache2-mod-auth-cas" do
-      action :install
-    end
+    package "libapache2-mod-auth-cas"
 
   when "rhel", "fedora"
 
     yum_package "mod_auth_cas" do
-      action :install
       notifies :run, "execute[generate-module-list]", :immediately
     end
 
@@ -58,5 +55,5 @@ end
 directory "#{node['apache']['cache_dir']}/mod_auth_cas" do
   owner node['apache']['user']
   group node['apache']['group']
-  mode '0700'
+  mode 00700
 end
