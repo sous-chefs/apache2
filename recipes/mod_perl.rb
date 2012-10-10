@@ -36,4 +36,9 @@ when "rhel", "fedora"
 
 end
 
+file "#{node['apache']['dir']}/conf.d/perl.conf" do
+  action :delete
+  backup false
+end
+
 apache_module "perl"

@@ -30,4 +30,9 @@ when "rhel", "fedora", "arch"
 
 end
 
+file "#{node['apache']['dir']}/conf.d/wsgi.conf" do
+  action :delete
+  backup false
+end
+
 apache_module "wsgi"

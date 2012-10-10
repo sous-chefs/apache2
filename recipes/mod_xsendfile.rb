@@ -30,4 +30,9 @@ when "rhel", "fedora"
 
 end
 
+file "#{node['apache']['dir']}/conf.d/xsendfile.conf" do
+  action :delete
+  backup false
+end
+
 apache_module "xsendfile"
