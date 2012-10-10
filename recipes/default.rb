@@ -39,6 +39,8 @@ service "apache2" do
     service_name "httpd"
   when "freebsd"
     service_name "apache22"
+  when "smartos"
+    service_name "network/apache"
   end
   supports value_for_platform(
     "debian" => { "4.0" => [ :restart, :reload ], "default" => [ :restart, :reload, :status ] },
@@ -56,7 +58,7 @@ service "apache2" do
   action :enable
 end
 
-if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebsd", "amazon")
+if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebsd", "amazon", "smartos")
   directory node['apache']['log_dir'] do
     mode 0755
     action :create
@@ -64,6 +66,11 @@ if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebs
 
   package "perl"
 
+  directory "/usr/local/bin" do
+    action :create
+    recursive true
+  end
+  
   cookbook_file "/usr/local/bin/apache2_module_conf_generate.pl" do
     source "apache2_module_conf_generate.pl"
     mode 0755
@@ -86,7 +93,7 @@ if platform?("redhat", "centos", "scientific", "fedora", "arch", "suse", "freebs
   end
 
   %w{a2ensite a2dissite a2enmod a2dismod}.each do |modscript|
-    template "/usr/sbin/#{modscript}" do
+    template "#{node['apache']['helperbin_dir']}/#{modscript}" do
       source "#{modscript}.erb"
       mode 0700
       owner "root"
@@ -162,7 +169,7 @@ template "apache2.conf" do
     path "#{node['apache']['dir']}/conf/httpd.conf"
   when "debian","ubuntu"
     path "#{node['apache']['dir']}/apache2.conf"
-  when "freebsd"
+  when "freebsd","smartos"
     path "#{node['apache']['dir']}/httpd.conf"
   end
   source "apache2.conf.erb"

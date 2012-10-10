@@ -82,6 +82,21 @@ when "freebsd"
   set['apache']['lib_dir'] = "/usr/local/libexec/apache22"
   set['apache']['libexecdir'] = set['apache']['lib_dir']
   set['apache']['default_site_enabled'] = false
+when "smartos"
+  set['apache']['package'] = "apache"
+  set['apache']['dir']     = "/opt/local/etc/httpd"
+  set['apache']['log_dir'] = "/var/log/httpd"
+  set['apache']['error_log'] = "error_log"
+  set['apache']['root_group'] = "sys"
+  set['apache']['user']    = "www"
+  set['apache']['group']    = "www"
+  set['apache']['binary']  = "/opt/local/sbin/httpd"
+  set['apache']['icondir'] = "/opt/local/share/httpd/icons"
+  set['apache']['cache_dir'] = "/var/run/httpd"
+  set['apache']['pid_file']  = "/var/run/httpd.pid"
+  set['apache']['lib_dir'] = "/opt/local/lib/httpd"
+  set['apache']['libexecdir'] = set['apache']['lib_dir']
+  set['apache']['default_site_enabled'] = false
 else
   set['apache']['dir']     = "/etc/apache2"
   set['apache']['log_dir'] = "/var/log/apache2"
@@ -95,6 +110,14 @@ else
   set['apache']['lib_dir'] = "/usr/lib/apache2"
   set['apache']['libexecdir'] = "#{set['apache']['lib_dir']}/modules"
   set['apache']['default_site_enabled'] = false
+end
+
+# for debian style module helper scripts
+case platform
+  when "smartos"
+  set['apache']['helperbin_dir'] = "/opt/local/bin"
+else
+  set['apache']['helperbin_dir'] = "/usr/sbin"
 end
 
 ###
@@ -145,5 +168,5 @@ default['apache']['default_modules'] = %w{
 }
 
 %w{ log_config logio }.each do |log_mod|
-  default['apache']['default_modules'] << log_mod if ["redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon"].include?(node['platform'])
+  default['apache']['default_modules'] << log_mod if ["redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon", "smartos" ].include?(node['platform'])
 end
