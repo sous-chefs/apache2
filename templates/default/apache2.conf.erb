@@ -8,9 +8,9 @@ ServerRoot "<%= node['apache']['dir'] %>"
 #
 # The accept serialization lock file MUST BE STORED ON A LOCAL DISK.
 #
-<% if node['platform'] == "debian" || node['platform'] == "ubuntu" -%>
+<% if %w{debian}.include?(node['platform_family']) -%>
 LockFile /var/lock/apache2/accept.lock
-<% elsif node['platform'] == "freebsd" -%>
+<% elsif %w{freebsd}.include?(node['platform_family']) -%>
 LockFile /var/log/accept.lock
 <% else %>
 LockFile logs/accept.lock
@@ -145,7 +145,7 @@ LogLevel warn
 Include <%= node['apache']['dir'] %>/mods-enabled/*.load
 Include <%= node['apache']['dir'] %>/mods-enabled/*.conf
 
-<% if node['platform'] == "freebsd" -%>
+<% if %w{freebsd}.include?(node['platform_family']) -%>
 <IfDefine NOHTTPACCEPT>
    AcceptFilter http none
    AcceptFilter https none

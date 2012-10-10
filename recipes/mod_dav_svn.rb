@@ -28,10 +28,12 @@ end
 
 case node['platform_family']
 when "rhel", "fedora", "suse"
+
   file "#{node['apache']['conf']}/conf.d/subversion.conf" do
     action :delete
     backup false
   end
+
 end
 
 apache_module "dav_svn"
