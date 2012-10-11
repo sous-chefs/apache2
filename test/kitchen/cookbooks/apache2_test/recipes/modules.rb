@@ -25,7 +25,6 @@ include_recipe "apache2::default"
 %w{
   auth_digest
   authnz_ldap
-  cgi
   dav_fs
   deflate
   expires

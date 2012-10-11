@@ -8,7 +8,6 @@ require File.expand_path('../support/helpers', __FILE__)
 %w{
   auth_digest
   authnz_ldap
-  cgi
   dav_fs
   deflate
   expires
