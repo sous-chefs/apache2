@@ -21,7 +21,10 @@ include_recipe "apache2::default"
 include_recipe "apache2::mod_proxy"
 include_recipe "apache2::mod_proxy_ajp"
 
-include_recipe "jpackage::default"
+if platform_family?("rhel") && node['platform_version'].to_f < 6.0
+  include_recipe "jpackage::default"
+end
+
 include_recipe "tomcat::default"
 
 if platform?("debian","ubuntu")
