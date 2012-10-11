@@ -6,7 +6,6 @@ require File.expand_path('../support/helpers', __FILE__)
 # Does not test the modules in the default_modules attribute (those
 # are tested in default_test)
 %w{
-  apreq2
   auth_cas
   auth_digest
   authnz_ldap
@@ -14,7 +13,6 @@ require File.expand_path('../support/helpers', __FILE__)
   dav_fs
   deflate
   expires
-  fastcgi
   fcgid
   headers
   include

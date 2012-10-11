@@ -30,7 +30,6 @@ include_recipe "apache2::default"
   dav_fs
   deflate
   expires
-  fastcgi
   fcgid
   headers
   include
