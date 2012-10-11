@@ -23,7 +23,6 @@ include_recipe "apache2::default"
 # Duplicates the list in the modules_test minitest, which is
 # distasteful duplication.
 %w{
-  auth_cas
   auth_digest
   authnz_ldap
   cgi
