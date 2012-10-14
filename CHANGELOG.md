@@ -1,3 +1,9 @@
+## v1.2.0:
+
+* [COOK-692] - delete package conf.d files in module recipes, for EL
+* [COOK-1693] - Foodcritic finding for unnecessary string interpolation
+* [COOK-1757] - platform_family and better style / usage practices
+
 ## v1.1.16:
 
 re-releasing as .16 due to error on tag 1.1.14
