@@ -33,8 +33,8 @@ service "apache2" do
     reload_command "/sbin/service httpd reload && sleep 1"
   when "debian","ubuntu"
     service_name "apache2"
-    restart_command "/usr/sbin/invoke-rc.d apache2 restart && sleep 1"
-    reload_command "/usr/sbin/invoke-rc.d apache2 reload && sleep 1"
+    restart_command "/usr/sbin/invoke-rc.d apache2 restart && sleep 5"
+    reload_command "/usr/sbin/invoke-rc.d apache2 reload && sleep 5"
   when "arch"
     service_name "httpd"
   when "freebsd"
@@ -217,5 +217,6 @@ end
 apache_site "default" if node['apache']['default_site_enabled']
 
 service "apache2" do
-  action :start
+  action :stop
+  #action :start
 end
