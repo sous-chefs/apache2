@@ -21,7 +21,7 @@ include_recipe "apache2::default"
 
 package "which" do
   action :install
-  only_if { platform?("redhat", "centos", "scientific", "fedora", "amazon") }
+  only_if { platform_family?("rhel", "fedora") }
 end
 
 include_recipe "apache2::mod_php5"
