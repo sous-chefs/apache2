@@ -16,8 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-unless node['apache']['listen_ports'].include?("443")
-  node.set['apache']['listen_ports'] = node['apache']['listen_ports'] + ["443"]
+unless node['apache']['listen_ports'].include?(node['apache']['mod_ssl']['listen_port'])
+  node.set['apache']['listen_ports'] += [node['apache']['mod_ssl']['listen_port']]
 end
 
 ports = node['apache']['listen_ports']
