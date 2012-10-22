@@ -34,12 +34,9 @@ if platform_family?("rhel", "fedora", "suse")
   end
 end
 
-template "#{node['apache']['dir']}/ports.conf" do
-  source "ports.conf.erb"
-  variables :apache_listen_ports => ports.map{|p| p.to_i}.uniq
-  notifies :restart, "service[apache2]"
-  mode 00644
-end
+# Force our potentially extended port list to be generated into ports.conf
+ports_template = resources(:template => "#{node['apache']['dir']}/ports.conf")
+ports_template.variables[:apache_listen_ports] = ports.map{|p| p.to_i}.uniq
 
 apache_module "ssl" do
   conf true
