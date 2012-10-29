@@ -16,8 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-unless node['apache']['listen_ports'].include?("443")
-  node.set['apache']['listen_ports'] = node['apache']['listen_ports'] + ["443"]
+unless node['apache']['listen_ports'].include?(node['apache']['mod_ssl']['listen_port'])
+  node.set['apache']['listen_ports'] += [node['apache']['mod_ssl']['listen_port']]
 end
 
 ports = node['apache']['listen_ports']
@@ -34,12 +34,9 @@ if platform_family?("rhel", "fedora", "suse")
   end
 end
 
-template "#{node['apache']['dir']}/ports.conf" do
-  source "ports.conf.erb"
-  variables :apache_listen_ports => ports.map{|p| p.to_i}.uniq
-  notifies :restart, "service[apache2]"
-  mode 00644
-end
+# Force our potentially extended port list to be generated into ports.conf
+ports_template = resources(:template => "#{node['apache']['dir']}/ports.conf")
+ports_template.variables[:apache_listen_ports] = ports.map{|p| p.to_i}.uniq
 
 apache_module "ssl" do
   conf true
