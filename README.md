@@ -487,6 +487,9 @@ an example. The following parameters are used in the template:
 * `server_aliases` - ServerAlias directive. Must be an array of aliases.
 * `docroot` - DocumentRoot directive.
 * `application_name` - Used in RewriteLog directive. Will be set to the `name` parameter.
+* `directory_index` - Allow overriding the default DirectoryIndex setting, optional
+* `directory_options` - Override Options on the docroot, for example to add parameters like Includes or Indexes, optional.
+* `allow_override` - Modify the AllowOverride directive on the docroot to support apps that need .htaccess to modify configuration or require authentication.
 
 To use the default web_app, for example:
 

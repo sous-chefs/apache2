@@ -5,8 +5,8 @@
   RewriteEngine On
   
   <Directory <%= @params[:docroot] %>>
-    Options FollowSymLinks
-    AllowOverride None
+    Options <%= [@params[:directory_options] || "FollowSymLinks" ].flatten.join " " %>
+    AllowOverride <%= [@params[:allow_override] || "None" ].flatten.join " " %>
     Order allow,deny
     Allow from all
   </Directory>
@@ -27,6 +27,10 @@
   LogLevel info
   ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
   CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
+
+  <% if @params[:directory_index] do -%>
+  DirectoryIndex <%= [@params[:directory_index]].flatten.join " " %>
+  <% end -%>
 
   RewriteEngine On
   RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
