@@ -20,4 +20,9 @@ describe 'apache2::mod_ssl' do
     apache_configured_ports.must_include(443)
   end
 
+  it 'configures SSLCiphersuit from an attribute' do
+    assert_match(/^SSLCipherSuite #{node['apache']['mod_ssl']['cipher_suite']}$/,
+      File.read("#{node['apache']['dir']}/mods-enabled/ssl.conf"))
+  end
+
 end
