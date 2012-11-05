@@ -30,7 +30,6 @@ include_recipe "apache2::default"
   expires
   fcgid
   headers
-  include
   ldap
   proxy
   proxy_balancer

@@ -34,6 +34,7 @@ cookbook "apache2" do
   configuration "mod_dav_svn"
   configuration "mod_expires"
   configuration "mod_fastcgi"
+  configuration "mod_include"
   configuration "mod_perl"
   configuration "mod_apreq2"
   configuration "mod_php5"

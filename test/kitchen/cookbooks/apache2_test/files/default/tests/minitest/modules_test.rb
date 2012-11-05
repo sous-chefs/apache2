@@ -13,7 +13,6 @@ require File.expand_path('../support/helpers', __FILE__)
   expires
   fcgid
   headers
-  include
   ldap
   proxy
   proxy_balancer
