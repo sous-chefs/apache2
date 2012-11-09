@@ -1,3 +1,9 @@
+## v1.3.0:
+
+* [COOK-1738] - Better configuration for `mod_include` and some
+  overrides in `web_app` definition
+* [COOK-1470] - Change SSL Ciphers to Mitigate BEAST attack
+
 ## v1.2.0:
 
 * [COOK-692] - delete package conf.d files in module recipes, for EL

@@ -3,7 +3,7 @@ maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
 description       "Installs and configures all aspects of apache2 using Debian style symlinks with helper definitions"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "1.2.0"
+version           "1.3.0"
 recipe            "apache2", "Main Apache configuration"
 recipe            "apache2::logrotate", "Rotate apache2 logs. Requires logrotate cookbook"
 recipe            "apache2::mod_alias", "Apache module 'alias' with config file"
@@ -205,3 +205,8 @@ attribute "apache/default_modules",
   :display_name => "Apache Default Modules",
   :description => "Default modules to enable via recipes",
   :default => "status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex dir env mime negotiation setenvif"
+
+attribute "apache/mod_ssl/cipher_suite",
+  :display_name => "Apache mod_ssl Cipher Suite",
+  :description => "String of SSL ciphers to use for SSLCipherSuite",
+  :default => "RC4-SHA:HIGH:!ADH"
