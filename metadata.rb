@@ -1,3 +1,4 @@
+name              "apache2"
 maintainer        "Opscode, Inc."
 maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
