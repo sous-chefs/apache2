@@ -62,7 +62,7 @@ when "rhel", "fedora"
     cd libopkele-2.0.4 && ./configure --prefix=/usr --libdir=#{syslibdir}
     #{make_cmd} && #{make_cmd} install
     EOH
-    not_if { File.exists?("#{syslibdir}/libopkele.a") }
+    creates "#{syslibdir}/libopkele.a"
   end
 end
 
@@ -80,6 +80,11 @@ remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.g
   checksum _checksum
 end
 
+file "mod_auth_openid_dblocation" do
+  path node['apache']['mod_auth_openid']['dblocation']
+  action :nothing
+end
+
 bash "install mod_auth_openid" do
   cwd Chef::Config['file_cache_path']
   code <<-EOH
@@ -88,7 +93,9 @@ bash "install mod_auth_openid" do
   perl -pi -e "s/-i -a -n 'authopenid'/-i -n 'authopenid'/g" Makefile
   #{make_cmd} && #{make_cmd} install
   EOH
-  not_if { ::File.exists?("#{node['apache']['libexecdir']}/mod_auth_openid.so") }
+  creates "#{node['apache']['libexecdir']}/mod_auth_openid.so"
+  notifies :delete, "file[mod_auth_openid_dblocation]", :immediately
+  notifies :restart, "service[apache2]"
 end
 
 directory node['apache']['mod_auth_openid']['cache_dir'] do
