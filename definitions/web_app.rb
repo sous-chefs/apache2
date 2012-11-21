@@ -43,7 +43,8 @@ define :web_app, :template => "web_app.conf.erb", :enable => true do
     end
   end
   
+  site_enabled = params[:enable]
   apache_site "#{params[:name]}.conf" do
-    enable params[:enable]
+    enable site_enabled
   end
 end
