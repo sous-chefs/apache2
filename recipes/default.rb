@@ -217,6 +217,6 @@ end
 apache_site "default" if node['apache']['default_site_enabled']
 
 service "apache2" do
-  action :stop
-  #action :start
+  #action :stop
+  action :start
 end
