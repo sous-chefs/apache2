@@ -102,7 +102,8 @@ end
 # and we don't want to override the tunings.
 ###
 
-# General settings
+# General settingss
+default['apache']['listen_addresses'] = [ "*" ]
 default['apache']['listen_ports'] = [ "80" ]
 default['apache']['contact'] = "ops@example.com"
 default['apache']['timeout'] = 300
