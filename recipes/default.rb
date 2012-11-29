@@ -143,6 +143,16 @@ directory node['apache']['cache_dir'] do
   group node['apache']['root_group']
 end
 
+# Set the preferred execution binary - prefork or worker
+template "/etc/sysconfig/httpd" do
+  source "etc-sysconfig-httpd.erb"
+  owner "root"
+  group node['apache']['root_group']
+  mode 00644
+  notifies :restart, "service[apache2]"
+  only_if { platform_family?("rhel", "fedora") }
+end
+
 template "apache2.conf" do
   case node['platform_family']
   when "rhel", "fedora", "arch"
