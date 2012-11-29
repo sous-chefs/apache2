@@ -1,3 +1,8 @@
+## v1.3.2:
+
+* [COOK-1804] - fix `web_app` definition parameter so site can be
+  disabled.
+
 ## v1.3.0:
 
 * [COOK-1738] - Better configuration for `mod_include` and some
