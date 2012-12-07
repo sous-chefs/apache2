@@ -67,6 +67,7 @@ if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
 
   execute "generate-module-list" do
     command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{node['apache']['dir']}/mods-available"
+    action :nothing
   end
 
   %w{a2ensite a2dissite a2enmod a2dismod}.each do |modscript|
