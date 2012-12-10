@@ -18,16 +18,15 @@
 #
 
 case node['platform_family']
-  when "debian"
+when "debian"
 
-    package "libapache2-mod-python"
+  package "libapache2-mod-python"
 
-  when "rhel", "fedora"
+when "rhel", "fedora"
 
-    package "mod_python" do
-      notifies :run, "execute[generate-module-list]", :immediately
-    end
-
+  package "mod_python" do
+    notifies :run, "execute[generate-module-list]", :immediately
+  end
 end
 
 file "#{node['apache']['dir']}/conf.d/python.conf" do

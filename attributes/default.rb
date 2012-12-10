@@ -21,7 +21,7 @@ set['apache']['root_group']  = "root"
 
 # Where the various parts of apache are
 case platform
-when "redhat","centos","scientific","fedora","suse","amazon"
+when "redhat", "centos", "scientific", "fedora", "suse", "amazon"
   set['apache']['package'] = "httpd"
   set['apache']['dir']     = "/etc/httpd"
   set['apache']['log_dir'] = "/var/log/httpd"
@@ -39,7 +39,7 @@ when "redhat","centos","scientific","fedora","suse","amazon"
   set['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36']86$/ ? "/usr/lib/httpd" : "/usr/lib64/httpd"
   set['apache']['libexecdir'] = "#{set['apache']['lib_dir']}/modules"
   set['apache']['default_site_enabled'] = true
-when "debian","ubuntu"
+when "debian", "ubuntu"
   set['apache']['package'] = "apache2"
   set['apache']['dir']     = "/etc/apache2"
   set['apache']['log_dir'] = "/var/log/apache2"
@@ -103,7 +103,7 @@ end
 ###
 
 # General settings
-default['apache']['listen_ports'] = [ "80" ]
+default['apache']['listen_ports'] = ["80"]
 default['apache']['contact'] = "ops@example.com"
 default['apache']['timeout'] = 300
 default['apache']['keepalive'] = "On"
