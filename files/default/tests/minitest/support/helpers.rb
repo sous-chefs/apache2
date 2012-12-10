@@ -13,7 +13,7 @@ module Helpers
 
     def apache_configured_ports
       port_config = File.read("#{node['apache']['dir']}/ports.conf")
-      port_config.scan(/^Listen ([0-9]+)/).flatten.map{|p| p.to_i}
+      port_config.scan(/^Listen ([0-9]+)/).flatten.map { |p| p.to_i }
     end
 
     def apache_enabled_modules
@@ -24,7 +24,7 @@ module Helpers
         else
           :stdout
         end
-        ).split.select! {|i| i =~ /_module$/}
+      ).split.select! { |i| i =~ /_module$/ }
     end
 
     def apache_service
