@@ -85,7 +85,7 @@ attribute "apache/listen_ports",
   :display_name => "Apache Listen Ports",
   :description => "Ports that Apache should listen on",
   :type => "array",
-  :default => [ "80", "443" ]
+  :default => ["80", "443"]
 
 attribute "apache/contact",
   :display_name => "Apache Contact",
