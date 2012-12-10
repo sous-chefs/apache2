@@ -9,9 +9,9 @@ describe 'apache2::mod_perl' do
 
   it 'installs the apache request library' do
     req_pkg = case node['platform']
-      when 'debian', 'ubuntu' then 'libapache2-request-perl'
-      else 'perl-libapreq2'
-    end
+              when 'debian', 'ubuntu' then 'libapache2-request-perl'
+              else 'perl-libapreq2'
+              end
     package(req_pkg).must_be_installed
   end
 

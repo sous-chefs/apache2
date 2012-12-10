@@ -12,8 +12,8 @@ describe 'apache2::mod_apreq2' do
     libdir = node['kernel']['machine'] == 'x86_64' ? "lib64" : "lib"
     link(
       "/usr/#{libdir}/httpd/modules/mod_apreq.so"
-      ).must_exist.with(
-      :link_type, :symbolic).and(:to, "/usr/#{libdir}/httpd/modules/mod_apreq2.so"
-      )
+    ).must_exist.with(
+        :link_type, :symbolic).and(:to, "/usr/#{libdir}/httpd/modules/mod_apreq2.so"
+        )
   end
 end

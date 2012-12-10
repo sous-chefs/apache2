@@ -107,10 +107,12 @@ if platform_family?("freebsd")
     action :delete
   end
 
-  %w{httpd-autoindex.conf httpd-dav.conf httpd-default.conf httpd-info.conf
-     httpd-languages.conf httpd-manual.conf httpd-mpm.conf
-     httpd-multilang-errordoc.conf httpd-ssl.conf httpd-userdir.conf
-     httpd-vhosts.conf}.each do |f|
+  %w{
+      httpd-autoindex.conf httpd-dav.conf httpd-default.conf httpd-info.conf
+      httpd-languages.conf httpd-manual.conf httpd-mpm.conf
+      httpd-multilang-errordoc.conf httpd-ssl.conf httpd-userdir.conf
+      httpd-vhosts.conf
+    }.each do |f|
 
     file "#{node['apache']['dir']}/extra/#{f}" do
       action :delete
