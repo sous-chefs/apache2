@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module "include" do 
+apache_module "include" do
   conf true
 end
