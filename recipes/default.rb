@@ -211,7 +211,9 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{module_recipe_name}"
 end
 
-apache_site "default" if node['apache']['default_site_enabled']
+apache_site "default" do
+  enable !!node['apache']['default_site_enabled']
+end
 
 service "apache2" do
   action :start
