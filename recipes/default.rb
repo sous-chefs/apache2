@@ -108,10 +108,12 @@ if platform_family?("freebsd")
     action :delete
   end
 
-  %w{httpd-autoindex.conf httpd-dav.conf httpd-default.conf httpd-info.conf
-     httpd-languages.conf httpd-manual.conf httpd-mpm.conf
-     httpd-multilang-errordoc.conf httpd-ssl.conf httpd-userdir.conf
-     httpd-vhosts.conf}.each do |f|
+  %w{
+      httpd-autoindex.conf httpd-dav.conf httpd-default.conf httpd-info.conf
+      httpd-languages.conf httpd-manual.conf httpd-mpm.conf
+      httpd-multilang-errordoc.conf httpd-ssl.conf httpd-userdir.conf
+      httpd-vhosts.conf
+    }.each do |f|
 
     file "#{node['apache']['dir']}/extra/#{f}" do
       action :delete
@@ -194,7 +196,7 @@ template "#{node['apache']['dir']}/ports.conf" do
   source "ports.conf.erb"
   owner "root"
   group node['apache']['root_group']
-  variables :apache_listen_ports => node['apache']['listen_ports'].map{|p| p.to_i}.uniq
+  variables :apache_listen_ports => node['apache']['listen_ports'].map { |p| p.to_i }.uniq
   mode 00644
   notifies :restart, "service[apache2]"
 end

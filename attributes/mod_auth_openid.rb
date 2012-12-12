@@ -24,9 +24,9 @@ default['apache']['mod_auth_openid']['dblocation'] = "#{node['apache']['mod_auth
 case node['platform_family']
 when "freebsd"
   default['apache']['mod_auth_openid']['configure_flags'] = [
-      "CPPFLAGS=-I/usr/local/include",
-      "LDFLAGS=-I/usr/local/lib -lsqlite3"
-    ]
+    "CPPFLAGS=-I/usr/local/include",
+    "LDFLAGS=-I/usr/local/lib -lsqlite3"
+  ]
 else
   default['apache']['mod_auth_openid']['configure_flags'] = []
 end
