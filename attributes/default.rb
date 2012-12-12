@@ -38,7 +38,7 @@ when "redhat","centos","scientific","fedora","suse","amazon"
   end
   set['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36']86$/ ? "/usr/lib/httpd" : "/usr/lib64/httpd"
   set['apache']['libexecdir'] = "#{set['apache']['lib_dir']}/modules"
-  set['apache']['default_site_enabled'] = true
+  set['apache']['default_site_enabled'] = false
 when "debian","ubuntu"
   set['apache']['package'] = "apache2"
   set['apache']['dir']     = "/etc/apache2"
