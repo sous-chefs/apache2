@@ -26,4 +26,6 @@ begin
 rescue
   Chef::Log.warn("The apache::logrotate recipe requires the logrotate cookbook. Install the cookbook with `knife cookbook site install logrotate`.")
 end
-logrotate_app apache_service.service_name
+logrotate_app apache_service.service_name do
+  path node['apache']['log_dir']
+end
