@@ -1,3 +1,7 @@
+## v1.4.2:
+
+* [COOK-1721] - fix logrotate recipe
+
 ## v1.4.0:
 
 * [COOK-1456] - iptables enhancements
