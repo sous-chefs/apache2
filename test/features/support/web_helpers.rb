@@ -27,19 +27,19 @@ end
 
 def default_page_present?(body)
   ['This is the default web page for this server.',
-   'Apache HTTP Server Test Page'].any?{|msg| body.include? msg}
+   'Apache HTTP Server Test Page'].any? { |msg| body.include? msg }
 end
 
 # Filenames in a directory listing response
 def dir_listing_entries
-  Nokogiri::HTML(http_response.body).xpath("//td/a/text()").map{|a| a.to_s}
+  Nokogiri::HTML(http_response.body).xpath("//td/a/text()").map { |a| a.to_s }
 end
 
 def environment_variables(response_body)
-  Hash[response_body.split("\n").map{|v| v.split('=')}]
+  Hash[response_body.split("\n").map { |v| v.split('=') }]
 end
 
-def http_request(path, options={})
+def http_request(path, options = {})
   if options.key?(:digest_auth)
     # HTTParty digest doesn't appear to work
     @response = http_request_digest_curl(path, options)
@@ -82,5 +82,5 @@ def max_age_seconds(http_headers)
 end
 
 def request_parameters(response_body)
-  Hash[*Nokogiri::HTML(response_body).xpath("//td/text()").map{|h| h.to_s.strip.sub(/:$/, '')}]
+  Hash[*Nokogiri::HTML(response_body).xpath("//td/text()").map { |h| h.to_s.strip.sub(/:$/, '') }]
 end
