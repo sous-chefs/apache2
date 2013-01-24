@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'cucumber', '~> 1.1.8'
+gem 'cucumber', '~> 1.2.0'
 gem 'httparty', '~> 0.8.3'
 gem 'minitest', '~> 3.0.0'
 gem 'nokogiri', '~> 1.5.0'
