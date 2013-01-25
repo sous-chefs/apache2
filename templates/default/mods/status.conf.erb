@@ -9,7 +9,7 @@
     SetHandler server-status
     Order deny,allow
     Deny from all
-    Allow from localhost ip6-localhost
+    Allow from <%=node['apache']['status_allow_list']%>
 #    Allow from .example.com
 </Location>
 #

@@ -118,6 +118,9 @@ default['apache']['traceenable'] = "On"
 # mod_auth_openids
 default['apache']['allowed_openids'] = Array.new
 
+# mod_status Allow list, space seprated list of allowed entries.  
+default['apache']['status_allow_list'] = "localhost ip6-localhost"
+
 # mod_status ExtendedStatus, set to 'true' to enable
 default['apache']['ext_status'] = false
 
