@@ -168,7 +168,7 @@ General settings
 These are general settings used in recipes and templates. Default
 values are noted.
 
-* `node['apache']['listen_ports']` - Ports that httpd should listen on. Default is an array of ports 80 and 443.
+* `node['apache']['listen_ports']` - Ports that httpd should listen on. Default is port 80.
 * `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
 * `node['apache']['timeout']` - Value for the Timeout directive. Default is 300.
 * `node['apache']['keepalive']` - Value for the KeepAlive directive. Default is On.
