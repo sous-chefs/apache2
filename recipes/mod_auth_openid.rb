@@ -66,18 +66,12 @@ when "rhel", "fedora"
   end
 end
 
-_checksum = node['apache']['mod_auth_openid']['checksum']
-version = node['apache']['mod_auth_openid']['version']
+version = node['apache']['mod_auth_openid']['ref']
 configure_flags = node['apache']['mod_auth_openid']['configure_flags']
 
 remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.gz" do
-  if Chef::Version.new(version) >= Chef::Version.new(0.7)
-    source "https://github.com/downloads/bmuller/mod_auth_openid/mod_auth_openid-#{version}.tar.gz"
-  else
-    source "http://butterfat.net/releases/mod_auth_openid/mod_auth_openid-#{version}.tar.gz"
-  end
+  source node['apache']['mod_auth_openid']['source_url']
   mode 00644
-  checksum _checksum
 end
 
 file "mod_auth_openid_dblocation" do
