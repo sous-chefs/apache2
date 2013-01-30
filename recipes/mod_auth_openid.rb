@@ -72,6 +72,7 @@ configure_flags = node['apache']['mod_auth_openid']['configure_flags']
 remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.gz" do
   source node['apache']['mod_auth_openid']['source_url']
   mode 00644
+  action :create_if_missing
 end
 
 file "mod_auth_openid_dblocation" do
