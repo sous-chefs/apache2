@@ -84,7 +84,8 @@ bash "install mod_auth_openid" do
   cwd Chef::Config['file_cache_path']
   code <<-EOH
   tar zxvf mod_auth_openid-#{version}.tar.gz
-  cd mod_auth_openid-#{version} && ./configure #{configure_flags.join(' ')}
+  cd mod_auth_openid-#{version} && ./autogen.sh
+  ./configure #{configure_flags.join(' ')}
   perl -pi -e "s/-i -a -n 'authopenid'/-i -n 'authopenid'/g" Makefile
   #{make_cmd} && #{make_cmd} install
   EOH
