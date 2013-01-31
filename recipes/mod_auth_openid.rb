@@ -51,6 +51,7 @@ when "rhel", "fedora"
   remote_file "#{Chef::Config['file_cache_path']}/libopkele-2.0.4.tar.gz" do
     source "http://kin.klever.net/dist/libopkele-2.0.4.tar.gz"
     mode 00644
+    checksum "57a5bc753b7e80c5ece1e5968b2051b0ce7ed9ce4329d17122c61575a9ea7648"
   end
 
   bash "install libopkele" do
