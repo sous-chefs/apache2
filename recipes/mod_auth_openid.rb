@@ -51,6 +51,7 @@ when "rhel", "fedora"
   remote_file "#{Chef::Config['file_cache_path']}/libopkele-2.0.4.tar.gz" do
     source "http://kin.klever.net/dist/libopkele-2.0.4.tar.gz"
     mode 00644
+    checksum "57a5bc753b7e80c5ece1e5968b2051b0ce7ed9ce4329d17122c61575a9ea7648"
   end
 
   bash "install libopkele" do
@@ -66,18 +67,13 @@ when "rhel", "fedora"
   end
 end
 
-_checksum = node['apache']['mod_auth_openid']['checksum']
-version = node['apache']['mod_auth_openid']['version']
+version = node['apache']['mod_auth_openid']['ref']
 configure_flags = node['apache']['mod_auth_openid']['configure_flags']
 
 remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.gz" do
-  if Chef::Version.new(version) >= Chef::Version.new(0.7)
-    source "https://github.com/downloads/bmuller/mod_auth_openid/mod_auth_openid-#{version}.tar.gz"
-  else
-    source "http://butterfat.net/releases/mod_auth_openid/mod_auth_openid-#{version}.tar.gz"
-  end
+  source node['apache']['mod_auth_openid']['source_url']
   mode 00644
-  checksum _checksum
+  action :create_if_missing
 end
 
 file "mod_auth_openid_dblocation" do
@@ -89,7 +85,8 @@ bash "install mod_auth_openid" do
   cwd Chef::Config['file_cache_path']
   code <<-EOH
   tar zxvf mod_auth_openid-#{version}.tar.gz
-  cd mod_auth_openid-#{version} && ./configure #{configure_flags.join(' ')}
+  cd mod_auth_openid-#{version} && ./autogen.sh
+  ./configure #{configure_flags.join(' ')}
   perl -pi -e "s/-i -a -n 'authopenid'/-i -n 'authopenid'/g" Makefile
   #{make_cmd} && #{make_cmd} install
   EOH
