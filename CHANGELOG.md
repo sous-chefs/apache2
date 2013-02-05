@@ -1,3 +1,23 @@
+## v1.5.0:
+
+**NOTE** The `mod_auth_openid` attributes are changed. The upstream
+  maintainer deprecated the older release versions, and the source
+  repository has releases available at specific SHA1SUM references.
+  The new attribute, `node['apache']['mod_auth_openid']['ref']` is
+  used to set this.
+
+* [COOK-2198] - `apache::mod_auth_openid` compiles from source, but
+  does not install make on debian/ubuntu
+* [COOK-2224] - version conflict between cucumber and other gems
+* [COOK-2248] - `apache2::mod_php5` uses `not_if` "which php" without
+  ensuring package 'which' is installed
+* [COOK-2269] - Set allow list for mod_status incase external monitor scripts need
+* [COOK-2276] - cookbook apache2 documentation regarding listening
+  ports doesn't match default attributes
+* [COOK-2296] - `mod_auth_openid` doesn't have tags/releases for the
+  version I need for features and fixes
+* [COOK-2323] - Add Oracle linux support
+
 ## v1.4.2:
 
 * [COOK-1721] - fix logrotate recipe
