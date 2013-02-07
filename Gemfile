@@ -6,5 +6,5 @@ gem 'minitest', '~> 3.0.0'
 gem 'nokogiri', '~> 1.5.0'
 
 group :kitchen  do
-  gem 'test-kitchen', '<= 1.0'
+  gem 'test-kitchen', '< 1.0'
 end
