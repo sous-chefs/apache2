@@ -134,6 +134,7 @@ default['apache']['prefork']['maxrequestsperchild'] = 10000
 
 # Worker Attributes
 default['apache']['worker']['startservers'] = 4
+default['apache']['worker']['serverlimit'] = 16
 default['apache']['worker']['maxclients'] = 1024
 default['apache']['worker']['minsparethreads'] = 64
 default['apache']['worker']['maxsparethreads'] = 192
