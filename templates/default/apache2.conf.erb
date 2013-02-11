@@ -74,6 +74,7 @@ KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
 # MaxRequestsPerChild: maximum number of requests a server process serves
 <IfModule mpm_worker_module>
     StartServers          <%= node['apache']['worker']['startservers'] %>
+    ServerLimit           <%= node['apache']['worker']['serverlimit'] %>
     MaxClients            <%= node['apache']['worker']['maxclients'] %>
     MinSpareThreads       <%= node['apache']['worker']['minsparethreads'] %>
     MaxSpareThreads       <%= node['apache']['worker']['maxsparethreads'] %>
