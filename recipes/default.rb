@@ -23,13 +23,16 @@ end
 
 service 'apache2' do
   case node['platform_family']
-  when 'rhel', 'fedora', 'suse'
+  when 'rhel', 'fedora'
     service_name 'httpd'
     # If restarted/reloaded too quickly httpd has a habit of failing.
     # This may happen with multiple recipes notifying apache to restart - like
     # during the initial bootstrap.
     restart_command '/sbin/service httpd restart && sleep 1'
     reload_command '/sbin/service httpd reload && sleep 1'
+  when 'suse'
+    restart_command '/sbin/service apache2 restart && sleep 1'
+    reload_command '/sbin/service apache2 reload && sleep 1'
   when 'debian'
     service_name 'apache2'
     restart_command '/usr/sbin/invoke-rc.d apache2 restart && sleep 1'
@@ -44,6 +47,14 @@ service 'apache2' do
 end
 
 if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
+
+  if platform_family?('suse')
+    # delete a2dismod because it's a symlink to a2enmod.
+    file '/usr/sbin/a2dismod' do
+      action :delete
+    end
+  end
+
   directory node['apache']['log_dir'] do
     mode '0755'
   end
@@ -137,13 +148,13 @@ end
 end
 
 # Set the preferred execution binary - prefork or worker
-template '/etc/sysconfig/httpd' do
+template "/etc/sysconfig/#{node['apache']['package']}" do
   source   'etc-sysconfig-httpd.erb'
   owner    'root'
   group    node['apache']['root_group']
-  mode     '0644'
+  mode     '00644'
   notifies :restart, 'service[apache2]'
-  only_if  { platform_family?('rhel', 'fedora') }
+  only_if  { platform_family?('rhel', 'fedora', 'suse') }
 end
 
 template 'apache2.conf' do
@@ -152,7 +163,7 @@ template 'apache2.conf' do
     path "#{node['apache']['dir']}/conf/httpd.conf"
   when 'debian'
     path "#{node['apache']['dir']}/apache2.conf"
-  when 'freebsd'
+  when 'freebsd', 'suse'
     path "#{node['apache']['dir']}/httpd.conf"
   end
   source   'apache2.conf.erb'
