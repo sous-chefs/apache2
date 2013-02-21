@@ -18,7 +18,7 @@
 #
 
 openid_dev_pkgs = value_for_platform_family(
-  ["debian"] => %w{make g++ apache2-prefork-dev libopkele-dev libopkele3},
+  ["debian"] => %w{make g++ apache2-prefork-dev libopkele-dev libopkele3 libtool},
   ["rhel", "fedora"] => %w{gcc-c++ httpd-devel curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make},
   "arch" => ["libopkele"],
   "freebsd" => %w{libopkele pcre sqlite3}
@@ -81,11 +81,17 @@ file "mod_auth_openid_dblocation" do
   action :nothing
 end
 
-bash "install mod_auth_openid" do
+bash "untar mod_auth_openid" do
   cwd Chef::Config['file_cache_path']
   code <<-EOH
   tar zxvf mod_auth_openid-#{version}.tar.gz
-  cd mod_auth_openid-#{version} && ./autogen.sh
+  EOH
+end
+
+bash "compile mod_auth_openid" do
+  cwd "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}"
+  code <<-EOH
+  ./autogen.sh
   ./configure #{configure_flags.join(' ')}
   perl -pi -e "s/-i -a -n 'authopenid'/-i -n 'authopenid'/g" Makefile
   #{make_cmd} && #{make_cmd} install
