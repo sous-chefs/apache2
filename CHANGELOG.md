@@ -1,3 +1,8 @@
+## v1.6.0:
+
+* [COOK-2372] - apache2 mpm_worker: add ServerLimit attribute (default
+  to 16)
+
 ## v1.5.0:
 
 **NOTE** The `mod_auth_openid` attributes are changed. The upstream
