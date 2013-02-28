@@ -65,6 +65,25 @@ KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
     MaxRequestsPerChild   <%= node['apache']['prefork']['maxrequestsperchild'] %>
 </IfModule>
 
+# prefork MPM itk case
+<IfModule mpm_itk_module>
+    StartServers          <%= node['apache']['prefork']['startservers'] %>
+    MinSpareServers       <%= node['apache']['prefork']['minspareservers'] %>
+    MaxSpareServers       <%= node['apache']['prefork']['maxspareservers'] %>
+    ServerLimit           <%= node['apache']['prefork']['serverlimit'] %>
+    MaxClients            <%= node['apache']['prefork']['maxclients'] %>
+    MaxRequestsPerChild   <%= node['apache']['prefork']['maxrequestsperchild'] %>
+</IfModule>
+
+<IfModule mpm_prefork_module>
+    StartServers          <%= node['apache']['prefork']['startservers'] %>
+    MinSpareServers       <%= node['apache']['prefork']['minspareservers'] %>
+    MaxSpareServers       <%= node['apache']['prefork']['maxspareservers'] %>
+    ServerLimit           <%= node['apache']['prefork']['serverlimit'] %>
+    MaxClients            <%= node['apache']['prefork']['maxclients'] %>
+    MaxRequestsPerChild   <%= node['apache']['prefork']['maxrequestsperchild'] %>
+</IfModule>
+
 # worker MPM
 # StartServers: initial number of server processes to start
 # MaxClients: maximum number of simultaneous client connections
