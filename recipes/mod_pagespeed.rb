@@ -1,6 +1,6 @@
 if platform?("debian", "ubuntu")
   remote_file "#{Chef::Config[:file_cache_path]}/mod-pagespeed.deb" do
-    source "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb"
+    source node["apache2"]["mod_pagespeed"]["package_link"]
     mode 0644
     action :create_if_missing
   end
