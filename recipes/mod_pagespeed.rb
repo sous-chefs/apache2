@@ -13,4 +13,6 @@ if platform?("debian", "ubuntu")
   apache_module "pagespeed" do
     conf true
   end
+else
+  Chef::Log.warm "apache::mod_pagespeed does not support #{node["platform"]} yet, and is not being installed"
 end
