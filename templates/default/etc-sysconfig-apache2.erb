@@ -285,4 +285,6 @@ APACHE_EXTENDED_STATUS="off"
 # Setting this to "on" will siply disable compression, for the case when
 # a client requests it.
 APACHE_DISABLE_SSL_COMPRESSION="on"
+<% if "test -f /etc/zce.rc" -%>
 . /etc/zce.rc
+<% end -%>
