@@ -83,7 +83,7 @@ if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
       mode 00700
       owner "root"
       group node['apache']['root_group']
-      not_if { platform_family?("suse") }
+#      not_if { platform_family?("suse") }
     end
   end
 
