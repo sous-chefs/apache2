@@ -22,7 +22,7 @@ end
 
 ports = node['apache']['listen_ports']
 
-if platform_family?("rhel", "fedora", "suse")
+if platform_family?("rhel", "fedora")
 
   package "mod_ssl" do
     notifies :run, "execute[generate-module-list]", :immediately
@@ -31,6 +31,12 @@ if platform_family?("rhel", "fedora", "suse")
   file "#{node['apache']['dir']}/conf.d/ssl.conf" do
     action :delete
     backup false
+  end
+end
+
+if platform?("suse")
+  execute "/usr/sbin/a2enflag SSL" do
+    command "/usr/sbin/a2enflag SSL"
   end
 end
 

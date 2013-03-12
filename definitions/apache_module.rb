@@ -27,7 +27,7 @@ define :apache_module, :enable => true, :conf => false do
     apache_conf params[:name]
   end
 
-  if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
+  if platform_family?("rhel", "fedora", "arch", "freebsd")
     file "#{node['apache']['dir']}/mods-available/#{params[:name]}.load" do
       content "LoadModule #{params[:name]}_module #{params[:module_path]}\n"
       mode 0644
@@ -38,16 +38,24 @@ define :apache_module, :enable => true, :conf => false do
     execute "a2enmod #{params[:name]}" do
       command "/usr/sbin/a2enmod #{params[:name]}"
       notifies :restart, "service[apache2]"
-      not_if do (::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") and
-        ((::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf"))?
-          (::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf")):(true)))
+      if platform?("suse")
+        not_if "/usr/sbin/a2enmod -q #{params[:name]}"
+      else
+        not_if do (::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") and
+            ((::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf"))?
+              (::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf")):(true)))
+        end
       end
     end
   else
     execute "a2dismod #{params[:name]}" do
       command "/usr/sbin/a2dismod #{params[:name]}"
       notifies :restart, "service[apache2]"
-      only_if do ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") end
+      if platform?("suse")
+        only_if "/usr/sbin/a2enmod -q #{params[:name]}"
+      else
+        only_if { ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") }
+      end
     end
   end
 end

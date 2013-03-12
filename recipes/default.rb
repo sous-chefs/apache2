@@ -23,13 +23,17 @@ end
 
 service "apache2" do
   case node['platform_family']
-  when "rhel", "fedora", "suse"
+  when "rhel", "fedora"
     service_name "httpd"
     # If restarted/reloaded too quickly httpd has a habit of failing.
     # This may happen with multiple recipes notifying apache to restart - like
     # during the initial bootstrap.
     restart_command "/sbin/service httpd restart && sleep 1"
     reload_command "/sbin/service httpd reload && sleep 1"
+  when "suse"
+    service_name "apache2"
+    restart_command "/sbin/service apache2 restart && sleep 1"
+    reload_command "/sbin/service apache2 reload && sleep 1"
   when "debian"
     service_name "apache2"
     restart_command "/usr/sbin/invoke-rc.d apache2 restart && sleep 1"
@@ -43,7 +47,7 @@ service "apache2" do
   action :enable
 end
 
-if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
+if platform_family?("rhel", "fedora", "arch", "freebsd")
   directory node['apache']['log_dir'] do
     mode 00755
   end
@@ -128,10 +132,12 @@ if platform_family?("freebsd")
 
 end
 
-directory "#{node['apache']['dir']}/ssl" do
-  mode 00755
-  owner "root"
-  group node['apache']['root_group']
+unless platform_family?("suse")
+  directory "#{node['apache']['dir']}/ssl" do
+    mode 00755
+    owner "root"
+    group node['apache']['root_group']
+  end
 end
 
 directory "#{node['apache']['dir']}/conf.d" do
@@ -142,7 +148,7 @@ end
 
 directory node['apache']['cache_dir'] do
   mode 00755
-  owner "root"
+  owner platform?("suse") ? node['apache']['user'] : "root"
   group node['apache']['root_group']
 end
 
@@ -162,7 +168,7 @@ template "apache2.conf" do
     path "#{node['apache']['dir']}/conf/httpd.conf"
   when "debian"
     path "#{node['apache']['dir']}/apache2.conf"
-  when "freebsd"
+  when "freebsd", "suse"
     path "#{node['apache']['dir']}/httpd.conf"
   end
   source "apache2.conf.erb"
@@ -201,12 +207,14 @@ template "#{node['apache']['dir']}/ports.conf" do
   notifies :restart, "service[apache2]"
 end
 
-template "#{node['apache']['dir']}/sites-available/default" do
-  source "default-site.erb"
-  owner "root"
-  group node['apache']['root_group']
-  mode 00644
-  notifies :restart, "service[apache2]"
+unless platform_family?("suse")
+  template "#{node['apache']['dir']}/sites-available/default" do
+    source "default-site.erb"
+    owner "root"
+    group node['apache']['root_group']
+    mode 00644
+    notifies :restart, "service[apache2]"
+  end
 end
 
 node['apache']['default_modules'].each do |mod|

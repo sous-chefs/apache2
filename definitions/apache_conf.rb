@@ -19,6 +19,7 @@
 
 define :apache_conf do
   template "#{node['apache']['dir']}/mods-available/#{params[:name]}.conf" do
+    path "#{node[:apache][:dir]}/mod_#{params[:node]}.conf" if platform?("suse")
     source "mods/#{params[:name]}.conf.erb"
     notifies :restart, "service[apache2]"
     mode 0644
