@@ -163,6 +163,15 @@ template "/etc/sysconfig/httpd" do
   only_if { platform_family?("rhel", "fedora") }
 end
 
+template "/etc/sysconfig/apache2" do
+  source "etc-sysconfig-apache2.erb"
+  owner "root"
+  group node['apache']['root_group']
+  mode 00644
+  notifies :restart, "service[apache2]"
+  only_if { platform_family?("suse") }
+end
+
 template "apache2.conf" do
   case node['platform_family']
   when "rhel", "fedora", "arch"
@@ -187,6 +196,7 @@ template "apache2-conf-security" do
   mode 00644
   backup false
   notifies :restart, "service[apache2]"
+  not_if { platform_family?("suse") }
 end
 
 template "apache2-conf-charset" do
