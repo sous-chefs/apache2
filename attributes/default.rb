@@ -40,7 +40,7 @@ when "redhat", "centos", "scientific", "fedora", "amazon", "oracle"
   default['apache']['libexecdir'] = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
 when "suse"
-  default['apache']['package'] = "apache2"
+  default['apache']['package'] = "apache2-prefork"
   default['apache']['dir']     = "/etc/apache2"
   default['apache']['log_dir'] = "/var/log/apache2"
   default['apache']['error_log'] = "error.log"
