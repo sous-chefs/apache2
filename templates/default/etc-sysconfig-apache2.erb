@@ -30,8 +30,7 @@ APACHE_CONF_INCLUDE_FILES=""
 APACHE_CONF_INCLUDE_DIRS=""
 
 ## Type:	string
-## Default:	"actions alias auth_basic authz_host authn_file authz_groupfile authz_default authz_user autoindex cgi dir env expir
-es include log_config mime negotiation setenvif ssl suexec userdir php5"
+## Default:	"actions alias auth_basic authz_host authn_file authz_groupfile authz_default authz_user autoindex cgi dir env expires include log_config mime negotiation setenvif ssl suexec userdir php5"
 ## ServiceRestart: apache2
 #
 # [It might look silly to not simply edit httpd.conf for the LoadModule statements.
@@ -81,11 +80,9 @@ es include log_config mime negotiation setenvif ssl suexec userdir php5"
 # APACHE_MODULES="authz_host alias auth dir log_config mime setenvif"
 #
 # apache's default installation
-# APACHE_MODULES="authz_host actions alias asis auth autoindex cgi dir imap include log_config mime negotiation setenvif status user
-dir"
+# APACHE_MODULES="authz_host actions alias asis auth autoindex cgi dir imap include log_config mime negotiation setenvif status userdir"
 # your settings
-APACHE_MODULES="actions alias auth_basic authn_file authz_host authz_groupfile authz_default authz_user authn_dbm autoindex cgi dir
-env expires include log_config mime negotiation setenvif ssl suexec userdir php5 reqtimeout rewrite"
+APACHE_MODULES="actions alias auth_basic authn_file authz_host authz_groupfile authz_default authz_user authn_dbm autoindex cgi direnv expires include log_config mime negotiation setenvif ssl suexec userdir php5 reqtimeout rewrite"
 
 ## Type:  string
 ## Default:	""
