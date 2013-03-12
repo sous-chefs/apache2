@@ -82,7 +82,7 @@ APACHE_CONF_INCLUDE_DIRS=""
 # apache's default installation
 # APACHE_MODULES="authz_host actions alias asis auth autoindex cgi dir imap include log_config mime negotiation setenvif status userdir"
 # your settings
-APACHE_MODULES="actions alias auth_basic authn_file authz_host authz_groupfile authz_default authz_user authn_dbm autoindex cgi direnv expires include log_config mime negotiation setenvif ssl suexec userdir php5 reqtimeout rewrite"
+APACHE_MODULES="actions alias auth_basic authn_file authz_host authz_groupfile authz_default authz_user authn_dbm autoindex cgi dir env expires include log_config mime negotiation setenvif ssl suexec userdir php5 reqtimeout rewrite"
 
 ## Type:  string
 ## Default:	""
@@ -285,6 +285,6 @@ APACHE_EXTENDED_STATUS="off"
 # Setting this to "on" will siply disable compression, for the case when
 # a client requests it.
 APACHE_DISABLE_SSL_COMPRESSION="on"
-<% if "test -f /etc/zce.rc" -%>
+<% if File.exists?("/etc/zce.rc") -%>
 . /etc/zce.rc
 <% end -%>
