@@ -30,7 +30,7 @@
         # alert, emerg.
         LogLevel warn
 
-        CustomLog <%= node['apache']['log_dir'] %>/access.log combined
+        CustomLog <%= node['apache']['log_dir'] %>/<%= node['apache']['access_log'] %> combined
         ServerSignature On
 
         Alias /doc/ "/usr/share/doc/"
