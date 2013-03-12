@@ -21,6 +21,24 @@ default['apache']['root_group']  = "root"
 
 # Where the various parts of apache are
 case platform
+when "redhat", "centos", "scientific", "fedora", "amazon", "oracle"
+  default['apache']['package'] = "httpd"
+  default['apache']['dir']     = "/etc/httpd"
+  default['apache']['log_dir'] = "/var/log/httpd"
+  default['apache']['error_log'] = "error.log"
+  default['apache']['user']    = "apache"
+  default['apache']['group']   = "apache"
+  default['apache']['binary']  = "/usr/sbin/httpd"
+  default['apache']['icondir'] = "/var/www/icons"
+  default['apache']['cache_dir'] = "/var/cache/httpd"
+  if node['platform_version'].to_f >= 6 then
+    default['apache']['pid_file'] = "/var/run/httpd/httpd.pid"
+  else
+    default['apache']['pid_file'] = "/var/run/httpd.pid"
+  end
+  default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36']86$/ ? "/usr/lib/httpd" : "/usr/lib64/httpd"
+  default['apache']['libexecdir'] = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['default_site_enabled'] = false
 when "suse"
   default['apache']['package'] = "apache2"
   default['apache']['dir']     = "/etc/apache2"
@@ -33,7 +51,7 @@ when "suse"
   default['apache']['cache_dir'] = "/var/cache/apache2"
   default['apache']['pid_file'] = "/var/run/httpd2.pid"
   default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36']86$/ ? "/usr/lib/apache2" : "/usr/lib64/apache2"
-  default['apache']['libexecdir'] = "#{node['apache']['lib_dir']}"
+  default['apache']['libexecdir'] = "/usr/lib64/apache2-prefork"
   default['apache']['default_site_enabled'] = false
 when "debian", "ubuntu"
   default['apache']['package'] = "apache2"
