@@ -77,6 +77,13 @@ if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
     action :nothing
   end
 
+  if platform_family?("suse")
+    link "/usr/sbin/a2dismod" do
+      action :delete
+      only_if "test -L /usr/sbin/a2dismod"
+    end
+  end
+
   %w{a2ensite a2dissite a2enmod a2dismod}.each do |modscript|
     template "/usr/sbin/#{modscript}" do
       source "#{modscript}.erb"
