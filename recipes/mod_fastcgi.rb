@@ -23,4 +23,37 @@ if platform_family?("debian")
   apache_module "fastcgi" do
     conf true
   end
+
+else if platform_family?("rhel")
+
+    packages = %w{gcc make libtool httpd-devel apr-devel apr}
+    packages.each do |package|
+      yum_package package do
+        action :upgrade
+      end
+    end
+
+    src_filepath  = "#{Chef::Config['file_cache_path'] || '/tmp'}/fastcgi.tar.gz"
+    fastcgi_url = node['apache']['mod_fastcgi']['download_url']
+    remote_file fastcgi_url do
+      source fastcgi_url
+      path src_filepath
+      backup false
+    end
+
+    top_dir = node['apache']['lib_dir']
+    bash "compile_fastcgi_source" do
+      not_if "test -f #{node['apache']['dir']}/mods-available/fastcgi.conf"
+      cwd ::File.dirname(src_filepath)
+      code <<-EOH
+    tar zxf #{::File.basename(src_filepath)} -C #{::File.dirname(src_filepath)} &&
+    cd mod_fastcgi-* &&
+    cp Makefile.AP2 Makefile &&
+    make top_dir=#{top_dir} && make install top_dir=#{top_dir}
+  EOH
+    end
+  apache_module "fastcgi" do
+    conf true
+  end
+  end
 end
