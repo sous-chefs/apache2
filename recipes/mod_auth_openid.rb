@@ -18,7 +18,7 @@
 #
 
 openid_dev_pkgs = value_for_platform_family(
-  ["debian"] => %w{make g++ apache2-prefork-dev libopkele-dev libopkele3 libtool},
+  ["debian"] => %w{automake make g++ apache2-prefork-dev libopkele-dev libopkele3 libtool},
   ["rhel", "fedora"] => %w{gcc-c++ httpd-devel curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make},
   "arch" => ["libopkele"],
   "freebsd" => %w{libopkele pcre sqlite3}
