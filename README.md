@@ -538,7 +538,7 @@ create a basic role for web servers that provide both HTTP and HTTPS:
       "recipe[apache2::mod_ssl]"
     )
     default_attributes(
-      "apache2" => {
+      "apache" => {
         "listen_ports" => ["80", "443"]
       }
     )
