@@ -23,13 +23,20 @@ end
 
 service "apache2" do
   case node['platform_family']
-  when "rhel", "fedora", "suse"
+  when "rhel", "fedora"
     service_name "httpd"
     # If restarted/reloaded too quickly httpd has a habit of failing.
     # This may happen with multiple recipes notifying apache to restart - like
     # during the initial bootstrap.
     restart_command "/sbin/service httpd restart && sleep 1"
     reload_command "/sbin/service httpd reload && sleep 1"
+  when "suse"
+    service_name "apache2"
+    # If restarted/reloaded too quickly httpd has a habit of failing.
+    # This may happen with multiple recipes notifying apache to restart - like
+    # during the initial bootstrap.
+    restart_command "/sbin/service apache2 restart && sleep 1"
+    reload_command "/sbin/service apache2 reload && sleep 1"
   when "debian"
     service_name "apache2"
     restart_command "/usr/sbin/invoke-rc.d apache2 restart && sleep 1"
@@ -70,12 +77,20 @@ if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
     action :nothing
   end
 
+  if platform_family?("suse")
+    link "/usr/sbin/a2dismod" do
+      action :delete
+      only_if "test -L /usr/sbin/a2dismod"
+    end
+  end
+
   %w{a2ensite a2dissite a2enmod a2dismod}.each do |modscript|
     template "/usr/sbin/#{modscript}" do
       source "#{modscript}.erb"
       mode 00700
       owner "root"
       group node['apache']['root_group']
+#      not_if { platform_family?("suse") }
     end
   end
 
@@ -156,13 +171,22 @@ template "/etc/sysconfig/httpd" do
   only_if { platform_family?("rhel", "fedora") }
 end
 
+template "/etc/sysconfig/apache2" do
+  source "etc-sysconfig-apache2.erb"
+  owner "root"
+  group node['apache']['root_group']
+  mode 00644
+  notifies :restart, "service[apache2]"
+  only_if { platform_family?("suse") }
+end
+
 template "apache2.conf" do
   case node['platform_family']
   when "rhel", "fedora", "arch"
     path "#{node['apache']['dir']}/conf/httpd.conf"
   when "debian"
     path "#{node['apache']['dir']}/apache2.conf"
-  when "freebsd"
+  when "freebsd", "suse"
     path "#{node['apache']['dir']}/httpd.conf"
   end
   source "apache2.conf.erb"
@@ -180,6 +204,7 @@ template "apache2-conf-security" do
   mode 00644
   backup false
   notifies :restart, "service[apache2]"
+  not_if { platform_family?("suse") }
 end
 
 template "apache2-conf-charset" do
