@@ -229,7 +229,9 @@ LogFormat "%{User-agent}i" agent
 #    ErrorDocument 503 /error/HTTP_SERVICE_UNAVAILABLE.html.var
 #    ErrorDocument 506 /error/HTTP_VARIANT_ALSO_VARIES.html.var
 
-
+# Disable etags
+Header unset ETag
+FileETag None
 
 # Include generic snippets of statements
 Include <%= node['apache']['dir'] %>/conf.d/
