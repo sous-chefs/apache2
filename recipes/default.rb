@@ -196,7 +196,10 @@ template "#{node['apache']['dir']}/ports.conf" do
   source "ports.conf.erb"
   owner "root"
   group node['apache']['root_group']
-  variables :apache_listen_ports => node['apache']['listen_ports'].map { |p| p.to_i }.uniq
+  variables(
+      :apache_listen_addresses => node['apache']['listen_addresses'].uniq,
+      :apache_listen_ports => node['apache']['listen_ports'].map { |p| p.to_i }.uniq
+  )
   mode 00644
   notifies :restart, "service[apache2]"
 end
