@@ -81,6 +81,12 @@ attribute "apache/icondir",
   :description => "Directory location for icons",
   :default => "/usr/share/apache2/icons"
 
+attribute "apache/listen_addresses",
+  :display_name => "Apache Listen Addresses",
+  :description => "Addresses that Apache should listen on",
+  :type => "array",
+  :default => ["*"]
+
 attribute "apache/listen_ports",
   :display_name => "Apache Listen Ports",
   :description => "Ports that Apache should listen on",
