@@ -417,7 +417,7 @@ the definition is used. See __Examples__.
 
 ### Examples:
 
-Enable the ssl module, which also has a configuration template in `templates/default/ssl.conf.erb`.
+Enable the ssl module, which also has a configuration template in `templates/default/mods/ssl.conf.erb`.
 
     apache_module "ssl" do
       conf true
