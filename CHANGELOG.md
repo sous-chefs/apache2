@@ -1,3 +1,11 @@
+## v1.6.2
+
+* [COOK-2535] - `mod_auth_openid` requires libtool to run autogen.sh
+* [COOK-2667] - Typo in usage documentation
+* [COOK-2461] - `apache2::mod_auth_openid` fails on some ubuntu systems
+* [COOK-2720] - Apache2 minitest helper function `ran_recipe` is not
+  portable
+
 ## v1.6.0:
 
 * [COOK-2372] - apache2 mpm_worker: add ServerLimit attribute (default
