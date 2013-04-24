@@ -21,9 +21,9 @@ if node['apache']['enable_module']['deflate']
   apache_module "deflate" do
     conf true
   end
-else
-  apache_module "deflate" do
-    conf true
-    enable false
-  end
+#else
+#  apache_module "deflate" do
+#    conf true
+#    enable false
+#  end
 end
