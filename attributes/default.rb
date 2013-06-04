@@ -36,7 +36,7 @@ when "redhat", "centos", "scientific", "fedora", "suse", "amazon", "oracle"
   else
     default['apache']['pid_file'] = "/var/run/httpd.pid"
   end
-  default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36']86$/ ? "/usr/lib/httpd" : "/usr/lib64/httpd"
+  default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? "/usr/lib/httpd" : "/usr/lib64/httpd"
   default['apache']['libexecdir'] = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
 when "debian", "ubuntu"
