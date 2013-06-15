@@ -1,3 +1,15 @@
+## v1.6.6:
+
+1.6.4 had a missed step in the automated release, long live 1.6.6.
+
+### Bug
+
+- [COOK-3018]: apache2_module does duplicate delayed restart of
+  apache2 service when conf = true
+- [COOK-3027]: Default site enable true, then false, does not disable
+  default site
+- [COOK-3109]: fix apache lib_dir arch attribute regexp
+
 ## v1.6.2
 
 * [COOK-2535] - `mod_auth_openid` requires libtool to run autogen.sh
