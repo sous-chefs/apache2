@@ -133,11 +133,14 @@ default['apache']['traceenable'] = "On"
 # mod_auth_openids
 default['apache']['allowed_openids'] = Array.new
 
-# mod_status Allow list, space seprated list of allowed entries.  
+# mod_status Allow list, space seprated list of allowed entries.
 default['apache']['status_allow_list'] = "localhost ip6-localhost"
 
 # mod_status ExtendedStatus, set to 'true' to enable
 default['apache']['ext_status'] = false
+
+# mod_info Allow list, space seprated list of allowed entries.
+default['apache']['info_allow_list'] = 'localhost ip6-localhost'
 
 # Prefork Attributes
 default['apache']['prefork']['startservers'] = 16
