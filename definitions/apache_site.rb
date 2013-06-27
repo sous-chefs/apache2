@@ -22,7 +22,7 @@ define :apache_site, :enable => true do
 
   if params[:enable]
     execute "a2ensite #{params[:name]}" do
-      command "/usr/sbin/a2ensite #{params[:name]}"
+      command "#{node['apache']['bin_dir']}/a2ensite #{params[:name]}"
       notifies :restart, resources(:service => "apache2")
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") or
@@ -32,7 +32,7 @@ define :apache_site, :enable => true do
     end
   else
     execute "a2dissite #{params[:name]}" do
-      command "/usr/sbin/a2dissite #{params[:name]}"
+      command "#{node['apache']['bin_dir']}a2dissite #{params[:name]}"
       notifies :restart, resources(:service => "apache2")
       only_if do
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") or

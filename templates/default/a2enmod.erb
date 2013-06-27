@@ -5,7 +5,7 @@ SYSCONFDIR='<%= node['apache']['dir'] %>'
 if [ -z $1 ]; then
         echo "Which module would you like to enable?"
         echo -n "Your choices are: "
-        ls $SYSCONFDIR/mods-available/*.load | \
+        ls "$SYSCONFDIR/mods-available/"*.load | \
         sed -e "s,$SYSCONFDIR/mods-available/,,g" | sed -e 's/\.load$//g;' | xargs echo
         echo -n "Module name? "
         read MODNAME
@@ -13,24 +13,25 @@ else
         MODNAME=$1
 fi
 
+# This is incorrect because the binary isn't apache2 on all platforms
 #figure out if we're on a prefork or threaded mpm
-if [ -x <%= node['apache']['binary'] %> ]; then
-    PREFORK=`<%= node['apache']['binary'] %> -l | grep prefork || true`
+if [ -x "<% node['apache']['binary'] %>" ]; then
+        PREFORK=`"<% node['apache']['binary'] %>" -l | grep prefork || true`
 fi
 
-if [ -e $SYSCONFDIR/mods-enabled/$MODNAME.load -a -e $SYSCONFDIR/mods-enabled/$MODNAME.conf ]; then
+if [ -e "$SYSCONFDIR/mods-enabled/$MODNAME.load" -a -e "$SYSCONFDIR/mods-enabled/$MODNAME.conf" ]; then
         echo "This module is already enabled!"
-        exit 0 
+        exit 0
 fi
 
-if ! [ -e $SYSCONFDIR/mods-available/$MODNAME.load ]; then
+if ! [ -e "$SYSCONFDIR/mods-available/$MODNAME.load" ]; then
         echo "This module does not exist!"
         exit 1
 fi
 
-for i in conf load; do 
-        if [ -e $SYSCONFDIR/mods-available/$MODNAME.$i -a ! -e $SYSCONFDIR/mods-enabled/$MODNAME.$i ]; then
-        ln -sf $SYSCONFDIR/mods-available/$MODNAME.$i $SYSCONFDIR/mods-enabled/$MODNAME.$i;
+for i in conf load; do
+        if [ -e "$SYSCONFDIR/mods-available/$MODNAME.$i" -a ! -e "$SYSCONFDIR/mods-enabled/$MODNAME.$i" ]; then
+        ln -sf "$SYSCONFDIR/mods-available/$MODNAME.$i" "$SYSCONFDIR/mods-enabled/$MODNAME.$i";
         fi
 done
 
