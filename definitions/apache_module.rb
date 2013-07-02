@@ -36,7 +36,7 @@ define :apache_module, :enable => true, :conf => false do
 
   if params[:enable]
     execute "a2enmod #{params[:name]}" do
-      command "#{node['apache']['bin_dir']}a2enmod #{params[:name]}"
+      command format_cmd("#{node['apache']['bin_dir']}/a2enmod #{params[:name]}")
       notifies :restart, "service[apache2]"
       not_if do (::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") and
         ((::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf"))?
@@ -45,7 +45,7 @@ define :apache_module, :enable => true, :conf => false do
     end
   else
     execute "a2dismod #{params[:name]}" do
-      command "#{node['apache']['bin_dir']}\a2dismod #{params[:name]}"
+      command format_cmd("#{node['apache']['bin_dir']}/a2dismod #{params[:name]}")
       notifies :restart, "service[apache2]"
       only_if do ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") end
     end
