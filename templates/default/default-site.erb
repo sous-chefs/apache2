@@ -1,12 +1,12 @@
 <VirtualHost *:80>
         ServerAdmin <%= node['apache']['contact'] %>
 
-        DocumentRoot /var/www/
+        DocumentRoot <%= node['apache']['docroot_dir'] %>/
         <Directory />
                 Options FollowSymLinks
                 AllowOverride None
         </Directory>
-        <Directory /var/www/>
+        <Directory <%= node['apache']['docroot_dir'] %>/>
                 Options Indexes FollowSymLinks MultiViews
                 AllowOverride None
                 Order allow,deny
@@ -16,8 +16,8 @@
                 #RedirectMatch ^/$ /apache2-default/
         </Directory>
 
-        ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
-        <Directory "/usr/lib/cgi-bin">
+        ScriptAlias /cgi-bin/ <%= node['apache']['cgibin_dir'] %>/
+        <Directory "<%= node['apache']['cgibin_dir'] %>">
                 AllowOverride None
                 Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
                 Order allow,deny
