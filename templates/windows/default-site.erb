@@ -1,0 +1,35 @@
+<VirtualHost *:80>
+        ServerAdmin <%= node['apache']['contact'] %>
+
+        DocumentRoot <%= node['apache']['dir'] %>/htdocs
+        <Directory />
+                Options FollowSymLinks
+                AllowOverride None
+        </Directory>
+        <Directory <%= node['apache']['dir'] %>/htdocs>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride None
+                Order allow,deny
+                allow from all
+                # This directive allows us to have apache2's default start page
+                # in /apache2-default/, but still have / go to the right place
+                #RedirectMatch ^/$ /apache2-default/
+        </Directory>
+
+        ScriptAlias /cgi-bin/ <%= node['apache']['dir'] %>/cgi-bin/
+        <Directory "<%= node['apache']['dir'] %>/cgi-bin">
+                AllowOverride None
+                Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
+                Order allow,deny
+                Allow from all
+        </Directory>
+
+        ErrorLog <%= node['apache']['log_dir'] %>/error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+
+        CustomLog <%= node['apache']['log_dir'] %>/access.log combined
+        ServerSignature On
+</VirtualHost>

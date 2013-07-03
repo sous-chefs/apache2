@@ -18,18 +18,14 @@
 #
 
 include_recipe "windows::default"
-class Chef::Resource::Execute
-  def format_cmd(command)
-    command unless platform_family?('windows')
-    "bash #{command}".gsub('/', '\\')
-  end
-end
-
 
 install_dir = File.expand_path(node['apache']['dir']).gsub('/', '\\')
 windows_package "Apache HTTP Server 2.2.22" do
   source node['apache']['windows']['source']
   installer_type :msi
+
+  # The latter four of these options are just to keep the Apache2 service
+  # from failing before rendering the actual httpd.conf.
   options %W[
           /quiet
           INSTALLDIR="#{install_dir}"
@@ -40,54 +36,30 @@ windows_package "Apache HTTP Server 2.2.22" do
   ].join(" ")
 end
 
-# Needs more info
 service "apache2" do
   service_name "Apache2.2"
   action :enable
 end
 
 # Ensure that all of the directories exist and that Apache can touch them
-%w{ dir log_dir conf_dir bin_dir cache_dir }.each do |dir|
-  directory node['apache'][dir] do
-    #mode "00755"
-    #owner node['apache']['user']
-    #group node['apache']['group']
-  end
-end
-
-# Removes extraneous folders
-%w{extra original}.each do |d|
-  directory "#{node['apache']['conf_dir']}/#{d}" do
-    action :delete
-    recursive true
-  end
+%w{ dir log_dir conf_dir bin_dir cache_dir ssl_dir }.each do |dir|
+  directory node['apache'][dir]
 end
 
 # Allow Debian style module and site management
 %w{ sites-available sites-enabled mods-available mods-enabled }.each do |dir|
-  directory "#{node['apache']['dir']}/#{dir}" do
-    #mode "00755"
-    #owner "root"
-    #group node['apache']['root_group']
-  end
+  directory "#{node['apache']['dir']}/#{dir}"
 end
 
 %w{a2ensite a2dissite a2enmod a2dismod}.each do |modscript|
   template "#{node['apache']['bin_dir']}/#{modscript}" do
     source "#{modscript}.erb"
-    #mode "00700"
-    #owner "root"
-    #group node['apache']['root_group']
   end
 end
 
 # Creates module.load files
-# package "perl"
 cookbook_file "#{node['apache']['bin_dir']}/apache2_module_conf_generate.pl" do
   source "apache2_module_conf_generate.pl"
-  #mode "00755"
-  #owner "root"
-  #group node['apache']['root_group']
 end
 
 execute "generate-module-list" do
@@ -95,40 +67,27 @@ execute "generate-module-list" do
   action :nothing
 end
 
-
 template "apache2.conf" do
   path node['apache']['conf']
   source "apache2.conf.erb"
-  #owner "root"
-  #group node['apache']['root_group']
-  #mode "00644"
   notifies :restart, "service[apache2]"
 end
 
-[
-    %w{ apache2-conf-security security security.erb },
-    %w{ apache2-conf-charset charset charset.erb }
-].each do |name, file, src|
-  template name do
-    path "#{node['apache']['conf_dir']}/#{file}"
-    source src
-    #owner "root"
-    #group node['apache']['root_group']
-    #mode "00644"
+%w[security charset].each do |name|
+  template "apache2-conf-#{name}" do
+    path "#{node['apache']['conf_dir']}/#{name}"
+    source "#{name}.erb"
     notifies :restart, "service[apache2]"
   end
 end
 
 template "#{node['apache']['dir']}/ports.conf" do
   source "ports.conf.erb"
-  #owner "root"
-  #group node['apache']['root_group']
-  #mode "00644"
   variables :apache_listen_ports => node['apache']['listen_ports'].map { |p| p.to_i }.uniq
   notifies :restart, "service[apache2]"
 end
 
-# include_recipe "apache2::mod_deflate"
+include_recipe "apache2::mod_deflate"
 node['apache']['default_modules'].each do |mod|
   module_recipe_name = mod =~ /^mod_/ ? mod : "mod_#{mod}"
   include_recipe "apache2::#{module_recipe_name}"
@@ -137,9 +96,6 @@ end
 # Create and enable default site
 template "#{node['apache']['dir']}/sites-available/default" do
   source "default-site.erb"
-  #owner "root"
-  #group node['apache']['root_group']
-  #mode 00644
   notifies :restart, "service[apache2]"
 end
 

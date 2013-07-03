@@ -12,7 +12,7 @@ ServerRoot "<%= node['apache']['dir'] %>"
 LockFile /var/lock/apache2/accept.lock
 <% elsif %w{freebsd}.include?(node['platform_family']) -%>
 LockFile /var/log/accept.lock
-<% else %>
+<% elsif not %w{windows}.include?(node['platform_family']) -%>
 LockFile logs/accept.lock
 <% end -%>
 
@@ -82,8 +82,10 @@ KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
     MaxRequestsPerChild   <%= node['apache']['worker']['maxrequestsperchild'] %>
 </IfModule>
 
+<% unless %w{windows}.include?(node['platform_family']) -%>
 User <%= node['apache']['user'] %>
 Group <%= node['apache']['group'] %>
+<% end -%>
 
 #
 # AccessFileName: The name of the file to look for in each directory

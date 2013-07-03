@@ -100,14 +100,15 @@ when "windows"
   default['apache']['bin_dir'] = "#{default['apache']['dir']}/bin"
   default['apache']['conf_dir'] = "#{default['apache']['dir']}/conf.d"
   default['apache']['windows']['source'] = "http://apache.cs.utah.edu//httpd/binaries/win32/httpd-2.2.22-win32-x86-openssl-0.9.8t.msi"
-  default['apache']['log_dir'] = "#{default['apache']['dir']}/log"
+  default['apache']['log_dir'] = "#{default['apache']['dir']}/logs"
   default['apache']['error_log'] = "error.log"
   default['apache']['user']    = "apache"
   default['apache']['group']    = "apache"
-  default['apache']['conf'] = "#{default['apache']['dir']}/conf/httpd"
+  default['apache']['conf'] = "#{default['apache']['dir']}/conf/httpd.conf"
   default['apache']['binary']  = "#{default['apache']['bin_dir']}/httpd.exe"
   default['apache']['icondir'] = "#{default['apache']['dir']}/icons"
   default['apache']['cache_dir'] = "#{default['apache']['dir']}/cache"
+  default['apache']['ssl_dir'] = "#{default['apache']['dir']}/ssl"
   default['apache']['pid_file']  = "#{default['apache']['log_dir']}/httpd.pid"
   default['apache']['lib_dir'] = "#{default['apache']['dir']}/modules"
   default['apache']['libexecdir'] = node['apache']['lib_dir']
@@ -191,4 +192,10 @@ default['apache']['default_modules'] = %w{
 
 %w{ log_config logio }.each do |log_mod|
   default['apache']['default_modules'] << log_mod if ["rhel", "fedora", "suse", "arch", "freebsd"].include?(node['platform_family'])
+end
+
+if platform == "windows"
+  %w{ log_config logio rewrite }.each do |log_mod|
+    default['apache']['default_modules'] << log_mod
+  end
 end

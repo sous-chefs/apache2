@@ -17,6 +17,13 @@
 # limitations under the License.
 #
 
+class Chef::Resource::Execute
+  def format_cmd(command)
+    command unless platform_family?('windows')
+    "bash #{command}".gsub('/', '\\')
+  end
+end
+
 if node['platform_family'] == 'windows'
   include_recipe "apache2::windows"
 else

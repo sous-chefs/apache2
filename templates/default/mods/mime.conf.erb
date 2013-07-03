@@ -5,7 +5,7 @@
 # filename extension to MIME-type.
 #
 <% case node['platform_family'] -%>
-<% when "arch" -%>
+<% when "arch", "windows" -%>
 TypesConfig <%= node['apache']['dir'] %>/conf/mime.types
 <% when "freebsd" -%>
 TypesConfig <%= node['apache']['dir'] %>/mime.types
