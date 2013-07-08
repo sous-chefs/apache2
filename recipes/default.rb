@@ -19,12 +19,12 @@
 
 class Chef::Resource::Execute
   def format_cmd(command)
-    command unless platform_family?('windows')
+    return command unless platform?('windows')
     "bash #{command}".gsub('/', '\\')
   end
 end
 
-if node['platform_family'] == 'windows'
+if platform?('windows')
   include_recipe "apache2::windows"
 else
   include_recipe "apache2::unix"
