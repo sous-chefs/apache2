@@ -21,6 +21,6 @@ if platform_family?("debian")
   package "libapache2-mod-fastcgi"
 
   apache_module "fastcgi" do
-    conf true
+    conf node['apache']['mod_fastcgi']['default_config']
   end
 end
