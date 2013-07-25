@@ -62,6 +62,35 @@ when "freebsd"
     notifies :run, "execute[generate-module-list]", :immediately
   end
 
+when  "windows"
+  config = node["apache"]["mod_php5"]["windows"]
+  dir = config["source"].split("/").last[/(.*)\.zip/] && $1
+  temp_path = "#{Chef::Config["file_cache_path"]}/#{dir}"
+
+  remote_file "#{temp_path}.zip" do
+    source config["source"]
+    checksum config["checksum"]
+    notifies :unzip, "windows_zipfile[#{temp_path}]", :immediately
+    notifies :stop, "service[apache2]", :immediately
+    notifies :run, "execute[Copy PHP Module]", :immediately
+    notifies :restart, "service[apache2]"
+  end
+
+  windows_zipfile temp_path do
+    action :nothing
+    source "#{temp_path}.zip"
+  end
+
+  filename = config["file"].split("/").last
+  source = "#{temp_path}/#{config["file"]}".gsub("/", "\\")
+  dest = "#{node["apache"]["lib_dir"]}/#{filename}".gsub("/","\\")
+
+  execute "Copy PHP Module" do
+    command "copy #{source} #{dest}"
+    action :nothing
+    not_if { File.exists?(dest) }
+  end
+
 end
 
 file "#{node['apache']['dir']}/conf.d/php.conf" do
@@ -74,5 +103,8 @@ apache_module "php5" do
   when "rhel", "fedora", "freebsd"
     conf true
     filename "libphp5.so"
+  when "windows"
+    conf true
+    filename node["apache"]["mod_php5"]["windows"]["file"].split("/").last
   end
 end
