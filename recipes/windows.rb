@@ -20,7 +20,7 @@
 include_recipe "windows::default"
 
 install_dir = File.expand_path(node['apache']['dir']).gsub('/', '\\')
-windows_package "Apache HTTP Server 2.2.22" do
+windows_package node['apache']['windows']['display_name'] do
   source node['apache']['windows']['source']
   installer_type :msi
 
