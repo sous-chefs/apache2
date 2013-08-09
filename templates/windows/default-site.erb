@@ -1,7 +1,7 @@
 <VirtualHost *:80>
         ServerAdmin <%= node['apache']['contact'] %>
 
-        DocumentRoot <%= node['apache']['dir'] %>/htdocs
+        DocumentRoot <%= node['apache']['docroot_dir'] %>
         <Directory />
                 Options FollowSymLinks
                 AllowOverride None
@@ -16,7 +16,7 @@
                 #RedirectMatch ^/$ /apache2-default/
         </Directory>
 
-        ScriptAlias /cgi-bin/ <%= node['apache']['dir'] %>/cgi-bin/
+        ScriptAlias /cgi-bin/ <%= node['apache']['cgibin_dir'] %>
         <Directory "<%= node['apache']['dir'] %>/cgi-bin">
                 AllowOverride None
                 Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
