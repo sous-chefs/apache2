@@ -21,9 +21,9 @@ define :apache_site, :enable => true do
   include_recipe "apache2"
 
   if params[:enable]
-
+    cmd = Apache::Helpers.generate_bash_command_line("#{node['apache']['bin_dir']}/a2ensite #{params[:name]}")
     execute "a2ensite #{params[:name]}" do
-      command format_cmd("#{node['apache']['bin_dir']}/a2ensite #{params[:name]}")
+      command cmd
       notifies :restart, resources(:service => "apache2")
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") or
@@ -32,8 +32,9 @@ define :apache_site, :enable => true do
       only_if do ::File.exists?("#{node['apache']['dir']}/sites-available/#{params[:name]}") end
     end
   else
+    cmd = Apache::Helpers.generate_bash_command_line("#{node['apache']['bin_dir']}/a2dissite #{params[:name]}")
     execute "a2dissite #{params[:name]}" do
-      command format_cmd("#{node['apache']['bin_dir']}/a2dissite #{params[:name]}")
+      command cmd
       notifies :restart, resources(:service => "apache2")
       only_if do
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") or

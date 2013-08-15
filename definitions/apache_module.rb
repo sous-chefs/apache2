@@ -35,8 +35,9 @@ define :apache_module, :enable => true, :conf => false do
   end
 
   if params[:enable]
+    cmd = Apache::Helpers.generate_bash_command_line("#{node['apache']['bin_dir']}/a2enmod #{params[:name]}")
     execute "a2enmod #{params[:name]}" do
-      command format_cmd("#{node['apache']['bin_dir']}/a2enmod #{params[:name]}")
+      command cmd
       notifies :restart, "service[apache2]"
       not_if do (::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") and
         ((::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf"))?
@@ -44,8 +45,9 @@ define :apache_module, :enable => true, :conf => false do
       end
     end
   else
+    cmd = Apache::Helpers.generate_bash_command_line("#{node['apache']['bin_dir']}/a2dismod #{params[:name]}")
     execute "a2dismod #{params[:name]}" do
-      command format_cmd("#{node['apache']['bin_dir']}/a2dismod #{params[:name]}")
+      command cmd
       notifies :restart, "service[apache2]"
       only_if do ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") end
     end
