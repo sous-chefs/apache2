@@ -81,8 +81,8 @@ when  "windows"
     source "#{temp_path}.zip"
   end
 
-  filename = config["file"].split("/").last
-  source = "#{temp_path}/#{config["file"]}".gsub("/", "\\")
+  filename = config["dll"].split("/").last
+  source = "#{temp_path}/#{config["dll"]}".gsub("/", "\\")
   dest = "#{node["apache"]["lib_dir"]}/#{filename}".gsub("/","\\")
 
   execute "Copy PHP Module" do
@@ -105,6 +105,6 @@ apache_module "php5" do
     filename "libphp5.so"
   when "windows"
     conf true
-    filename node["apache"]["mod_php5"]["windows"]["file"].split("/").last
+    filename node["apache"]["mod_php5"]["windows"]["dll"].split("/").last
   end
 end
