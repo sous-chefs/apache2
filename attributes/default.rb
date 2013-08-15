@@ -18,6 +18,7 @@
 #
 
 default['apache']['root_group']  = "root"
+default['apache']['default_modules'] = []
 
 # Where the various parts of apache are
 case platform
@@ -129,6 +130,7 @@ when "windows"
   default['apache']['lib_dir'] = "#{node['apache']['dir']}/modules"
   default['apache']['libexecdir'] = node['apache']['lib_dir']
   default['apache']['default_site_enabled'] = false
+  default['apache']['default_modules'] += %w{ log_config logio rewrite }
 else
   default['apache']['dir']     = "/etc/apache2"
   default['apache']['bin_dir'] = "/usr/sbin"
@@ -203,18 +205,11 @@ default['apache']['proxy']['deny_from'] = 'all'
 default['apache']['proxy']['allow_from'] = 'none'
 
 # Default modules to enable via include_recipe
-
-default['apache']['default_modules'] = %w{
+default['apache']['default_modules'] += %w{
   status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex
   dir env mime negotiation setenvif
 }
 
-%w{ log_config logio }.each do |log_mod|
-  default['apache']['default_modules'] << log_mod if ["rhel", "fedora", "suse", "arch", "freebsd"].include?(node['platform_family'])
-end
-
-if platform == "windows"
-  %w{ log_config logio rewrite }.each do |log_mod|
-    default['apache']['default_modules'] << log_mod
-  end
+if ["rhel", "fedora", "suse", "arch", "freebsd"].include?(node['platform_family'])
+  default['apache']['default_modules'] += %w{ log_config logio }
 end
