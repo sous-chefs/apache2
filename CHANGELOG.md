@@ -1,3 +1,16 @@
+## v1.7.0:
+
+### Improvement
+
+- [COOK-3073]: make access.log location configurable per-platform
+- [COOK-3074]: don't hardcode the error.log location in the default site config
+- [COOK-3268]: don't hardcode DocumentRoot and cgi-bin locations in `default_site`
+
+### New Feature
+
+- [COOK-3184]: Add `mod_filter` recipe to Apache2-cookbook
+- [COOK-3236]: Add `mod_action` recipe to Apache2-cookbook
+
 ## v1.6.6:
 
 1.6.4 had a missed step in the automated release, long live 1.6.6.
