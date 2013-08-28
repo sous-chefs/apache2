@@ -8,11 +8,11 @@ ServerRoot "<%= node['apache']['dir'] %>"
 #
 # The accept serialization lock file MUST BE STORED ON A LOCAL DISK.
 #
-<% if %w{debian}.include?(node['platform_family']) -%>
+<% if platform_family? 'debian' -%>
 LockFile /var/lock/apache2/accept.lock
-<% elsif %w{freebsd}.include?(node['platform_family']) -%>
+<% elsif platform_family? 'freebsd' -%>
 LockFile /var/log/accept.lock
-<% elsif not %w{windows}.include?(node['platform_family']) -%>
+<% elsif !platform_family? 'windows' -%>
 LockFile logs/accept.lock
 <% end -%>
 
@@ -82,7 +82,7 @@ KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
     MaxRequestsPerChild   <%= node['apache']['worker']['maxrequestsperchild'] %>
 </IfModule>
 
-<% unless %w{windows}.include?(node['platform_family']) -%>
+<% unless platform_family? 'windows' -%>
 User <%= node['apache']['user'] %>
 Group <%= node['apache']['group'] %>
 <% end -%>
@@ -148,7 +148,7 @@ LogLevel warn
 Include <%= node['apache']['dir'] %>/mods-enabled/*.load
 Include <%= node['apache']['dir'] %>/mods-enabled/*.conf
 
-<% if %w{freebsd}.include?(node['platform_family']) -%>
+<% if platform_family? 'freebsd' -%>
 <IfDefine NOHTTPACCEPT>
    AcceptFilter http none
    AcceptFilter https none
