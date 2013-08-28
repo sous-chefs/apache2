@@ -32,7 +32,7 @@ windows_package node['apache']['windows']['display_name'] do
           ALLUSERS=1
           SERVERADMIN=foo@example.com
           SERVERDOMAIN=example.com
-          SERVERNAME=bar
+          SERVERNAME=thisisntusedforreallife
   ].join(" ")
 end
 
