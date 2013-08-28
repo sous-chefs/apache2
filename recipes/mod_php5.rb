@@ -64,7 +64,7 @@ when "freebsd"
 
 when  "windows"
   config = node["apache"]["mod_php5"]["windows"]
-  dir = config["source"].split("/").last[/(.*)\.zip/] && $1
+  dir = ::File.basename(config["source"], ".zip")
   temp_path = "#{Chef::Config["file_cache_path"]}/#{dir}"
 
   remote_file "#{temp_path}.zip" do
