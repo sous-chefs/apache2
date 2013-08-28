@@ -17,8 +17,11 @@
 # limitations under the License.
 #
 
+
+
 define :apache_module, :enable => true, :conf => false do
   include_recipe "apache2"
+  extend ::Apache::Helpers
 
   params[:filename] = params[:filename] || "mod_#{params[:name]}.so"
   params[:module_path] = params[:module_path] || "#{node['apache']['libexecdir']}/#{params[:filename]}"
@@ -35,7 +38,7 @@ define :apache_module, :enable => true, :conf => false do
   end
 
   if params[:enable]
-    cmd = Apache::Helpers.generate_bash_command_line("#{node['apache']['bin_dir']}/a2enmod #{params[:name]}")
+    cmd = generate_bash_command_line("#{node['apache']['bin_dir']}/a2enmod #{params[:name]}")
     execute "a2enmod #{params[:name]}" do
       command cmd
       notifies :restart, "service[apache2]"
@@ -45,7 +48,7 @@ define :apache_module, :enable => true, :conf => false do
       end
     end
   else
-    cmd = Apache::Helpers.generate_bash_command_line("#{node['apache']['bin_dir']}/a2dismod #{params[:name]}")
+    cmd = generate_bash_command_line("#{node['apache']['bin_dir']}/a2dismod #{params[:name]}")
     execute "a2dismod #{params[:name]}" do
       command cmd
       notifies :restart, "service[apache2]"

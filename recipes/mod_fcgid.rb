@@ -22,7 +22,7 @@ if platform_family?("debian")
 elsif platform_family?("rhel", "fedora")
 
   package "mod_fcgid" do
-    notifies :run, resources(:execute => "generate-module-list"), :immediately
+    notifies :run, "execute[generate-module-list]", :immediately
   end
 
   file "#{node['apache']['dir']}/conf.d/fcgid.conf" do

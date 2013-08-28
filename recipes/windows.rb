@@ -36,11 +36,6 @@ windows_package node['apache']['windows']['display_name'] do
   ].join(" ")
 end
 
-service "apache2" do
-  service_name "Apache2.2"
-  action :enable
-end
-
 # Ensure that all of the directories exist and that Apache can touch them
 %w{ dir log_dir conf_dir bin_dir cache_dir ssl_dir }.each do |dir|
   directory node['apache'][dir]
@@ -104,5 +99,6 @@ apache_site "default" do
 end
 
 service "apache2" do
+  service_name "Apache2.2"
   action [:enable, :start]
 end
