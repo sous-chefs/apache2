@@ -496,6 +496,7 @@ All parameters are passed into the template. You can use whatever you
 like. The apache2 cookbook comes with a `web_app.conf.erb` template as
 an example. The following parameters are used in the template:
 
+* `server_port` - Port to use in VirtualHost. This is commonly port 80, but defaults to first Listen port if omitted.
 * `server_name` - ServerName directive.
 * `server_aliases` - ServerAlias directive. Must be an array of aliases.
 * `docroot` - DocumentRoot directive.
@@ -507,6 +508,7 @@ an example. The following parameters are used in the template:
 To use the default web_app, for example:
 
     web_app "my_site" do
+      server_port 80
       server_name node['hostname']
       server_aliases [node['fqdn'], "my-site.example.com"]
       docroot "/srv/www/my_site"
@@ -514,6 +516,7 @@ To use the default web_app, for example:
 
 The parameters specified will be used as:
 
+* `@params[:server_port]`
 * `@params[:server_name]`
 * `@params[:server_aliases]`
 * `@params[:docroot]`
