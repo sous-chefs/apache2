@@ -76,9 +76,10 @@ remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.g
   action :create_if_missing
 end
 
-file "mod_auth_openid_dblocation" do
-  path node['apache']['mod_auth_openid']['dblocation']
-  action :nothing
+directory node['apache']['mod_auth_openid']['cache_dir'] do
+  owner node['apache']['user']
+  group node['apache']['group']
+  mode 00700
 end
 
 bash "untar mod_auth_openid" do
@@ -86,6 +87,7 @@ bash "untar mod_auth_openid" do
   code <<-EOH
   tar zxvf mod_auth_openid-#{version}.tar.gz
   EOH
+  creates "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}/src/types.h"
 end
 
 bash "compile mod_auth_openid" do
@@ -94,23 +96,21 @@ bash "compile mod_auth_openid" do
   ./autogen.sh
   ./configure #{configure_flags.join(' ')}
   perl -pi -e "s/-i -a -n 'authopenid'/-i -n 'authopenid'/g" Makefile
-  #{make_cmd} && #{make_cmd} install
+  #{make_cmd}
+  EOH
+  creates "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}/src/.libs/mod_auth_openid.so"
+  notifies :run, "bash[install-mod_auth_openid]", :immediately
+  not_if "test -f #{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}/src/.libs/mod_auth_openid.so"
+end
+
+bash "install-mod_auth_openid" do
+  cwd "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}"
+  code <<-EOH
+  #{make_cmd} install
   EOH
   creates "#{node['apache']['libexecdir']}/mod_auth_openid.so"
-  notifies :delete, "file[mod_auth_openid_dblocation]", :immediately
   notifies :restart, "service[apache2]"
-end
-
-directory node['apache']['mod_auth_openid']['cache_dir'] do
-  owner node['apache']['user']
-  group node['apache']['group']
-  mode 00700
-end
-
-file node['apache']['mod_auth_openid']['dblocation'] do
-  owner node['apache']['user']
-  group node['apache']['group']
-  mode 00644
+  not_if "test -f #{node['apache']['libexecdir']}/mod_auth_openid.so"
 end
 
 template "#{node['apache']['dir']}/mods-available/authopenid.load" do
