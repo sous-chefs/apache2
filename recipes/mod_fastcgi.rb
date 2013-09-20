@@ -24,7 +24,7 @@ if platform_family?("debian")
     conf true
   end
 
-else if platform_family?("rhel")
+elsif platform_family?("rhel")
 
     packages = %w{gcc make libtool httpd-devel apr-devel apr}
     packages.each do |package|
