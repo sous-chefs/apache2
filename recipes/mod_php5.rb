@@ -49,6 +49,11 @@ when "fedora"
     not_if "which php"
   end
 
+when "suse"
+  package "apache2-mod_php5" do
+    notifies :run, "execute[generate-module-list]", :immediately
+  end
+
 when "freebsd"
 
   freebsd_port_options "php5" do

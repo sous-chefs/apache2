@@ -27,6 +27,12 @@ when "rhel", "fedora"
   package "mod_python" do
     notifies :run, "execute[generate-module-list]", :immediately
   end
+
+when "suse"
+  package "apache2-mod_python" do
+    notifies :run, "execute[generate-module-list]", :immediately
+  end
+
 end
 
 file "#{node['apache']['dir']}/conf.d/python.conf" do

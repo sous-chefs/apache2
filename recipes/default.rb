@@ -23,13 +23,17 @@ end
 
 service "apache2" do
   case node['platform_family']
-  when "rhel", "fedora", "suse"
+  when "rhel", "fedora"
     service_name "httpd"
     # If restarted/reloaded too quickly httpd has a habit of failing.
     # This may happen with multiple recipes notifying apache to restart - like
     # during the initial bootstrap.
     restart_command "/sbin/service httpd restart && sleep 1"
     reload_command "/sbin/service httpd reload && sleep 1"
+  when "suse"
+    service_name "apache2"
+    restart_command "/sbin/service apache2 restart && sleep 1"
+    reload_command "/sbin/service apache2 reload && sleep 1"
   when "debian"
     service_name "apache2"
     restart_command "/usr/sbin/invoke-rc.d apache2 restart && sleep 1"
@@ -71,6 +75,13 @@ if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
   end
 
   %w{a2ensite a2dissite a2enmod a2dismod}.each do |modscript|
+    if platform_family?("suse")
+      file "/usr/sbin/#{modscript}" do 
+        action :delete 
+        backup false
+      end
+    end
+
     template "/usr/sbin/#{modscript}" do
       source "#{modscript}.erb"
       mode 00700
@@ -162,7 +173,7 @@ template "apache2.conf" do
     path "#{node['apache']['dir']}/conf/httpd.conf"
   when "debian"
     path "#{node['apache']['dir']}/apache2.conf"
-  when "freebsd"
+  when "freebsd", "suse"
     path "#{node['apache']['dir']}/httpd.conf"
   end
   source "apache2.conf.erb"

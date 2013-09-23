@@ -34,6 +34,11 @@ when "rhel", "fedora"
 
   package "perl-libapreq2"
 
+when "suse"
+  package "apache2-mod_perl" do
+    notifies :run, "execute[generate-module-list]", :immediately
+  end
+
 end
 
 file "#{node['apache']['dir']}/conf.d/perl.conf" do
