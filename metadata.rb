@@ -19,6 +19,7 @@ recipe            "apache2::mod_authz_groupfile", "Apache module 'authz_groupfil
 recipe            "apache2::mod_authz_host", "Apache module 'authz_host'"
 recipe            "apache2::mod_authz_user", "Apache module 'authz_user'"
 recipe            "apache2::mod_autoindex", "Apache module 'autoindex' with config file"
+recipe            "apache2::mod_cache", "Apache module 'cache'"
 recipe            "apache2::mod_cgi", "Apache module 'cgi'"
 recipe            "apache2::mod_dav", "Apache module 'dav'"
 recipe            "apache2::mod_dav_svn", "Apache module 'dav_svn'"
