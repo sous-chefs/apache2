@@ -43,10 +43,11 @@ service "apache2" do
   action :enable
 end
 
-if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
-  directory node['apache']['log_dir'] do
+directory node['apache']['log_dir'] do
     mode 00755
-  end
+end
+
+if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
 
   package "perl"
 
