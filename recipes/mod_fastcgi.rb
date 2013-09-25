@@ -46,11 +46,11 @@ elsif platform_family?("rhel")
       not_if "test -f #{node['apache']['dir']}/mods-available/fastcgi.conf"
       cwd ::File.dirname(src_filepath)
       code <<-EOH
-    tar zxf #{::File.basename(src_filepath)} &&
-    cd mod_fastcgi-* &&
-    cp Makefile.AP2 Makefile &&
-    make top_dir=#{top_dir} && make install top_dir=#{top_dir}
-  EOH
+        tar zxf #{::File.basename(src_filepath)} &&
+        cd mod_fastcgi-* &&
+        cp Makefile.AP2 Makefile &&
+        make top_dir=#{top_dir} && make install top_dir=#{top_dir}
+      EOH
     end
 
     apache_module "fastcgi" do
