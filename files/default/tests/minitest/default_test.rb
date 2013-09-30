@@ -36,7 +36,7 @@ describe 'apache2::default' do
   end
 
   it 'reports server name only, not detailed version info' do
-    assert_match(/^ServerTokens Prod *$/, File.read("#{node['apache']['dir']}/conf.d/security"))
+    assert_match(/^ServerTokens #{node['apache']['servertokens']} *$/, File.read("#{node['apache']['dir']}/conf.d/security"))
   end
 
   it 'listens on port 80' do
@@ -50,7 +50,7 @@ describe 'apache2::default' do
   end
 
   it 'reports server name only, not detailed version info' do
-    file("#{node['apache']['dir']}/conf.d/security").must_match(/^ServerTokens Prod *$/)
+    file("#{node['apache']['dir']}/conf.d/security").must_match(/^ServerTokens #{node['apache']['servertokens']} *$/)
   end
 
   it "enables default_modules" do
