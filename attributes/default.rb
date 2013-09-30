@@ -156,6 +156,11 @@ default['apache']['worker']['maxsparethreads'] = 192
 default['apache']['worker']['threadsperchild'] = 64
 default['apache']['worker']['maxrequestsperchild'] = 0
 
+# mod_proxy settings
+default['apache']['proxy']['order'] = 'deny,allow'
+default['apache']['proxy']['deny_from'] = 'all'
+default['apache']['proxy']['allow_from'] = 'none'
+
 # Default modules to enable via include_recipe
 
 default['apache']['default_modules'] = %w{
