@@ -28,6 +28,10 @@ when "rhel", "fedora", "arch"
     notifies :run, "execute[generate-module-list]", :immediately
   end
 
+when "suse"
+
+  package "apache2-mod_wsgi"
+
 end
 
 file "#{node['apache']['dir']}/conf.d/wsgi.conf" do
