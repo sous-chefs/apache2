@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: headers 
+# Recipe:: headers
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
