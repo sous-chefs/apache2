@@ -1,0 +1,6 @@
+AddHandler application/x-httpd-php .php
+PHPIniDir "<%= node["apache"]["mod_php5"]["windows"]["php_conf_dir"] %>"
+
+<FilesMatch \.php$>
+    SetHandler application/x-httpd-php
+</FilesMatch>

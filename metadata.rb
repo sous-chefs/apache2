@@ -51,6 +51,8 @@ recipe            "apache2::mod_xsendfile", "Apache module 'xsendfile'"
   supports os
 end
 
+depends "windows"
+
 attribute "apache",
   :display_name => "Apache Hash",
   :description => "Hash of Apache attributes",

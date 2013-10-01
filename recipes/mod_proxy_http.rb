@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: proxy_http 
+# Recipe:: proxy_http
 #
 # Copyright 2008-2009, Opscode, Inc.
 #

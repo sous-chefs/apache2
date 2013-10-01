@@ -28,8 +28,8 @@ define :web_app, :template => "web_app.conf.erb", :enable => true do
 
   template "#{node['apache']['dir']}/sites-available/#{application_name}.conf" do
     source params[:template]
-    owner "root"
-    group node['apache']['root_group']
+    owner "root" unless platform? 'windows'
+    group node['apache']['root_group'] unless platform? 'windows'
     mode 0644
     if params[:cookbook]
       cookbook params[:cookbook]
@@ -39,7 +39,7 @@ define :web_app, :template => "web_app.conf.erb", :enable => true do
       :params => params
     )
     if ::File.exists?("#{node['apache']['dir']}/sites-enabled/#{application_name}.conf")
-      notifies :reload, resources(:service => "apache2"), :delayed
+      notifies :reload, "service[apache2]", :delayed
     end
   end
 

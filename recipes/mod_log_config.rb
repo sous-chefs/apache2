@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-if platform_family?("rhel", "fedora", "suse", "arch", "freebsd")
+if platform_family?("rhel", "fedora", "suse", "arch", "freebsd", "windows")
   apache_module "log_config"
 else
   include_recipe "apache2"

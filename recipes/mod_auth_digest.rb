@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: auth_digest 
+# Recipe:: auth_digest
 #
 # Copyright 2008-2009, Opscode, Inc.
 #

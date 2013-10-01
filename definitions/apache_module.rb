@@ -17,8 +17,11 @@
 # limitations under the License.
 #
 
+
+
 define :apache_module, :enable => true, :conf => false do
   include_recipe "apache2"
+  extend ::Apache::Helpers
 
   params[:filename] = params[:filename] || "mod_#{params[:name]}.so"
   params[:module_path] = params[:module_path] || "#{node['apache']['libexecdir']}/#{params[:filename]}"
@@ -27,7 +30,7 @@ define :apache_module, :enable => true, :conf => false do
     apache_conf params[:name]
   end
 
-  if platform_family?("rhel", "fedora", "arch", "suse", "freebsd")
+  if platform_family?("rhel", "fedora", "arch", "suse", "freebsd", "windows")
     file "#{node['apache']['dir']}/mods-available/#{params[:name]}.load" do
       content "LoadModule #{params[:name]}_module #{params[:module_path]}\n"
       mode 0644
@@ -35,8 +38,9 @@ define :apache_module, :enable => true, :conf => false do
   end
 
   if params[:enable]
+    cmd = generate_bash_command_line("#{node['apache']['bin_dir']}/a2enmod #{params[:name]}")
     execute "a2enmod #{params[:name]}" do
-      command "/usr/sbin/a2enmod #{params[:name]}"
+      command cmd
       notifies :restart, "service[apache2]"
       not_if do (::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") and
         ((::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf"))?
@@ -44,8 +48,9 @@ define :apache_module, :enable => true, :conf => false do
       end
     end
   else
+    cmd = generate_bash_command_line("#{node['apache']['bin_dir']}/a2dismod #{params[:name]}")
     execute "a2dismod #{params[:name]}" do
-      command "/usr/sbin/a2dismod #{params[:name]}"
+      command cmd
       notifies :restart, "service[apache2]"
       only_if do ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") end
     end

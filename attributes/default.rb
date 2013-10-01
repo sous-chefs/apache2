@@ -18,12 +18,15 @@
 #
 
 default['apache']['root_group']  = "root"
+default['apache']['default_modules'] = []
 
 # Where the various parts of apache are
 case platform
 when "redhat", "centos", "scientific", "fedora", "suse", "amazon", "oracle"
   default['apache']['package'] = "httpd"
   default['apache']['dir']     = "/etc/httpd"
+  default['apache']['bin_dir'] = "/usr/sbin"
+  default['apache']['conf_dir'] = "#{node['apache']['dir']}/conf.d"
   default['apache']['log_dir'] = "/var/log/httpd"
   default['apache']['error_log'] = "error.log"
   default['apache']['access_log'] = "access.log"
@@ -34,6 +37,7 @@ when "redhat", "centos", "scientific", "fedora", "suse", "amazon", "oracle"
   default['apache']['cgibin_dir'] = "/var/www/cgi-bin"
   default['apache']['icondir'] = "/var/www/icons"
   default['apache']['cache_dir'] = "/var/cache/httpd"
+  default['apache']['ssl_dir'] = "#{node['apache']['dir']}/ssl"
   if node['platform_version'].to_f >= 6 then
     default['apache']['pid_file'] = "/var/run/httpd/httpd.pid"
   else
@@ -45,6 +49,8 @@ when "redhat", "centos", "scientific", "fedora", "suse", "amazon", "oracle"
 when "debian", "ubuntu"
   default['apache']['package'] = "apache2"
   default['apache']['dir']     = "/etc/apache2"
+  default['apache']['bin_dir'] = "/usr/sbin"
+  default['apache']['conf_dir'] = "#{node['apache']['dir']}/conf.d"
   default['apache']['log_dir'] = "/var/log/apache2"
   default['apache']['error_log'] = "error.log"
   default['apache']['access_log'] = "access.log"
@@ -55,6 +61,7 @@ when "debian", "ubuntu"
   default['apache']['cgibin_dir'] = "/usr/lib/cgi-bin"
   default['apache']['icondir'] = "/usr/share/apache2/icons"
   default['apache']['cache_dir'] = "/var/cache/apache2"
+  default['apache']['ssl_dir'] = "#{node['apache']['dir']}/ssl"
   default['apache']['pid_file']  = "/var/run/apache2.pid"
   default['apache']['lib_dir'] = "/usr/lib/apache2"
   default['apache']['libexecdir'] = "#{node['apache']['lib_dir']}/modules"
@@ -62,6 +69,8 @@ when "debian", "ubuntu"
 when "arch"
   default['apache']['package'] = "apache"
   default['apache']['dir']     = "/etc/httpd"
+  default['apache']['bin_dir'] = "/usr/sbin"
+  default['apache']['conf_dir'] = "#{node['apache']['dir']}/conf.d"
   default['apache']['log_dir'] = "/var/log/httpd"
   default['apache']['error_log'] = "error.log"
   default['apache']['access_log'] = "access.log"
@@ -72,6 +81,7 @@ when "arch"
   default['apache']['cgibin_dir'] = "/usr/share/httpd/cgi-bin"
   default['apache']['icondir'] = "/usr/share/httpd/icons"
   default['apache']['cache_dir'] = "/var/cache/httpd"
+  default['apache']['ssl_dir'] = "#{node['apache']['dir']}/ssl"
   default['apache']['pid_file']  = "/var/run/httpd/httpd.pid"
   default['apache']['lib_dir'] = "/usr/lib/httpd"
   default['apache']['libexecdir'] = "#{node['apache']['lib_dir']}/modules"
@@ -79,6 +89,8 @@ when "arch"
 when "freebsd"
   default['apache']['package'] = "apache22"
   default['apache']['dir']     = "/usr/local/etc/apache22"
+  default['apache']['bin_dir'] = "/usr/sbin"
+  default['apache']['conf_dir'] = "#{node['apache']['dir']}/conf.d"
   default['apache']['log_dir'] = "/var/log"
   default['apache']['error_log'] = "httpd-error.log"
   default['apache']['access_log'] = "httpd-access.log"
@@ -90,12 +102,39 @@ when "freebsd"
   default['apache']['cgibin_dir'] = "/usr/local/www/apache22/cgi-bin"
   default['apache']['icondir'] = "/usr/local/www/apache22/icons"
   default['apache']['cache_dir'] = "/var/run/apache22"
+  default['apache']['ssl_dir'] = "#{node['apache']['dir']}/ssl"
   default['apache']['pid_file']  = "/var/run/httpd.pid"
   default['apache']['lib_dir'] = "/usr/local/libexec/apache22"
   default['apache']['libexecdir'] = node['apache']['lib_dir']
   default['apache']['default_site_enabled'] = false
+when "windows"
+  default['apache']['package'] = "apache22"
+  default['apache']['dir']     = "C:/Apache2.2"
+  default['apache']['bin_dir'] = "#{node['apache']['dir']}/bin"
+  default['apache']['conf_dir'] = "#{node['apache']['dir']}/conf.d"
+  default['apache']['windows']['version'] = "2.2.25"
+  default['apache']['windows']['display_name'] = "Apache HTTP Server #{node['apache']['windows']['version']}"
+  default['apache']['windows']['source'] = "http://apache.cs.utah.edu/httpd/binaries/win32/httpd-#{node['apache']['windows']['version']}-win32-x86-openssl-0.9.8y.msi"
+  default['apache']['log_dir'] = "#{node['apache']['dir']}/logs"
+  default['apache']['error_log'] = "error.log"
+  default['apache']['user']    = "apache"
+  default['apache']['group']    = "apache"
+  default['apache']['conf'] = "#{node['apache']['dir']}/conf/httpd.conf"
+  default['apache']['binary']  = "#{node['apache']['bin_dir']}/httpd.exe"
+  default['apache']['docroot_dir'] = "#{node['apache']['dir']}/htdocs"
+  default['apache']['cgibin_dir'] = "#{node['apache']['dir']}/cgi-bin"
+  default['apache']['icondir'] = "#{node['apache']['dir']}/icons"
+  default['apache']['cache_dir'] = "#{node['apache']['dir']}/cache"
+  default['apache']['ssl_dir'] = "#{node['apache']['dir']}/ssl"
+  default['apache']['pid_file']  = "#{node['apache']['log_dir']}/httpd.pid"
+  default['apache']['lib_dir'] = "#{node['apache']['dir']}/modules"
+  default['apache']['libexecdir'] = node['apache']['lib_dir']
+  default['apache']['default_site_enabled'] = false
+  default['apache']['default_modules'] += %w{ log_config logio rewrite }
 else
   default['apache']['dir']     = "/etc/apache2"
+  default['apache']['bin_dir'] = "/usr/sbin"
+  default['apache']['conf_dir'] = "#{node['apache']['dir']}/conf.d"
   default['apache']['log_dir'] = "/var/log/apache2"
   default['apache']['error_log'] = "error.log"
   default['apache']['access_log'] = "access.log"
@@ -106,6 +145,7 @@ else
   default['apache']['cgibin_dir'] = "/usr/lib/cgi-bin"
   default['apache']['icondir'] = "/usr/share/apache2/icons"
   default['apache']['cache_dir'] = "/var/cache/apache2"
+  default['apache']['ssl_dir'] = "#{node['apache']['dir']}/ssl"
   default['apache']['pid_file']  = "logs/httpd.pid"
   default['apache']['lib_dir'] = "/usr/lib/apache2"
   default['apache']['libexecdir'] = "#{node['apache']['lib_dir']}/modules"
@@ -165,12 +205,11 @@ default['apache']['proxy']['deny_from'] = 'all'
 default['apache']['proxy']['allow_from'] = 'none'
 
 # Default modules to enable via include_recipe
-
-default['apache']['default_modules'] = %w{
+default['apache']['default_modules'] += %w{
   status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex
   dir env mime negotiation setenvif
 }
 
-%w{ log_config logio }.each do |log_mod|
-  default['apache']['default_modules'] << log_mod if ["rhel", "fedora", "suse", "arch", "freebsd"].include?(node['platform_family'])
+if ["rhel", "fedora", "suse", "arch", "freebsd"].include?(node['platform_family'])
+  default['apache']['default_modules'] += %w{ log_config logio }
 end

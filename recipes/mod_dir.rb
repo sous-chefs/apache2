@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: dir 
+# Recipe:: dir
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
