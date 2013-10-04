@@ -1,6 +1,7 @@
 #This file generated via template by Chef.
 <% @apache_listen_ports.each do |port| -%>
-Listen <%= port %>
+    <% @apache_listen_addresses.each do |address| -%>
+Listen <%= address.length > 0 ? "#{address}:" : "" %><%= port %>
+    <% end -%>
 NameVirtualHost *:<%= port %>
-
 <% end -%>
