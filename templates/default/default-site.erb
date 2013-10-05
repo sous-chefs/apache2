@@ -1,6 +1,11 @@
 <VirtualHost *:80>
         ServerAdmin <%= node['apache']['contact'] %>
 
+        ### Disable Trace!
+        RewriteEngine on
+        RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+        RewriteRule .* - [F]
+
         DocumentRoot <%= node['apache']['docroot_dir'] %>/
         <Directory />
                 Options FollowSymLinks

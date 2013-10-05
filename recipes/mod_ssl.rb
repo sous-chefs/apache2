@@ -21,6 +21,7 @@ unless node['apache']['listen_ports'].include?("443")
 end
 
 ports = node['apache']['listen_ports']
+addresses = node['apache']['listen_addresses']
 
 if platform_family?("rhel", "fedora", "suse")
 
@@ -36,7 +37,10 @@ end
 
 template "#{node['apache']['dir']}/ports.conf" do
   source "ports.conf.erb"
-  variables :apache_listen_ports => ports.map { |p| p.to_i }.uniq
+  variables ({
+    :apache_listen_ports => ports.map { |p| p.to_i }.uniq,
+    :apache_listen_addresses => addresses.map { |a| a.to_s }.uniq
+  })
   notifies :restart, "service[apache2]"
   mode 00644
 end
