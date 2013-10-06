@@ -173,7 +173,7 @@ template "apache2.conf" do
 end
 
 template "apache2-conf-security" do
-  path "#{node['apache']['dir']}/conf.d/security"
+  path "#{node['apache']['dir']}/conf.d/security.conf"
   source "security.erb"
   owner "root"
   group node['apache']['root_group']
