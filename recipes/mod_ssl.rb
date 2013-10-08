@@ -36,7 +36,10 @@ end
 template "#{node['apache']['dir']}/ports.conf" do
   source    'ports.conf.erb'
   mode      '0644'
-  variables(:apache_listen_ports => ports.map { |p| p.to_i }.uniq)
+  variables(
+    :apache_listen_ports => ports.map { |p| p.to_i }.uniq,
+    :apache_listen_addresses => node['apache']['listen_addresses'].uniq
+  )
   notifies  :restart, 'service[apache2]'
 end
 
