@@ -17,25 +17,23 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::mod_dav"
+include_recipe 'apache2::mod_dav'
 
-package "libapache2-svn" do
+package 'libapache2-svn' do
   case node['platform_family']
-  when "rhel", "fedora", "suse"
-    package_name "mod_dav_svn"
+  when 'rhel', 'fedora', 'suse'
+    package_name 'mod_dav_svn'
   else
-    package_name "libapache2-svn"
+    package_name 'libapache2-svn'
   end
 end
 
 case node['platform_family']
-when "rhel", "fedora", "suse"
-
+when 'rhel', 'fedora', 'suse'
   file "#{node['apache']['dir']}/conf.d/subversion.conf" do
     action :delete
     backup false
   end
-
 end
 
-apache_module "dav_svn"
+apache_module 'dav_svn'

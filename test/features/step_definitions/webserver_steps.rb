@@ -8,9 +8,9 @@ end
 
 When /^a request is made to a (CGI|Java|Perl|Python|PHP) (?:script|application) that generates a list of (?:environment variables|request parameters)$/ do |script_type|
   http_request case script_type
-    when 'CGI' then '/cgi-bin/env'
-    when 'Python' then '/env/python.py'
-    else "/env/#{script_type.downcase}"
+               when 'CGI' then '/cgi-bin/env'
+               when 'Python' then '/env/python.py'
+               else "/env/#{script_type.downcase}"
   end
 end
 
@@ -48,8 +48,10 @@ end
 
 When /^the authenticated user is (not )?listed (?:in the directory )(?:in the file|as authorized)$/ do |not_listed|
   http_request '/secure/',
-    :basic_auth => {:username => not_listed ? 'meatballs' : 'bork',
-    :password => 'secret'}
+    :basic_auth => {
+      :username => not_listed ? 'meatballs' : 'bork',
+      :password => 'secret'
+    }
 end
 
 When 'the browser requests a page specifying that it does not support compression' do
@@ -65,8 +67,10 @@ When /^the remote address is (not )?listed as authorized$/ do |not_listed|
 end
 
 When /^the user requests the secure page authenticating with (in)?valid credentials over (basic|digest) auth$/ do |invalid, auth_type|
-  http_request '/secure/', "#{auth_type}_auth".to_sym => {:username => 'bork',
-    :password => invalid ? 'squirrel' : 'secret'}
+  http_request '/secure/', "#{auth_type}_auth".to_sym => {
+    :username => 'bork',
+    :password => invalid ? 'squirrel' : 'secret'
+  }
 end
 
 When 'the user requests the secure page with no credentials' do

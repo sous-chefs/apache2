@@ -3,7 +3,7 @@
 
 <% @apache_listen_ports.each do |port| -%>
 <% @apache_listen_addresses.each do |address| -%>
-Listen <%= address.length > 0 ? "#{address}:" : "" %><%= port %>
+Listen <%= address.length > 0 ? "#{address}:" : '' %><%= port %>
 <% end -%>
 NameVirtualHost *:<%= port %>
 <% end -%>

@@ -1,4 +1,5 @@
 module Helpers
+  # MiniTest helpers
   module Apache
     require 'chef/mixin/shell_out'
     include Chef::Mixin::ShellOut
@@ -30,9 +31,9 @@ module Helpers
     def apache_service
       service(
         case node['platform']
-        when "debian", "ubuntu" then "apache2"
-        when "freebsd" then "apache22"
-        else "httpd"
+        when 'debian', 'ubuntu' then 'apache2'
+        when 'freebsd' then 'apache22'
+        else 'httpd'
         end
       )
     end
@@ -40,23 +41,23 @@ module Helpers
     def config
       file(
         case node['platform']
-        when "debian", "ubuntu" then "#{node['apache']['dir']}/apache2.conf"
-        when "freebsd" then "#{node['apache']['dir']}/httpd.conf"
+        when 'debian', 'ubuntu' then "#{node['apache']['dir']}/apache2.conf"
+        when 'freebsd' then "#{node['apache']['dir']}/httpd.conf"
         else "#{node['apache']['dir']}/conf/httpd.conf"
         end
       )
     end
 
     def ran_recipe?(recipe)
-      if Chef::VERSION < "11.0"
+      if Chef::VERSION < '11.0'
         seen_recipes = node.run_state[:seen_recipes]
         recipes = seen_recipes.keys.each { |i| i }
       else
         recipes = run_context.loaded_recipes
       end
-      if recipes.empty? and Chef::Config[:solo]
-        #If you have roles listed in your run list they are NOT expanded
-        recipes = node.run_list.map {|item| item.name if item.type == :recipe }
+      if recipes.empty? && Chef::Config[:solo]
+        # If you have roles listed in your run list they are NOT expanded
+        recipes = node.run_list.map { |item| item.name if item.type == :recipe }
       end
       recipes.include?(recipe)
     end

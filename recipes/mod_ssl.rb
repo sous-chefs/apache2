@@ -2,7 +2,7 @@
 # Cookbook Name:: apache2
 # Recipe:: ssl
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2008-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,16 +16,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-unless node['apache']['listen_ports'].include?("443")
-  node.set['apache']['listen_ports'] = node['apache']['listen_ports'] + ["443"]
+unless node['apache']['listen_ports'].include?('443')
+  node.set['apache']['listen_ports'] = node['apache']['listen_ports'] + ['443']
 end
 
 ports = node['apache']['listen_ports']
 
-if platform_family?("rhel", "fedora", "suse")
-
-  package "mod_ssl" do
-    notifies :run, "execute[generate-module-list]", :immediately
+if platform_family?('rhel', 'fedora', 'suse')
+  package 'mod_ssl' do
+    notifies :run, 'execute[generate-module-list]', :immediately
   end
 
   file "#{node['apache']['dir']}/conf.d/ssl.conf" do
@@ -35,12 +34,12 @@ if platform_family?("rhel", "fedora", "suse")
 end
 
 template "#{node['apache']['dir']}/ports.conf" do
-  source "ports.conf.erb"
-  variables :apache_listen_ports => ports.map { |p| p.to_i }.uniq
-  notifies :restart, "service[apache2]"
-  mode 00644
+  source    'ports.conf.erb'
+  mode      '0644'
+  variables(:apache_listen_ports => ports.map { |p| p.to_i }.uniq)
+  notifies  :restart, 'service[apache2]'
 end
 
-apache_module "ssl" do
+apache_module 'ssl' do
   conf true
 end

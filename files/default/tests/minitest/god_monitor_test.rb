@@ -17,15 +17,15 @@
 
 require File.expand_path('../support/helpers', __FILE__)
 
-describe "apache2::god_monitor" do
+describe 'apache2::god_monitor' do
   include Helpers::Apache
 
   it 'starts god service to supervise apache2' do
-    service("god").must_be_running
+    service('god').must_be_running
   end
 
   it 'creates the god service template for apache' do
-    file("/etc/god/conf.d/apache2.god").must_exist
+    file('/etc/god/conf.d/apache2.god').must_exist
   end
 
   it 'starts an apache2 service that works like a regular service' do

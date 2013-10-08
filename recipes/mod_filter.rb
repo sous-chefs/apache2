@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module "filter"
+apache_module 'filter'
