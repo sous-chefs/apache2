@@ -2,6 +2,29 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.8.0
+------
+### Bug
+- **[COOK-3680](https://tickets.opscode.com/browse/COOK-3680)** - Update template paths
+- **[COOK-3570](https://tickets.opscode.com/browse/COOK-3570)** - Apache cookbook breaks on RHEL / CentOS 6
+- **[COOK-2944](https://tickets.opscode.com/browse/COOK-2944)** - Fix foodcritic failures
+- **[COOK-2893](https://tickets.opscode.com/browse/COOK-2893)** - Improve mod_auth_openid recipe with guards and idempotency
+- **[COOK-2758](https://tickets.opscode.com/browse/COOK-2758)** - Fix use of non-existent attribute
+
+### New Feature
+- **[COOK-3665](https://tickets.opscode.com/browse/COOK-3665)** - Add recipe for mod_userdir
+- **[COOK-3646](https://tickets.opscode.com/browse/COOK-3646)** - Add recipe for mod_cloudflare
+- **[COOK-3213](https://tickets.opscode.com/browse/COOK-3213)** - Add recipe for mod_info
+
+### Improvement
+- **[COOK-3656](https://tickets.opscode.com/browse/COOK-3656)** - Parameterize apache2 binary
+- **[COOK-3562](https://tickets.opscode.com/browse/COOK-3562)** - Allow mod_proxy settings to be configured as attributes
+- **[COOK-3326](https://tickets.opscode.com/browse/COOK-3326)** - Fix default_test to use ServerTokens attribute
+- **[COOK-2635](https://tickets.opscode.com/browse/COOK-2635)** - Add support for SVG mime types
+- **[COOK-2598](https://tickets.opscode.com/browse/COOK-2598)** - FastCGI Module only works on Debian-based platforms
+- **[COOK-1984](https://tickets.opscode.com/browse/COOK-1984)** - Add option to configure the address apache listens to
+
+
 v1.7.0
 ------
 ### Improvement
