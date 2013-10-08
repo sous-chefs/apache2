@@ -20,8 +20,6 @@ unless node['apache']['listen_ports'].include?('443')
   node.set['apache']['listen_ports'] = node['apache']['listen_ports'] + ['443']
 end
 
-ports = node['apache']['listen_ports']
-
 if platform_family?('rhel', 'fedora', 'suse')
   package 'mod_ssl' do
     notifies :run, 'execute[generate-module-list]', :immediately
@@ -36,7 +34,6 @@ end
 template "#{node['apache']['dir']}/ports.conf" do
   source    'ports.conf.erb'
   mode      '0644'
-  variables(:apache_listen_ports => ports.map { |p| p.to_i }.uniq)
   notifies  :restart, 'service[apache2]'
 end
 

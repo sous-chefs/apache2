@@ -22,5 +22,4 @@ include_recipe "apache2::default"
 template "#{node['apache']['dir']}/mods-available/status.conf" do
   source "status.conf.erb"
   mode "0644"
-  variables({'remote_host' => node['apache_test']['remote_host_ip']})
 end
