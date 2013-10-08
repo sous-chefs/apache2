@@ -2,6 +2,12 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.8.2
+------
+### Bug
+- **[COOK-3766](https://tickets.opscode.com/browse/COOK-3766)** - Fix an issue where the `mod_ssl` recipe fails due to a missing attribute
+
+
 v1.8.0
 ------
 ### Bug
