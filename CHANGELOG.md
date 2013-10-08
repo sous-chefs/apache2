@@ -2,6 +2,12 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.8.4
+------
+### Bug
+- **[COOK-3769](https://tickets.opscode.com/browse/COOK-3769)** - Fix a critical bug where the `apache_module` could not enable modules
+
+
 v1.8.2
 ------
 ### Bug
