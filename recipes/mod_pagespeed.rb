@@ -1,4 +1,4 @@
-if platform?("debian", "ubuntu")
+if platform_family?("debian")
   remote_file "#{Chef::Config[:file_cache_path]}/mod-pagespeed.deb" do
     source node["apache2"]["mod_pagespeed"]["package_link"]
     mode "0644"
@@ -14,5 +14,5 @@ if platform?("debian", "ubuntu")
     conf true
   end
 else
-  Chef::Log.warm "apache::mod_pagespeed does not support #{node["platform"]} yet, and is not being installed"
+  Chef::Log.warm "apache::mod_pagespeed does not support #{node["platform_family"]} yet, and is not being installed"
 end
