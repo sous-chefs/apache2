@@ -248,7 +248,7 @@ attribute 'apache/default_modules',
           :display_name => 'Apache Default Modules',
           :description  => 'Default modules to enable via recipes',
           :type => "array",
-          :default      => [ 'status', 'alias', 'auth_basic', 'authn_file', 'authz_default', 'authz_groupfile', 'authz_host', 'authz_user', 'autoindex', 'dir', 'env', 'mime', 'negotiation setenvif' ],
+          :default      => [ 'status', 'alias', 'auth_basic', 'authn_file', 'authz_default', 'authz_groupfile', 'authz_host', 'authz_user', 'autoindex', 'dir', 'env', 'mime', 'negotiation', 'setenvif' ],
           :recipes      => [ "apache2::default" ]
 
 attribute 'apache/mod_ssl/cipher_suite',
