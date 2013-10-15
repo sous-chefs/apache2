@@ -65,161 +65,194 @@ attribute 'apache',
 attribute 'apache/dir',
           :display_name => 'Apache Directory',
           :description  => 'Location for Apache configuration',
-          :default      => '/etc/apache2'
+          :default      => '/etc/apache2',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/log_dir',
           :display_name => 'Apache Log Directory',
           :description  => 'Location for Apache logs',
-          :default      => '/etc/apache2'
+          :default      => '/etc/apache2',
+          :recipes      => ['apache2::default", "apache2::logrotate']
 
 attribute 'apache/user',
           :display_name => 'Apache User',
           :description  => 'User Apache runs as',
-          :default      => 'www-data'
+          :default      => 'www-data',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/binary',
           :display_name => 'Apache Binary',
           :description  => 'Apache server daemon program',
-          :default      => '/usr/sbin/apache2'
+          :default      => '/usr/sbin/apache2',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/icondir',
           :display_name => 'Apache Icondir',
           :description  => 'Directory location for icons',
-          :default      => '/usr/share/apache2/icons'
+          :default      => '/usr/share/apache2/icons',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/listen_addresses',
           :display_name => 'Apache Listen Addresses',
           :description  => 'Addresses that Apache should listen on',
           :type         => 'array',
-          :default      => %w[*]
+          :default      => %w[*],
+          :recipes      => ['apache2::default']
 
 attribute 'apache/listen_ports',
           :display_name => 'Apache Listen Ports',
           :description  => 'Ports that Apache should listen on',
           :type         => 'array',
-          :default      => %w[80 443]
+          :default      => %w[80 443],
+          :recipes      => ['apache2::default']
 
 attribute 'apache/contact',
           :display_name => 'Apache Contact',
           :description  => 'Email address of webmaster',
-          :default      => 'ops@example.com'
+          :default      => 'ops@example.com',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/timeout',
           :display_name => 'Apache Timeout',
           :description  => 'Connection timeout value',
-          :default      => '300'
+          :default      => '300',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/keepalive',
           :display_name => 'Apache Keepalive',
           :description  => 'HTTP persistent connections',
-          :default      => 'On'
+          :default      => 'On',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/keepaliverequests',
           :display_name => 'Apache Keepalive Requests',
           :description  => 'Number of requests allowed on a persistent connection',
-          :default      => '100'
+          :default      => '100',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/keepalivetimeout',
           :display_name => 'Apache Keepalive Timeout',
           :description  => 'Time to wait for requests on persistent connection',
-          :default      => '5'
+          :default      => '5',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/servertokens',
           :display_name => 'Apache Server Tokens',
           :description  => 'Server response header',
-          :default      => 'Prod'
+          :default      => 'Prod',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/serversignature',
           :display_name => 'Apache Server Signature',
           :description  => 'Configure footer on server-generated documents',
-          :default      => 'On'
+          :default      => 'On',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/traceenable',
           :display_name => 'Apache Trace Enable',
           :description  => 'Determine behavior of TRACE requests',
-          :default      => 'On'
+          :default      => 'On',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/allowed_openids',
           :display_name => 'Apache Allowed OpenIDs',
           :description  => 'Array of OpenIDs allowed to authenticate',
-          :default      => ''
+          :default      => '',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/prefork',
           :display_name => 'Apache Prefork',
           :description  => 'Hash of Apache prefork tuning attributes.',
-          :type         => 'hash'
+          :type         => 'hash',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/prefork/startservers',
           :display_name => 'Apache Prefork MPM StartServers',
           :description  => 'Number of MPM servers to start',
-          :default      => '16'
+          :default      => '16',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/prefork/minspareservers',
           :display_name => 'Apache Prefork MPM MinSpareServers',
           :description  => 'Minimum number of spare server processes',
-          :default      => '16'
+          :default      => '16',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/prefork/maxspareservers',
           :display_name => 'Apache Prefork MPM MaxSpareServers',
           :description  => 'Maximum number of spare server processes',
-          :default      => '32'
+          :default      => '32',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/prefork/serverlimit',
           :display_name => 'Apache Prefork MPM ServerLimit',
           :description  => 'Upper limit on configurable server processes',
-          :default      => '400'
+          :default      => '400',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/prefork/maxclients',
           :display_name => 'Apache Prefork MPM MaxClients',
           :description  => 'Maximum number of simultaneous connections',
-          :default      => '400'
+          :default      => '400',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/prefork/maxrequestsperchild',
           :display_name => 'Apache Prefork MPM MaxRequestsPerChild',
           :description  => 'Maximum number of request a child process will handle',
-          :default      => '10000'
+          :default      => '10000',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/worker',
           :display_name => 'Apache Worker',
           :description  => 'Hash of Apache prefork tuning attributes.',
-          :type         => 'hash'
+          :type         => 'hash',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/worker/startservers',
           :display_name => 'Apache Worker MPM StartServers',
           :description  => 'Initial number of server processes to start',
-          :default      => '4'
+          :default      => '4',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/worker/maxclients',
           :display_name => 'Apache Worker MPM MaxClients',
           :description  => 'Maximum number of simultaneous connections',
-          :default      => '1024'
+          :default      => '1024',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/worker/minsparethreads',
           :display_name => 'Apache Worker MPM MinSpareThreads',
           :description  => 'Minimum number of spare worker threads',
-          :default      => '64'
+          :default      => '64',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/worker/maxsparethreads',
           :display_name => 'Apache Worker MPM MaxSpareThreads',
           :description  => 'Maximum number of spare worker threads',
-          :default      => '192'
+          :default      => '192',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/worker/threadsperchild',
           :display_name => 'Apache Worker MPM ThreadsPerChild',
           :description  => 'Constant number of worker threads in each server process',
-          :default      => '64'
+          :default      => '64',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/worker/maxrequestsperchild',
           :display_name => 'Apache Worker MPM MaxRequestsPerChild',
           :description  => 'Maximum number of request a child process will handle',
-          :default      => '0'
+          :default      => '0',
+          :recipes      => ['apache2::default']
 
 attribute 'apache/default_modules',
           :display_name => 'Apache Default Modules',
           :description  => 'Default modules to enable via recipes',
-          :default      => 'status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex dir env mime negotiation setenvif'
+          :type         => 'array',
+          :default      => %w[status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex dir env mime negotiation setenvif],
+          :recipes      => ['apache2::default']
 
 attribute 'apache/mod_ssl/cipher_suite',
           :display_name => 'Apache mod_ssl Cipher Suite',
           :description  => 'String of SSL ciphers to use for SSLCipherSuite',
-          :default      => 'RC4-SHA:HIGH:!ADH'
+          :default      => 'RC4-SHA:HIGH:!ADH',
+          :recipes      => ['apache2::default']
