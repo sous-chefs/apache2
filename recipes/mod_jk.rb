@@ -18,13 +18,13 @@
 # limitations under the License.
 #
 
-package "libapache2-mod-jk" do
+package 'libapache2-mod-jk' do
   case node['platform_family']
-  when "rhel", "fedora", "suse"
-    package_name "mod_jk"
+  when 'rhel', 'fedora', 'suse'
+    package_name 'mod_jk'
   else
-    package_name "libapache2-mod-jk"
+    package_name 'libapache2-mod-jk'
   end
 end
 
-apache_module "jk"
+apache_module 'jk'
