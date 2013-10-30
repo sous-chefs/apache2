@@ -164,7 +164,7 @@ template 'apache2.conf' do
   owner "root"
   group node['apache']['root_group']
   mode     '0644'
-  notifies :restart, "service[apache2]"
+  notifies :restart, 'service[apache2]'
 end
 
 template 'apache2-conf-security' do
@@ -205,7 +205,7 @@ template "#{node['apache']['dir']}/sites-available/default" do
   owner    'root'
   group    node['apache']['root_group']
   mode     '0644'
-  notifies :restart, "service[apache2]"
+  notifies :restart, 'service[apache2]'
 end
 
 include_recipe "apache2::mpm_#{node['apache']['mpm']}"
