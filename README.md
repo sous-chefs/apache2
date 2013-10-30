@@ -569,10 +569,12 @@ License and Authors
 * Author:: Sean OMeara <someara@opscode.com>
 * Author:: Seth Chisamore <schisamo@opscode.com>
 * Author:: Gilles Devaux <gilles@peerpong.com>
+* Author:: Sander van Zoest <svanzoest@onehealth.com>
 
 * Copyright:: 2009-2012, Opscode, Inc
 * Copyright:: 2011, Atriso
 * Copyright:: 2011, CustomInk, LLC.
+* Copyright:: 2013, OneHealth Solutions, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
