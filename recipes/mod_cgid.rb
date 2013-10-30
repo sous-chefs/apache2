@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: authz_default 
+# Recipe:: cgid
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module "authz_default"
+apache_module "cgid"
