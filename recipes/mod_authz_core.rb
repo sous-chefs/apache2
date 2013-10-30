@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: authz_default 
+# Recipe:: authz_core 
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -17,4 +17,8 @@
 # limitations under the License.
 #
 
+<% if node['apache']['version'] == "2.4" -%>
 apache_module "authz_core"
+<% else -%>
+apache_module "authz_default"
+<% end -%>
