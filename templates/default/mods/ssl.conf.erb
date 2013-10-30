@@ -52,9 +52,9 @@
   #   Semaphore:
   #   Configure the path to the mutual exclusion semaphore the
   #   SSL engine uses internally for inter-process synchronization.
-  <% if %w{ rhel fedora suse }.include?(node['platform_family']) -%>
+  <% if %w[rhel fedora suse].include?(node['platform_family']) -%>
   SSLMutex  default
-  <% elsif %w{ freebsd }.include?(node['platform_family']) -%>
+  <% elsif %w[freebsd].include?(node['platform_family']) -%>
   SSLMutex  file:/var/run/ssl_mutex
   <% else -%>
   SSLMutex  file:/var/run/apache2/ssl_mutex
