@@ -156,10 +156,10 @@ template 'apache2.conf' do
     path "#{node['apache']['dir']}/httpd.conf"
   end
   case node['apache']['version']
-  when "2.4"
-    source "apache2.4.conf.erb"
+  when '2.4'
+    source 'apache2.4.conf.erb'
   else
-    source "apache2.conf.erb"
+    source 'apache2.conf.erb'
   end
   owner    'root'
   group    node['apache']['root_group']
@@ -197,10 +197,10 @@ end
 
 template "#{node['apache']['dir']}/sites-available/default" do
   case node['apache']['version']
-  when "2.4"
-    source "default-site2.4.erb"
+  when '2.4'
+    source 'default-site2.4.erb'
   else
-    source "default-site.erb"
+    source 'default-site.erb'
   end
   owner    'root'
   group    node['apache']['root_group']

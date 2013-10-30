@@ -2,7 +2,7 @@
 # Cookbook Name:: apache2
 # Recipe:: mpm_itk
 #
-# Copyright 2008-2013, Opscode, Inc.
+# Copyright 2013, OneHealth Solutions, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module "mpm_itk"
+apache_module 'mpm_itk'
