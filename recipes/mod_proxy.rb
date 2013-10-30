@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: proxy
+# Recipe:: mod_proxy
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

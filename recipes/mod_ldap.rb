@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: ldap
+# Recipe:: mod_ldap
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

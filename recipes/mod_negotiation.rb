@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: negotiation
+# Recipe:: mod_negotiation
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

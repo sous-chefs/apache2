@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: actions
+# Recipe:: mod_actions
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

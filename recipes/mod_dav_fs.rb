@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: dav_fs
+# Recipe:: mod_dav_fs
 #
 # Copyright 2011-2013, Atriso
 #

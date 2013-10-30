@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: charset_lite
+# Recipe:: mod_charset_lite
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2013, OneHealth Solutions, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module "charset_lite"
+apache_module 'charset_lite'

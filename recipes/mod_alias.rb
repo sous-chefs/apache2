@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: alias
+# Recipe:: mod_alias
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: python
+# Recipe:: mod_python
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: authz_core
+# Recipe:: mod_authz_core
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2013, OneHealth Solutions, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-<% if node['apache']['version'] == "2.4" -%>
-apache_module "authz_core"
-<% else -%>
-apache_module "authz_default"
-<% end -%>
+if node['apache']['version'] == "2.4"
+  apache_module 'authz_core'
+else
+  apache_module 'authz_default'
+end

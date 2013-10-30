@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: auth_basic
+# Recipe:: mod_auth_cas
 #
 # Copyright 2013, Opscode, Inc.
 #

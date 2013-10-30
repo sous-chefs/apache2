@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: dav_lock
+# Recipe:: mod_dav_lock
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2013, OneHealth Solutions, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +17,5 @@
 # limitations under the License.
 #
 
-apache_module "dav_lock"
+include_recipe 'apache2::mod_dav'
+apache_module 'dav_lock'

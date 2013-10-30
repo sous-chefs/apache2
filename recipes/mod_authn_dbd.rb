@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: authn_dbd
+# Recipe:: mod_authn_dbd
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2013, OneHealth Solutions, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module "authn_dbd"
+apache_module 'authn_dbd'

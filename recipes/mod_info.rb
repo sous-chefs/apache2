@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: info
+# Recipe:: mod_info
 #
 # Copyright 2013, Opscode, Inc.
 #

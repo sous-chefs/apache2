@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: authz_groupfile
+# Recipe:: mod_authz_groupfile
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
