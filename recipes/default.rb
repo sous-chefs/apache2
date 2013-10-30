@@ -161,8 +161,8 @@ template 'apache2.conf' do
   else
     source "apache2.conf.erb"
   end
-  owner "root"
-  group node['apache']['root_group']
+  owner    'root'
+  group    node['apache']['root_group']
   mode     '0644'
   notifies :restart, 'service[apache2]'
 end
