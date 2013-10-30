@@ -155,11 +155,16 @@ template 'apache2.conf' do
   when 'freebsd'
     path "#{node['apache']['dir']}/httpd.conf"
   end
-  source   'apache2.conf.erb'
-  owner    'root'
-  group    node['apache']['root_group']
+  case node['apache']['version']
+  when "2.4"
+    source "apache2.4.conf.erb"
+  else
+    source "apache2.conf.erb"
+  end
+  owner "root"
+  group node['apache']['root_group']
   mode     '0644'
-  notifies :restart, 'service[apache2]'
+  notifies :restart, "service[apache2]"
 end
 
 template 'apache2-conf-security' do
@@ -191,12 +196,19 @@ template "#{node['apache']['dir']}/ports.conf" do
 end
 
 template "#{node['apache']['dir']}/sites-available/default" do
-  source   'default-site.erb'
+  case node['apache']['version']
+  when "2.4"
+    source "default-site2.4.erb"
+  else
+    source "default-site.erb"
+  end
   owner    'root'
   group    node['apache']['root_group']
   mode     '0644'
-  notifies :restart, 'service[apache2]'
+  notifies :restart, "service[apache2]"
 end
+
+include_recipe "apache2::mpm_#{node['apache']['mpm']}"
 
 node['apache']['default_modules'].each do |mod|
   module_recipe_name = mod =~ /^mod_/ ? mod : "mod_#{mod}"
