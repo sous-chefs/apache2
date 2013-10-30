@@ -48,7 +48,18 @@ SSLSessionCache        shmcb:/var/run/apache2/ssl_scache
 <% end -%>
 SSLSessionCacheTimeout  300
 
-### Apache 2.4 Change
+<% if node['apache']['version'] != "2.4" -%>
+#   Semaphore:
+#   Configure the path to the mutual exclusion semaphore the
+#   SSL engine uses internally for inter-process synchronization.
+<% if %w{ rhel fedora suse }.include?(node['platform_family']) -%>
+SSLMutex  default
+<% elsif %w{ freebsd }.include?(node['platform_family']) -%>
+SSLMutex  file:/var/run/ssl_mutex
+<% else -%>
+SSLMutex  file:/var/run/apache2/ssl_mutex
+<% end -%>
+<% end -%>
 
 SSLHonorCipherOrder On
 #   SSL Cipher Suite:
