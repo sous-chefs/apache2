@@ -208,7 +208,10 @@ template "#{node['apache']['dir']}/sites-available/default" do
   notifies :restart, 'service[apache2]'
 end
 
+if node['apache']['version'] == "2.4"
+# in apache 2.4 on ubuntu, you need to explicitly load the mpm you want to use, it is no longer compiled in.
 include_recipe "apache2::mpm_#{node['apache']['mpm']}"
+end
 
 node['apache']['default_modules'].each do |mod|
   module_recipe_name = mod =~ /^mod_/ ? mod : "mod_#{mod}"
