@@ -152,6 +152,8 @@ attributes are determined based on the node's platform. See the
 attributes/default.rb file for default values in the case statement at
 the top of the file.
 
+* `node['apache']['package']` - Package name for Apache2
+* `node['apache']['perl_pkg']` - Package name for Perl
 * `node['apache']['dir']` - Location for the Apache configuration
 * `node['apache']['log_dir']` - Location for Apache logs
 * `node['apache']['error_log']` - Location for the default error log
@@ -159,6 +161,8 @@ the top of the file.
 * `node['apache']['user']` - User Apache runs as
 * `node['apache']['group']` - Group Apache runs as
 * `node['apache']['binary']` - Apache httpd server daemon
+* `node['apache']['docroot_dir']` - Location for docroot
+* `node['apache']['cgibin_dir']` - Location for cgi-bin
 * `node['apache']['icondir']` - Location for icons
 * `node['apache']['cache_dir']` - Location for cached files used by Apache itself or recipes
 * `node['apache']['pid_file']` - Location of the PID file for Apache httpd
