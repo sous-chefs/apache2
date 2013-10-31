@@ -136,13 +136,13 @@ default['apache']['traceenable']     = 'On'
 default['apache']['allowed_openids'] = []
 
 # mod_status Allow list, space seprated list of allowed entries.
-default['apache']['status_allow_list'] = 'localhost ip6-localhost'
+default['apache']['status_allow_list'] = '127.0.0.1 ::1'
 
 # mod_status ExtendedStatus, set to 'true' to enable
 default['apache']['ext_status'] = false
 
 # mod_info Allow list, space seprated list of allowed entries.
-default['apache']['info_allow_list'] = 'localhost ip6-localhost'
+default['apache']['info_allow_list'] = '127.0.0.1 ::1'
 
 default['apache']['mpm'] = 'prefork'
 # Prefork Attributes
