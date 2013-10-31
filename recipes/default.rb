@@ -146,6 +146,16 @@ template '/etc/sysconfig/httpd' do
   only_if  { platform_family?('rhel', 'fedora') }
 end
 
+template 'envvars' do
+  path "#{node['apache']['dir']}/envvars"
+  source   'envvars.erb'
+  owner    'root'
+  group    node['apache']['root_group']
+  mode     '0644'
+  notifies :restart, 'service[apache2]'
+  only_if  { platform_family?('debian') }
+end
+
 template 'apache2.conf' do
   case node['platform_family']
   when 'rhel', 'fedora', 'arch'
