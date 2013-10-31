@@ -17,4 +17,8 @@
 # limitations under the License.
 #
 
+apache_module('mpm_event') { enable false }
+apache_module('mpm_prefork') { enable false }
+apache_module('mpm_worker') { enable false }
+
 apache_module 'mpm_itk'
