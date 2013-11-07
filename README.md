@@ -172,6 +172,7 @@ General settings
 These are general settings used in recipes and templates. Default
 values are noted.
 
+* `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support.  Default is 2.2.
 * `node['apache']['listen_addresses']` - Addresses that httpd should listen on. Default is any ("*").
 * `node['apache']['listen_ports']` - Ports that httpd should listen on. Default is port 80.
 * `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
@@ -180,6 +181,7 @@ values are noted.
 * `node['apache']['keepaliverequests']` - Value for MaxKeepAliveRequests. Default is 100.
 * `node['apache']['keepalivetimeout']` - Value for the KeepAliveTimeout directive. Default is 5.
 * `node['apache']['default_modules']` - Array of module names. Can take "mod_FOO" or "FOO" as names, where FOO is the apache module, e.g. "`mod_status`" or "`status`".
+* `node['apache']['mpm']` - With apache.version 2.4, specifies what Multi-Processing Module to enable. Default is "prefork".
 
 The modules listed in `default_modules` will be included as recipes in `recipe[apache::default]`.
 
