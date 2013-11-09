@@ -244,7 +244,7 @@ below in more detail.
 
 The following recipes merely enable the specified module: `mod_alias`,
 `mod_basic`, `mod_digest`, `mod_authn_file`, `mod_authnz_ldap`,
-`mod_authz_default`, `mod_authz_groupfile`, `mod_authz_host`,
+`mod_authz_core`, `mod_authz_groupfile`, `mod_authz_host`,
 `mod_authz_user`, `mod_autoindex`, `mod_cgi`, `mod_dav_fs`,
 `mod_dav_svn`, `mod_deflate`, `mod_dir`, `mod_env`, `mod_expires`,
 `mod_headers`, `mod_ldap`, `mod_log_config`, `mod_mime`,
