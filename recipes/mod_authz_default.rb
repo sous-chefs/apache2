@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 #
-log "apache2::mod_authz_default is deprecated in favor of apache2::mod_authz_core. Please adjust your cookbooks"
-include_recipe "apache2::mod_authz_core"
+log 'apache2::mod_authz_default is deprecated in favor of apache2::mod_authz_core. Please adjust your cookbooks'
+include_recipe 'apache2::mod_authz_core'
