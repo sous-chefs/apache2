@@ -4,8 +4,15 @@
   #
   #<IfModule mod_status.c>
   #   <Location /balancer-manager>
-  #	   SetHandler balancer-manager
-  #	   Require local
+  #     SetHandler balancer-manager
+<% if node['apache']['version'] == '2.4' -%>
+  #     Require local
+<% else -%>
+  #     Order deny,allow
+  #     Deny from all
+  #     Allow from 127.0.0.1 ::1
+  #     Satisfy all
+<% end -%>
   #   </Location>
   #</IfModule>
 </IfModule>
