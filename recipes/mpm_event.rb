@@ -21,6 +21,6 @@ apache_module('mpm_itk') { enable false }
 apache_module('mpm_prefork') { enable false }
 apache_module('mpm_worker') { enable false }
 
-apache_module 'mpm_event'
+apache_module 'mpm_event' do
   conf true
 end

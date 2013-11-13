@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'cgid'
+apache_module 'cgid' do
   conf true
 end

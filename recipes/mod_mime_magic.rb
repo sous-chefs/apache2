@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'mime_magic'
+apache_module 'mime_magic' do
   conf true
 end

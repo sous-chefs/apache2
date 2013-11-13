@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'proxy_ftp'
- conf true
+apache_module 'proxy_ftp' do
+  conf true
 end

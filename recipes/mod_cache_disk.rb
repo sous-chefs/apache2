@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'cache_disk'
+apache_module 'cache_disk' do
   conf true
 end

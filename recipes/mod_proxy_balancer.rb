@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'proxy_balancer'
+apache_module 'proxy_balancer' do
   conf true
 end
