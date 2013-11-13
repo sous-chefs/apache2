@@ -7,7 +7,7 @@
   #
   <Location /server-status>
     SetHandler server-status
-<% if node['apache']['version'] == "2.4" -%>
+<% if node['apache']['version'] == '2.4' -%>
     Require local
     Require ip <%=node['apache']['status_allow_list']%>
 <% else -%>
@@ -27,4 +27,16 @@
   <% else -%>
   ExtendedStatus Off
   <% end -%>
+
+<% if node['apache']['version'] == '2.4' -%>
+  # Determine if mod_status displays the first 63 characters of a request or
+  # the last 63, assuming the request itself is greater than 63 chars.
+  # Default: Off
+  #SeeRequestTail On
+
+  <IfModule mod_proxy.c>
+     # Show Proxy LoadBalancer status in mod_status
+     ProxyStatus On
+  </IfModule>
+<% end -%>
 </IfModule>

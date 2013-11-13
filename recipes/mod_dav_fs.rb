@@ -19,3 +19,5 @@
 
 include_recipe 'apache2::mod_dav'
 apache_module 'dav_fs'
+  conf true
+end

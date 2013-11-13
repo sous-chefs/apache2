@@ -18,3 +18,5 @@
 #
 
 apache_module 'mime_magic'
+  conf true
+end

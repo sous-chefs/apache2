@@ -18,3 +18,5 @@
 #
 
 apache_module 'cgid'
+  conf true
+end

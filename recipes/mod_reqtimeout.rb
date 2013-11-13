@@ -18,3 +18,5 @@
 #
 
 apache_module 'reqtimeout'
+  conf true
+end

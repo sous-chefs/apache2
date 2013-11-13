@@ -18,3 +18,5 @@
 #
 
 apache_module 'actions'
+  conf true
+end

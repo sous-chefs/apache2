@@ -18,3 +18,5 @@
 #
 
 apache_module 'ldap'
+  conf true
+end

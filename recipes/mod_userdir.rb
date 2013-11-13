@@ -18,3 +18,5 @@
 #
 
 apache_module 'userdir'
+  conf true
+end

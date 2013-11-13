@@ -18,3 +18,5 @@
 #
 
 apache_module 'proxy_balancer'
+  conf true
+end

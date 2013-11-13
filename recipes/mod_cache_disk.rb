@@ -18,3 +18,5 @@
 #
 
 apache_module 'cache_disk'
+  conf true
+end
