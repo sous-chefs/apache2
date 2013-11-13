@@ -7,7 +7,7 @@
     # Deny access to raw php sources by default
     # To re-enable it's recommended to enable access to the files
     # only in specific virtual host or directory
-<% if node['apache']['version'] == "2.4" -%>
+<% if node['apache']['version'] == '2.4' -%>
     Require all denied
 <% else -%>
     Order Deny,Allow
@@ -16,8 +16,12 @@
   </FilesMatch>
   # Deny access to files without filename (e.g. '.php')
   <FilesMatch "^\.ph(p[345]?|t|tml|ps)$">
+<% if node['apache']['version'] == '2.4' -%>
+    Require all denied
+<% else -%>
     Order Deny,Allow
     Deny from all
+<% end -%>
   </FilesMatch>
 
   # Running PHP scripts in user directories is disabled by default
