@@ -15,7 +15,7 @@
 Alias /icons/ "<%= node['apache']['icondir'] %>/"
 
 <Directory "<%= node['apache']['icondir'] %>">
-    Options Indexes MultiViews
+    Options -Indexes MultiViews
     AllowOverride None
     Order allow,deny
     Allow from all

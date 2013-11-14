@@ -7,7 +7,7 @@
                 AllowOverride None
         </Directory>
         <Directory /var/www/>
-                Options Indexes FollowSymLinks MultiViews
+                Options -Indexes FollowSymLinks MultiViews
                 AllowOverride None
                 Order allow,deny
                 allow from all
@@ -35,7 +35,7 @@
 
         Alias /doc/ "/usr/share/doc/"
         <Directory "/usr/share/doc/">
-            Options Indexes MultiViews FollowSymLinks
+            Options -Indexes MultiViews FollowSymLinks
             AllowOverride None
             Order deny,allow
             Deny from all
