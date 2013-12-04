@@ -33,7 +33,7 @@
   #   Configure the pass phrase gathering process.
   #   The filtering dialog program (`builtin' is a internal
   #   terminal dialog) has to provide the pass phrase on stdout.
-<% if %w[debian].include?(node['platform_family']) -%>
+<% if %w[debian].include?(node['platform_family']) && node['apache']['version'] == '2.4' -%>
   SSLPassPhraseDialog exec:/usr/share/apache2/ask-for-passphrase
 <% else -%>
   SSLPassPhraseDialog  builtin
