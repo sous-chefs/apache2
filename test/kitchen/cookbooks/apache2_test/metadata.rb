@@ -9,7 +9,7 @@ depends          "apache2"
 depends          "jpackage"
 depends          "openldap"
 depends          "tomcat"
-depends          "yum"
+depends          "yum", '< 3'
 
 recipe           "apache2_test::default", "Test example for default recipe"
 recipe           "apache2_test::mod_auth_basic", "Test example for basic authentication"
