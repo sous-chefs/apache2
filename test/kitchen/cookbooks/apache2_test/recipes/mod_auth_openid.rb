@@ -17,13 +17,13 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
-include_recipe "apache2::mod_auth_openid"
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_auth_openid'
 
 directory "#{node['apache_test']['root_dir']}/secure" do
   action :create
 end
 
-web_app "secure" do
-  template "auth_openid.conf.erb"
+web_app 'secure' do
+  template 'auth_openid.conf.erb'
 end

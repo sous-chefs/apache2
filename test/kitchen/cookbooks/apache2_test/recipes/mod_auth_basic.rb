@@ -17,19 +17,19 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
-include_recipe "apache2::mod_auth_basic"
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_auth_basic'
 
 directory "#{node['apache_test']['root_dir']}/secure" do
   action :create
 end
 
-execute "add-credentials" do
+execute 'add-credentials' do
   command "htpasswd -b -c #{node['apache_test']['root_dir']}/secure/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}"
   action :run
 end
 
-web_app "secure" do
-  template "auth_basic.conf.erb"
+web_app 'secure' do
+  template 'auth_basic.conf.erb'
   auth_user_file "#{node['apache_test']['root_dir']}/secure/.htpasswd"
 end

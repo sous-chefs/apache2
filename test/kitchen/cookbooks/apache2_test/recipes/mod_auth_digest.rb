@@ -17,21 +17,21 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
-include_recipe "apache2::mod_auth_digest"
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_auth_digest'
 
 directory "#{node['apache_test']['root_dir']}/secure" do
   action :create
 end
 
 # htdigest won't read the password from STDIN
-bash "add_credentials" do
+bash 'add_credentials' do
   code %Q{
     (echo -n "#{node['apache_test']['auth_username']}:private area:" && echo -n "#{node['apache_test']['auth_username']}:private area:#{node['apache_test']['auth_password']}" | md5sum | awk '{print $1}') > /#{node['apache_test']['root_dir']}/secure/.htdigest
   }
 end
 
-web_app "secure" do
-  template "auth_digest.conf.erb"
+web_app 'secure' do
+  template 'auth_digest.conf.erb'
   auth_user_file "#{node['apache_test']['root_dir']}/secure/.htdigest"
 end

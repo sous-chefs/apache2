@@ -17,14 +17,14 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
+include_recipe 'apache2::default'
 
-package "subversion" do
+package 'subversion' do
   action :install
 end
 
-include_recipe "apache2::mod_dav"
-include_recipe "apache2::mod_dav_svn"
+include_recipe 'apache2::mod_dav'
+include_recipe 'apache2::mod_dav_svn'
 
 directory node['apache_test']['svn_dir'] do
   owner node['apache']['user']
@@ -33,13 +33,13 @@ directory node['apache_test']['svn_dir'] do
   action :create
 end
 
-execute "create-repo" do
+execute 'create-repo' do
   user node['apache']['user']
   command "svnadmin create --config-dir #{Chef::Config[:file_cache_path]} #{node['apache_test']['svn_dir']}"
   not_if "bash -c 'svnadmin verify #{node['apache_test']['svn_dir']}'"
 end
 
-web_app "svn" do
-  template "svn_repo.conf.erb"
+web_app 'svn' do
+  template 'svn_repo.conf.erb'
   repo_dir node['apache_test']['svn_dir']
 end

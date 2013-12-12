@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
-include_recipe "apache2::mod_cgi"
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_cgi'
 
 directory node['apache_test']['cgi_dir'] do
   action :create
@@ -30,6 +30,6 @@ file "#{node['apache_test']['cgi_dir']}/env" do
 echo -e "Content-type: text/plain\n"
 /usr/bin/env
 }.strip
-  mode "0755"
+  mode '0755'
   action :create
 end

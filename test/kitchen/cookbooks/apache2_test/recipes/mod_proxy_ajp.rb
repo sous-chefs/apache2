@@ -17,28 +17,29 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
-include_recipe "apache2::mod_proxy"
-include_recipe "apache2::mod_proxy_ajp"
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_proxy'
+include_recipe 'apache2::mod_proxy_ajp'
 
-if platform_family?("rhel") && node['platform_version'].to_f < 6.0
-  include_recipe "jpackage::default"
+if platform_family?('rhel') && node['platform_version'].to_f < 6.0
+  # include jpackage
+  include_recipe 'jpackage::default'
 end
 
-include_recipe "tomcat::default"
+include_recipe 'tomcat::default'
 
-if platform?("debian","ubuntu")
-  package "tomcat6-examples" do
+if platform?('debian', 'ubuntu')
+  package 'tomcat6-examples' do
     action :install
   end
 else
-  package "tomcat6-webapps" do
+  package 'tomcat6-webapps' do
     action :install
   end
 end
 
-web_app "java_env" do
-  template "java_env.conf.erb"
+web_app 'java_env' do
+  template 'java_env.conf.erb'
   ajp_host 'localhost'
   ajp_port 8009
 end
