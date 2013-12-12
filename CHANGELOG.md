@@ -2,6 +2,11 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.8.6
+------
+Locking yum dependency to '< 3'
+
+
 v1.8.4
 ------
 ### Bug
