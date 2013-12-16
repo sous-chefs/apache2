@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: cloudflare
+# Recipe:: mod_cloudflare
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

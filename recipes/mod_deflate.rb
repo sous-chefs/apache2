@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: deflate
+# Recipe:: mod_deflate
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

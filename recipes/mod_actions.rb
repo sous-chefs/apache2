@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: actions
+# Recipe:: mod_actions
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'actions'
+apache_module 'actions' do
+  conf true
+end

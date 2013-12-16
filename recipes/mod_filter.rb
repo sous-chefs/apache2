@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: filter
+# Recipe:: mod_filter
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

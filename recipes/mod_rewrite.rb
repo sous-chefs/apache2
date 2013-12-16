@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: rewrite
+# Recipe:: mod_rewrite
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: default
+# Recipe:: mod_pagespeed
 #
 # Copyright 2013, ZOZI
 #

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: cgi
+# Recipe:: mod_cgi
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
