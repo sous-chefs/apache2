@@ -100,4 +100,24 @@
   #   Whether to forbid non-SNI clients to access name based virtual hosts.
   #   Default: Off
   SSLStrictSNIVHostCheck <%= node['apache']['mod_ssl']['strict_sni_vhost_check'] %>
+
+<% if node['apache']['version'] == '2.4' -%>
+  #   Enable compression on the SSL level
+  #   Enabling compression causes security issues in most setups (the so called CRIME attack).
+  #   Default: Off
+  SSLCompression         <%= node['apache']['mod_ssl']['compression'] %>
+
+  #   OCSP Stapling, only in httpd 2.3.3 and later
+  #   This option enables OCSP stapling, as defined by the "Certificate Status Request" TLS
+  #   extension specified in RFC 6066. If enabled (and requested by the client), mod_ssl will
+  #   include an OCSP response for its own certificate in the TLS handshake.
+  #   Configuring an SSLStaplingCache is a prerequisite for enabling OCSP stapling.
+  #   Default: Off
+  <% if node['apache']['mod_ssl']['use_stapling'] == 'On' -%>
+  SSLUseStapling         <%= node['apache']['mod_ssl']['use_stapling'] %>
+  SSLStaplingResponderTimeout <%= node['apache']['mod_ssl']['stapling_responder_timeout'] %>
+  SSLStaplingReturnResponderErrors <%= node['apache']['mod_ssl']['stapling_return_responder_errors'] %>
+  SSLStaplingCache        <%= node['apache']['mod_ssl']['stapling_cache'] %>
+  <% end -%>
+<% end -%>
 </IfModule>
