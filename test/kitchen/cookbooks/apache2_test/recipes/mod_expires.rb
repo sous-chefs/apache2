@@ -17,14 +17,14 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
-include_recipe "apache2::mod_expires"
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_expires'
 
 directory "#{node['apache_test']['root_dir']}/cachetest" do
   action :create
 end
 
-web_app "cachetest" do
-  template "cache_test.conf.erb"
+web_app 'cachetest' do
+  template 'cache_test.conf.erb'
   cache_expiry_seconds node['apache_test']['cache_expiry_seconds']
 end

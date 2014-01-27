@@ -17,14 +17,14 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
-include_recipe "apache2::mod_authz_host"
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_authz_host'
 
 directory "#{node['apache_test']['root_dir']}/secure" do
   action :create
 end
 
-web_app "secure" do
-  template "authz_host.conf.erb"
+web_app 'secure' do
+  template 'authz_host.conf.erb'
   remote_host_ip '8.8.8.8'
 end

@@ -48,10 +48,10 @@ end
 
 When /^the authenticated user is (not )?listed (?:in the directory )(?:in the file|as authorized)$/ do |not_listed|
   http_request '/secure/',
-    :basic_auth => {
-      :username => not_listed ? 'meatballs' : 'bork',
-      :password => 'secret'
-    }
+               :basic_auth => {
+                 :username => not_listed ? 'meatballs' : 'bork',
+                 :password => 'secret'
+               }
 end
 
 When 'the browser requests a page specifying that it does not support compression' do

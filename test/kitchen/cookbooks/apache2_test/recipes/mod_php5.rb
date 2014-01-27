@@ -17,14 +17,14 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
+include_recipe 'apache2::default'
 
-package "which" do
+package 'which' do
   action :install
-  only_if { platform_family?("rhel", "fedora") }
+  only_if { platform_family?('rhel', 'fedora') }
 end
 
-include_recipe "apache2::mod_php5"
+include_recipe 'apache2::mod_php5'
 
 directory node['apache_test']['app_dir'] do
   recursive true
@@ -40,11 +40,11 @@ foreach($_SERVER as $key_name => $key_value) {
 }
 ?>
 }.strip
-  mode "0755"
+  mode '0755'
   action :create
 end
 
-web_app "php_env" do
-  template "php_env.conf.erb"
+web_app 'php_env' do
+  template 'php_env.conf.erb'
   app_dir node['apache_test']['app_dir']
 end

@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
-include_recipe "apache2::mod_ssl"
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_ssl'
 
 directory node['apache_test']['ssl_dir'] do
   owner node['apache']['user']
@@ -27,12 +27,12 @@ directory node['apache_test']['ssl_dir'] do
   action :create
 end
 
-execute "create-private-key" do
+execute 'create-private-key' do
   command "openssl genrsa > #{node['apache_test']['ssl_cert_key_file']}"
   not_if "test -f #{node['apache_test']['ssl_cert_key_file']}"
 end
 
-execute "create-certficate" do
+execute 'create-certficate' do
   command %Q{openssl req -new -x509 -key #{node['apache_test']['ssl_cert_key_file']} -out #{node['apache_test']['ssl_cert_file']} -days 1 <<EOF
 US
 Washington
@@ -45,8 +45,8 @@ EOF}
   not_if "test -f #{node['apache_test']['ssl_cert_file']}"
 end
 
-web_app "ssl" do
-  template "ssl.conf.erb"
+web_app 'ssl' do
+  template 'ssl.conf.erb'
   server_name node['domain']
   document_root node['apache_test']['root_dir']
   ssl_cert_file node['apache_test']['ssl_cert_file']

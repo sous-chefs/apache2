@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
+include_recipe 'apache2::default'
 
 # Duplicates the list in the modules_test minitest, which is
 # distasteful duplication.

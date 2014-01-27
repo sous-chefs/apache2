@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "apache2::default"
+include_recipe 'apache2::default'
 
 secure_dir = "#{node['apache_test']['root_dir']}/secure"
 
@@ -24,7 +24,7 @@ directory secure_dir do
   action :create
 end
 
-bash "add-credentials" do
+bash 'add-credentials' do
   code %Q{
     htpasswd -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
     htpasswd -b #{secure_dir}/.htpasswd meatballs secret
@@ -32,10 +32,10 @@ bash "add-credentials" do
   action :run
 end
 
-include_recipe "apache2::mod_authz_user"
+include_recipe 'apache2::mod_authz_user'
 
-web_app "secure" do
-  template "authz_user.conf.erb"
+web_app 'secure' do
+  template 'authz_user.conf.erb'
   secure_dir secure_dir
   username node['apache_test']['auth_username']
 end

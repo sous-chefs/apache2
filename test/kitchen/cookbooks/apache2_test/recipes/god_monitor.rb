@@ -16,4 +16,4 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::god_monitor"
+include_recipe 'apache2::god_monitor'

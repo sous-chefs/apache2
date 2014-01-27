@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
+include_recipe 'apache2::default'
 
 app_dir = "#{node['apache_test']['root_dir']}/basic_web_app"
 
@@ -26,12 +26,12 @@ directory app_dir do
 end
 
 file "#{app_dir}/index.html" do
-  content "Hello World"
+  content 'Hello World'
   action :create
 end
 
-web_app "basic_webapp" do
-  cookbook "apache2"
+web_app 'basic_webapp' do
+  cookbook 'apache2'
   server_name node['hostname']
   server_aliases [node['fqdn']]
   docroot app_dir

@@ -17,14 +17,14 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
+include_recipe 'apache2::default'
 
-yum_repository "epel" do
+yum_repository 'epel' do
   url 'http://dl.fedoraproject.org/pub/epel/$releasever/$basearch/'
-  only_if { platform_family?("rhel", "fedora") }
+  only_if { platform_family?('rhel', 'fedora') }
 end
 
-include_recipe "apache2::mod_python"
+include_recipe 'apache2::mod_python'
 
 directory node['apache_test']['app_dir'] do
   recursive true
@@ -44,11 +44,11 @@ print
 for k in sorted(os.environ):
   print "%s=%s" %(escape(k), escape(os.environ[k]))
 }.strip
-  mode "0755"
+  mode '0755'
   action :create
 end
 
-web_app "python_env" do
-  template "python_env.conf.erb"
+web_app 'python_env' do
+  template 'python_env.conf.erb'
   app_dir node['apache_test']['app_dir']
 end

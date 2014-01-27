@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
+include_recipe 'apache2::default'
 
 secure_dir = "#{node['apache_test']['root_dir']}/secure"
 group_name = 'swedishchef'
@@ -26,7 +26,7 @@ directory secure_dir do
   action :create
 end
 
-bash "add-credentials" do
+bash 'add-credentials' do
   code %Q{
     htpasswd -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
     htpasswd -b #{secure_dir}/.htpasswd meatballs secret
@@ -38,9 +38,9 @@ file "#{secure_dir}/.htgroups" do
   content "#{group_name}:#{node['apache_test']['auth_username']}"
 end
 
-include_recipe "apache2::mod_authz_groupfile"
-web_app "secure" do
-  template "authz_groupfile.conf.erb"
+include_recipe 'apache2::mod_authz_groupfile'
+web_app 'secure' do
+  template 'authz_groupfile.conf.erb'
   secure_dir secure_dir
   group_name group_name
 end

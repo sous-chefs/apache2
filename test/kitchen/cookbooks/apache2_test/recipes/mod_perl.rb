@@ -17,25 +17,25 @@
 # limitations under the License.
 #
 
-include_recipe "apache2::default"
+include_recipe 'apache2::default'
 
-include_recipe "yum::epel" if platform?("centos")
+include_recipe 'yum::epel' if platform?('centos')
 
-include_recipe "apache2::mod_perl"
+include_recipe 'apache2::mod_perl'
 
-package "perl-CGI-SpeedyCGI" do
+package 'perl-CGI-SpeedyCGI' do
   action :install
-  only_if { platform?("redhat", "centos", "scientific", "fedora", "amazon") }
+  only_if { platform?('redhat', 'centos', 'scientific', 'fedora', 'amazon') }
 end
 
 file "#{node['apache']['dir']}/conf.d/apreq.conf" do
   action :delete
-  only_if { platform?("redhat", "centos", "scientific", "fedora", "amazon") }
+  only_if { platform?('redhat', 'centos', 'scientific', 'fedora', 'amazon') }
 end
 
 file "#{node['apache']['dir']}/conf.d/perl.conf" do
   action :delete
-  only_if { platform?("redhat", "centos", "scientific", "fedora", "amazon") }
+  only_if { platform?('redhat', 'centos', 'scientific', 'fedora', 'amazon') }
 end
 
 directory node['apache_test']['app_dir'] do
@@ -56,11 +56,11 @@ foreach my $key (sort(keys(%ENV))) {
     print "$key=$ENV{$key}\n";
 }
 }.strip
-  mode "0755"
+  mode '0755'
   action :create
 end
 
-web_app "perl_env" do
-  template "perl_env.conf.erb"
+web_app 'perl_env' do
+  template 'perl_env.conf.erb'
   app_dir node['apache_test']['app_dir']
 end
