@@ -1,0 +1,52 @@
+# This file is managed by Chef. Changes will be overwritten.
+
+## APACHE_MODULES are managed with /etc/apache2/mods-available.
+
+## Type:	string
+## Default:	""
+## ServiceRestart: apache2
+#
+# Additional server flags:
+#
+# Put here any server flags ("Defines") that you want to hand over to 
+# httpd at start time, or other command line flags.
+#
+# Background: Any directives within an <IfDefine flag>...</IfDefine>
+#             section are only processed if the flag is defined.
+#             This allows to write configuration which is active only in a
+#             special cases, like during server maintenance, or for testing
+#             something temporarily.
+#
+# Notably, to enable ssl support, 'SSL' needs to be added here.
+# To enable the server-status, 'STATUS' needs to be added here.
+#
+# It does not matter if you write flag1, -D flag1 or -Dflag1.
+# Multiple flags can be given as "-D flag1 -D flag2" or simply "flag1 flag2".
+#
+# Specifying such flags here is equivalent to giving them on the commandline.
+# (e.g. via rcapache2 start -DReverseProxy)
+#
+# Example:
+#      "SSL STATUS AWSTATS SVN_VIEWCVS no_subversion_today"
+#
+APACHE_SERVER_FLAGS="<%= node['apache']['server_flags'] %>"
+
+## Type:	string
+## Default:	""
+## ServiceRestart: apache2
+#
+# Which config file do you want to use?
+# (if not set, /etc/apache2/httpd.conf is used.)
+# It is unusual to need to use this setting.
+#
+# Note about ulimits:
+#   if you want to set ulimits, e.g. to increase the max number of open file handle, 
+#   or to allow core files, you can do so by editing /etc/sysconfig/apache2 and
+#   simply write the ulimit commands into that file.
+#   Example:
+#     ulimit -n 16384
+#     ulimit -H -n 16384
+#     ulimit -c unlimited
+#   See the output of "help ulimit" in the bash, or "man 1 ulimit".
+#
+APACHE_HTTPD_CONF="<%= node['apache']['httpd_conf'] %>"

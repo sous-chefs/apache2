@@ -21,7 +21,7 @@ default['apache']['root_group'] = 'root'
 
 # Where the various parts of apache are
 case node['platform']
-when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
+when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['package']     = 'httpd'
   default['apache']['dir']         = '/etc/httpd'
   default['apache']['log_dir']     = '/var/log/httpd'
@@ -42,22 +42,39 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
-when 'debian', 'ubuntu'
-  default['apache']['package']     = 'apache2'
-  default['apache']['dir']         = '/etc/apache2'
-  default['apache']['log_dir']     = '/var/log/apache2'
-  default['apache']['error_log']   = 'error.log'
-  default['apache']['access_log']  = 'access.log'
-  default['apache']['user']        = 'www-data'
-  default['apache']['group']       = 'www-data'
-  default['apache']['binary']      = '/usr/sbin/apache2'
-  default['apache']['docroot_dir'] = '/var/www'
-  default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
-  default['apache']['icondir']     = '/usr/share/apache2/icons'
-  default['apache']['cache_dir']   = '/var/cache/apache2'
-  default['apache']['pid_file']    = '/var/run/apache2.pid'
-  default['apache']['lib_dir']     = '/usr/lib/apache2'
-  default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
+when 'suse'
+  default['apache']['package']      = "apache2"
+  default['apache']['dir']          = "/etc/apache2"
+  default['apache']['log_dir']      = "/var/log/apache2"
+  default['apache']['error_log']    = "error.log"
+  default['apache']['user']         = "wwwrun"
+  default['apache']['group']        = "www"
+  default['apache']['binary']       = "/usr/sbin/apache2"
+  default['apache']['icondir']      = "/var/www/icons"
+  default['apache']['cache_dir']    = "/var/cache/apache2"
+  default['apache']['pid_file']     = "/run/httpd2.pid"
+  default['apache']['lib_dir']      = node['kernel']['machine'] =~ /^i[36']86$/ ? "/usr/lib/apache2" : "/usr/lib64/apache2"
+  default['apache']['libexecdir']   = node['apache']['lib_dir']
+  default['apache']['default_site_enabled'] = false
+  default['apache']['server_flags'] = ''
+  default['apache']['httpd_conf']   = ''
+  default['apache']['docroot']      = '/srv/www/htdocs'
+when "debian", "ubuntu"
+  default['apache']['package']      = "apache2"
+  default['apache']['dir']          = "/etc/apache2"
+  default['apache']['log_dir']      = "/var/log/apache2"
+  default['apache']['error_log']    = "error.log"
+  default['apache']['access_log']   = "access.log"
+  default['apache']['user']         = "www-data"
+  default['apache']['group']        = "www-data"
+  default['apache']['binary']       = "/usr/sbin/apache2"
+  default['apache']['docroot_dir']  = "/var/www"
+  default['apache']['cgibin_dir']   = "/usr/lib/cgi-bin"
+  default['apache']['icondir']      = "/usr/share/apache2/icons"
+  default['apache']['cache_dir']    = "/var/cache/apache2"
+  default['apache']['pid_file']     = "/var/run/apache2.pid"
+  default['apache']['lib_dir']      = "/usr/lib/apache2"
+  default['apache']['libexecdir']   = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
 when 'arch'
   default['apache']['package']     = 'apache'
