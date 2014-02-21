@@ -60,6 +60,9 @@ supports 'redhat'
 supports 'scientific'
 supports 'ubuntu'
 
+depends 'logrotate'
+depends 'pacman'
+
 attribute 'apache',
           :display_name => 'Apache Hash',
           :description  => 'Hash of Apache attributes',
