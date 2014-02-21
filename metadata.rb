@@ -48,6 +48,8 @@ recipe            'apache2::mod_ssl', 'Apache module "ssl" with config file, add
 recipe            'apache2::mod_status', 'Apache module "status" with config file'
 recipe            'apache2::mod_xsendfile', 'Apache module "xsendfile"'
 
+depends 'iptables'
+
 supports 'amazon'
 supports 'arch'
 supports 'centos'
