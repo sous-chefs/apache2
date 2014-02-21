@@ -48,7 +48,7 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
     mode '0755'
   end
 
-  package 'perl'
+  package node['apache']['perl_pkg']
 
   cookbook_file '/usr/local/bin/apache2_module_conf_generate.pl' do
     source 'apache2_module_conf_generate.pl'
