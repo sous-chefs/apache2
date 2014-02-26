@@ -2,6 +2,21 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.9.0 (2014-02-21)
+-------------------
+### Improvement
+- **[COOK-4076](https://tickets.opscode.com/browse/COOK-4076)** - foodcritic: dependencies are not defined properly
+- **[COOK-2572](https://tickets.opscode.com/browse/COOK-2572)** - Add mod_pagespeed recipe to apache2 
+
+### Bug
+- **[COOK-4043](https://tickets.opscode.com/browse/COOK-4043)** - apache2 cookbook does not depend on 'iptables'
+- **[COOK-3919](https://tickets.opscode.com/browse/COOK-3919)** - Move the default pidfile for apache2 on Ubuntu 13.10 or greater
+- **[COOK-3863](https://tickets.opscode.com/browse/COOK-3863)** - Add recipe for mod_jk
+- **[COOK-3804](https://tickets.opscode.com/browse/COOK-3804)** - Fix incorrect datatype for apache/default_modules, use recipes option in metadata
+- **[COOK-3800](https://tickets.opscode.com/browse/COOK-3800)** - Cannot load modules that use non-standard module identifiers
+- **[COOK-1689](https://tickets.opscode.com/browse/COOK-1689)** - The perl package name should be configurable
+
+
 v1.8.14
 -------
 Version bump for toolchain sanity
