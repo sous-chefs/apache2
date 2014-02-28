@@ -2,6 +2,11 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.9.6 (2014-02-28)
+-------------------
+[COOK-4391] - uncommenting the PIDFILE line
+
+
 v1.9.4 (2014-02-27)
 -------------------
 Bumping version for toolchain
