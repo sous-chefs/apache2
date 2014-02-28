@@ -2,6 +2,11 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.9.1 (2014-02-27)
+-------------------
+[COOK-4348] Allow arbitrary params in sysconfig
+
+
 v1.9.0 (2014-02-21)
 -------------------
 ### Improvement
