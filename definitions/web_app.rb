@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-define :web_app, :template => 'web_app.conf.erb', :enable => true do
+define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => true do
 
   application_name = params[:name]
 
@@ -28,6 +28,7 @@ define :web_app, :template => 'web_app.conf.erb', :enable => true do
 
   template "#{node['apache']['dir']}/sites-available/#{application_name}.conf" do
     source   params[:template]
+    local    params[:local]
     owner    'root'
     group    node['apache']['root_group']
     mode     '0644'
