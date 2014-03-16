@@ -17,8 +17,11 @@
 # limitations under the License.
 #
 
+include_recipe 'apache2::ohai_plugin'
+
 package 'apache2' do
   package_name node['apache']['package']
+  notifies :reload, 'ohai[reload_apache]', :immediately
 end
 
 service 'apache2' do
