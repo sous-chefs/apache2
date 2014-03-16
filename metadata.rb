@@ -62,6 +62,7 @@ supports 'ubuntu'
 
 depends 'logrotate'
 depends 'pacman'
+depends 'ohai'
 
 attribute 'apache',
           :display_name => 'Apache Hash',
