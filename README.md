@@ -37,8 +37,10 @@ this cookbook](http://community.opscode.com/cookbooks/apache2/versions/1_1_16/do
 
 ## Cookbooks:
 
-This cookbook doesn't have direct dependencies on other cookbooks, as
-none are needed for the default recipe or the general use cases.
+The following cookbooks are direct dependencies because they're used
+for common "default" functionality:
+
+* ohai (for apache2::ohai_plugin)
 
 Depending on your OS configuration and security policy, you may need
 additional recipes or cookbooks for this cookbook's recipes to
@@ -267,6 +269,14 @@ default
 The default recipe does a number of things to set up Apache HTTPd. It
 also includes a number of modules based on the attribute
 `node['apache']['default_modules']` as recipes.
+
+Includes the `ohai_plugin` recipe so the plugin is available.
+
+ohai_plugin
+------------
+
+This recipe provides an Ohai plugin as a template. It is included by
+the default recipe.
 
 logrotate
 ---------
@@ -531,6 +541,15 @@ In the template. When you write your own, the `@` is significant.
 
 For more information about Definitions and parameters, see the
 [Chef Wiki](http://wiki.opscode.com/display/chef/Definitions)
+
+Ohai Plugin
+===========
+
+The ohai_plugin recipe includes an Ohai plugin. It will be
+automatically installed and activated, providing the following
+attributes via ohai:
+
+- `node['apache']['version']` - version of apache
 
 Usage
 =====
