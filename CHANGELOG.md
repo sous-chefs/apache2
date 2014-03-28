@@ -2,6 +2,13 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.10.0 (2014-03-28)
+--------------------
+- [COOK-3990] - Fix minitest failures on EL5
+- [COOK-4416] - Support the ability to point to local apache configs
+- [COOK-4469] - Use reload instead of restart on RHEL
+
+
 v1.9.6 (2014-02-28)
 -------------------
 [COOK-4391] - uncommenting the PIDFILE line
