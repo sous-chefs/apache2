@@ -1,7 +1,6 @@
 apache2 Cookbook
 ================
-[![Build Status](https://secure.travis-ci.org/opscode-cookbooks/apache2.png?branch=master)](http://travis-ci.org/opscode-cookbooks/apache2)
-
+[![Build Status](https://secure.travis-ci.org/onehealth-cookbooks/apache2.png?branch=master)](http://travis-ci.org/onehealth-cookbooks/apache2)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD
 configuration. Non-Debian based distributions such as Red Hat/CentOS,
