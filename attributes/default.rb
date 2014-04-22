@@ -23,6 +23,7 @@ default['apache']['root_group'] = 'root'
 case node['platform']
 when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
   default['apache']['package']     = 'httpd'
+  default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/httpd'
   default['apache']['log_dir']     = '/var/log/httpd'
   default['apache']['error_log']   = 'error.log'
@@ -44,6 +45,7 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
   default['apache']['default_site_enabled'] = false
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
+  default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
   default['apache']['error_log']   = 'error.log'
@@ -55,12 +57,17 @@ when 'debian', 'ubuntu'
   default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
   default['apache']['icondir']     = '/usr/share/apache2/icons'
   default['apache']['cache_dir']   = '/var/cache/apache2'
-  default['apache']['pid_file']    = '/var/run/apache2.pid'
+  default['apache']['pid_file']    = if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 13.10
+                                       '/var/run/apache2/apache2.pid'
+                                     else
+                                       '/var/run/apache2.pid'
+                                     end
   default['apache']['lib_dir']     = '/usr/lib/apache2'
   default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
 when 'arch'
   default['apache']['package']     = 'apache'
+  default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/httpd'
   default['apache']['log_dir']     = '/var/log/httpd'
   default['apache']['error_log']   = 'error.log'
@@ -78,6 +85,7 @@ when 'arch'
   default['apache']['default_site_enabled'] = false
 when 'freebsd'
   default['apache']['package']     = 'apache22'
+  default['apache']['perl_pkg']    = 'perl5'
   default['apache']['dir']         = '/usr/local/etc/apache22'
   default['apache']['log_dir']     = '/var/log'
   default['apache']['error_log']   = 'httpd-error.log'
@@ -125,6 +133,7 @@ default['apache']['timeout']           = 300
 default['apache']['keepalive']         = 'On'
 default['apache']['keepaliverequests'] = 100
 default['apache']['keepalivetimeout']  = 5
+default['apache']['sysconfig_additional_params'] = {}
 
 # Security
 default['apache']['servertokens']    = 'Prod'

@@ -2,6 +2,52 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.10.2 (2014-04-09)
+--------------------
+- [COOK-4490] - Fix minitest `apache_configured_ports` helper
+- [COOK-4491] - Fix minitest: escape regex interpolation
+- [COOK-4492] - Fix service[apache2] CHEF-3694 duplication
+- [COOK-4493] - Fix template[ports.conf] CHEF-3694 duplication
+
+As of 2014-04-04 and per [Community Cookbook Diversification](https://wiki.opscode.com/display/chef/Community+Cookbook+Diversification) this cookbook now maintained by OneHealth Solutions. Please be patient as we get into the swing of things.
+
+v1.10.0 (2014-03-28)
+--------------------
+- [COOK-3990] - Fix minitest failures on EL5
+- [COOK-4416] - Support the ability to point to local apache configs
+- [COOK-4469] - Use reload instead of restart on RHEL
+
+
+v1.9.6 (2014-02-28)
+-------------------
+[COOK-4391] - uncommenting the PIDFILE line
+
+
+v1.9.4 (2014-02-27)
+-------------------
+Bumping version for toolchain
+
+
+v1.9.1 (2014-02-27)
+-------------------
+[COOK-4348] Allow arbitrary params in sysconfig
+
+
+v1.9.0 (2014-02-21)
+-------------------
+### Improvement
+- **[COOK-4076](https://tickets.opscode.com/browse/COOK-4076)** - foodcritic: dependencies are not defined properly
+- **[COOK-2572](https://tickets.opscode.com/browse/COOK-2572)** - Add mod_pagespeed recipe to apache2 
+
+### Bug
+- **[COOK-4043](https://tickets.opscode.com/browse/COOK-4043)** - apache2 cookbook does not depend on 'iptables'
+- **[COOK-3919](https://tickets.opscode.com/browse/COOK-3919)** - Move the default pidfile for apache2 on Ubuntu 13.10 or greater
+- **[COOK-3863](https://tickets.opscode.com/browse/COOK-3863)** - Add recipe for mod_jk
+- **[COOK-3804](https://tickets.opscode.com/browse/COOK-3804)** - Fix incorrect datatype for apache/default_modules, use recipes option in metadata
+- **[COOK-3800](https://tickets.opscode.com/browse/COOK-3800)** - Cannot load modules that use non-standard module identifiers
+- **[COOK-1689](https://tickets.opscode.com/browse/COOK-1689)** - The perl package name should be configurable
+
+
 v1.8.14
 -------
 Version bump for toolchain sanity

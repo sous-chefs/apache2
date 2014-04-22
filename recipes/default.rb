@@ -21,34 +21,12 @@ package 'apache2' do
   package_name node['apache']['package']
 end
 
-service 'apache2' do
-  case node['platform_family']
-  when 'rhel', 'fedora', 'suse'
-    service_name 'httpd'
-    # If restarted/reloaded too quickly httpd has a habit of failing.
-    # This may happen with multiple recipes notifying apache to restart - like
-    # during the initial bootstrap.
-    restart_command '/sbin/service httpd restart && sleep 1'
-    reload_command '/sbin/service httpd reload && sleep 1'
-  when 'debian'
-    service_name 'apache2'
-    restart_command '/usr/sbin/invoke-rc.d apache2 restart && sleep 1'
-    reload_command '/usr/sbin/invoke-rc.d apache2 reload && sleep 1'
-  when 'arch'
-    service_name 'httpd'
-  when 'freebsd'
-    service_name 'apache22'
-  end
-  supports [:restart, :reload, :status]
-  action :enable
-end
-
 if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
   directory node['apache']['log_dir'] do
     mode '0755'
   end
 
-  package 'perl'
+  package node['apache']['perl_pkg']
 
   cookbook_file '/usr/local/bin/apache2_module_conf_generate.pl' do
     source 'apache2_module_conf_generate.pl'
@@ -159,7 +137,7 @@ template 'apache2.conf' do
   owner    'root'
   group    node['apache']['root_group']
   mode     '0644'
-  notifies :restart, 'service[apache2]'
+  notifies :reload, 'service[apache2]'
 end
 
 template 'apache2-conf-security' do
@@ -169,7 +147,7 @@ template 'apache2-conf-security' do
   group    node['apache']['root_group']
   mode     '0644'
   backup   false
-  notifies :restart, 'service[apache2]'
+  notifies :reload, 'service[apache2]'
 end
 
 template 'apache2-conf-charset' do
@@ -179,7 +157,7 @@ template 'apache2-conf-charset' do
   group    node['apache']['root_group']
   mode     '0644'
   backup   false
-  notifies :restart, 'service[apache2]'
+  notifies :reload, 'service[apache2]'
 end
 
 template "#{node['apache']['dir']}/ports.conf" do
@@ -187,7 +165,7 @@ template "#{node['apache']['dir']}/ports.conf" do
   owner    'root'
   group    node['apache']['root_group']
   mode     '0644'
-  notifies :restart, 'service[apache2]'
+  notifies :reload, 'service[apache2]'
 end
 
 template "#{node['apache']['dir']}/sites-available/default" do
@@ -195,7 +173,7 @@ template "#{node['apache']['dir']}/sites-available/default" do
   owner    'root'
   group    node['apache']['root_group']
   mode     '0644'
-  notifies :restart, 'service[apache2]'
+  notifies :reload, 'service[apache2]'
 end
 
 node['apache']['default_modules'].each do |mod|
@@ -208,5 +186,23 @@ apache_site 'default' do
 end
 
 service 'apache2' do
-  action :start
+  case node['platform_family']
+  when 'rhel', 'fedora', 'suse'
+    service_name 'httpd'
+    # If restarted/reloaded too quickly httpd has a habit of failing.
+    # This may happen with multiple recipes notifying apache to restart - like
+    # during the initial bootstrap.
+    restart_command '/sbin/service httpd restart && sleep 1'
+    reload_command '/sbin/service httpd reload && sleep 1'
+  when 'debian'
+    service_name 'apache2'
+    restart_command '/usr/sbin/invoke-rc.d apache2 restart && sleep 1'
+    reload_command '/usr/sbin/invoke-rc.d apache2 reload && sleep 1'
+  when 'arch'
+    service_name 'httpd'
+  when 'freebsd'
+    service_name 'apache22'
+  end
+  supports [:restart, :reload, :status]
+  action [:enable, :start]
 end
