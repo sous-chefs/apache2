@@ -19,7 +19,7 @@ describe 'apache2::mod_auth_openid' do
                  'httpd.conf'
                end
     httpd_config = File.read(File.join(node['apache']['dir'], conffile))
-    refute_match /^LoadModule authopenid_module /, httpd_config
+    refute_match(/^LoadModule authopenid_module /, httpd_config)
   end
 
   it 'creates a cache directory for the module' do
