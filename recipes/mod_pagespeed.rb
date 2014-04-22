@@ -33,5 +33,5 @@ if platform_family?('debian')
     conf true
   end
 else
-  Chef::Log.warm "apache::mod_pagespeed does not support #{node["platform_family"]} yet, and is not being installed"
+  Chef::Log.warn "apache::mod_pagespeed does not support #{node["platform_family"]} yet, and is not being installed"
 end
