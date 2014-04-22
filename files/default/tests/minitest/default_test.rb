@@ -37,7 +37,7 @@ describe 'apache2::default' do
 
   it 'reports server name only, not detailed version info' do
     assert_match(/^ServerTokens #{Regexp.escape(node['apache']['servertokens'])} *$/,
-      File.read("#{node['apache']['dir']}/conf.d/security"))
+      File.read("#{node['apache']['dir']}/conf.d/security.conf"))
   end
 
   it 'listens on port 80' do
@@ -51,7 +51,7 @@ describe 'apache2::default' do
   end
 
   it 'reports server name only, not detailed version info' do
-    file("#{node['apache']['dir']}/conf.d/security").must_match(
+    file("#{node['apache']['dir']}/conf.d/security.conf").must_match(
       /^ServerTokens #{Regexp.escape(node['apache']['servertokens'])} *$/)
   end
 
