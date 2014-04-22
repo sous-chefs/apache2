@@ -1,6 +1,5 @@
 AllCops:
   Excludes:
-    - test/**
     - vendor/**
     - ruby/**
 
