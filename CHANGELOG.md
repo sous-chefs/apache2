@@ -2,6 +2,11 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.10.4 (2014-04-23)
+--------------------
+- [COOK-4249] mod_proxy_http requires mod_proxy
+
+
 v1.10.2 (2014-04-09)
 --------------------
 - [COOK-4490] - Fix minitest `apache_configured_ports` helper
