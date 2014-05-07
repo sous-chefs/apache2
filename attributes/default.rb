@@ -180,7 +180,7 @@ default['apache']['default_modules'] = %w[
   status alias auth_basic authn_file authz_groupfile authz_host authz_user autoindex
   dir env mime negotiation setenvif
 ]
-if !%w[trusty].include?(node['lsb']['codename'])
+unless %w[trusty].include?(node['lsb']['codename'])
   default['apache']['default_modules'].push('authz_default')
 end
 
