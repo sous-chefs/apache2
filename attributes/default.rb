@@ -181,7 +181,7 @@ default['apache']['default_modules'] = %w[
   dir env mime negotiation setenvif
 ]
 if !%w[trusty].include?(node['lsb']['codename'])
-  default['apache']['default_modules'].push("authz_default")
+  default['apache']['default_modules'].push('authz_default')
 end
 
 %w[log_config logio].each do |log_mod|
