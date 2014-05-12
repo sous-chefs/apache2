@@ -22,7 +22,7 @@ describe 'apache2::mod_ssl' do
 
   it 'configures SSLCiphersuit from an attribute' do
     assert_match(
-      /^SSLCipherSuite #{node['apache']['mod_ssl']['cipher_suite']}$/,
+      /SSLCipherSuite #{Regexp.escape(node['apache']['mod_ssl']['cipher_suite'])}$/,
       File.read("#{node['apache']['dir']}/mods-enabled/ssl.conf")
       )
   end
