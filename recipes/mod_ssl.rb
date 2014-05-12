@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: ssl
+# Recipe:: mod_ssl
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

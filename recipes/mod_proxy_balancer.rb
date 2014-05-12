@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: proxy
+# Recipe:: mod_proxy_balancer
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'proxy_balancer'
+apache_module 'proxy_balancer' do
+  conf true
+end

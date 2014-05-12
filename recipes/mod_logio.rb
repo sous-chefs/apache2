@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: logio
+# Recipe:: mod_logio
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

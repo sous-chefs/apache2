@@ -24,17 +24,21 @@
     Allow from 127.0.0.1
   </Location>
 
+  RewriteEngine On
+  <%- if node[:apache][:version] == '2.4' -%>
+  LogLevel info rewrite:trace1
+  <%- else -%>
   LogLevel info
+  RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
+  RewriteLogLevel 0
+  <%- end -%>
+
   ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
   CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
 
   <% if @params[:directory_index] -%>
   DirectoryIndex <%= [@params[:directory_index]].flatten.join " " %>
   <% end -%>
-
-  RewriteEngine On
-  RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
-  RewriteLogLevel 0
 
   # Canonical host, <%= @params[:server_name] %>
   RewriteCond %{HTTP_HOST}   !^<%= @params[:server_name] %> [NC]

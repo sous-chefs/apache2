@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'userdir'
+apache_module 'userdir' do
+  conf true
+end

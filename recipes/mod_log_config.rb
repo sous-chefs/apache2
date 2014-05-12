@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: log_config
+# Recipe:: mod_log_config
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

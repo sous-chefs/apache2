@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: fastcgi
+# Recipe:: mod_fastcgi
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

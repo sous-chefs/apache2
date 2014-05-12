@@ -33,7 +33,11 @@
   #   Configure the pass phrase gathering process.
   #   The filtering dialog program (`builtin' is a internal
   #   terminal dialog) has to provide the pass phrase on stdout.
+<% if %w[debian].include?(node['platform_family']) && node['apache']['version'] == '2.4' -%>
+  SSLPassPhraseDialog exec:/usr/share/apache2/ask-for-passphrase
+<% else -%>
   SSLPassPhraseDialog  builtin
+<% end -%>
 
   #   Inter-Process Session Cache:
   #   Configure the SSL Session Cache: First the mechanism
@@ -48,6 +52,7 @@
   <% end -%>
   SSLSessionCacheTimeout  300
 
+<% if node['apache']['version'] != '2.4' -%>
   #   Semaphore:
   #   Configure the path to the mutual exclusion semaphore the
   #   SSL engine uses internally for inter-process synchronization.
@@ -58,19 +63,41 @@
   <% else -%>
   SSLMutex  file:/var/run/apache2/ssl_mutex
   <% end -%>
+<% end -%>
 
-  SSLHonorCipherOrder On
   #   SSL Cipher Suite:
   #   List the ciphers that the client is permitted to negotiate.
   #   See the mod_ssl documentation for a complete list.
   #   enable only secure ciphers:
   SSLCipherSuite <%= node['apache']['mod_ssl']['cipher_suite'] %>
-  #   Use this instead if you want to allow cipher upgrades via SGC facility.
-  #   In this case you also have to use something like
-  #        SSLRequire %{SSL_CIPHER_USEKEYSIZE} >= 128
-  #   see http://httpd.apache.org/docs/2.2/ssl/ssl_howto.html.en#upgradeenc
-  #SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
 
-  # enable only secure protocols: SSLv3 and TLSv1, but not SSLv2
+  #   Speed-optimized SSL Cipher configuration:
+  #   If speed is your main concern (on busy HTTPS servers e.g.),
+  #   you might want to force clients to specific, performance
+  #   optimized ciphers. In this case, prepend those ciphers
+  #   to the SSLCipherSuite list, and enable SSLHonorCipherOrder.
+  #   Caveat: by giving precedence to RC4-SHA and AES128-SHA
+  #   (as in the example below), most connections will no longer
+  #   have perfect forward secrecy - if the server's key is
+  #   compromised, captures of past or future traffic must be
+  #   considered compromised, too.
+  #SSLCipherSuite RC4-SHA:AES128-SHA:HIGH:MEDIUM:!aNULL:!MD5
+  SSLHonorCipherOrder On
+
+  #   The protocols to enable.
+  #   Available values: all, SSLv3, TLSv1, TLSv1.1, TLSv1.2
+  #   SSL v2  is no longer supported
+<% if node['apache']['version'] == '2.4' -%>
+  SSLProtocol all
+<% else -%>
   SSLProtocol all -SSLv2
+<% end -%>
+
+  #   Allow insecure renegotiation with clients which do not yet support the
+  #   secure renegotiation protocol. Default: Off
+  #SSLInsecureRenegotiation on
+
+  #   Whether to forbid non-SNI clients to access name based virtual hosts.
+  #   Default: Off
+  #SSLStrictSNIVHostCheck On
 </IfModule>
