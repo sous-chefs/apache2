@@ -56,6 +56,10 @@ Group <%= node['apache']['group'] %>
 # the latter may be used for local directories served by the web server. If
 # your system is serving content from a sub-directory in /srv you must allow
 # access here, or in any related virtual host.
+<Location />
+        Order allow,deny
+        Allow from all
+</Location>
 <Directory />
         Options FollowSymLinks
         AllowOverride None
