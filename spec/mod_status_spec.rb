@@ -27,8 +27,11 @@ describe 'apache2::mod_status' do
           apache_conf = "#{apache_dir}/apache2.conf"
         when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
           apache_dir = '/etc/httpd'
-          # apache_lib_dir = '/usr/lib64/httpd'
-          apache_lib_dir = '/usr/lib/httpd'
+          if platform == 'fedora' && version == '18'
+            apache_lib_dir = '/usr/lib/httpd'
+          else
+            apache_lib_dir = '/usr/lib64/httpd'
+          end
           apache_libexec_dir = "#{apache_lib_dir}/modules"
           apache_cache_dir = '/var/cache/httpd'
           apache_conf = "#{apache_dir}/conf/httpd.conf"
