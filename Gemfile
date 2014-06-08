@@ -9,7 +9,6 @@
 #   gem 'test-kitchen', '< 1.0'
 # end
 
-
 source 'https://rubygems.org'
 
 gem 'berkshelf',  '~> 2.0'
