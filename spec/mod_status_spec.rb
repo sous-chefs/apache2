@@ -28,6 +28,8 @@ describe 'apache2::mod_status' do
         when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
           apache_dir = '/etc/httpd'
           if platform == 'fedora' && version == '18'
+            # defined by node.kernel.machine to be 32-bit instance in Fauxhai
+            # node.automatic['kernel']['machine'] = 'i686'
             apache_lib_dir = '/usr/lib/httpd'
           else
             apache_lib_dir = '/usr/lib64/httpd'
