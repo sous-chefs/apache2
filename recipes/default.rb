@@ -17,8 +17,11 @@
 # limitations under the License.
 #
 
+include_recipe 'apache2::ohai_plugin'
+
 package 'apache2' do
   package_name node['apache']['package']
+  notifies :reload, 'ohai[reload_apache]', :immediately
 end
 
 if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')

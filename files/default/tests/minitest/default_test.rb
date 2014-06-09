@@ -75,4 +75,10 @@ describe 'apache2::default' do
     it { config.must_include "Include #{node['apache']['dir']}/conf.d/*.conf" }
     it { apache_config_parses? }
   end
+
+  describe 'ohai_plugin' do
+    it 'should read apache version' do
+      node['apache']['version'].must_match(/^[0-9]/)
+    end
+  end
 end
