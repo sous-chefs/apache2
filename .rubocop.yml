@@ -7,6 +7,8 @@ AlignParameters:
   Enabled: false
 Encoding:
   Enabled: false
+UselessAssignment:
+  Enabled: false
 LineLength:
   Max: 300
 MethodLength:
