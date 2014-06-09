@@ -18,7 +18,7 @@ describe 'apache2::default' do
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
           ChefSpec::Runner.new(:platform => platform, :version => version) do |node|
-            node.set['apache']['version'] = '2.4'
+            node.set['apache']['version'] = '2.2'
           end.converge(described_recipe)
         end
 
@@ -37,7 +37,7 @@ describe 'apache2::default' do
         apache_lib_dir = '/usr/lib/apache2'
         apache_root_group = 'root'
         apache_default_modules = %w(
-            status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex
+            status alias auth_basic authn_core authn_file authz_core authz_groupfile authz_host authz_user autoindex
             dir env mime negotiation setenvif
         )
 
@@ -135,13 +135,8 @@ describe 'apache2::default' do
         end
 
         it "creates #{apache_conf}" do
-            if ['apache']['version'] == '2.2'
-              sourcefile = 'apache2.conf.erb'
-            elsif ['apache']['version'] == '2.4'
-              sourcefile = 'apache2.4.conf.erb'
-            end
             expect(chef_run).to create_template(apache_conf).with(
-              :source => sourcefile,
+              :source => 'apache2.conf.erb',
               :owner => 'root',
               :group => apache_root_group,
               :mode =>  '0644'
@@ -150,7 +145,7 @@ describe 'apache2::default' do
 
         let(:template) { chef_run.template(apache_conf) }
         it "notification is triggered by #{apache_conf} template to reload service[apache2]" do
-          expect(template).to notify('service[apache2]').to(:reload)
+          expect(template).to notify('service[apache2]').to(:restart)
           expect(template).to_not notify('service[apache2]').to(:stop)
         end
 
@@ -167,7 +162,7 @@ describe 'apache2::default' do
 
           let(:template) { chef_run.template("#{apache_dir}/conf.d/#{config}.conf") }
           it "notification is triggered by #{apache_dir}/conf.d/#{config}.conf template to reload service[apache2]" do
-            expect(template).to notify('service[apache2]').to(:reload)
+            expect(template).to notify('service[apache2]').to(:restart)
             expect(template).to_not notify('service[apache2]').to(:stop)
           end
         end
@@ -183,7 +178,7 @@ describe 'apache2::default' do
 
         let(:template) { chef_run.template("#{apache_dir}/ports.conf") }
         it "notification is triggered by #{apache_dir}/ports.conf template to reload service[apache2]" do
-          expect(template).to notify('service[apache2]').to(:reload)
+          expect(template).to notify('service[apache2]').to(:restart)
           expect(template).to_not notify('service[apache2]').to(:stop)
         end
 
@@ -198,7 +193,7 @@ describe 'apache2::default' do
 
         let(:template) { chef_run.template("#{apache_dir}/sites-available/default") }
         it "notification is triggered by #{apache_dir}/sites-available/default template to reload service[apache2]" do
-          expect(template).to notify('service[apache2]').to(:reload)
+          expect(template).to notify('service[apache2]').to(:restart)
           expect(template).to_not notify('service[apache2]').to(:stop)
         end
 
