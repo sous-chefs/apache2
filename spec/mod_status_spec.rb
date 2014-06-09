@@ -71,7 +71,7 @@ describe 'apache2::mod_status' do
 
           let(:template) { chef_run.template("#{apache_dir}/mods-available/#{module_name}.conf") }
           it "notification is triggered by #{apache_dir}/mods-available/#{module_name}.conf template to reload service[apache2]" do
-            expect(template).to notify('service[apache2]').to(:reload)
+            expect(template).to notify('service[apache2]').to(:restart)
             expect(template).to_not notify('service[apache2]').to(:stop)
           end
         end
@@ -92,7 +92,7 @@ describe 'apache2::mod_status' do
           end
           let(:execute) { chef_run.execute("a2enmod #{module_name}") }
           it "notification is triggered by a2enmod #{module_name} to reload service[apache2]" do
-            expect(execute).to notify('service[apache2]').to(:reload)
+            expect(execute).to notify('service[apache2]').to(:restart)
             expect(execute).to_not notify('service[apache2]').to(:stop)
           end
 #         not_if do
@@ -106,7 +106,7 @@ describe 'apache2::mod_status' do
           end
           let(:execute) { chef_run.execute("a2dismod #{module_name}") }
           it "notification is triggered by a2dismod #{module_name} to reload service[apache2]" do
-            expect(execute).to notify('service[apache2]').to(:reload)
+            expect(execute).to notify('service[apache2]').to(:restart)
             expect(execute).to_not notify('service[apache2]').to(:stop)
           end
 #         only_if { ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") }

@@ -57,7 +57,7 @@ describe 'apache2::default' do
           apache_log_dir = '/var/log'
           apache_cache_dir = '/var/run/apache22'
           apache_conf = "#{apache_dir}/httpd.conf"
-          apache_perl_pkg = 'perl5'
+          # apache_perl_pkg = 'perl5'
           apache_root_group = 'wheel'
         else
           apache_dir = '/tmp/bogus'
