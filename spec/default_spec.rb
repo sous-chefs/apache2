@@ -18,6 +18,7 @@ describe 'apache2::default' do
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
           ChefSpec::Runner.new(:platform => platform, :version => version) do |node|
+            node.set['apache']['version'] = '2.4'
           end.converge(described_recipe)
         end
 
@@ -134,12 +135,17 @@ describe 'apache2::default' do
         end
 
         it "creates #{apache_conf}" do
-          expect(chef_run).to create_template(apache_conf).with(
-            :source => 'apache2.conf.erb',
-            :owner => 'root',
-            :group => apache_root_group,
-            :mode =>  '0644'
-          )
+            if ['apache']['version'] == '2.2'
+              sourcefile = 'apache2.conf.erb'
+            elsif ['apache']['version'] == '2.4'
+              sourcefile = 'apache2.4.conf.erb'
+            end
+            expect(chef_run).to create_template(apache_conf).with(
+              :source => sourcefile,
+              :owner => 'root',
+              :group => apache_root_group,
+              :mode =>  '0644'
+            )
         end
 
         let(:template) { chef_run.template(apache_conf) }
