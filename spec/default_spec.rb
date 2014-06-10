@@ -282,7 +282,7 @@ describe 'apache2::default' do
         #   ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}")
         # end
         let(:execute) { chef_run.execute('a2dissite default') }
-        it "notification is triggered by a2ensite to reload service[apache2]" do
+        it 'notification is triggered by a2ensite to reload service[apache2]' do
           expect(execute).to notify('service[apache2]').to(:reload)
           expect(execute).to_not notify('service[apache2]').to(:stop)
         end
@@ -292,7 +292,7 @@ describe 'apache2::default' do
             :service_name => apache_service_name,
             :restart_command => apache_service_restart_command,
             :reload_command => apache_service_reload_command,
-            :supports => {:restart=>true, :reload=>true, :status=>true},
+            :supports => { :restart => true, :reload => true, :status => true },
             :action => [:enable, :start]
           )
         end

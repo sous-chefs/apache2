@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
   platforms.each do |platform, versions|
     versions.each do |version|
@@ -124,7 +123,7 @@ modules_with_config = %w(status alias deflate alias autoindex dir mime negotiati
 # Test apache modules on all platforms
 modules_with_config.each do |mod|
   describe "apache2::mod_#{mod}" do
-     it_should_behave_like 'an apache2 module', mod, true, platforms
+    it_should_behave_like 'an apache2 module', mod, true, platforms
   end
 end
 
