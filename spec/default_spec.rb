@@ -13,7 +13,7 @@ describe 'apache2::default' do
     'fedora' => %w(18 20),
     'redhat' => ['5.9', '6.5'],
     'centos' => ['5.9', '6.5'],
-    'freebsd' => ['9.2'],
+    'freebsd' => ['9.2']
   }
   #  'suse' => ['11.3']
 
