@@ -1,7 +1,12 @@
-site :opscode
+source 'https://api.berkshelf.com'
+
 metadata
 
 group :integration do
-  cookbook 'apt', '~> 2.0'
-  cookbook 'yum', '~> 2.0'
+  cookbook 'apt', '~> 2.4'
+  cookbook 'yum', '~> 3.2'
+  cookbook 'fqdn'
 end
+
+cookbook 'apache2_test', path: 'test/fixtures/cookbooks/apache2_test'
+
