@@ -289,7 +289,7 @@ describe 'apache2::default' do
 
         it 'enables an apache2 service' do
           expect(chef_run).to enable_service('apache2').with(
-            :server_name => apache_service_name,
+            :service_name => apache_service_name,
             :restart_command => apache_service_restart_command,
             :reload_command => apache_service_reload_command,
             :supports => {:restart=>true, :reload=>true, :status=>true},

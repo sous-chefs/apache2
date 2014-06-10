@@ -1,20 +1,9 @@
 require 'spec_helper'
 
 
-RSpec.shared_examples 'an apache2 module' do |a2module, a2conf|
-  platforms = {
-    'ubuntu' => ['12.04', '14.04'],
-    'debian' => ['7.0', '7.4'],
-    'fedora' => %w(18 20),
-    'redhat' => ['5.9', '6.5'],
-    'centos' => ['5.9', '6.5'],
-    'freebsd' => ['9.2']
-  }
-
-  # Test all generic stuff on all platforms
+RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
   platforms.each do |platform, versions|
     versions.each do |version|
-
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) { ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe) }
 
@@ -78,16 +67,16 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf|
           end
         end
 
-        if %w(redhat centos fedora arch suse freebsd).include?(platform)
-          it "creates a #{apache_dir}/mods-available/#{module_name}.load" do
-            expect(chef_run).to create_file("#{apache_dir}/mods-available/#{module_name}.load").with(
-              :content =>  "LoadModule #{module_identifier} #{module_path}\n",
-              :mode => '0644'
-            )
-          end
-        end
-
         if module_enable == true
+          if %w(redhat centos fedora arch suse freebsd).include?(platform)
+            it "creates a #{apache_dir}/mods-available/#{module_name}.load" do
+              expect(chef_run).to create_file("#{apache_dir}/mods-available/#{module_name}.load").with(
+                :content =>  "LoadModule #{module_identifier} #{module_path}\n",
+                :mode => '0644'
+              )
+            end
+          end
+
           it "runs a2enmod #{module_name}" do
             expect(chef_run).to run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2enmod #{module_name}")
             expect(chef_run).to_not run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2dismod #{module_name}")
@@ -118,21 +107,35 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf|
   end
 end
 
-# examples at https://github.com/sethvargo/chefspec/tree/master/examples
+platforms = {
+  'ubuntu' => ['12.04', '14.04'],
+  'debian' => ['7.0', '7.4'],
+  'fedora' => %w(18 20),
+  'redhat' => ['5.9', '6.5'],
+  'centos' => ['5.9', '6.5'],
+  'freebsd' => ['9.2'],
+  'suse' => ['11.2']
+}
+#  'arch' =>
 
-
-modules_without_config = %w(auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex env logio log_config)
+modules_without_config = %w(auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex env)
 modules_with_config = %w(status alias deflate alias autoindex dir mime negotiation setenvif)
 
-
+# Test apache modules on all platforms
 modules_with_config.each do |mod|
   describe "apache2::mod_#{mod}" do
-    it_should_behave_like 'an apache2 module', mod, true
+     it_should_behave_like 'an apache2 module', mod, true, platforms
   end
 end
 
 modules_without_config.each do |mod|
   describe "apache2::mod_#{mod}" do
-    it_should_behave_like 'an apache2 module', mod, false
+    it_should_behave_like 'an apache2 module', mod, false, platforms
+  end
+end
+
+%w(log_config logio).each do |log_mod|
+  describe "apache2::mod_#{log_mod}" do
+    it_should_behave_like 'an apache2 module', log_mod, false, platforms.select { |key, value| %w(redhat fedora suse freebsd).include?(key) }
   end
 end
