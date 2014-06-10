@@ -1,8 +1,7 @@
 require 'spec_helper'
 
-# examples at https://github.com/sethvargo/chefspec/tree/master/examples
 
-describe 'apache2::mod_status' do
+RSpec.shared_examples 'an apache2 module' do |a2module, a2conf|
   platforms = {
     'ubuntu' => ['12.04', '14.04'],
     'debian' => ['7.0', '7.4'],
@@ -15,6 +14,7 @@ describe 'apache2::mod_status' do
   # Test all generic stuff on all platforms
   platforms.each do |platform, versions|
     versions.each do |version|
+
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) { ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe) }
 
@@ -56,9 +56,9 @@ describe 'apache2::mod_status' do
           expect(chef_run).to include_recipe('apache2::default')
         end
 
-        module_name = 'status'
+        module_name = a2module
         module_enable = true
-        module_conf = true
+        module_conf = a2conf
         module_identifier = "#{module_name}_module"
         module_filename = "mod_#{module_name}.so"
         module_path = "#{apache_libexec_dir}/#{module_filename}"
@@ -115,5 +115,24 @@ describe 'apache2::mod_status' do
         end
       end
     end
+  end
+end
+
+# examples at https://github.com/sethvargo/chefspec/tree/master/examples
+
+
+modules_without_config = %w(auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex env logio log_config)
+modules_with_config = %w(status alias deflate alias autoindex dir mime negotiation setenvif)
+
+
+modules_with_config.each do |mod|
+  describe "apache2::mod_#{mod}" do
+    it_should_behave_like 'an apache2 module', mod, true
+  end
+end
+
+modules_without_config.each do |mod|
+  describe "apache2::mod_#{mod}" do
+    it_should_behave_like 'an apache2 module', mod, false
   end
 end
