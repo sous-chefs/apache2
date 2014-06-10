@@ -17,7 +17,7 @@ describe 'apache2::default' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => platform, :version => version) do |node|
+          ChefSpec::Runner.new(:platform => platform, :version => version) do
           end.converge(described_recipe)
         end
 
