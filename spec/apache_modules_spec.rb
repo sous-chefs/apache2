@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 RSpec.shared_examples 'an apache2 module' do |a2module, a2conf|
   platforms = {
     'ubuntu' => ['12.04', '14.04'],
@@ -119,11 +118,11 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf|
 end
 
 # examples at https://github.com/sethvargo/chefspec/tree/master/examples
-
-
+#  modules_without_config = %w(auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex env logio log_config)
 modules_without_config = %w(auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex env logio log_config)
-modules_with_config = %w(status alias deflate alias autoindex dir mime negotiation setenvif)
+#  logio log_config are for 'rhel', 'fedora', 'suse', 'arch', 'freebsd'
 
+modules_with_config = %w(status alias deflate alias autoindex dir mime negotiation setenvif)
 
 modules_with_config.each do |mod|
   describe "apache2::mod_#{mod}" do
