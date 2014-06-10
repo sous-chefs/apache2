@@ -35,6 +35,9 @@ describe 'apache2::default' do
         apache_cache_dir = '/var/cache/httpd'
         apache_lib_dir = '/usr/lib/apache2'
         apache_root_group = 'root'
+        apache_service_name = nil
+        apache_service_restart_command = nil
+        apache_service_reload_command = nil
         apache_default_modules = %w(
             status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex
             dir env mime negotiation setenvif
@@ -45,11 +48,22 @@ describe 'apache2::default' do
           apache_lib_dir = '/usr/lib/apache2'
           apache_cache_dir = '/var/cache/apache2'
           apache_conf = "#{apache_dir}/apache2.conf"
+          apache_service_name = 'apache2'
+          apache_service_restart_command = '/usr/sbin/invoke-rc.d apache2 restart && sleep 1'
+          apache_service_reload_command = '/usr/sbin/invoke-rc.d apache2 reload && sleep 1'
         elsif %w(redhat centos scientific fedora suse amazon oracle).include?(platform)
           apache_dir = '/etc/httpd'
           apache_lib_dir = '/usr/lib64/httpd'
           apache_cache_dir = '/var/cache/httpd'
           apache_conf = "#{apache_dir}/conf/httpd.conf"
+          apache_service_name  = 'httpd'
+          # If restarted/reloaded too quickly httpd has a habit of failing.
+          # This may happen with multiple recipes notifying apache to restart - like
+          # during the initial bootstrap.
+          apache_service_restart_command = '/sbin/service httpd restart && sleep 1'
+          apache_service_reload_command = '/sbin/service httpd reload && sleep 1'
+        elsif platform == 'arch'
+          apache_service_name = 'httpd'
         elsif platform == 'freebsd'
           apache_dir = '/usr/local/etc/apache22'
           apache_lib_dir = '/usr/local/libexec/apache22'
@@ -58,6 +72,9 @@ describe 'apache2::default' do
           apache_conf = "#{apache_dir}/httpd.conf"
           apache_perl_pkg = 'perl5'
           apache_root_group = 'wheel'
+          apache_service_name = 'apache22'
+          apache_service_restart_command = nil
+          apache_service_reload_command = nil
         else
           apache_dir = '/tmp/bogus'
           apache_lib_dir = '/usr/lib/apache2'
@@ -250,6 +267,34 @@ describe 'apache2::default' do
           it "includes the `apache2::#{module_recipe_name}` recipe" do
             expect(chef_run).to include_recipe("apache2::#{module_recipe_name}")
           end
+        end
+
+        it 'runs a a2dissite default' do
+          expect(chef_run).to run_execute('a2dissite default').with(
+             :command => '/usr/sbin/a2dissite default'
+          )
+          expect(chef_run).to_not run_execute('a2ensite default').with(
+             :command => '/usr/sbin/a2ensite default'
+          )
+        end
+        # only_if do
+        #   ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") ||
+        #   ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}")
+        # end
+        let(:execute) { chef_run.execute('a2dissite default') }
+        it "notification is triggered by a2ensite to reload service[apache2]" do
+          expect(execute).to notify('service[apache2]').to(:reload)
+          expect(execute).to_not notify('service[apache2]').to(:stop)
+        end
+
+        it 'enables an apache2 service' do
+          expect(chef_run).to enable_service('apache2').with(
+            :server_name => apache_service_name,
+            :restart_command => apache_service_restart_command,
+            :reload_command => apache_service_reload_command,
+            :supports => {:restart=>true, :reload=>true, :status=>true},
+            :action => [:enable, :start]
+          )
         end
 
       end
