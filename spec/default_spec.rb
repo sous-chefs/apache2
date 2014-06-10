@@ -3,16 +3,21 @@ require 'spec_helper'
 # examples at https://github.com/sethvargo/chefspec/tree/master/examples
 
 describe 'apache2::default' do
+  before do
+    allow(::File).to receive(:symlink?).and_return(false)
+  end
+
   platforms = {
     'ubuntu' => ['12.04', '14.04'],
     'debian' => ['7.0', '7.4'],
     'fedora' => %w(18 20),
     'redhat' => ['5.9', '6.5'],
     'centos' => ['5.9', '6.5'],
-    'freebsd' => ['9.2']
+    'freebsd' => ['9.2'],
   }
+  #  'suse' => ['11.3']
 
-  # Test all generic stuff on all platforms
+  # Test all defaults on all platforms
   platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
@@ -270,19 +275,22 @@ describe 'apache2::default' do
         end
 
         it 'runs a a2dissite default' do
+          allow(::File).to receive(:symlink?).with("#{apache_dir}/sites-enabled/default").and_return(true)
+          allow(::File).to receive(:symlink?).with("#{apache_dir}/sites-enabled/000-default").and_return(true)
           expect(chef_run).to run_execute('a2dissite default').with(
              :command => '/usr/sbin/a2dissite default'
           )
-          expect(chef_run).to_not run_execute('a2ensite default').with(
-             :command => '/usr/sbin/a2ensite default'
+        end
+        it 'does not run a a2dissite default' do
+          allow(::File).to receive(:symlink?).with("#{apache_dir}/sites-enabled/default").and_return(false)
+          allow(::File).to receive(:symlink?).with("#{apache_dir}/sites-enabled/000-default").and_return(false)
+          expect(chef_run).to_not run_execute('a2dissite default').with(
+             :command => '/usr/sbin/a2dissite default'
           )
         end
-        # only_if do
-        #   ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") ||
-        #   ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}")
-        # end
+
         let(:execute) { chef_run.execute('a2dissite default') }
-        it 'notification is triggered by a2ensite to reload service[apache2]' do
+        it 'notification is triggered by a2dissite to reload service[apache2]' do
           expect(execute).to notify('service[apache2]').to(:reload)
           expect(execute).to_not notify('service[apache2]').to(:stop)
         end

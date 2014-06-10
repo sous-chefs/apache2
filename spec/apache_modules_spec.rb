@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
+  before do
+    allow(::File).to receive(:symlink?).and_return(true)
+  end
+
   platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
@@ -77,20 +81,23 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
           end
 
           it "runs a2enmod #{module_name}" do
+#         not_if do
+            allow(::File).to receive(:symlink?).with("#{apache_dir}/mods-enabled/#{module_name}.load").and_return(false)
+#           (::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
+#            allow(::File).to receive(:exists?).with("#{apache_dir}/mods-available/#{module_name}.conf").and_return(false)
             expect(chef_run).to run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2enmod #{module_name}")
             expect(chef_run).to_not run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2dismod #{module_name}")
           end
+
           let(:execute) { chef_run.execute("a2enmod #{module_name}") }
           it "notification is triggered by a2enmod #{module_name} to reload service[apache2]" do
             expect(execute).to notify('service[apache2]').to(:reload)
             expect(execute).to_not notify('service[apache2]').to(:stop)
           end
-#         not_if do
-#           ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") &&
-#           (::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
-#         end
+
         else
           it "runs a2dismod #{module_name}" do
+            allow(::File).to receive(:symlink?).with("#{apache_dir}/mods-enabled/#{module_name}.load").and_return(true)
             expect(chef_run).to run_execute("a2dismod #{module_name}").with(:command => "/usr/sbin/a2dismod #{module_name}")
             expect(chef_run).to_not run_execute("a2dismod #{module_name}").with(:command => "/usr/sbin/a2enmod #{module_name}")
           end
@@ -99,7 +106,6 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
             expect(execute).to notify('service[apache2]').to(:reload)
             expect(execute).to_not notify('service[apache2]').to(:stop)
           end
-#         only_if { ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") }
         end
       end
     end
@@ -113,7 +119,7 @@ platforms = {
   'redhat' => ['5.9', '6.5'],
   'centos' => ['5.9', '6.5'],
   'freebsd' => ['9.2'],
-  'suse' => ['11.2']
+  'suse' => ['11.3']
 }
 #  'arch' =>
 
