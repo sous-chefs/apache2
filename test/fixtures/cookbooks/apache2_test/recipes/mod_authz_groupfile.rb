@@ -27,10 +27,10 @@ directory secure_dir do
 end
 
 bash 'add-credentials' do
-  code %Q{
+  code %Q(
     htpasswd -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
     htpasswd -b #{secure_dir}/.htpasswd meatballs secret
-  }
+  )
   action :run
 end
 

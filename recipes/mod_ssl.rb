@@ -32,10 +32,10 @@ if platform_family?('rhel', 'fedora', 'suse')
 end
 
 template 'ssl_ports.conf' do
-  path      "#{node['apache']['dir']}/ports.conf"
-  source    'ports.conf.erb'
-  mode      '0644'
-  notifies  :restart, 'service[apache2]'
+  path "#{node['apache']['dir']}/ports.conf"
+  source 'ports.conf.erb'
+  mode '0644'
+  notifies :restart, 'service[apache2]'
 end
 
 apache_module 'ssl' do

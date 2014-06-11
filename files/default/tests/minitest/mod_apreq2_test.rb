@@ -8,7 +8,7 @@ describe 'apache2::mod_apreq2' do
   end
 
   it 'symlinks the module on EL' do
-    skip unless %w[rhel fedora].include?(node['platform_family'])
+    skip unless %w(rhel fedora).include?(node['platform_family'])
     libdir = node['kernel']['machine'] == 'x86_64' ? 'lib64' : 'lib'
     link(
       "/usr/#{libdir}/httpd/modules/mod_apreq.so"

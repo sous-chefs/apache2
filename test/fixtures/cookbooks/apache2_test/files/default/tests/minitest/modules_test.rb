@@ -5,7 +5,7 @@ require File.expand_path('../support/helpers', __FILE__)
 #
 # Does not test the modules in the default_modules attribute (those
 # are tested in default_test)
-%w{
+%w(
   auth_digest
   authnz_ldap
   dav_fs
@@ -21,7 +21,7 @@ require File.expand_path('../support/helpers', __FILE__)
   rewrite
   wsgi
   xsendfile
-}.each do |expected_module|
+).each do |expected_module|
 
   describe "apache2::mod_#{expected_module}" do
     include Helpers::Apache

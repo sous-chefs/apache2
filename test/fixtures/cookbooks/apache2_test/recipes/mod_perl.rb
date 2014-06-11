@@ -44,7 +44,7 @@ directory node['apache_test']['app_dir'] do
 end
 
 file "#{node['apache_test']['app_dir']}/perl" do
-  content %q{
+  content %q(
 #!/usr/bin/perl -wT
 use strict;
 use CGI qw(:standard);
@@ -55,7 +55,7 @@ print header('text/plain');
 foreach my $key (sort(keys(%ENV))) {
     print "$key=$ENV{$key}\n";
 }
-}.strip
+).strip
   mode '0755'
   action :create
 end

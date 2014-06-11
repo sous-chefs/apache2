@@ -32,14 +32,14 @@ directory node['apache_test']['app_dir'] do
 end
 
 file "#{node['apache_test']['app_dir']}/php" do
-  content %q{
+  content %q(
 <?PHP
 header("Content-type: text/plain");
 foreach($_SERVER as $key_name => $key_value) {
   print $key_name . "=" . $key_value . "\n";
 }
 ?>
-}.strip
+).strip
   mode '0755'
   action :create
 end

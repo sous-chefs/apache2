@@ -27,17 +27,17 @@ define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => tr
   include_recipe 'apache2::mod_headers'
 
   template "#{node['apache']['dir']}/sites-available/#{application_name}.conf" do
-    source   params[:template]
-    local    params[:local]
-    owner    'root'
-    group    node['apache']['root_group']
-    mode     '0644'
+    source params[:template]
+    local params[:local]
+    owner 'root'
+    group node['apache']['root_group']
+    mode '0644'
     cookbook params[:cookbook] if params[:cookbook]
     variables(
       :application_name => application_name,
       :params           => params
     )
-    if ::File.exists?("#{node['apache']['dir']}/sites-enabled/#{application_name}.conf")
+    if ::File.exist?("#{node['apache']['dir']}/sites-enabled/#{application_name}.conf")
       notifies :reload, 'service[apache2]'
     end
   end
