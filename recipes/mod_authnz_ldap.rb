@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: authnz_ldap
+# Recipe:: mod_authnz_ldap
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

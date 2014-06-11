@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: php5
+# Recipe:: mod_php5
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

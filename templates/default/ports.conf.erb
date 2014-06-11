@@ -5,5 +5,7 @@
 <% node['apache']['listen_addresses'].uniq.each do |address| -%>
 Listen <%= address.length > 0 ? "#{address}:" : '' %><%= port %>
 <% end -%>
+<% if node['apache']['version'] != "2.4" -%>
 NameVirtualHost *:<%= port %>
+<% end -%>
 <% end -%>

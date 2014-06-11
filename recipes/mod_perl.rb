@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: perl
+# Recipe:: mod_perl
 #
 # adapted from the mod_python recipe by Jeremy Bingham
 #
