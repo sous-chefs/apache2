@@ -60,12 +60,12 @@ when 'debian', 'ubuntu'
   default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = '/var/run/apache2'
   default['apache']['lock_dir']    = '/var/lock/apache2'
-# this should use COOK-3917 to educate the initscript of the pid location
-if node['apache']['version'] == '2.4'
-  default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
-else
-  default['apache']['pid_file']    = '/var/run/apache2.pid'
-end
+  # this should use COOK-3917 to educate the initscript of the pid location
+  if node['apache']['version'] == '2.4'
+    default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
+  else
+    default['apache']['pid_file']    = '/var/run/apache2.pid'
+  end
   default['apache']['lib_dir']     = '/usr/lib/apache2'
   default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
@@ -147,8 +147,8 @@ end
 ###
 
 # General settings
-default['apache']['listen_addresses']  = %w[*]
-default['apache']['listen_ports']      = %w[80]
+default['apache']['listen_addresses']  = %w(*)
+default['apache']['listen_ports']      = %w(80)
 default['apache']['contact']           = 'ops@example.com'
 default['apache']['timeout']           = 300
 default['apache']['keepalive']         = 'On'
@@ -220,11 +220,11 @@ default['apache']['proxy']['deny_from']  = 'all'
 default['apache']['proxy']['allow_from'] = 'none'
 
 # Default modules to enable via include_recipe
-default['apache']['default_modules'] = %w[
+default['apache']['default_modules'] = %w(
   status alias auth_basic authn_core authn_file authz_core authz_groupfile authz_host authz_user autoindex
   dir env mime negotiation setenvif
-]
+)
 
-%w[log_config logio].each do |log_mod|
-  default['apache']['default_modules'] << log_mod if %w[rhel fedora suse arch freebsd].include?(node['platform_family'])
+%w(log_config logio).each do |log_mod|
+  default['apache']['default_modules'] << log_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
 end

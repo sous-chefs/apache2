@@ -22,7 +22,7 @@ include_recipe 'apache2::default'
 
 # Duplicates the list in the modules_test minitest, which is
 # distasteful duplication.
-%w{
+%w(
   auth_digest
   authnz_ldap
   dav_fs
@@ -38,6 +38,6 @@ include_recipe 'apache2::default'
   rewrite
   wsgi
   xsendfile
-}.each do |a2mod|
+).each do |a2mod|
   include_recipe "apache2::mod_#{a2mod}"
 end
