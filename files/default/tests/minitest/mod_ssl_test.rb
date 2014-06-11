@@ -4,7 +4,7 @@ describe 'apache2::mod_ssl' do
   include Helpers::Apache
 
   it 'installs the mod_ssl package on RHEL distributions' do
-    skip unless %w[rhel fedora].include?(node['platform_family'])
+    skip unless %w(rhel fedora).include?(node['platform_family'])
     package('mod_ssl').must_be_installed
   end
 

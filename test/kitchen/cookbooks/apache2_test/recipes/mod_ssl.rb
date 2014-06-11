@@ -33,7 +33,7 @@ execute 'create-private-key' do
 end
 
 execute 'create-certficate' do
-  command %Q{openssl req -new -x509 -key #{node['apache_test']['ssl_cert_key_file']} -out #{node['apache_test']['ssl_cert_file']} -days 1 <<EOF
+  command %Q(openssl req -new -x509 -key #{node['apache_test']['ssl_cert_key_file']} -out #{node['apache_test']['ssl_cert_file']} -days 1 <<EOF
 US
 Washington
 Seattle
@@ -41,7 +41,7 @@ Opscode, Inc
 
 example.com
 webmaster@example.com
-EOF}
+EOF)
   not_if "test -f #{node['apache_test']['ssl_cert_file']}"
 end
 
