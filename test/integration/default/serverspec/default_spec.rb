@@ -17,10 +17,10 @@ describe 'apache2::default' do
 
   describe file('/etc/httpd/conf/httpd.conf') do
     it { should be_file }
-    #its(:content) { should match /ServerName www.example.jp/ }
+    # its(:content) { should match /ServerName www.example.jp/ }
   end
 
-  describe file("#{node['apache']['dir']/conf.d") do
+  describe file("#{node['apache']['dir']}/conf.d") do
     it { should be_directory }
     it { should be_mode 775 }
   end
