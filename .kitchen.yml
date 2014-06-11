@@ -6,6 +6,9 @@ provisioner:
   name: chef_solo
   require_chef_omnibus: latest
 
+provisioner:
+  data_path: test/shared
+
 platforms:
 - name: centos-5.9
 - name: centos-6.5
@@ -42,18 +45,19 @@ suites:
       - recipe[apache2_test::modules]
       - recipe[apache2_test::mod_auth_basic]
       - recipe[apache2_test::mod_auth_digest]
-      - recipe[apache2_test::mod_auth_openid]
-      - recipe[apache2_test::mod_authnz_ldap]
+#      - recipe[apache2_test::mod_auth_openid]
+#      - recipe[apache2_test::mod_authnz_ldap]
       - recipe[apache2_test::mod_authz_groupfile]
       - recipe[apache2_test::mod_authz_listed_host]
       - recipe[apache2_test::mod_authz_unlisted_host]
       - recipe[apache2_test::mod_authz_user]
       - recipe[apache2_test::mod_cgi]
-      - recipe[apache2_test::mod_dav_svn]
+#      - recipe[apache2_test::mod_dav_svn]
       - recipe[apache2_test::mod_expires]
-      - recipe[apache2_test::mod_perl]
-      - recipe[apache2_test::mod_php5]
-      - recipe[apache2_test::mod_proxy_ajp]
-      - recipe[apache2_test::mod_python]
+#      - recipe[apache2_test::mod_perl]
+#      - recipe[apache2_test::mod_php5]
+#      - recipe[apache2_test::mod_proxy_ajp]
+#      - recipe[apache2_test::mod_python]
       - recipe[apache2_test::mod_ssl]
-      - recipe[apache2_test::mod_status_remote]
+#      - recipe[apache2_test::mod_status_remote]
+      - recipe[minitest-handler]
