@@ -142,7 +142,7 @@ template '/etc/sysconfig/httpd' do
   owner    'root'
   group    node['apache']['root_group']
   mode     '0644'
-  notifies :reload, 'service[apache2]'
+  notifies :restart, 'service[apache2]'
   only_if  { platform_family?('rhel', 'fedora') }
 end
 
