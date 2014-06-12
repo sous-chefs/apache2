@@ -12,5 +12,5 @@ platforms = {
 #  'arch' =>
 
 describe 'apache2::mod_python' do
-  it_should_behave_like 'an apache2 module', 'python', true, platforms
+  it_should_behave_like 'an apache2 module', 'python', false, platforms
 end

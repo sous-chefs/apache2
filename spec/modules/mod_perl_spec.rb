@@ -12,5 +12,5 @@ platforms = {
 #  'arch' =>
 
 describe 'apache2::mod_perl' do
-  it_should_behave_like 'an apache2 module', 'perl', true, platforms
+  it_should_behave_like 'an apache2 module', 'perl', false, platforms
 end

@@ -12,5 +12,10 @@ platforms = {
 #  'arch' =>
 
 describe 'apache2::mod_apreq2' do
-  it_should_behave_like 'an apache2 module', 'apreq2', true, platforms
+  before do
+    stub_command("test -f /usr/lib64/httpd/modules/mod_apreq2.so").and_return(true)
+    stub_command("test -f /usr/lib/httpd/modules/mod_apreq2.so").and_return(true)
+  end
+
+  it_should_behave_like 'an apache2 module', 'apreq', false, platforms
 end
