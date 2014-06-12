@@ -63,7 +63,6 @@ supports 'redhat'
 supports 'scientific'
 supports 'ubuntu'
 
-
 attribute 'apache',
           :display_name => 'Apache Hash',
           :description  => 'Hash of Apache attributes',
