@@ -21,6 +21,10 @@ describe 'apache2::iptables' do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
+        it 'includes the `iptables::default` recipe' do
+          expect(chef_run).to include_recipe('iptables::default')
+        end
+
         # iptables_rule 'port_apache'
         it 'creates /etc/iptables.d/port_apache' do
           expect(chef_run).to create_template('/etc/iptables.d/port_apache').with(
