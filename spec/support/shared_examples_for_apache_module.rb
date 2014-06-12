@@ -1,4 +1,4 @@
-RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
+RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, module_filename|
   before do
     allow(::File).to receive(:symlink?).and_return(true)
   end
@@ -50,7 +50,7 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
         module_enable = true
         module_conf = a2conf
         module_identifier = "#{module_name}_module"
-        module_filename = "mod_#{module_name}.so"
+        module_filename = "mod_#{module_name}.so" unless module_filename
         module_path = "#{apache_libexec_dir}/#{module_filename}"
 
         if module_conf == true

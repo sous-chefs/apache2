@@ -49,6 +49,9 @@ recipe            'apache2::mod_status', 'Apache module "status" with config fil
 recipe            'apache2::mod_xsendfile', 'Apache module "xsendfile"'
 
 depends 'iptables'
+depends 'logrotate'
+depends 'pacman'
+depends 'freebsd'
 
 supports 'amazon'
 supports 'arch'
@@ -60,8 +63,6 @@ supports 'redhat'
 supports 'scientific'
 supports 'ubuntu'
 
-depends 'logrotate'
-depends 'pacman'
 
 attribute 'apache',
           :display_name => 'Apache Hash',
