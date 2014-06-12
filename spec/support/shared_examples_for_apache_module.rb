@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
   before do
     allow(::File).to receive(:symlink?).and_return(true)
@@ -109,38 +107,5 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
         end
       end
     end
-  end
-end
-
-platforms = {
-  'ubuntu' => ['12.04', '14.04'],
-  'debian' => ['7.0', '7.4'],
-  'fedora' => %w(18 20),
-  'redhat' => ['5.9', '6.5'],
-  'centos' => ['5.9', '6.5'],
-  'freebsd' => ['9.2'],
-  'suse' => ['11.3']
-}
-#  'arch' =>
-
-modules_without_config = %w(auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex env)
-modules_with_config = %w(status alias deflate alias autoindex dir mime negotiation setenvif)
-
-# Test apache modules on all platforms
-modules_with_config.each do |mod|
-  describe "apache2::mod_#{mod}" do
-    it_should_behave_like 'an apache2 module', mod, true, platforms
-  end
-end
-
-modules_without_config.each do |mod|
-  describe "apache2::mod_#{mod}" do
-    it_should_behave_like 'an apache2 module', mod, false, platforms
-  end
-end
-
-%w(log_config logio).each do |log_mod|
-  describe "apache2::mod_#{log_mod}" do
-    it_should_behave_like 'an apache2 module', log_mod, false, platforms.select { |key, value| %w(redhat fedora suse freebsd).include?(key) }
   end
 end
