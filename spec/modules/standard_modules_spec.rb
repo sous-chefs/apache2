@@ -91,7 +91,7 @@ end
 loggers_modules_without_config = %w(log_config logio)
 loggers_modules_without_config.each do |mod|
   describe "apache2::mod_#{mod}" do
-    it_should_behave_like 'an apache2 module', mod, false, platforms.select { |key, value| %w(redhat fedora suse freebsd).include?(key) }
+    it_should_behave_like 'an apache2 module', mod, false, platforms.select { |key| %w(redhat fedora suse freebsd).include?(key) }
   end
 end
 
@@ -138,16 +138,16 @@ proxy_modules_with_config.each do |mod|
 end
 
 describe 'apache2::mod_ssl' do
-# if platform_family?('rhel', 'fedora', 'suse')
-#   package 'mod_ssl' do
-#     notifies :run, 'execute[generate-module-list]', :immediately
-#   end
+  # if platform_family?('rhel', 'fedora', 'suse')
+  #   package 'mod_ssl' do
+  #     notifies :run, 'execute[generate-module-list]', :immediately
+  #   end
 
-#   file "#{node['apache']['dir']}/conf.d/ssl.conf" do
-#     action :delete
-#     backup false
-#   end
-# end
+  #   file "#{node['apache']['dir']}/conf.d/ssl.conf" do
+  #     action :delete
+  #     backup false
+  #   end
+  # end
 
   it 'creates /etc/apache2/ports.conf' do
     expect(chef_run).to create_template('ssl_ports.conf').with(

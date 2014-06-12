@@ -18,7 +18,7 @@ describe 'apache2::iptables' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => platform, :version => version) do |node|
+          ChefSpec::Runner.new(:platform => platform, :version => version) do
           end.converge(described_recipe)
         end
 
@@ -30,11 +30,11 @@ describe 'apache2::iptables' do
           )
         end
 
-#        let(:template) { chef_run.template('/etc/iptables.d/port_apache') }
-#        it 'triggers a notification by /etc/iptables.d/port_apache template to run execute[rebuild-iptables]' do
-#          expect(template).to notify('execute[rebuild-iptables]').to(:run)
-#          expect(template).to_not notify('execute[rebuild-iptables]').to(:stop)
-#        end
+        #        let(:template) { chef_run.template('/etc/iptables.d/port_apache') }
+        #        it 'triggers a notification by /etc/iptables.d/port_apache template to run execute[rebuild-iptables]' do
+        #          expect(template).to notify('execute[rebuild-iptables]').to(:run)
+        #          expect(template).to_not notify('execute[rebuild-iptables]').to(:stop)
+        #        end
       end
     end
   end
