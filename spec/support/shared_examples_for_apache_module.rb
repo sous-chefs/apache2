@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms|
   before do
     allow(::File).to receive(:symlink?).and_return(true)
