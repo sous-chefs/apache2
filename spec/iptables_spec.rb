@@ -22,7 +22,6 @@ describe 'apache2::iptables' do
           end.converge(described_recipe)
         end
 
-
         # iptables_rule 'port_apache'
         it 'creates /etc/iptables.d/port_apache' do
           expect(chef_run).to create_template('/etc/iptables.d/port_apache').with(
