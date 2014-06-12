@@ -6,8 +6,7 @@ platforms = {
   'fedora' => %w(18 20),
   'redhat' => ['5.9', '6.5'],
   'centos' => ['5.9', '6.5'],
-  'freebsd' => ['9.2'],
-  'suse' => ['11.3']
+  'freebsd' => ['9.2']
 }
 #  'arch' =>
 
@@ -17,7 +16,8 @@ describe 'apache2::mod_auth_openid' do
     stub_command('test -f /usr/lib64/httpd/modules/mod_auth_openid.so').and_return(true)
     stub_command('test -f /usr/local/libexec/apache22/mod_auth_openid.so').and_return(true)
     stub_command('test -f /usr/lib/httpd/modules/mod_auth_openid.so').and_return(true)
+    stub_command('test -f /usr/lib/apache2/modules/mod_auth_openid.so').and_return(true)
 
   end
-  it_should_behave_like 'an apache2 module', 'auth_openid', true, platforms
+  it_should_behave_like 'an apache2 module', 'authopenid', false, platforms, 'mod_auth_openid.so'
 end
