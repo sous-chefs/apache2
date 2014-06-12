@@ -32,7 +32,7 @@ directory node['apache_test']['app_dir'] do
 end
 
 file "#{node['apache_test']['app_dir']}/python.py" do
-  content %q{
+  content %q(
 #!/usr/bin/python
 import sys
 sys.stderr = sys.stdout
@@ -43,7 +43,7 @@ print "Content-type: text/plain"
 print
 for k in sorted(os.environ):
   print "%s=%s" %(escape(k), escape(os.environ[k]))
-}.strip
+).strip
   mode '0755'
   action :create
 end

@@ -1,52 +1,52 @@
-name              'apache2'
-maintainer        'Opscode, Inc.'
-maintainer_email  'cookbooks@opscode.com'
-license           'Apache 2.0'
-description       'Installs and configures all aspects of apache2 using Debian style symlinks with helper definitions'
-long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           '1.10.5'
-recipe            'apache2', 'Main Apache configuration'
-recipe            'apache2::logrotate', 'Rotate apache2 logs. Requires logrotate cookbook'
-recipe            'apache2::mod_alias', 'Apache module "alias" with config file'
-recipe            'apache2::mod_apreq2', 'Apache module "apreq"'
-recipe            'apache2::mod_auth_basic', 'Apache module "auth_basic"'
-recipe            'apache2::mod_auth_digest', 'Apache module "auth_digest"'
-recipe            'apache2::mod_auth_openid', 'Apache module "authopenid"'
-recipe            'apache2::mod_authn_file', 'Apache module "authn_file"'
-recipe            'apache2::mod_authnz_ldap', 'Apache module "authnz_ldap"'
-recipe            'apache2::mod_authz_default', 'Apache module "authz_default"'
-recipe            'apache2::mod_authz_groupfile', 'Apache module "authz_groupfile"'
-recipe            'apache2::mod_authz_host', 'Apache module "authz_host"'
-recipe            'apache2::mod_authz_user', 'Apache module "authz_user"'
-recipe            'apache2::mod_autoindex', 'Apache module "autoindex" with config file'
-recipe            'apache2::mod_cgi', 'Apache module "cgi"'
-recipe            'apache2::mod_dav', 'Apache module "dav"'
-recipe            'apache2::mod_dav_svn', 'Apache module "dav_svn"'
-recipe            'apache2::mod_deflate', 'Apache module "deflate" with config file'
-recipe            'apache2::mod_dir', 'Apache module "dir" with config file'
-recipe            'apache2::mod_env', 'Apache module "env"'
-recipe            'apache2::mod_expires', 'Apache module "expires"'
-recipe            'apache2::mod_fcgid', 'Apache module "fcgid", package on ubuntu/debian, rhel/centos, compile source on suse; with config file'
-recipe            'apache2::mod_headers', 'Apache module "headers"'
-recipe            'apache2::mod_include', 'Apache module "include"'
-recipe            'apache2::mod_ldap', 'Apache module "ldap"'
-recipe            'apache2::mod_log_config', 'Apache module "log_config"'
-recipe            'apache2::mod_mime', 'Apache module "mime" with config file'
-recipe            'apache2::mod_negotiation', 'Apache module "negotiation" with config file'
-recipe            'apache2::mod_pagespeed', 'Apache module "pagespeed" with config file'
-recipe            'apache2::mod_perl', 'Apache module "perl"'
-recipe            'apache2::mod_php5', 'Apache module "php5"'
-recipe            'apache2::mod_proxy', 'Apache module "proxy" with config file'
-recipe            'apache2::mod_proxy_ajp', 'Apache module "proxy_ajp"'
-recipe            'apache2::mod_proxy_balancer', 'Apache module "proxy_balancer"'
-recipe            'apache2::mod_proxy_connect', 'Apache module "proxy_connect"'
-recipe            'apache2::mod_proxy_http', 'Apache module "proxy_http"'
-recipe            'apache2::mod_python', 'Apache module "python"'
-recipe            'apache2::mod_rewrite', 'Apache module "rewrite"'
-recipe            'apache2::mod_setenvif', 'Apache module "setenvif" with config file'
-recipe            'apache2::mod_ssl', 'Apache module "ssl" with config file, adds port 443 to listen_ports'
-recipe            'apache2::mod_status', 'Apache module "status" with config file'
-recipe            'apache2::mod_xsendfile', 'Apache module "xsendfile"'
+name 'apache2'
+maintainer 'Opscode, Inc.'
+maintainer_email 'cookbooks@opscode.com'
+license 'Apache 2.0'
+description 'Installs and configures all aspects of apache2 using Debian style symlinks with helper definitions'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version '1.10.5'
+recipe 'apache2', 'Main Apache configuration'
+recipe 'apache2::logrotate', 'Rotate apache2 logs. Requires logrotate cookbook'
+recipe 'apache2::mod_alias', 'Apache module "alias" with config file'
+recipe 'apache2::mod_apreq2', 'Apache module "apreq"'
+recipe 'apache2::mod_auth_basic', 'Apache module "auth_basic"'
+recipe 'apache2::mod_auth_digest', 'Apache module "auth_digest"'
+recipe 'apache2::mod_auth_openid', 'Apache module "authopenid"'
+recipe 'apache2::mod_authn_file', 'Apache module "authn_file"'
+recipe 'apache2::mod_authnz_ldap', 'Apache module "authnz_ldap"'
+recipe 'apache2::mod_authz_default', 'Apache module "authz_default"'
+recipe 'apache2::mod_authz_groupfile', 'Apache module "authz_groupfile"'
+recipe 'apache2::mod_authz_host', 'Apache module "authz_host"'
+recipe 'apache2::mod_authz_user', 'Apache module "authz_user"'
+recipe 'apache2::mod_autoindex', 'Apache module "autoindex" with config file'
+recipe 'apache2::mod_cgi', 'Apache module "cgi"'
+recipe 'apache2::mod_dav', 'Apache module "dav"'
+recipe 'apache2::mod_dav_svn', 'Apache module "dav_svn"'
+recipe 'apache2::mod_deflate', 'Apache module "deflate" with config file'
+recipe 'apache2::mod_dir', 'Apache module "dir" with config file'
+recipe 'apache2::mod_env', 'Apache module "env"'
+recipe 'apache2::mod_expires', 'Apache module "expires"'
+recipe 'apache2::mod_fcgid', 'Apache module "fcgid", package on ubuntu/debian, rhel/centos, compile source on suse; with config file'
+recipe 'apache2::mod_headers', 'Apache module "headers"'
+recipe 'apache2::mod_include', 'Apache module "include"'
+recipe 'apache2::mod_ldap', 'Apache module "ldap"'
+recipe 'apache2::mod_log_config', 'Apache module "log_config"'
+recipe 'apache2::mod_mime', 'Apache module "mime" with config file'
+recipe 'apache2::mod_negotiation', 'Apache module "negotiation" with config file'
+recipe 'apache2::mod_pagespeed', 'Apache module "pagespeed" with config file'
+recipe 'apache2::mod_perl', 'Apache module "perl"'
+recipe 'apache2::mod_php5', 'Apache module "php5"'
+recipe 'apache2::mod_proxy', 'Apache module "proxy" with config file'
+recipe 'apache2::mod_proxy_ajp', 'Apache module "proxy_ajp"'
+recipe 'apache2::mod_proxy_balancer', 'Apache module "proxy_balancer"'
+recipe 'apache2::mod_proxy_connect', 'Apache module "proxy_connect"'
+recipe 'apache2::mod_proxy_http', 'Apache module "proxy_http"'
+recipe 'apache2::mod_python', 'Apache module "python"'
+recipe 'apache2::mod_rewrite', 'Apache module "rewrite"'
+recipe 'apache2::mod_setenvif', 'Apache module "setenvif" with config file'
+recipe 'apache2::mod_ssl', 'Apache module "ssl" with config file, adds port 443 to listen_ports'
+recipe 'apache2::mod_status', 'Apache module "status" with config file'
+recipe 'apache2::mod_xsendfile', 'Apache module "xsendfile"'
 
 depends 'iptables'
 depends 'logrotate'
@@ -102,14 +102,14 @@ attribute 'apache/listen_addresses',
           :display_name => 'Apache Listen Addresses',
           :description  => 'Addresses that Apache should listen on',
           :type         => 'array',
-          :default      => %w[*],
+          :default      => %w(*),
           :recipes      => ['apache2::default']
 
 attribute 'apache/listen_ports',
           :display_name => 'Apache Listen Ports',
           :description  => 'Ports that Apache should listen on',
           :type         => 'array',
-          :default      => %w[80 443],
+          :default      => %w(80 443),
           :recipes      => ['apache2::default']
 
 attribute 'apache/contact',
@@ -254,7 +254,7 @@ attribute 'apache/default_modules',
           :display_name => 'Apache Default Modules',
           :description  => 'Default modules to enable via recipes',
           :type         => 'array',
-          :default      => %w[status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex dir env mime negotiation setenvif],
+          :default      => %w(status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex dir env mime negotiation setenvif),
           :recipes      => ['apache2::default']
 
 attribute 'apache/mod_ssl/cipher_suite',

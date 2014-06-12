@@ -22,7 +22,7 @@ describe 'apache2::default' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => platform, :version => version) do |node|
+          ChefSpec::Runner.new(:platform => platform, :version => version) do
           end.converge(described_recipe)
         end
 
@@ -43,10 +43,10 @@ describe 'apache2::default' do
         apache_service_name = nil
         apache_service_restart_command = nil
         apache_service_reload_command = nil
-        apache_default_modules = %w(
-            status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex
-            dir env mime negotiation setenvif
-        )
+        apache_default_modules = %w(status alias auth_basic authn_file
+                                    authz_default authz_groupfile authz_host
+                                    authz_user autoindex
+                                    dir env mime negotiation setenvif)
 
         if %w(debian ubuntu).include?(platform)
           apache_dir = '/etc/apache2'
@@ -85,7 +85,7 @@ describe 'apache2::default' do
           apache_lib_dir = '/usr/lib/apache2'
         end
 
-        if %w{redhat centos fedora arch suse freebsd}.include?(platform)
+        if %w(redhat centos fedora arch suse freebsd).include?(platform)
           it "creates #{apache_log_dir} directory" do
             expect(chef_run).to create_directory(apache_log_dir).with(
               :mode => '0755'
@@ -218,7 +218,7 @@ describe 'apache2::default' do
           expect(template).to_not notify('service[apache2]').to(:stop)
         end
 
-        if %w{redhat centos fedora}.include?(platform)
+        if %w(redhat centos fedora).include?(platform)
           it 'creates /etc/sysconfig/httpd' do
             expect(chef_run).to create_template('/etc/sysconfig/httpd').with(
               :source => 'etc-sysconfig-httpd.erb',

@@ -79,10 +79,10 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, modul
           end
 
           it "runs a2enmod #{module_name}" do
-#         not_if do
+            #         not_if do
             allow(::File).to receive(:symlink?).with("#{apache_dir}/mods-enabled/#{module_name}.load").and_return(false)
-#           (::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
-#            allow(::File).to receive(:exists?).with("#{apache_dir}/mods-available/#{module_name}.conf").and_return(false)
+            #           (::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
+            # allow(::File).to receive(:exists?).with("#{apache_dir}/mods-available/#{module_name}.conf").and_return(false)
             expect(chef_run).to run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2enmod #{module_name}")
             expect(chef_run).to_not run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2dismod #{module_name}")
           end
@@ -107,5 +107,38 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, modul
         end
       end
     end
+  end
+end
+
+platforms = {
+  'ubuntu' => ['12.04', '14.04'],
+  'debian' => ['7.0', '7.4'],
+  'fedora' => %w(18 20),
+  'redhat' => ['5.9', '6.5'],
+  'centos' => ['5.9', '6.5'],
+  'freebsd' => ['9.2'],
+  'suse' => ['11.3']
+}
+#  'arch' =>
+
+modules_without_config = %w(auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex env)
+modules_with_config = %w(status alias deflate alias autoindex dir mime negotiation setenvif)
+
+# Test apache modules on all platforms
+modules_with_config.each do |mod|
+  describe "apache2::mod_#{mod}" do
+    it_should_behave_like 'an apache2 module', mod, true, platforms
+  end
+end
+
+modules_without_config.each do |mod|
+  describe "apache2::mod_#{mod}" do
+    it_should_behave_like 'an apache2 module', mod, false, platforms
+  end
+end
+
+%w(log_config logio).each do |log_mod|
+  describe "apache2::mod_#{log_mod}" do
+    it_should_behave_like 'an apache2 module', log_mod, false, platforms.select { |key| %w(redhat fedora suse freebsd).include?(key) }
   end
 end

@@ -27,7 +27,7 @@ restart_command = apache_service.restart_command
 
 god_monitor 'apache2' do
   config 'apache2.god.erb'
-  start   start_command   || "/etc/init.d/#{apache_service.service_name} start"
+  start start_command   || "/etc/init.d/#{apache_service.service_name} start"
   restart restart_command || "/etc/init.d/#{apache_service.service_name} restart"
-  stop    stop_command    || "/etc/init.d/#{apache_service.service_name} stop"
+  stop stop_command    || "/etc/init.d/#{apache_service.service_name} stop"
 end

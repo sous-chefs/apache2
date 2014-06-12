@@ -29,7 +29,7 @@ define :apache_module, :enable => true, :conf => false do
   if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
     file "#{node['apache']['dir']}/mods-available/#{params[:name]}.load" do
       content "LoadModule #{params[:identifier]} #{params[:module_path]}\n"
-      mode    '0644'
+      mode '0644'
     end
   end
 
@@ -39,7 +39,7 @@ define :apache_module, :enable => true, :conf => false do
       notifies :reload, 'service[apache2]'
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") &&
-        (::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
+        (::File.exist?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
       end
     end
   else
