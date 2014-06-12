@@ -13,7 +13,7 @@ platforms = {
 
 describe 'apache2::mod_php5' do
   before do
-    stub_command("which php").and_return(false)
+    stub_command('which php').and_return(false)
   end
   it_should_behave_like 'an apache2 module', 'php5', false, platforms
 end

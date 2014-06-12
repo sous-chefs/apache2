@@ -12,5 +12,5 @@ platforms = {
 #  'arch' =>
 
 describe 'apache2::mod_xsendfile' do
-  it_should_behave_like 'an apache2 module', 'xsendfile', true, platforms
+  it_should_behave_like 'an apache2 module', 'xsendfile', false, platforms
 end

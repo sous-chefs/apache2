@@ -2,7 +2,7 @@ require 'spec_helper'
 
 platforms = {
   'ubuntu' => ['12.04', '14.04'],
-  'debian' => ['7.0', '7.4'],
+  'debian' => ['7.0', '7.4']
 }
 
 describe 'apache2::mod_pagespeed' do
