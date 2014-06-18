@@ -228,3 +228,6 @@ default['apache']['default_modules'] = %w[
 %w[log_config logio].each do |log_mod|
   default['apache']['default_modules'] << log_mod if %w[rhel fedora suse arch freebsd].include?(node['platform_family'])
 end
+
+# What to do when the apache2 service is installed.
+default['apache']['install_action'] = :start
