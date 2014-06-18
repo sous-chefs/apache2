@@ -204,5 +204,5 @@ service 'apache2' do
     service_name 'apache22'
   end
   supports [:restart, :reload, :status]
-  action [:enable, :start]
+  action node['apache']['install_action']
 end
