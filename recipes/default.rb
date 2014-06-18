@@ -223,5 +223,5 @@ apache_site 'default' do
 end
 
 service 'apache2' do
-  action :start
+  action node['apache']['install_action']
 end
