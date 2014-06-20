@@ -39,7 +39,7 @@ service 'apache2' do
   when 'freebsd'
     service_name 'apache22'
   end
-  supports [:restart, :reload, :status]
+  supports [:start, :restart, :reload, :status]
   action :enable
 end
 
