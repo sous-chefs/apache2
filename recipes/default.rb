@@ -76,6 +76,7 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
       mode  '0700'
       owner 'root'
       group node['apache']['root_group']
+      action :create
     end
   end
 
