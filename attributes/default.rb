@@ -60,12 +60,12 @@ when 'debian', 'ubuntu'
   default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = '/var/run/apache2'
   default['apache']['lock_dir']    = '/var/lock/apache2'
-# this should use COOK-3917 to educate the initscript of the pid location
-if node['apache']['version'] == '2.4'
-  default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
-else
-  default['apache']['pid_file']    = '/var/run/apache2.pid'
-end
+  # this should use COOK-3917 to educate the initscript of the pid location
+  if node['apache']['version'] == '2.4'
+    default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
+  else
+    default['apache']['pid_file']    = '/var/run/apache2.pid'
+  end
   default['apache']['lib_dir']     = '/usr/lib/apache2'
   default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
