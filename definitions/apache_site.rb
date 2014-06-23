@@ -25,6 +25,8 @@ define :apache_site, :enable => true do
       command "/usr/sbin/a2ensite #{params[:name]}"
       notifies :restart, 'service[apache2]'
       not_if do
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") ||
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}") ||
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}.conf") ||
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}.conf")
       end
@@ -35,6 +37,8 @@ define :apache_site, :enable => true do
       command "/usr/sbin/a2dissite #{params[:name]}"
       notifies :restart, 'service[apache2]'
       only_if do
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") ||
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}") ||
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}.conf") ||
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}.conf")
       end
