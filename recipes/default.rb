@@ -196,7 +196,7 @@ template "#{node['apache']['dir']}/ports.conf" do
   notifies :reload, 'service[apache2]'
 end
 
-template "#{node['apache']['dir']}/sites-available/default" do
+template "#{node['apache']['dir']}/sites-available/default.conf" do
   case node['apache']['version']
   when '2.4'
     source 'default-site2.4.erb'
