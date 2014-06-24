@@ -26,9 +26,11 @@ define :apache_site, :enable => true do
       notifies :restart, 'service[apache2]'
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") ||
-        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}")
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}") ||
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}.conf") ||
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}.conf")
       end
-      only_if { ::File.exists?("#{node['apache']['dir']}/sites-available/#{params[:name]}") }
+      only_if { ::File.exist?("#{node['apache']['dir']}/sites-available/#{params[:name]}.conf") }
     end
   else
     execute "a2dissite #{params[:name]}" do
@@ -36,7 +38,9 @@ define :apache_site, :enable => true do
       notifies :restart, 'service[apache2]'
       only_if do
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}") ||
-        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}")
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}") ||
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{params[:name]}.conf") ||
+        ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{params[:name]}.conf")
       end
     end
   end

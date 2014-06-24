@@ -18,7 +18,7 @@
         ScriptAlias /cgi-bin/ <%= node['apache']['cgibin_dir'] %>/
         <Directory "<%= node['apache']['cgibin_dir'] %>">
                 AllowOverride None
-                Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
+                Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
 		Require all granted
         </Directory>
 

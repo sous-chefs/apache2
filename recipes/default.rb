@@ -76,6 +76,7 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
       mode  '0700'
       owner 'root'
       group node['apache']['root_group']
+      action :create
     end
   end
 
@@ -195,7 +196,7 @@ template "#{node['apache']['dir']}/ports.conf" do
   notifies :reload, 'service[apache2]'
 end
 
-template "#{node['apache']['dir']}/sites-available/default" do
+template "#{node['apache']['dir']}/sites-available/default.conf" do
   case node['apache']['version']
   when '2.4'
     source 'default-site2.4.erb'
@@ -218,7 +219,7 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{module_recipe_name}"
 end
 
-apache_site 'default' do
+apache_site '000-default' do
   enable node['apache']['default_site_enabled']
 end
 
