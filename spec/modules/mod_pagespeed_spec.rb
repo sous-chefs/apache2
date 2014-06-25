@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 platforms = {
   'ubuntu' => ['12.04', '14.04'],
   'debian' => ['7.0', '7.4'],
