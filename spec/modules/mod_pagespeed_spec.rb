@@ -16,7 +16,20 @@ support_platforms = {
 }
 
 describe 'apache2::mod_pagespeed' do
-  it_should_behave_like 'an apache2 module', 'pagespeed', false, support_platforms
+  support_platforms.each do |platform, versions|
+    versions.each do |version|
+      context "on #{platform.capitalize} #{version}" do
+        let(:chef_run) do
+          ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
+        end
+        it 'installs package mod_pagespeed' do
+          expect(chef_run).to install_package('mod_pagespeed')
+          expect(chef_run).to_not install_package('not_mod_pagespeed')
+        end
+      end
+    end
+  end
+  it_should_behave_like 'an apache2 module', 'pagespeed', true, support_platforms
 #  it 'raises an exception' do
 #    expect { chef_run }
 #       .to raise_error(RuntimeError, "`mac_os_x' is not supported!")
