@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/perl -w
 #
 # a2enmod by Stefan Fritsch <sf@debian.org>
@@ -530,3 +531,27 @@ sub switch_marker {
 }
 
 # vim: syntax=perl sw=4 sts=4 sr et
+=======
+#!/bin/sh -e
+
+SYSCONFDIR='<%= node['apache']['dir'] %>'
+
+if [ -z $1 ]; then
+        echo "Which module would you like to disable?"
+        echo -n "Your choices are: "
+        ls $SYSCONFDIR/conf-enabled/*.conf | \
+        sed -e "s,$SYSCONFDIR/conf-enabled/,,g" | sed -e 's/\.load$//g;' | xargs echo
+        echo -n "Conf name? "
+        read CONFNAME
+else
+        CONFNAME=$1
+fi
+
+if ! [ -e $SYSCONFDIR/conf-enabled/$CONFNAME.conf ]; then
+        echo "This Conf is already disabled, or does not exist!"
+        exit 1
+fi
+
+rm -f $SYSCONFDIR/conf-enabled/$CONFNAME.conf
+echo "Conf $CONFNAME disabled; reload apache to fully disable."
+>>>>>>> creating definitions for a2[en, dis]conf that should work on other platforms
