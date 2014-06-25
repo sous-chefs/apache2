@@ -75,5 +75,5 @@ describe 'apache2::mod_php5' do
     end
   end
 
-  it_should_behave_like 'an apache2 module', 'php5', false, platforms, 'libphp5.so'
+  it_should_behave_like 'an apache2 module', 'php5', true, platforms, 'libphp5.so'
 end
