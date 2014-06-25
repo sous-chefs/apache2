@@ -138,16 +138,6 @@ proxy_modules_with_config.each do |mod|
 end
 
 describe 'apache2::mod_ssl' do
-# if platform_family?('rhel', 'fedora', 'suse')
-#   package 'mod_ssl' do
-#     notifies :run, 'execute[generate-module-list]', :immediately
-#   end
-
-#   file "#{node['apache']['dir']}/conf.d/ssl.conf" do
-#     action :delete
-#     backup false
-#   end
-# end
 
   platforms.each do |platform, versions|
     versions.each do |version|
@@ -208,6 +198,22 @@ describe 'apache2::mod_ssl' do
         else
           apache_dir = '/tmp/bogus'
           apache_lib_dir = '/usr/lib/apache2'
+        end
+
+        if %w{redhat centos fedora arch suse}.include?(platform)
+          it 'installs package mod_ssl' do
+            expect(chef_run).to install_package('mod_ssl')
+            expect(chef_run).to_not install_package('not_mod_ssl')
+          end
+          let(:package) { chef_run.package('mod_ssl') }
+          it 'triggers a notification by mod_ssl package install to execute[generate-module-list]' do
+            expect(package).to notify('execute[generate-module-list]').to(:run)
+            expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
+          end
+          it "deletes #{apache_dir}/conf.d/ssl.conf" do
+            expect(chef_run).to delete_file("#{apache_dir}/conf.d/ssl.conf").with(:backup => false)
+            expect(chef_run).to_not delete_file("#{apache_dir}/conf.d/ssl.conf").with(:backup => true)
+          end
         end
 
         it 'creates /etc/apache2/ports.conf' do
