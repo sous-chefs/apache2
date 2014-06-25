@@ -156,9 +156,63 @@ describe 'apache2::mod_ssl' do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
+        apache_dir = '/etc/apache2'
+        apache_lib_dir = '/usr/lib/apache2'
+        apache_cache_dir = '/var/cache/apache2'
+        apache_conf = "#{apache_dir}/apache2.conf"
+        apache_perl_pkg = 'perl'
+        apache_log_dir = '/var/log/httpd'
+        apache_cache_dir = '/var/cache/httpd'
+        apache_lib_dir = '/usr/lib/apache2'
+        apache_root_group = 'root'
+        apache_service_name = nil
+        apache_service_restart_command = nil
+        apache_service_reload_command = nil
+        apache_default_modules = %w(
+            status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex
+            dir env mime negotiation setenvif
+        )
+
+        if %w(debian ubuntu).include?(platform)
+          apache_dir = '/etc/apache2'
+          apache_lib_dir = '/usr/lib/apache2'
+          apache_cache_dir = '/var/cache/apache2'
+          apache_conf = "#{apache_dir}/apache2.conf"
+          apache_service_name = 'apache2'
+          apache_service_restart_command = '/usr/sbin/invoke-rc.d apache2 restart && sleep 1'
+          apache_service_reload_command = '/usr/sbin/invoke-rc.d apache2 reload && sleep 1'
+        elsif %w(redhat centos scientific fedora suse amazon oracle).include?(platform)
+          apache_dir = '/etc/httpd'
+          apache_lib_dir = '/usr/lib64/httpd'
+          apache_cache_dir = '/var/cache/httpd'
+          apache_conf = "#{apache_dir}/conf/httpd.conf"
+          apache_service_name  = 'httpd'
+          # If restarted/reloaded too quickly httpd has a habit of failing.
+          # This may happen with multiple recipes notifying apache to restart - like
+          # during the initial bootstrap.
+          apache_service_restart_command = '/sbin/service httpd restart && sleep 1'
+          apache_service_reload_command = '/sbin/service httpd reload && sleep 1'
+        elsif platform == 'arch'
+          apache_service_name = 'httpd'
+        elsif platform == 'freebsd'
+          apache_dir = '/usr/local/etc/apache22'
+          apache_lib_dir = '/usr/local/libexec/apache22'
+          apache_log_dir = '/var/log'
+          apache_cache_dir = '/var/run/apache22'
+          apache_conf = "#{apache_dir}/httpd.conf"
+          apache_perl_pkg = 'perl5'
+          apache_root_group = 'wheel'
+          apache_service_name = 'apache22'
+          apache_service_restart_command = nil
+          apache_service_reload_command = nil
+        else
+          apache_dir = '/tmp/bogus'
+          apache_lib_dir = '/usr/lib/apache2'
+        end
+
         it 'creates /etc/apache2/ports.conf' do
           expect(chef_run).to create_template('ssl_ports.conf').with(
-            :path => '/etc/apache2/ports.conf',
+            :path => "#{apache_dir}/ports.conf",
             :source => 'ports.conf.erb',
             :mode => '0644'
          )
