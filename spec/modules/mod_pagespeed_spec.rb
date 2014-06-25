@@ -1,10 +1,25 @@
 require 'spec_helper'
 
+
 platforms = {
+  'ubuntu' => ['12.04', '14.04'],
+  'debian' => ['7.0', '7.4'],
+  'fedora' => %w(18 20),
+  'redhat' => ['5.9', '6.5'],
+  'centos' => ['5.9', '6.5'],
+  'freebsd' => ['9.2'],
+  'suse' => ['11.3']
+}
+
+support_platforms = {
   'ubuntu' => ['12.04', '14.04'],
   'debian' => ['7.0', '7.4']
 }
 
 describe 'apache2::mod_pagespeed' do
-  it_should_behave_like 'an apache2 module', 'pagespeed', false, platforms
+  it_should_behave_like 'an apache2 module', 'pagespeed', false, support_platforms
+#  it 'raises an exception' do
+#    expect { chef_run }
+#       .to raise_error(RuntimeError, "`mac_os_x' is not supported!")
+#  end
 end
