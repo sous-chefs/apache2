@@ -3,7 +3,7 @@
 SYSCONFDIR='<%= node['apache']['dir'] %>'
 
 if [ -z $1 ]; then
-        echo "Which module would you like to disable?"
+        echo "Which conf would you like to disable?"
         echo -n "Your choices are: "
         ls $SYSCONFDIR/conf-enabled/*.conf | \
         sed -e "s,$SYSCONFDIR/conf-enabled/,,g" | sed -e 's/\.load$//g;' | xargs echo
