@@ -1,0 +1,36 @@
+#!/bin/sh -e
+
+SYSCONFDIR='<%= node['apache']['dir'] %>'
+
+if [ -z $1 ]; then
+        echo "Which conf would you like to enable?"
+        echo -n "Your choices are: "
+        ls $SYSCONFDIR/conf-available/*.conf | \
+        sed -e "s,$SYSCONFDIR/conf-available/,,g" | sed -e 's/\.load$//g;' | xargs echo
+        echo -n "Conf name? "
+        read CONFNAME
+else
+        CONFNAME=$1
+fi
+
+#figure out if we're on a prefork or threaded mpm
+if [ -x <%= node['apache']['binary'] %> ]; then
+    PREFORK=`<%= node['apache']['binary'] %> -l | grep prefork || true`
+fi
+
+if [ -e $SYSCONFDIR/conf-enabled/$CONFNAME.conf ]; then
+        echo "This module is already enabled!"
+        exit 0
+fi
+
+if ! [ -e $SYSCONFDIR/conf-available/$CONFNAME.conf ]; then
+        echo "This module does not exist!"
+        exit 1
+fi
+
+
+  if [ -e $SYSCONFDIR/conf-available/$CONFNAME.conf -a ! -e $SYSCONFDIR/conf-enabled/$CONFNAME.conf ]; then
+  ln -sf $SYSCONFDIR/conf-available/$CONFNAME.conf $SYSCONFDIR/conf-enabled/$CONFNAME.conf;
+  fi
+
+echo "Conf $CONFNAME installed; reload apache to enable."
