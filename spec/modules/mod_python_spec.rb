@@ -19,7 +19,7 @@ describe 'apache2::mod_python' do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
-        if %w(redhat centos fedora arch).include?(platform)
+        if %w{redhat centos fedora arch}.include?(platform)
           it 'installs package mod_python' do
             expect(chef_run).to install_package('mod_python')
             expect(chef_run).to_not install_package('not_mod_python')
@@ -30,7 +30,7 @@ describe 'apache2::mod_python' do
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
         end
-        if %w(suse).include?(platform)
+        if %w{suse}.include?(platform)
           it 'installs package apache2-mod_python' do
             expect(chef_run).to install_package('apache2-mod_python')
             expect(chef_run).to_not install_package('not_apache2-mod_python')
@@ -41,7 +41,7 @@ describe 'apache2::mod_python' do
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
         end
-        if %w(debian ubuntu).include?(platform)
+        if %w{debian ubuntu}.include?(platform)
           it 'installs package libapache2-mod-python' do
             expect(chef_run).to install_package('libapache2-mod-python')
             expect(chef_run).to_not install_package('not_libapache2-mod-python')

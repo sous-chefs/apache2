@@ -91,7 +91,7 @@ end
 loggers_modules_without_config = %w(log_config logio)
 loggers_modules_without_config.each do |mod|
   describe "apache2::mod_#{mod}" do
-    it_should_behave_like 'an apache2 module', mod, false, platforms.select { |key| %w(redhat fedora suse freebsd).include?(key) }
+    it_should_behave_like 'an apache2 module', mod, false, platforms.select { |key, value| %w(redhat fedora suse freebsd).include?(key) }
   end
 end
 
@@ -158,9 +158,10 @@ describe 'apache2::mod_ssl' do
         apache_service_name = nil
         apache_service_restart_command = nil
         apache_service_reload_command = nil
-        apache_default_modules = %w(status alias auth_basic authn_file
-                                    authz_default authz_groupfile authz_host authz_user autoindex
-                                    dir env mime negotiation setenvif)
+        apache_default_modules = %w(
+            status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex
+            dir env mime negotiation setenvif
+        )
 
         if %w(debian ubuntu).include?(platform)
           apache_dir = '/etc/apache2'
@@ -199,7 +200,7 @@ describe 'apache2::mod_ssl' do
           apache_lib_dir = '/usr/lib/apache2'
         end
 
-        if %w(redhat centos fedora arch suse).include?(platform)
+        if %w{redhat centos fedora arch suse}.include?(platform)
           it 'installs package mod_ssl' do
             expect(chef_run).to install_package('mod_ssl')
             expect(chef_run).to_not install_package('not_mod_ssl')

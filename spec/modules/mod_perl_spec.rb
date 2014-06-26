@@ -19,7 +19,7 @@ describe 'apache2::mod_perl' do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
-        if %w(redhat centos fedora arch).include?(platform)
+        if %w{redhat centos fedora arch}.include?(platform)
           it 'installs package mod_perl' do
             expect(chef_run).to install_package('mod_perl')
             expect(chef_run).to_not install_package('not_mod_perl')
@@ -34,7 +34,7 @@ describe 'apache2::mod_perl' do
             expect(chef_run).to_not install_package('not_perl-libapreq2')
           end
         end
-        if %w(suse).include?(platform)
+        if %w{suse}.include?(platform)
           it 'installs package apache2-mod_perl' do
             expect(chef_run).to install_package('apache2-mod_perl')
             expect(chef_run).to_not install_package('not_apache2-mod_perl')
@@ -49,8 +49,8 @@ describe 'apache2::mod_perl' do
             expect(chef_run).to_not install_package('not_Apache2-Request')
           end
         end
-        if %w(debian ubuntu).include?(platform)
-          %w(libapache2-mod-perl2 libapache2-request-perl apache2-mpm-prefork).each do |pkg|
+        if %w{debian ubuntu}.include?(platform)
+          %w{libapache2-mod-perl2 libapache2-request-perl apache2-mpm-prefork}.each do |pkg|
             it "installs package #{pkg}" do
               expect(chef_run).to install_package(pkg)
               expect(chef_run).to_not install_package("not_#{pkg}")

@@ -17,7 +17,7 @@ describe 'apache2::logrotate' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => platform, :version => version) do
+          ChefSpec::Runner.new(:platform => platform, :version => version) do |node|
           end.converge(described_recipe)
         end
 
@@ -27,9 +27,9 @@ describe 'apache2::logrotate' do
         it 'includes the `logrotate` recipe' do
           expect(chef_run).to include_recipe('logrotate')
         end
-        # logrotate_app apache_service.service_name do
-        #   path node['apache']['log_dir']
-        # end
+      # logrotate_app apache_service.service_name do
+      #   path node['apache']['log_dir']
+      # end
       end
     end
   end
