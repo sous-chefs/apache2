@@ -42,6 +42,12 @@ when 'fedora'
     notifies :run, 'execute[generate-module-list]', :immediately
     not_if 'which php'
   end
+when 'suse'
+  package 'php package' do
+    package_name 'php'
+    notifies :run, 'execute[generate-module-list]', :immediately
+    not_if 'which php'
+  end
 when 'freebsd'
   freebsd_port_options 'php5' do
     options 'APACHE' => true
@@ -61,9 +67,6 @@ file "#{node['apache']['dir']}/conf.d/php.conf" do
 end
 
 apache_module 'php5' do
-  case node['platform_family']
-  when 'rhel', 'fedora', 'freebsd'
-    conf true
-    filename 'libphp5.so'
-  end
+  conf true
+  filename 'libphp5.so'
 end

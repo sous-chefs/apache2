@@ -24,6 +24,10 @@ include_recipe 'apache2::default'
 case node['platform_family']
 when 'debian'
   package 'libapache2-mod-apreq2'
+when 'suse'
+  package 'apache2-mod_apreq2' do
+    notifies :run, 'execute[generate-module-list]', :immediately
+  end
 when 'rhel', 'fedora'
   package 'libapreq2' do
     notifies :run, 'execute[generate-module-list]', :immediately

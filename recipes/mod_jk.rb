@@ -1,8 +1,9 @@
 #
 # Cookbook Name:: apache2
-# Definition:: apache_conf
+# Recipe:: jk
 #
-# Copyright 2008-20013, Opscode, Inc.
+# Copyright 2013, Mike Babineau <michael.babineau@gmail.com>
+# Copyright 2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +18,13 @@
 # limitations under the License.
 #
 
-define :apache_conf do
-  template "#{node['apache']['dir']}/mods-available/#{params[:name]}.conf" do
-    source   "mods/#{params[:name]}.conf.erb"
-    mode     '0644'
-    notifies :reload, 'service[apache2]'
+package 'libapache2-mod-jk' do
+  case node['platform_family']
+  when 'rhel', 'fedora', 'suse'
+    package_name 'mod_jk'
+  else
+    package_name 'libapache2-mod-jk'
   end
 end
+
+apache_module 'jk'

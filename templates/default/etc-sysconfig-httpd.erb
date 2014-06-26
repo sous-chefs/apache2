@@ -28,4 +28,8 @@ HTTPD=<%= node['apache']['binary'] %>
 # specified in httpd.conf (via the PidFile directive), the new
 # location needs to be reported in the PIDFILE.
 #
-#PIDFILE=<%= node['apache']['pid_file'] %>
+PIDFILE=<%= node['apache']['pid_file'] %>
+
+<% node['apache']['sysconfig_additional_params'].each do |k,v| %>
+<%= "#{k}=#{v}" %>
+<% end %>

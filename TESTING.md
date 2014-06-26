@@ -1,8 +1,8 @@
 This cookbook uses a variety of testing components:
 
-- Unit tests: [ChefSpec](https://github.com/acrmp/chefspec)
-- Integration tests: [Test Kitchen](https://github.com/opscode/test-kitchen)
-- Chef Style lints: [Foodcritic](https://github.com/acrmp/foodcritic)
+- Unit tests: [ChefSpec](http://code.sethvargo.com/chefspec/)
+- Integration tests: [Test Kitchen](http://kitchen.ci/)
+- Chef Style lints: [Foodcritic](http://www.foodcritic.io/)
 - Ruby Style lints: [Rubocop](https://github.com/bbatsov/rubocop)
 
 
@@ -28,7 +28,7 @@ Development
 -----------
 1. Clone the git repository from GitHub:
 
-        $ git clone git@github.com:opscode-cookbooks/COOKBOOK.git
+        $ git clone git@github.com:onehealth-cookbooks/apache2.git
 
 2. Install the dependencies using bundler:
 
@@ -47,7 +47,5 @@ Development
     - `bundle exec kitchen test`
 
 7. Assuming the tests pass, open a Pull Request on GitHub
-8. Open a JIRA ticket for this compontent, linking the JIRA ticket to the Pull Request and visa versa.
-9. Mark the JIRA ticket as "Fix Provided"
 
-For more information, see [Opscode's Contribution Guidelines](https://wiki.opscode.com/display/chef/How+to+Contribute).
+For more information, see [OneHealth's Contribution Guidelines](https://github.com/onehealth-cookbooks/apache2/blob/master/CONTRIBUTING.md)

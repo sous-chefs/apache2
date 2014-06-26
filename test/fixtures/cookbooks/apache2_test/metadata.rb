@@ -1,3 +1,4 @@
+name		 'apache2_test'
 maintainer       'Andrew Crump'
 maintainer_email 'andrew@kotirisoftware.com'
 license          'Apache 2.0'
@@ -9,7 +10,7 @@ depends          'apache2'
 depends          'jpackage'
 depends          'openldap'
 depends          'tomcat'
-depends          'yum', '< 3.0'
+depends          'yum-epel'
 
 recipe           'apache2_test::default', 'Test example for default recipe'
 recipe           'apache2_test::mod_auth_basic', 'Test example for basic authentication'
