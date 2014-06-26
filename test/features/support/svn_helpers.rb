@@ -1,7 +1,7 @@
 require 'tmpdir'
 
 def run(cmd)
-  %x{#{cmd}}
+  `#{cmd}`
   assert $CHILD_STATUS.success?
 end
 

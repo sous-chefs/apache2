@@ -30,8 +30,8 @@ describe 'apache2::mod_pagespeed' do
     end
   end
   it_should_behave_like 'an apache2 module', 'pagespeed', true, support_platforms
-#  it 'raises an exception' do
-#    expect { chef_run }
-#       .to raise_error(RuntimeError, "`mac_os_x' is not supported!")
-#  end
+  # it 'raises an exception' do
+  #   expect { chef_run }
+  #     .to raise_error(RuntimeError, "`mac_os_x' is not supported!")
+  # end
 end

@@ -21,8 +21,8 @@ end
 
 def compresses_response?(request_type)
   # httparty rewrites the response to hide compression from us
-  encoding = %x{curl -s -i #{'--compressed ' if request_type == :client_supports} 'http://#{test_host}/' | grep 'Content-Encoding' | awk -F' ' '{print $2}'}.strip
-  %w{deflate gzip}.include?(encoding)
+  encoding = `curl -s -i #{'--compressed ' if request_type == :client_supports} 'http://#{test_host}/' | grep 'Content-Encoding' | awk -F' ' '{print $2}'`.strip
+  %w(deflate gzip).include?(encoding)
 end
 
 def default_page_present?(body)
@@ -51,7 +51,7 @@ end
 
 def http_request_digest_curl(path, options)
   credentials = "#{options[:digest_auth][:username]}:#{options[:digest_auth][:password]}"
-  curl_response = %x{curl -s -i --digest -u #{credentials} http://#{test_host}:#{http_port}#{path}}
+  curl_response = `curl -s -i --digest -u #{credentials} http://#{test_host}:#{http_port}#{path}`
   assert $CHILD_STATUS.success?
   @response = Class.new do
     def initialize(response)
@@ -73,7 +73,7 @@ def http_response
 end
 
 def http_response_version(user_agent, protocol_version)
-  response_line = %x{curl -s #{'-0 ' if protocol_version == '1.0'} -i -A '#{user_agent}' 'http://#{test_host}/' | head -n1}
+  response_line = `curl -s #{'-0 ' if protocol_version == '1.0'} -i -A '#{user_agent}' 'http://#{test_host}/' | head -n1`
   assert $CHILD_STATUS.success?
   response_line.scan(/HTTP\/([0-9]+\.[0-9]+) [0-9]+.*/).flatten.first
 end
