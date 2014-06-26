@@ -129,8 +129,8 @@ Tests
 =====
 
 This cookbook in the
-[source repository](https://github.com/opscode-cookbooks/apache2)
-contains minitest and cucumber tests. This is an initial proof of
+[source repository](https://github.com/onehealth-cookbooks/apache2)
+contains chefspec, minitest and cucumber tests. This is an initial proof of
 concept that will be fleshed out with more supporting infrastructure
 at a future time.
 
@@ -573,7 +573,10 @@ License and Authors
 * Author:: Sean OMeara <someara@opscode.com>
 * Author:: Seth Chisamore <schisamo@opscode.com>
 * Author:: Gilles Devaux <gilles@peerpong.com>
+* Author:: Sander van Zoest <svanzoest@onehealth.com>
+* Author:: Taylor Price <tprice@onehealth.com>
 
+* Copyright:: 2013-2014, OneHealth Solutions, Inc.
 * Copyright:: 2009-2012, Opscode, Inc
 * Copyright:: 2011, Atriso
 * Copyright:: 2011, CustomInk, LLC.
