@@ -40,7 +40,7 @@ service 'apache2' do
     service_name 'apache22'
   end
   supports [:start, :restart, :reload, :status]
-  action :enable
+  action [:enable, :start]
 end
 
 if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
@@ -221,8 +221,4 @@ end
 
 apache_site '000-default' do
   enable node['apache']['default_site_enabled']
-end
-
-service 'apache2' do
-  action :start
 end
