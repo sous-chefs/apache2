@@ -201,8 +201,13 @@ service 'apache2' do
   when 'arch'
     service_name 'httpd'
   when 'freebsd'
-    service_name 'apache22'
+    service_name 'apache2'
   end
   supports [:restart, :reload, :status]
-  action [:enable, :start]
+    case node['apache']['start_service']
+  when "true"
+    action [:enable, :start]
+  when "false"
+    action [:nothing]
+  end
 end
