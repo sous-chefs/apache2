@@ -152,6 +152,9 @@ default['apache']['ext_status'] = false
 # mod_info Allow list, space seprated list of allowed entries.
 default['apache']['info_allow_list'] = 'localhost ip6-localhost'
 
+# Enable and start apache2
+default['apache']['start_service'] = "true"
+
 # Prefork Attributes
 default['apache']['prefork']['startservers']        = 16
 default['apache']['prefork']['minspareservers']     = 16
