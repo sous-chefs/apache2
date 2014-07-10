@@ -123,6 +123,8 @@ default['apache']['timeout'] = 300
 default['apache']['keepalive'] = "On"
 default['apache']['keepaliverequests'] = 100
 default['apache']['keepalivetimeout'] = 5
+default['apache']['etag']['enable'] = false
+default['apache']['etag']['value'] = "None"
 
 # Security
 default['apache']['servertokens'] = "Prod"
