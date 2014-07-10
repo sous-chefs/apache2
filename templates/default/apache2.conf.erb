@@ -234,9 +234,14 @@ LogFormat "%{User-agent}i" agent
 #    ErrorDocument 503 /error/HTTP_SERVICE_UNAVAILABLE.html.var
 #    ErrorDocument 506 /error/HTTP_VARIANT_ALSO_VARIES.html.var
 
+<% if node['apache']['etag']['enable'] -%>
+# ETags enabled
+FileEtag <%= node['apache']['etag']['value'] %>
+<% else -%>
 # Disable etags
 Header unset ETag
-FileETag None
+FileETag <%= node['apache']['etag']['value'] %>
+<% end -%>
 
 # Include generic snippets of statements
 Include <%= node['apache']['dir'] %>/conf.d/*.conf
