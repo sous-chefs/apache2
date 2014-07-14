@@ -23,7 +23,7 @@ describe 'apache2::mod_php5' do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
-        if %w{redhat centos fedora arch}.include?(platform)
+        if %w(redhat centos fedora arch).include?(platform)
           pkg = 'php'
           pkg = 'php53' if version.to_f < 6.0
           it "installs package #{pkg}" do
@@ -36,7 +36,7 @@ describe 'apache2::mod_php5' do
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
         end
-        if %w{suse}.include?(platform)
+        if %w(suse).include?(platform)
           it 'installs package php' do
             expect(chef_run).to install_package('php')
             expect(chef_run).to_not install_package('not_php')
@@ -47,7 +47,7 @@ describe 'apache2::mod_php5' do
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
         end
-        if %w{debian ubuntu}.include?(platform)
+        if %w(debian ubuntu).include?(platform)
           it 'installs package libapache2-mod-php5' do
             expect(chef_run).to install_package('libapache2-mod-php5')
             expect(chef_run).to_not install_package('not_libapache2-mod-php5')

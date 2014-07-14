@@ -24,7 +24,7 @@ describe 'apache2::mod_apreq2' do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
-        if %w{redhat centos fedora arch}.include?(platform)
+        if %w(redhat centos fedora arch).include?(platform)
           it 'installs package libapreq2' do
             expect(chef_run).to install_package('libapreq2')
             expect(chef_run).to_not install_package('not_libapreq2')
@@ -35,7 +35,7 @@ describe 'apache2::mod_apreq2' do
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
         end
-        if %w{suse}.include?(platform)
+        if %w(suse).include?(platform)
           it 'installs package apache2-mod_apreq2' do
             expect(chef_run).to install_package('apache2-mod_apreq2')
             expect(chef_run).to_not install_package('not_apache2-mod_apreq2')
@@ -46,7 +46,7 @@ describe 'apache2::mod_apreq2' do
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
         end
-        if %w{debian ubuntu}.include?(platform)
+        if %w(debian ubuntu).include?(platform)
           it 'installs package libapache2-mod-apreq2' do
             expect(chef_run).to install_package('libapache2-mod-apreq2')
             expect(chef_run).to_not install_package('not_libapache2-mod-apreq2')
