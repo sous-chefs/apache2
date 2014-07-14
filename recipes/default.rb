@@ -165,7 +165,7 @@ template 'apache2.conf' do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  notifies :reload, 'service[apache2]'
+  notifies :reload, 'service[apache2]', :delayed
 end
 
 template 'apache2-conf-security' do
@@ -175,7 +175,7 @@ template 'apache2-conf-security' do
   group node['apache']['root_group']
   mode '0644'
   backup false
-  notifies :reload, 'service[apache2]'
+  notifies :reload, 'service[apache2]', :delayed
 end
 
 template 'apache2-conf-charset' do
@@ -185,7 +185,7 @@ template 'apache2-conf-charset' do
   group node['apache']['root_group']
   mode '0644'
   backup false
-  notifies :reload, 'service[apache2]'
+  notifies :reload, 'service[apache2]', :delayed
 end
 
 template "#{node['apache']['dir']}/ports.conf" do
@@ -193,7 +193,7 @@ template "#{node['apache']['dir']}/ports.conf" do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  notifies :reload, 'service[apache2]'
+  notifies :reload, 'service[apache2]', :delayed
 end
 
 template "#{node['apache']['dir']}/sites-available/default.conf" do
@@ -206,7 +206,7 @@ template "#{node['apache']['dir']}/sites-available/default.conf" do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  notifies :reload, 'service[apache2]'
+  notifies :reload, 'service[apache2]', :delayed
 end
 
 if node['apache']['version'] == '2.4'
