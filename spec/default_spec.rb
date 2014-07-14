@@ -163,10 +163,10 @@ describe 'apache2::default' do
           )
         end
 
-        let(:template) { chef_run.template(apache_conf) }
+        let(:apacheconf) { chef_run.template(apache_conf) }
         it "notification is triggered by #{apache_conf} template to reload service[apache2]" do
-          expect(template).to notify('service[apache2]').to(:reload).immediately
-          expect(template).to_not notify('service[apache2]').to(:stop)
+          expect(apacheconf).to notify('service[apache2]').to(:reload).immediately
+          expect(apacheconf).to_not notify('service[apache2]').to(:stop)
         end
 
         %w(security charset).each do |config|
@@ -180,10 +180,10 @@ describe 'apache2::default' do
             )
           end
 
-          let(:template) { chef_run.template("#{apache_dir}/conf.d/#{config}.conf") }
+          let(:confd) { chef_run.template("#{apache_dir}/conf.d/#{config}.conf") }
           it "notification is triggered by #{apache_dir}/conf.d/#{config}.conf template to reload service[apache2]" do
-            expect(template).to notify('service[apache2]').to(:reload)
-            expect(template).to_not notify('service[apache2]').to(:stop)
+            expect(confd).to notify('service[apache2]').to(:reload)
+            expect(confd).to_not notify('service[apache2]').to(:stop)
           end
         end
 
@@ -196,10 +196,10 @@ describe 'apache2::default' do
           )
         end
 
-        let(:template) { chef_run.template("#{apache_dir}/ports.conf") }
+        let(:portsconf) { chef_run.template("#{apache_dir}/ports.conf") }
         it "notification is triggered by #{apache_dir}/ports.conf template to reload service[apache2]" do
-          expect(template).to notify('service[apache2]').to(:reload)
-          expect(template).to_not notify('service[apache2]').to(:stop)
+          expect(portsconf).to notify('service[apache2]').to(:reload)
+          expect(portsconf).to_not notify('service[apache2]').to(:stop)
         end
 
         it "creates #{apache_dir}/sites-available/default" do
@@ -211,10 +211,10 @@ describe 'apache2::default' do
           )
         end
 
-        let(:template) { chef_run.template("#{apache_dir}/sites-available/default") }
+        let(:defaulttemplate) { chef_run.template("#{apache_dir}/sites-available/default") }
         it "notification is triggered by #{apache_dir}/sites-available/default template to reload service[apache2]" do
-          expect(template).to notify('service[apache2]').to(:reload)
-          expect(template).to_not notify('service[apache2]').to(:stop)
+          expect(defaulttemplate).to notify('service[apache2]').to(:reload)
+          expect(defaulttemplate).to_not notify('service[apache2]').to(:stop)
         end
 
         if %w(redhat centos fedora).include?(platform)
