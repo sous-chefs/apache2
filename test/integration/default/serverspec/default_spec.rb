@@ -21,13 +21,13 @@ describe 'apache2::default' do
     # its(:content) { should match /ServerName www.example.jp/ }
   end
 
-  #describe file("#{node['apache']['dir']}/conf.d") do
+  # describe file("#{node['apache']['dir']}/conf.d") do
   describe file('/etc/httpd/conf.d') do
     it { should be_directory }
     it { should be_mode 755 }
   end
 
-  #describe file(node['apache']['log_dir']) do
+  # describe file(node['apache']['log_dir']) do
   describe file('/var/log/httpd') do
     it { should be_directory }
     it { should be_mode 755 }
