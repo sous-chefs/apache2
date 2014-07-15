@@ -7,11 +7,9 @@ require File.expand_path('../support/helpers', __FILE__)
 # are tested in default_test)
 %w{
   auth_digest
-  authnz_ldap
   dav_fs
   deflate
   expires
-  fcgid
   headers
   ldap
   proxy
@@ -20,7 +18,6 @@ require File.expand_path('../support/helpers', __FILE__)
   proxy_http
   rewrite
   wsgi
-  xsendfile
 }.each do |expected_module|
 
   describe "apache2::mod_#{expected_module}" do

@@ -24,11 +24,9 @@ include_recipe 'apache2::default'
 # distasteful duplication.
 %w{
   auth_digest
-  authnz_ldap
   dav_fs
   deflate
   expires
-  fcgid
   headers
   ldap
   proxy
@@ -37,7 +35,6 @@ include_recipe 'apache2::default'
   proxy_http
   rewrite
   wsgi
-  xsendfile
 }.each do |a2mod|
   include_recipe "apache2::mod_#{a2mod}"
 end
