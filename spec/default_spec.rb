@@ -37,22 +37,19 @@ describe 'apache2::default' do
         apache_conf = "#{apache_dir}/apache2.conf"
         apache_perl_pkg = 'perl'
         apache_log_dir = '/var/log/httpd'
-        apache_cache_dir = '/var/cache/httpd'
         apache_lib_dir = '/usr/lib/apache2'
         apache_root_group = 'root'
         apache_service_name = nil
         apache_service_restart_command = nil
         apache_service_reload_command = nil
+        apache_default_site_name = 'default'
         apache_default_modules = %w(status alias auth_basic authn_file authz_default
                                     authz_groupfile authz_host authz_user autoindex
                                     dir env mime negotiation setenvif)
 
         if %w(debian ubuntu).include?(platform)
-          apache_dir = '/etc/apache2'
-          apache_lib_dir = '/usr/lib/apache2'
-          apache_cache_dir = '/var/cache/apache2'
-          apache_conf = "#{apache_dir}/apache2.conf"
           apache_service_name = 'apache2'
+          apache_default_site_name = '000-default'
           apache_service_restart_command = '/usr/sbin/invoke-rc.d apache2 restart && sleep 1'
           apache_service_reload_command = '/usr/sbin/invoke-rc.d apache2 reload && sleep 1'
         elsif %w(redhat centos scientific fedora suse amazon oracle).include?(platform)
@@ -202,8 +199,8 @@ describe 'apache2::default' do
           expect(portsconf).to_not notify('service[apache2]').to(:reload).immediately
         end
 
-        it "creates #{apache_dir}/sites-available/default" do
-          expect(chef_run).to create_template("#{apache_dir}/sites-available/default").with(
+        it "creates #{apache_dir}/sites-available/default.conf" do
+          expect(chef_run).to create_template("#{apache_dir}/sites-available/default.conf").with(
             :source => 'default-site.erb',
             :owner => 'root',
             :group => apache_root_group,
@@ -211,8 +208,8 @@ describe 'apache2::default' do
           )
         end
 
-        let(:defaulttemplate) { chef_run.template("#{apache_dir}/sites-available/default") }
-        it "notification is triggered by #{apache_dir}/sites-available/default template to reload service[apache2]" do
+        let(:defaulttemplate) { chef_run.template("#{apache_dir}/sites-available/default.conf") }
+        it "notification is triggered by #{apache_dir}/sites-available/default.conf template to reload service[apache2]" do
           expect(defaulttemplate).to notify('service[apache2]').to(:reload).delayed
           expect(defaulttemplate).to_not notify('service[apache2]').to(:reload).immediately
         end
@@ -273,23 +270,23 @@ describe 'apache2::default' do
           end
         end
 
-        it 'runs a a2dissite default' do
+        it "runs a a2dissite #{apache_default_site_name}" do
           allow(::File).to receive(:symlink?).with("#{apache_dir}/sites-enabled/default").and_return(true)
           allow(::File).to receive(:symlink?).with("#{apache_dir}/sites-enabled/000-default").and_return(true)
-          expect(chef_run).to run_execute('a2dissite default').with(
-             :command => '/usr/sbin/a2dissite default'
+          expect(chef_run).to run_execute("a2dissite #{apache_default_site_name}").with(
+             :command => "/usr/sbin/a2dissite #{apache_default_site_name}"
           )
         end
         it 'does not run a a2dissite default' do
           allow(::File).to receive(:symlink?).with("#{apache_dir}/sites-enabled/default").and_return(false)
           allow(::File).to receive(:symlink?).with("#{apache_dir}/sites-enabled/000-default").and_return(false)
-          expect(chef_run).to_not run_execute('a2dissite default').with(
-             :command => '/usr/sbin/a2dissite default'
+          expect(chef_run).to_not run_execute("a2dissite #{apache_default_site_name}").with(
+             :command => "/usr/sbin/a2dissite #{apache_default_site_name}"
           )
         end
 
-        let(:execute) { chef_run.execute('a2dissite default') }
-        it 'notification is triggered by a2dissite to reload service[apache2]' do
+        let(:execute) { chef_run.execute("a2dissite #{apache_default_site_name}") }
+        it "notification is triggered by a2dissite #{apache_default_site_name} to reload service[apache2]" do
           expect(execute).to notify('service[apache2]').to(:reload)
           expect(execute).to_not notify('service[apache2]').to(:stop)
         end
@@ -299,7 +296,7 @@ describe 'apache2::default' do
             :service_name => apache_service_name,
             :restart_command => apache_service_restart_command,
             :reload_command => apache_service_reload_command,
-            :supports => { :restart => true, :reload => true, :status => true },
+            :supports => { :start => true, :restart => true, :reload => true, :status => true },
             :action => [:enable, :start]
           )
         end

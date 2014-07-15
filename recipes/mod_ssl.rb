@@ -20,6 +20,8 @@ unless node['apache']['listen_ports'].include?('443')
   node.set['apache']['listen_ports'] = node['apache']['listen_ports'] + ['443']
 end
 
+include_recipe 'apache2::default'
+
 if platform_family?('rhel', 'fedora', 'suse')
   package 'mod_ssl' do
     notifies :run, 'execute[generate-module-list]', :immediately

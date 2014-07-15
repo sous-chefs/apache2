@@ -20,6 +20,8 @@
 default['apache']['version'] = '2.2'
 default['apache']['root_group'] = 'root'
 
+default['apache']['default_site_name'] = 'default'
+
 # Where the various parts of apache are
 case node['platform']
 when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
@@ -71,6 +73,7 @@ when 'debian', 'ubuntu'
   default['apache']['lib_dir']     = '/usr/lib/apache2'
   default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
+  default['apache']['default_site_name'] = '000-default'
 when 'arch'
   default['apache']['package']     = 'apache'
   default['apache']['perl_pkg']    = 'perl'
@@ -226,7 +229,7 @@ default['apache']['proxy']['allow_from'] = 'none'
 
 # Default modules to enable via include_recipe
 default['apache']['default_modules'] = %w(
-  status alias auth_basic authn_core authn_file authz_core authz_groupfile authz_host authz_user autoindex
+  status alias auth_basic authn_core authn_file authz_core authz_default authz_groupfile authz_host authz_user autoindex
   dir env mime negotiation setenvif
 )
 
