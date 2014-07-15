@@ -2,11 +2,12 @@ require_relative '../../../kitchen/data/spec_helper'
 
 describe 'apache2::default' do
 
-  describe package('apache2') do
+  pkg = 'httpd'
+  describe package(pkg) do
     it { should be_installed }
   end
 
-  describe service('apache2') do
+  describe service(pkg) do
     it { should be_enabled   }
     it { should be_running   }
   end
@@ -20,13 +21,15 @@ describe 'apache2::default' do
     # its(:content) { should match /ServerName www.example.jp/ }
   end
 
-  describe file("#{node['apache']['dir']}/conf.d") do
+  #describe file("#{node['apache']['dir']}/conf.d") do
+  describe file('/etc/httpd/conf.d') do
     it { should be_directory }
-    it { should be_mode 775 }
+    it { should be_mode 755 }
   end
 
-  describe file(node['apache']['log_dir']) do
+  #describe file(node['apache']['log_dir']) do
+  describe file('/var/log/httpd') do
     it { should be_directory }
-    it { should be_mode 775 }
+    it { should be_mode 755 }
   end
 end
