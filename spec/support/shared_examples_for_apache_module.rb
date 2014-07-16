@@ -79,10 +79,10 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, modul
           end
 
           it "runs a2enmod #{module_name}" do
-#         not_if do
+            # not_if do
             allow(::File).to receive(:symlink?).with("#{apache_dir}/mods-enabled/#{module_name}.load").and_return(false)
-#           (::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
-#            allow(::File).to receive(:exists?).with("#{apache_dir}/mods-available/#{module_name}.conf").and_return(false)
+            # (::File.exists?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
+            # allow(::File).to receive(:exists?).with("#{apache_dir}/mods-available/#{module_name}.conf").and_return(false)
             expect(chef_run).to run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2enmod #{module_name}")
             expect(chef_run).to_not run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2dismod #{module_name}")
           end
