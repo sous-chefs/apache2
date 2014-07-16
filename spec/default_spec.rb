@@ -43,9 +43,11 @@ describe 'apache2::default' do
         apache_service_restart_command = nil
         apache_service_reload_command = nil
         apache_default_site_name = 'default'
-        apache_default_modules = %w(status alias auth_basic authn_file authz_default
-                                    authz_groupfile authz_host authz_user autoindex
-                                    dir env mime negotiation setenvif)
+        apache_default_modules = %w(
+          status alias auth_basic authn_core authn_file authz_core
+          authz_groupfile authz_host authz_user autoindex dir env mime
+          negotiation setenvif
+        )
 
         if %w(debian ubuntu).include?(platform)
           apache_service_name = 'apache2'
