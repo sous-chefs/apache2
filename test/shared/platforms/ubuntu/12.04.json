@@ -8,7 +8,7 @@
         "perl_pkg": "perl",
         "log_dir": "/var/log/apache2",
         "root_group": "root",
-        "service_name": "httpd",
+        "service_name": "apache2",
         "service_restart_command": "/usr/sbin/invoke-rc.d apache2 restart && sleep 1",
         "service_reload_command": "/usr/sbin/invoke-rc.d apache2 reload && sleep 1",
         "default_modules": [
