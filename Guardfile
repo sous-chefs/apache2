@@ -12,6 +12,7 @@ group :unit do
     watch(%r{providers/.+\.rb$})
     watch(%r{recipes/.+\.rb$})
     watch(%r{resources/.+\.rb$})
+    watch(%r{definitions/.+\.rb$})
   end
 
   guard :rspec, cmd: 'bundle exec rspec --color --fail-fast', all_on_start: false do
