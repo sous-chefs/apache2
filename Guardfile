@@ -1,5 +1,15 @@
 # More info at https://github.com/guard/guard#readme
 
+guard :kitchen do
+  watch(%r{test/.+})
+  watch(%r{^recipes/(.+)\.rb$})
+  watch(%r{^attributes/(.+)\.rb$})
+  watch(%r{^files/(.+)})
+  watch(%r{^templates/(.+)})
+  watch(%r{^providers/(.+)\.rb})
+  watch(%r{^resources/(.+)\.rb})
+end
+
 guard :rubocop do
   watch(%r{.+\.rb$})
   watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
