@@ -25,7 +25,8 @@ describe 'apache2::default' do
     it { should be_mode 755 }
   end
 
-  %w(conf.d conf-enabled conf-available sites-enabled sites-available mods-enabled mods-available).each do |dir|
+  # conf-enabled conf-available
+  %w(conf.d sites-enabled sites-available mods-enabled mods-available).each do |dir|
     describe file("#{property[:apache][:dir]}/#{dir}") do
       it { should be_directory }
       it { should be_mode 755 }

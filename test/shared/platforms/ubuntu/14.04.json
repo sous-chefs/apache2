@@ -5,6 +5,8 @@
         "dir": "/etc/apache2",
         "lib_dir": "/usr/lib/apache2",
         "cache_dir": "/var/cache/apache2",
+        "cgibin_dir": "/usr/lib/cgi-bin",
+        "docroot_dir": "/var/www",
         "conf": "/etc/apache2/apache2.conf",
         "perl_pkg": "perl",
         "log_dir": "/var/log/apache2",

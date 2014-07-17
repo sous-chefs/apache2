@@ -4,6 +4,8 @@
         "dir": "/etc/httpd",
         "lib_dir": "/usr/lib64/httpd",
         "cache_dir": "/var/cache/httpd",
+        "cgibin_dir": "/var/www/cgi-bin",
+        "docroot_dir": "/var/www/html",
         "conf": "/etc/httpd/conf/httpd.conf",
         "perl_pkg": "perl",
         "log_dir": "/var/log/httpd",
