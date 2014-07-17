@@ -2,8 +2,10 @@
     "apache": {
         "version": "2.4",
         "package": "apache2",
+        "binary": "/usr/sbin/apache2",
         "dir": "/etc/apache2",
         "lib_dir": "/usr/lib/apache2",
+        "libexec_dir": "/usr/lib/apache2/modules",
         "cache_dir": "/var/cache/apache2",
         "cgibin_dir": "/usr/lib/cgi-bin",
         "docroot_dir": "/var/www",
