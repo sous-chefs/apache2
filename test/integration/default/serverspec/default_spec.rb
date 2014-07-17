@@ -20,9 +20,11 @@ describe 'apache2::default' do
     # its(:content) { should match /ServerName www.example.jp/ }
   end
 
-  describe file("#{property[:apache][:dir]}/conf.d") do
-    it { should be_directory }
-    it { should be_mode 755 }
+  %w(conf.d conf-enabled conf-available sites-enabled sites-available mods-enabled mods-available).each do |dir|
+    describe file("#{property[:apache][:dir]}/#{dir}") do
+      it { should be_directory }
+      it { should be_mode 755 }
+    end
   end
 
   describe file(property[:apache][:log_dir]) do
