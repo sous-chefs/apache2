@@ -46,4 +46,9 @@ describe 'apache2::default' do
     it { should be_directory }
     it { should be_mode 755 }
   end
+
+  describe file(property[:apache][:cgibin_dir]) do
+    it { should be_directory }
+    it { should be_mode 755 }
+  end
 end
