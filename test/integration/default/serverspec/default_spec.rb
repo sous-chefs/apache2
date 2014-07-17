@@ -34,7 +34,7 @@ describe 'apache2::default' do
 
   describe file(property[:apache][:log_dir]) do
     it { should be_directory }
-    it { should be_mode 755 }
+    it { should be_mode 750 }
   end
 
   describe file(property[:apache][:lib_dir]) do

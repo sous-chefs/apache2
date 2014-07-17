@@ -11,10 +11,11 @@ provisioner:
 
 platforms:
 - name: centos-5.9
-- name: centos-6.5
-- name: ubuntu-10.04
   run_list:
-  - recipe[apt]
+  - recipe[yum]
+- name: centos-6.5
+  run_list:
+  - recipe[yum]
 - name: ubuntu-12.04
   run_list:
   - recipe[apt]
@@ -22,6 +23,8 @@ platforms:
   run_list:
   - recipe[apt]
 - name: debian-7.4
+  run_list:
+  - recipe[apt]
 - name: fedora-20
 - name: freebsd-9.2
 #- name: amazon
