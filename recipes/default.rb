@@ -70,7 +70,7 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
     action :nothing
   end
 
-  %w(a2ensite a2dissite a2enmod a2dismod).each do |modscript|
+  %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
     template "/usr/sbin/#{modscript}" do
       source "#{modscript}.erb"
       mode '0700'
