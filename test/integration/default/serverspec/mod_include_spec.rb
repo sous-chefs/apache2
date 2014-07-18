@@ -35,4 +35,5 @@ describe 'apache2::mod_include' do
     it { should be_file }
     it { should contain /AddType text\/html .shtml/ }
     it { should contain /AddOutputFilter INCLUDES .shtml/ }
+  end
 end
