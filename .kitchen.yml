@@ -23,6 +23,7 @@ platforms:
   run_list:
   - recipe[apt]
 - name: debian-7.4
+  - recipe[apt]
   run_list:
   - recipe[apt]
 - name: fedora-20
@@ -63,4 +64,3 @@ suites:
 #      - recipe[apache2_test::mod_python]
       - recipe[apache2_test::mod_ssl]
 #      - recipe[apache2_test::mod_status_remote]
-      - recipe[minitest-handler]

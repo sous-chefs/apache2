@@ -1,6 +1,5 @@
 #
-# Author:: Joshua Timberman <joshua@opscode.com>
-# Copyright:: Copyright (c) 2012, Opscode, Inc.
+# Copyright (c) 2014 OneHealth Solutions, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,21 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-require File.expand_path('../support/helpers', __FILE__)
+require_relative '../../../kitchen/data/spec_helper'
 
 describe 'apache2::god_monitor' do
-  include Helpers::Apache
 
-  it 'starts god service to supervise apache2' do
-    service('god').must_be_running
+  describe service('god') do
+    it { should be_running   }
   end
 
-  it 'creates the god service template for apache' do
-    file('/etc/god/conf.d/apache2.god').must_exist
+  describe file('/etc/god/conf.d/apache2.god') do
+    it { should be_file }
   end
 
-  it 'starts an apache2 service that works like a regular service' do
-    # to be implemented when COOK-744 is fixed
-  end
+  # starts an apache2 sevice that works like a regular service
+  # to be implemented when COOK-744 is fixed
 end
