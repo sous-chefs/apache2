@@ -23,6 +23,7 @@ platforms:
   run_list:
   - recipe[apt]
 - name: debian-7.4
+  run_list:
   - recipe[apt]
   run_list:
   - recipe[apt]
