@@ -36,15 +36,15 @@ describe 'apache2::mod_ssl' do
 
   describe command("#{property[:apache][:binary]} -M") do
     it { should return_exit_status 0 }
-    it { should return_stdout /ssl_module/ }
+    it { should return_stdout(/ssl_module/) }
   end
 
   describe file("#{property[:apache][:dir]}/ports.conf") do
-    it { should contain /Listen 443/ }
+    it { should contain(/Listen 443/) }
   end
 
   describe file("#{property[:apache][:dir]}/mods-enabled/ssl.conf") do
     it { should be_file }
-    it { should contain  /SSLCipherSuite #{Regexp.escape(property[:apache][:mod_ssl][:cipher_suite])}$/ }
+    it { should contain(/SSLCipherSuite #{Regexp.escape(property[:apache][:mod_ssl][:cipher_suite])}$/) }
   end
 end

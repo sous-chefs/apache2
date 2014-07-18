@@ -28,12 +28,12 @@ describe 'apache2::mod_include' do
 
   describe command("#{property[:apache][:binary]} -M") do
     it { should return_exit_status 0 }
-    it { should return_stdout /include_module/ }
+    it { should return_stdout(/include_module/) }
   end
 
   describe file("#{property[:apache][:dir]}/mods-enabled/include.conf") do
     it { should be_file }
-    it { should contain /AddType text\/html .shtml/ }
-    it { should contain /AddOutputFilter INCLUDES .shtml/ }
+    it { should contain(/AddType text\/html .shtml/) }
+    it { should contain(/AddOutputFilter INCLUDES .shtml/) }
   end
 end

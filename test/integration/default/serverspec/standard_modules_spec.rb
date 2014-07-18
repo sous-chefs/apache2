@@ -29,7 +29,7 @@ property[:apache][:default_modules].each do |expected_module|
 
     describe command("#{property[:apache][:binary]} -M") do
       it { should return_exit_status 0 }
-      it { should return_stdout /#{expected_module}_module/ }
+      it { should return_stdout(/#{expected_module}_module/) }
     end
   end
 end

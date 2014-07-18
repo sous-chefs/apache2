@@ -26,8 +26,6 @@ describe 'apache2::default' do
     it { should be_running   }
   end
 
-
-
   describe file(property[:apache][:dir]) do
     it { should be_directory }
     it { should be_mode 755 }
@@ -86,7 +84,7 @@ describe 'apache2::default' do
   #    apache_configured_ports.must_include(80)
   #  end
   describe file("#{property[:apache][:dir]}/ports.conf") do
-    it { should contain /^Listen (?:[^: ]+:)?{0,1}80/ }
+    it { should contain(/^Listen (?:[^: ]+:)?{0,1}80/) }
   end
 
   #  it 'only listens on port 443 when SSL is enabled' do
@@ -101,7 +99,7 @@ describe 'apache2::default' do
 
   Dir["#{property[:apache][:dir]}/conf.d/*.conf"].each do |f|
     describe file(f) do
-       it { should_not contain 'LoadModule' }
+      it { should_not contain 'LoadModule' }
     end
   end
 

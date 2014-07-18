@@ -28,7 +28,7 @@ describe 'apache2::mod_php5' do
 
   describe command("#{property[:apache][:binary]} -M") do
     it { should return_exit_status 0 }
-    it { should return_stdout /php5_module/ }
+    it { should return_stdout(/php5_module/) }
   end
 
   describe file("#{property[:apache][:dir]}/conf.d/php5.conf") do

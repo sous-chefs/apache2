@@ -28,6 +28,6 @@ describe 'apache2::mod_cgi' do
 
   describe command("#{property[:apache][:binary]} -M") do
     it { should return_exit_status 0 }
-    it { should return_stdout /cgi_module/ }
+    it { should return_stdout(/cgi_module/) }
   end
 end
