@@ -67,7 +67,7 @@ describe 'apache2::default' do
     if property[:apache][:default_site_enabled]
       it { should be_linked_to "#{property[:apache][:dir]}/sites-available/default" }
     else
-      skip ("default_site_enabled is false")
+      skip('default_site_enabled is false')
     end
   end
 
@@ -86,7 +86,7 @@ describe 'apache2::default' do
   #    apache_configured_ports.must_include(80)
   #  end
   describe file("#{property[:apache][:dir]}/ports.conf") do
-    it { should contain(/^Listen .*[: ]80$/)}
+    it { should contain(/^Listen .*[: ]80$/) }
   end
 
   #  it 'only listens on port 443 when SSL is enabled' do

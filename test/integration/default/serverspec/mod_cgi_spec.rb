@@ -23,7 +23,7 @@ describe 'apache2::mod_cgi' do
   end
 
   describe file("#{property[:apache][:dir]}/mods-enabled/cgi.load") do
-    it { should be_linked_to "../mods-available/cgi.load" }
+    it { should be_linked_to '../mods-available/cgi.load' }
   end
 
   describe command("#{property[:apache][:binary]} -M") do

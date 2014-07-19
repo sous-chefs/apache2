@@ -23,7 +23,7 @@ describe 'apache2::mod_include' do
   end
 
   describe file("#{property[:apache][:dir]}/mods-enabled/include.load") do
-    it { should be_linked_to "../mods-available/include.load" }
+    it { should be_linked_to '../mods-available/include.load' }
   end
 
   describe command("#{property[:apache][:binary]} -M") do
