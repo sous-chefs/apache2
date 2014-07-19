@@ -15,6 +15,7 @@
         "service_name": "httpd",
         "service_restart_command": "/sbin/service httpd restart && sleep 1",
         "service_reload_command": "/sbin/service httpd reload && sleep 1",
+        "default_site_enabled": false,
         "default_modules": [
             "status",
             "alias",

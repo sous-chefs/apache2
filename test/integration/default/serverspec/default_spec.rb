@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require_relative '../../../kitchen/data/spec_helper'
+require_relative '../../../kitchen/data/serverspec_helper'
 
 describe 'apache2::default' do
 
@@ -60,13 +60,15 @@ describe 'apache2::default' do
   end
 
   describe file("#{property[:apache][:dir]}/sites-available/default") do
-    skip unless property[:apache][:default_site_enabled]
     it { should be_file }
   end
 
   describe file("#{property[:apache][:dir]}/sites-enabled/000-default") do
-    skip unless property[:apache][:default_site_enabled]
-    it { should be_linked_to "#{property[:apache][:dir]}/sites-available/default" }
+    if property[:apache][:default_site_enabled]
+      it { should be_linked_to "#{property[:apache][:dir]}/sites-available/default" }
+    else
+      skip ("default_site_enabled is false")
+    end
   end
 
   # a2enconf a2disconf
@@ -84,7 +86,7 @@ describe 'apache2::default' do
   #    apache_configured_ports.must_include(80)
   #  end
   describe file("#{property[:apache][:dir]}/ports.conf") do
-    it { should contain(/^Listen (?:[^: ]+:)?{0,1}80/) }
+    it { should contain(/^Listen .*[: ]80$/)}
   end
 
   #  it 'only listens on port 443 when SSL is enabled' do

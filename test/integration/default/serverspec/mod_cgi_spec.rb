@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require_relative '../../../kitchen/data/spec_helper'
+require_relative '../../../kitchen/data/serverspec_helper'
 
 describe 'apache2::mod_cgi' do
   describe file("#{property[:apache][:dir]}/mods-available/cgi.load") do
@@ -23,7 +23,7 @@ describe 'apache2::mod_cgi' do
   end
 
   describe file("#{property[:apache][:dir]}/mods-enabled/cgi.load") do
-    it { should be_linked_to "#{property[:apache][:dir]}/mods-available/cgi.load" }
+    it { should be_linked_to "../mods-available/cgi.load" }
   end
 
   describe command("#{property[:apache][:binary]} -M") do

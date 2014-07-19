@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require_relative '../../../kitchen/data/spec_helper'
+require_relative '../../../kitchen/data/serverspec_helper'
 
 describe 'apache2::mod_python' do
   describe file("#{property[:apache][:dir]}/mods-available/python.load") do
@@ -23,7 +23,7 @@ describe 'apache2::mod_python' do
   end
 
   describe file("#{property[:apache][:dir]}/mods-enabled/python.load") do
-    it { should be_linked_to "#{property[:apache][:dir]}/mods-available/python.load" }
+    it { should be_linked_to '../mods-available/python.load' }
   end
 
   describe command("#{property[:apache][:binary]} -M") do

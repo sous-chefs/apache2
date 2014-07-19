@@ -35,6 +35,7 @@ include_recipe 'apache2::default'
   proxy_http
   rewrite
   wsgi
+  include
 }.each do |a2mod|
   include_recipe "apache2::mod_#{a2mod}"
 end

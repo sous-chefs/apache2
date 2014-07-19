@@ -7,7 +7,7 @@ provisioner:
   require_chef_omnibus: latest
 
 provisioner:
-  data_path: test/shared
+  data_path: test/fixtures
 
 platforms:
 - name: centos-5.9
@@ -58,8 +58,8 @@ suites:
 #      - recipe[apache2_test::mod_dav_svn]
       - recipe[apache2_test::mod_expires]
 #      - recipe[apache2_test::mod_perl]
-#      - recipe[apache2_test::mod_php5]
+      - recipe[apache2_test::mod_php5]
 #      - recipe[apache2_test::mod_proxy_ajp]
-#      - recipe[apache2_test::mod_python]
+      - recipe[apache2_test::mod_python]
       - recipe[apache2_test::mod_ssl]
 #      - recipe[apache2_test::mod_status_remote]

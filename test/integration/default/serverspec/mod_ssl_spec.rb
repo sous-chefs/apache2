@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require_relative '../../../kitchen/data/spec_helper'
+require_relative '../../../kitchen/data/serverspec_helper'
 
 describe 'apache2::mod_ssl' do
 
@@ -31,7 +31,7 @@ describe 'apache2::mod_ssl' do
   end
 
   describe file("#{property[:apache][:dir]}/mods-enabled/ssl.load") do
-    it { should be_linked_to "#{property[:apache][:dir]}/mods-available/ssl.load" }
+    it { should be_linked_to '../mods-available/ssl.load' }
   end
 
   describe command("#{property[:apache][:binary]} -M") do
@@ -40,11 +40,11 @@ describe 'apache2::mod_ssl' do
   end
 
   describe file("#{property[:apache][:dir]}/ports.conf") do
-    it { should contain(/Listen 443/) }
+    it { should contain(/^Listen .*[: ]443$/) }
   end
 
   describe file("#{property[:apache][:dir]}/mods-enabled/ssl.conf") do
     it { should be_file }
-    it { should contain(/SSLCipherSuite #{Regexp.escape(property[:apache][:mod_ssl][:cipher_suite])}$/) }
+    xit { should contain(/SSLCipherSuite #{Regexp.escape(property[:apache][:mod_ssl][:cipher_suite])}$/) }
   end
 end
