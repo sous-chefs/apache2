@@ -18,25 +18,23 @@
 #
 
 define :apache_conf, :enable => true do
-  include_recipe 'apache2::default'
+  if node['apache']['version'] == '2.2'
+    conf_dir = 'conf.d'
+  elsif node ['apache']['version'] == '2.4'
+    conf_dir = 'conf-available'
+  end
 
-  params[:filename]    = params[:filename] || params[:name]
-  params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/conf-available/#{params[:filename]}"
+  params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/#{conf_dir}"
 
-  if params[:enable]
-    execute "a2enconf #{params[:name]}" do
-      command "/usr/sbin/a2enconf #{params[:name]}"
-      notifies :reload, 'service[apache2]', :delayed
-      not_if do
-        ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{params[:name]}.conf") &&
-        (::File.exist?(params[:conf_path]) ? ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{params[:name]}.conf") : true)
-      end
-    end
-  else
-    execute "a2disconf #{params[:name]}" do
-      command "/usr/sbin/a2disconf #{params[:name]}"
-      notifies :reload, 'service[apache2]', :delayed
-      only_if { ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{params[:name]}.conf") }
+  template "#{params[:conf_path]}/#{params[:name]}.conf" do
+    source "#{params[:name]}.conf.erb"
+    mode '0644'
+    notifies :reload, 'service[apache2]', :delayed
+  end
+
+  if params[:enable] && node['apache']['version'] == '2.4'
+    apache_config params[:name] do
+      enable true
     end
   end
 end
