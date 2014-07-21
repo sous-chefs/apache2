@@ -20,16 +20,19 @@
 define :apache_conf, :enable => true do
   if node['apache']['version'] == '2.2'
     conf_dir = 'conf.d'
-    conf_name = params[:name]
   elsif node ['apache']['version'] == '2.4'
     conf_dir = 'conf-available'
-    conf_name = "#{params[:name]}.conf"
   end
 
+  conf_name = "#{params[:name]}.conf"
   params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/#{conf_dir}"
 
+  file "#{params[:conf_path]}/#{params[:name]}" do
+    action :delete
+  end
+
   template "#{params[:conf_path]}/#{conf_name}" do
-    source "#{params[:name]}.conf.erb"
+    source "#{conf_name}.erb"
     mode '0644'
     notifies :reload, 'service[apache2]', :delayed
   end
