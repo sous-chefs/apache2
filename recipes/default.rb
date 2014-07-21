@@ -152,11 +152,15 @@ apache_conf node['apache']['package'] do
   conf_path node['apache']['dir']
 end
 
-%w(security charset ports).each do |conf|
-
+%w(security charset).each do |conf|
   apache_conf conf do
     enable true
   end
+end
+
+apache_conf 'ports' do
+  enable false
+  conf_path node['apache']['dir']
 end
 
 template "#{node['apache']['dir']}/sites-available/default.conf" do
