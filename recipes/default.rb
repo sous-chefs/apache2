@@ -57,7 +57,7 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
     group node['apache']['root_group']
   end
 
-  %w(sites-available sites-enabled mods-available mods-enabled).each do |dir|
+  %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
     directory "#{node['apache']['dir']}/#{dir}" do
       mode '0755'
       owner 'root'
@@ -147,53 +147,16 @@ template '/etc/sysconfig/httpd' do
   only_if  { platform_family?('rhel', 'fedora') }
 end
 
-template 'apache2.conf' do
-  case node['platform_family']
-  when 'rhel', 'fedora', 'arch'
-    path "#{node['apache']['dir']}/conf/httpd.conf"
-  when 'debian'
-    path "#{node['apache']['dir']}/apache2.conf"
-  when 'freebsd'
-    path "#{node['apache']['dir']}/httpd.conf"
+apache_conf node['apache']['package'] do
+  enable false
+  conf_path node['apache']['dir']
+end
+
+%w(security charset ports).each do |conf|
+
+  apache_conf conf do
+    enable true
   end
-  case node['apache']['version']
-  when '2.4'
-    source 'apache2.4.conf.erb'
-  else
-    source 'apache2.conf.erb'
-  end
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  notifies :reload, 'service[apache2]', :delayed
-end
-
-template 'apache2-conf-security' do
-  path "#{node['apache']['dir']}/conf.d/security.conf"
-  source 'security.erb'
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  backup false
-  notifies :reload, 'service[apache2]', :delayed
-end
-
-template 'apache2-conf-charset' do
-  path "#{node['apache']['dir']}/conf.d/charset.conf"
-  source 'charset.erb'
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  backup false
-  notifies :reload, 'service[apache2]', :delayed
-end
-
-template "#{node['apache']['dir']}/ports.conf" do
-  source 'ports.conf.erb'
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  notifies :reload, 'service[apache2]', :delayed
 end
 
 template "#{node['apache']['dir']}/sites-available/default.conf" do
