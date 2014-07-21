@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
+package 'apache2-utils' if platform_family?('debian') && node['apache']['version'] == '2.4'
+
 apache_module 'auth_basic'

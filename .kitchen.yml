@@ -10,6 +10,9 @@ provisioner:
   data_path: test/fixtures
 
 platforms:
+- name: centos-5.10
+  run_list:
+  - recipe[yum]
 - name: centos-6.5
   run_list:
   - recipe[yum]
@@ -22,7 +25,14 @@ platforms:
 - name: ubuntu-14.04
   run_list:
   - recipe[apt]
+  attributes:
+    apache:
+      version: '2.4'
 - name: debian-7.6
+  attributes:
+    apache:
+      version: '2.4'
+- name: debian-7.4
   run_list:
   - recipe[apt]
 - name: fedora-20
@@ -39,6 +49,23 @@ platforms:
 #    box_url: http://images.geekandi.com/amazon-linux/vagrant-amazon-linux64-2014.03-public-virtualbox.box
 # Unsupported by omnibus-chef installation script
 #- name: arch
+- name: fedora-18
+  attributes:
+    apache:
+      version: '2.4'
+- name: fedora-19
+  attributes:
+    apache:
+      version: '2.4'
+- name: fedora-20
+  attributes:
+    apache:
+      version: '2.4'
+- name: suse-11.3
+# - name: amazon
+# - name: arch
+# - name: redhat
+# - name: scientific-6.4
 #  driver:
 #    box: arch-2013.02.01
 #    box_url: http://cloud.terry.im/vagrant/archlinux-x86_64.box

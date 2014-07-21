@@ -199,6 +199,10 @@ describe 'apache2::default' do
               :group => property[:apache][:root_group],
               :mode =>  '0644'
             )
+
+            expect(chef_run).to render_file('/etc/sysconfig/httpd').with_content(
+              /#HTTPD_LANG=C/
+            )
           end
         end
 
