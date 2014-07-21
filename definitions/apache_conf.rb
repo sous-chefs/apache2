@@ -29,7 +29,7 @@ define :apache_conf, :enable => true do
   params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/#{conf_dir}"
 
   template "#{params[:conf_path]}/#{conf_name}" do
-    source "#{conf_name}.erb"
+    source "#{params[:name]}.conf.erb"
     mode '0644'
     notifies :reload, 'service[apache2]', :delayed
   end
