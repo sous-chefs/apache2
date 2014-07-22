@@ -88,10 +88,10 @@ ensure that the cookbook is available to the node, and to set up `god`.
 ## Platforms:
 
 The following platforms and versions are tested and supported using
-Opscode's [test-kitchen](http://github.com/opscode/test-kitchen).
+[test-kitchen](http://kitchen.ci/)
 
-* Ubuntu 10.04, 12.04
-* CentOS 5.8, 6.3
+* Ubuntu 12.04
+* CentOS 5.10, 6.5
 
 The following platform families are supported in the code, and are
 assumed to work based on the successful testing on Ubuntu and CentOS.
@@ -131,7 +131,7 @@ Tests
 
 This cookbook in the
 [source repository](https://github.com/onehealth-cookbooks/apache2)
-contains chefspec, minitest and cucumber tests. This is an initial proof of
+contains chefspec, serverspec and cucumber tests. This is an initial proof of
 concept that will be fleshed out with more supporting infrastructure
 at a future time.
 
