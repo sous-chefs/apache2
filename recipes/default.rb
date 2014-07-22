@@ -57,14 +57,6 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
     group node['apache']['root_group']
   end
 
-  %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
-    directory "#{node['apache']['dir']}/#{dir}" do
-      mode '0755'
-      owner 'root'
-      group node['apache']['root_group']
-    end
-  end
-
   execute 'generate-module-list' do
     command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{node['apache']['dir']}/mods-available"
     action :nothing
@@ -114,6 +106,14 @@ end
 directory "#{node['apache']['dir']}/conf.d" do
   action :delete
   recursive true
+end
+
+%w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
+  directory "#{node['apache']['dir']}/#{dir}" do
+    mode '0755'
+    owner 'root'
+    group node['apache']['root_group']
+  end
 end
 
 %W(
