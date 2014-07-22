@@ -10,7 +10,7 @@ provisioner:
   data_path: test/fixtures
 
 platforms:
-- name: centos-5.9
+- name: centos-5.10
   run_list:
   - recipe[yum]
 - name: centos-6.5
