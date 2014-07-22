@@ -5,6 +5,8 @@ This cookbook uses a variety of testing components:
 - Chef Style lints: [Foodcritic](http://www.foodcritic.io/)
 - Ruby Style lints: [Rubocop](https://github.com/bbatsov/rubocop)
 
+You can install the [Chef Development Kit (Chef-DK)](http://downloads.getchef.com/chef-dk/) to more easily install the above components.
+
 
 Prerequisites
 -------------
@@ -18,10 +20,6 @@ You must also have Vagrant and VirtualBox installed:
 
 - [Vagrant](https://vagrantup.com)
 - [VirtualBox](https://virtualbox.org)
-
-Once installed, you must install the `vagrant-berkshelf` plugin:
-
-    $ vagrant plugin install vagrant-berkshelf
 
 
 Development

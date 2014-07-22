@@ -1,6 +1,7 @@
 apache2 Cookbook
 ================
 [![Build Status](https://secure.travis-ci.org/onehealth-cookbooks/apache2.png?branch=master)](http://travis-ci.org/onehealth-cookbooks/apache2)
+[![Gitter Chat](https://badges.gitter.im/onehealth-cookbooks/apache2.png)](https://gitter.im/onehealth-cookbooks/apache2)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD
 configuration. Non-Debian based distributions such as Red Hat/CentOS,
@@ -87,10 +88,10 @@ ensure that the cookbook is available to the node, and to set up `god`.
 ## Platforms:
 
 The following platforms and versions are tested and supported using
-Opscode's [test-kitchen](http://github.com/opscode/test-kitchen).
+[test-kitchen](http://kitchen.ci/)
 
-* Ubuntu 10.04, 12.04
-* CentOS 5.8, 6.3
+* Ubuntu 12.04
+* CentOS 5.10, 6.5
 
 The following platform families are supported in the code, and are
 assumed to work based on the successful testing on Ubuntu and CentOS.
@@ -130,7 +131,7 @@ Tests
 
 This cookbook in the
 [source repository](https://github.com/onehealth-cookbooks/apache2)
-contains chefspec, minitest and cucumber tests. This is an initial proof of
+contains chefspec, serverspec and cucumber tests. This is an initial proof of
 concept that will be fleshed out with more supporting infrastructure
 at a future time.
 
@@ -247,8 +248,8 @@ Where additional configuration or behavior is used, it is documented
 below in more detail.
 
 The following recipes merely enable the specified module: `mod_alias`,
-`mod_basic`, `mod_digest`, `mod_authn_file`, `mod_authnz_ldap`,
-`mod_authz_core`, `mod_authz_groupfile`, `mod_authz_host`,
+`mod_auth_basic`, `mod_auth_digest`, `mod_authn_file`, `mod_authnz_ldap`,
+`mod_authz_default`, `mod_authz_groupfile`, `mod_authz_host`,
 `mod_authz_user`, `mod_autoindex`, `mod_cgi`, `mod_dav_fs`,
 `mod_dav_svn`, `mod_deflate`, `mod_dir`, `mod_env`, `mod_expires`,
 `mod_headers`, `mod_ldap`, `mod_log_config`, `mod_mime`,

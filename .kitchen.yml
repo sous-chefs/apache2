@@ -7,14 +7,15 @@ provisioner:
   require_chef_omnibus: latest
 
 provisioner:
-  data_path: test/shared
+  data_path: test/fixtures
 
 platforms:
-- name: centos-5.9
-- name: centos-6.5
-- name: ubuntu-10.04
+- name: centos-5.10
   run_list:
-  - recipe[apt]
+  - recipe[yum]
+- name: centos-6.5
+  run_list:
+  - recipe[yum]
 - name: ubuntu-12.04
   run_list:
   - recipe[apt]
@@ -22,6 +23,8 @@ platforms:
   run_list:
   - recipe[apt]
 - name: debian-7.4
+  run_list:
+  - recipe[apt]
 - name: fedora-20
 - name: freebsd-9.2
 #- name: amazon
@@ -55,9 +58,8 @@ suites:
 #      - recipe[apache2_test::mod_dav_svn]
       - recipe[apache2_test::mod_expires]
 #      - recipe[apache2_test::mod_perl]
-#      - recipe[apache2_test::mod_php5]
+      - recipe[apache2_test::mod_php5]
 #      - recipe[apache2_test::mod_proxy_ajp]
-#      - recipe[apache2_test::mod_python]
+      - recipe[apache2_test::mod_python]
       - recipe[apache2_test::mod_ssl]
 #      - recipe[apache2_test::mod_status_remote]
-      - recipe[minitest-handler]
