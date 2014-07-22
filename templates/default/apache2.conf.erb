@@ -44,6 +44,7 @@ MaxKeepAliveRequests <%= node['apache']['keepaliverequests'] %>
 #
 KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
 
+<% if node['apache']['version'] == '2.2' -%>
 ##
 ## Server-Pool Size Regulation (MPM specific)
 ##
@@ -79,6 +80,7 @@ KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
     ThreadsPerChild       <%= node['apache']['worker']['threadsperchild'] %>
     MaxRequestsPerChild   <%= node['apache']['worker']['maxrequestsperchild'] %>
 </IfModule>
+<% end -%>
 
 User <%= node['apache']['user'] %>
 Group <%= node['apache']['group'] %>
