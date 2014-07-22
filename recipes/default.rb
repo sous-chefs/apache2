@@ -147,7 +147,7 @@ template '/etc/sysconfig/httpd' do
   only_if  { platform_family?('rhel', 'fedora') }
 end
 
-apache_conf node['apache']['package'] do
+apache_conf 'apache2' do
   enable false
   conf_path node['apache']['dir']
 end

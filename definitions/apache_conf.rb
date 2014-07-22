@@ -18,14 +18,9 @@
 #
 
 define :apache_conf, :enable => true do
-  if node['apache']['version'] == '2.2'
-    conf_dir = 'conf.d'
-  elsif node ['apache']['version'] == '2.4'
-    conf_dir = 'conf-available'
-  end
 
   conf_name = "#{params[:name]}.conf"
-  params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/#{conf_dir}"
+  params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/conf-available"
 
   file "#{params[:conf_path]}/#{params[:name]}" do
     action :delete
@@ -37,9 +32,10 @@ define :apache_conf, :enable => true do
     notifies :reload, 'service[apache2]', :delayed
   end
 
-  if params[:enable] && node['apache']['version'] == '2.4'
+  if params[:enable]
     apache_config params[:name] do
       enable true
     end
   end
+
 end
