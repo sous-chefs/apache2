@@ -2,19 +2,8 @@ require 'spec_helper'
 
 describe 'apache2::iptables' do
 
-  platforms = {
-    'ubuntu' => ['12.04', '14.04'],
-    'debian' => ['7.0', '7.4'],
-    'fedora' => %w(18 20),
-    'redhat' => ['5.9', '6.5'],
-    'centos' => ['5.9', '6.5'],
-    'freebsd' => ['9.2'],
-    'suse' => ['11.3']
-  }
-  #  'arch' =>
-
   # Test all defaults on all platforms
-  platforms.each do |platform, versions|
+  supported_platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do

@@ -1,23 +1,14 @@
 require 'spec_helper'
 
-platforms = {
-  'ubuntu' => ['12.04', '14.04'],
-  'debian' => ['7.0', '7.4'],
-  'fedora' => %w(18 20),
-  'redhat' => ['5.9', '6.5'],
-  'centos' => ['5.9', '6.5'],
-  'freebsd' => ['9.2'],
-  'suse' => ['11.3']
-}
-#  'arch' =>
-
 describe 'apache2::mod_python' do
-  platforms.each do |platform, versions|
+  supported_platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
         end
+
+        property = load_platform_properties(:platform => platform, :platform_version => version)
 
         if %w(redhat centos fedora arch).include?(platform)
           it 'installs package mod_python' do
@@ -48,26 +39,13 @@ describe 'apache2::mod_python' do
           end
         end
 
-        apache_dir = '/etc/apache2'
-
-        if %w(debian ubuntu).include?(platform)
-          apache_dir = '/etc/apache2'
-        elsif %w(redhat centos scientific fedora suse amazon oracle).include?(platform)
-          apache_dir = '/etc/httpd'
-        elsif platform == 'freebsd'
-          apache_dir = '/usr/local/etc/apache22'
-        else
-          apache_dir = '/tmp/bogus'
-          apache_lib_dir = '/usr/lib/apache2'
-        end
-
-        it "deletes #{apache_dir}/conf.d/python.conf" do
-          expect(chef_run).to delete_file("#{apache_dir}/conf.d/python.conf").with(:backup => false)
-          expect(chef_run).to_not delete_file("#{apache_dir}/conf.d/python.conf").with(:backup => true)
+        it "deletes #{property[:apache][:dir]}/conf.d/python.conf" do
+          expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/python.conf").with(:backup => false)
+          expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/python.conf").with(:backup => true)
         end
       end
     end
   end
 
-  it_should_behave_like 'an apache2 module', 'python', false, platforms
+  it_should_behave_like 'an apache2 module', 'python', false, supported_platforms
 end
