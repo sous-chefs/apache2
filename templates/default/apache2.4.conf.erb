@@ -150,9 +150,6 @@ LogFormat "%h %l %u %t \"%r\" %>s %O" common
 LogFormat "%{Referer}i -> %U" referer
 LogFormat "%{User-agent}i" agent
 
-# Include generic snippets of statements (possibly still needed for 2.2 configs)
-IncludeOptional <%= node['apache']['dir'] %>/conf.d/
-
 # Include generic snippets of statements
 IncludeOptional <%= node['apache']['dir'] %>/conf-enabled/*.conf
 
