@@ -18,12 +18,9 @@
 #
 
 include_recipe 'apache2::default'
-
-yum_repository 'epel' do
-  url 'http://dl.fedoraproject.org/pub/epel/$releasever/$basearch/'
-  only_if { platform_family?('rhel', 'fedora') }
+if platform_family?('rhel', 'fedora')
+  include_recipe 'yum-epel'
 end
-
 include_recipe 'apache2::mod_python'
 
 directory node['apache_test']['app_dir'] do

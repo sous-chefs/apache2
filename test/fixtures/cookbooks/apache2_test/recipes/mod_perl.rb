@@ -19,7 +19,9 @@
 
 include_recipe 'apache2::default'
 
-include_recipe 'yum::epel' if platform?('centos')
+if platform_family?('rhel', 'fedora')
+  include_recipe 'yum-epel'
+end
 
 include_recipe 'apache2::mod_perl'
 
