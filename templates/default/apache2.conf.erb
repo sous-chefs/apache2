@@ -302,8 +302,16 @@ LogFormat "%{User-agent}i" agent
 #    ErrorDocument 506 /error/HTTP_VARIANT_ALSO_VARIES.html.var
 <% end -%>
 
+<% if node['apache']['version'] == '2.4' -%>
 # Include generic snippets of statements
 IncludeOptional <%= node['apache']['dir'] %>/conf-enabled/*.conf
 
 # Include the virtual host configurations:
-Include <%= node['apache']['dir'] %>/sites-enabled/
+IncludeOptional <%= node['apache']['dir'] %>/sites-enabled/*.conf
+<% elsif node['apache']['version'] == '2.2' -%>
+# Include generic snippets of statements
+Include <%= node['apache']['dir'] %>/conf-enabled/*.conf
+
+# Include the virtual host configurations:
+Include <%= node['apache']['dir'] %>/sites-enabled/*.conf
+<% end -%>
