@@ -131,13 +131,21 @@ template '/etc/sysconfig/httpd' do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  notifies :restart, 'service[apache2]'
+  notifies :restart, 'service[apache2]', :delayed
   only_if  { platform_family?('rhel', 'fedora') }
 end
 
-apache_conf 'apache2' do
-  enable false
-  conf_path node['apache']['dir']
+template 'apache2.conf' do
+  if platform_family?('rhel', 'fedora', 'arch', 'freebsd')
+    path "#{node['apache']['conf_dir']}/httpd.conf"
+  elsif platform_family?('debian')
+    path "#{node['apache']['conf_dir']}/apache2.conf"
+  end
+  source 'apache2.conf.erb'
+  owner 'root'
+  group node['apache']['root_group']
+  mode '0644'
+  notifies :reload, 'service[apache2]', :delayed
 end
 
 %w(security charset).each do |conf|
