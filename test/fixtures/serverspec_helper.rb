@@ -43,7 +43,16 @@ osmapping = {
 }
 
 def ohai_platform(os, osmapping)
-  osmapping[os[:family]]
+  puts "serverspec os detected as: #{os[:family]} #{os[:release]} [#{os[:arch]}]"
+  ohaistub = {}
+  ohaistub[:platform_family] = osmapping[os[:family]][:platform_family]
+  ohaistub[:platform] = osmapping[os[:family]][:platform]
+  if os[:release]
+    ohaistub[:platform_version] = os[:release]
+  else
+    ohaistub[:platform_version] = osmapping[os[:family]][:platform_version]
+  end
+  ohaistub
 end
 
 def load_nodestub(ohai)
