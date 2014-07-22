@@ -116,6 +116,18 @@ end
   end
 end
 
+if node['apache']['version'] == '2.2'
+  %w(a2enconf a2disconf).each do |modscript|
+    template "/usr/sbin/#{modscript}" do
+      source "#{modscript}.erb"
+      mode '0700'
+      owner 'root'
+      group node['apache']['root_group']
+      action :create
+    end
+  end
+end
+
 %W(
   #{node['apache']['dir']}/ssl
   #{node['apache']['cache_dir']}
