@@ -80,20 +80,6 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
     end
   end
 
-  # installed by default on centos/rhel, remove in favour of mods-enabled
-  %w(proxy_ajp auth_pam authz_ldap webalizer ssl welcome).each do |f|
-    file "#{node['apache']['dir']}/conf.d/#{f}.conf" do
-      action :delete
-      backup false
-    end
-  end
-
-  # installed by default on centos/rhel, remove in favour of mods-enabled
-  file "#{node['apache']['dir']}/conf.d/README" do
-    action :delete
-    backup false
-  end
-
   # enable mod_deflate for consistency across distributions
   include_recipe 'apache2::mod_deflate'
 end
@@ -125,9 +111,13 @@ if platform_family?('freebsd')
   end
 end
 
+directory "#{node['apache']['dir']}/conf.d" do
+  action :delete
+  recursive true
+end
+
 %W(
   #{node['apache']['dir']}/ssl
-  #{node['apache']['dir']}/conf.d
   #{node['apache']['cache_dir']}
 ).each do |path|
   directory path do
