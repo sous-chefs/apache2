@@ -43,6 +43,19 @@ service 'apache2' do
   action [:enable, :start]
 end
 
+%w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
+  directory "#{node['apache']['dir']}/#{dir}" do
+    mode '0755'
+    owner 'root'
+    group node['apache']['root_group']
+  end
+end
+
+directory "#{node['apache']['dir']}/conf.d" do
+  action :delete
+  recursive true
+end
+
 if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
   directory node['apache']['log_dir'] do
     mode '0755'
@@ -77,46 +90,19 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
 end
 
 if platform_family?('freebsd')
-  file "#{node['apache']['dir']}/Includes/no-accf.conf" do
-    action :delete
-    backup false
-  end
 
   directory "#{node['apache']['dir']}/Includes" do
     action :delete
-  end
-
-  %w(
-    httpd-autoindex.conf httpd-dav.conf httpd-default.conf httpd-info.conf
-    httpd-languages.conf httpd-manual.conf httpd-mpm.conf
-    httpd-multilang-errordoc.conf httpd-ssl.conf httpd-userdir.conf
-    httpd-vhosts.conf
-  ).each do |f|
-    file "#{node['apache']['dir']}/extra/#{f}" do
-      action :delete
-      backup false
-    end
+    recursive true
   end
 
   directory "#{node['apache']['dir']}/extra" do
     action :delete
+    recursive true
   end
 end
 
-directory "#{node['apache']['dir']}/conf.d" do
-  action :delete
-  recursive true
-end
-
-%w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
-  directory "#{node['apache']['dir']}/#{dir}" do
-    mode '0755'
-    owner 'root'
-    group node['apache']['root_group']
-  end
-end
-
-if node['apache']['version'] == '2.2'
+if node['apache']['version'] == '2.2' && platform_family?('debian')
   %w(a2enconf a2disconf).each do |modscript|
     template "/usr/sbin/#{modscript}" do
       source "#{modscript}.erb"
@@ -165,14 +151,6 @@ apache_conf 'ports' do
   conf_path node['apache']['dir']
 end
 
-template "#{node['apache']['dir']}/sites-available/default.conf" do
-  source 'default-site.erb'
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  notifies :reload, 'service[apache2]', :delayed
-end
-
 if node['apache']['version'] == '2.4'
   # in apache 2.4 on ubuntu, you need to explicitly load the mpm you want to use, it is no longer compiled in.
   include_recipe "apache2::mpm_#{node['apache']['mpm']}"
@@ -183,6 +161,7 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{module_recipe_name}"
 end
 
-apache_site node['apache']['default_site_name'] do
+web_app 'default-site' do
+  path "#{node['apache']['dir']}/sites-available/default.conf"
   enable node['apache']['default_site_enabled']
 end
