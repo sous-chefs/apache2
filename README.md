@@ -16,6 +16,8 @@ sites (vhosts). The scripts are:
 * a2dissite
 * a2enmod
 * a2dismod
+* a2enconf
+* a2disconf
 
 This cookbook ships with templates of these scripts for non
 Debian/Ubuntu platforms. The scripts are used in the __Definitions__
@@ -161,6 +163,7 @@ the top of the file.
 * `node['apache']['user']` - User Apache runs as
 * `node['apache']['group']` - Group Apache runs as
 * `node['apache']['binary']` - Apache httpd server daemon
+* `node['apache'][conf_dir]` - Location for apache2/httpd.conf
 * `node['apache']['docroot_dir']` - Location for docroot
 * `node['apache']['cgibin_dir']` - Location for cgi-bin
 * `node['apache']['icondir']` - Location for icons
@@ -386,7 +389,85 @@ these definitions may be refactored into lightweight resources and
 providers as suggested by
 [foodcritic rule FC015](http://acrmp.github.com/foodcritic/#FC015).
 
+apache\_config
+------------
+
+Sets up configuration file for Apache from a template. The
+template should be in the same cookbook where the definition is used. This is used by the `apache_conf` definition and is not often used directly.
+
+It will use `a2enconf` and `a2disconf` to control the symlinking of configuration files between `conf-available` and `conf-enabled`.
+
+Enable or disable an Apache config file in
+`#{node['apache']['dir']}/conf-available` by calling `a2enmod` or
+`a2dismod` to manage the symbolic link in
+`#{node['apache']['dir']}/conf-enabled`. These config files should be created in your cookbook, and placed on the system using `apache_conf`
+
+### Parameters:
+
+* `name` - Name of the config enabled or disabled with the `a2enconf` or `a2disconf` scripts.
+* `enable` - Default true, which uses `a2enconf` to enable the config. If false, the config will be disabled with `a2disconf`.
+
+### Examples:
+
+Enable the example config.
+
+``````
+    apache_config 'example' do
+      enable true
+    end
+``````
+
+Disable a module:
+
+``````
+    apache_config 'disabled_example' do
+      enable false
+    end
+``````
+
+See the recipes directory for many more examples of `apache_config`.
+
 apache\_conf
+------------
+
+Writes conf files to the `conf-available` folder, and passes enabled values to `apache_config`.
+
+This definition should generally be called over `apache_config`.
+
+### Parameters:
+
+* `name` - Name of the config placed and enabled or disabled with the `a2enconf` or `a2disconf` scripts.
+* `enable` - Default true, which uses `a2enconf` to enable the config. If false, the config will be disabled with `a2disconf`.
+* `conf_path` - path to put the config in if you need to override the default `conf-available`.
+
+### Examples:
+
+Place and enable the example conf:
+
+``````
+    apache_conf 'example' do
+      enable true
+    end
+``````
+
+Place and disable (or never enable to begin with) the example conf:
+
+``````
+    apache_conf 'example' do
+      enable false
+    end
+``````
+
+Place the example conf, which has a different path than the default (conf-*):
+
+``````
+    apache_conf 'example' do
+      conf_path '/random/example/path'
+      enable false
+    end
+``````
+
+apache\_mod
 ------------
 
 Sets up configuration file for an Apache module from a template. The
@@ -408,7 +489,9 @@ __apache\_module__.
 
 Create `#{node['apache']['dir']}/mods-available/alias.conf`.
 
-    apache_conf "alias"
+``````
+    apache_mod "alias"
+``````
 
 apache\_module
 --------------
@@ -425,28 +508,34 @@ the definition is used. See __Examples__.
 * `name` - Name of the module enabled or disabled with the `a2enmod` or `a2dismod` scripts.
 * `identifier` - String to identify the module for the `LoadModule` directive. Not typically needed, defaults to `#{name}_module`
 * `enable` - Default true, which uses `a2enmod` to enable the module. If false, the module will be disabled with `a2dismod`.
-* `conf` - Default false. Set to true if the module has a config file, which will use `apache_conf` for the file.
+* `conf` - Default false. Set to true if the module has a config file, which will use `apache_mod` for the file.
 * `filename` - specify the full name of the file, e.g.
 
 ### Examples:
 
 Enable the ssl module, which also has a configuration template in `templates/default/mods/ssl.conf.erb`.
 
+``````
     apache_module "ssl" do
       conf true
     end
+``````
 
 Enable the php5 module, which has a different filename than the module default:
 
+``````
     apache_module "php5" do
       filename "libphp5.so"
     end
+``````
 
 Disable a module:
 
+``````
     apache_module "disabled_module" do
       enable false
     end
+``````
 
 See the recipes directory for many more examples of `apache_module`.
 
@@ -517,11 +606,13 @@ an example. The following parameters are used in the template:
 
 To use the default web_app, for example:
 
+``````
     web_app "my_site" do
       server_name node['hostname']
       server_aliases [node['fqdn'], "my-site.example.com"]
       docroot "/srv/www/my_site"
     end
+``````
 
 The parameters specified will be used as:
 
@@ -543,6 +634,7 @@ environment, you may have multiple roles that use different recipes
 from this cookbook. Adjust any attributes as desired. For example, to
 create a basic role for web servers that provide both HTTP and HTTPS:
 
+``````
     % cat roles/webserver.rb
     name "webserver"
     description "Systems that serve HTTP and HTTPS"
@@ -555,6 +647,7 @@ create a basic role for web servers that provide both HTTP and HTTPS:
         "listen_ports" => ["80", "443"]
       }
     )
+``````
 
 For examples of using the definitions in your own recipes, see their
 respective sections above.

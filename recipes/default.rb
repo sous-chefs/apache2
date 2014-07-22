@@ -43,6 +43,19 @@ service 'apache2' do
   action [:enable, :start]
 end
 
+%w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
+  directory "#{node['apache']['dir']}/#{dir}" do
+    mode '0755'
+    owner 'root'
+    group node['apache']['root_group']
+  end
+end
+
+directory "#{node['apache']['dir']}/conf.d" do
+  action :delete
+  recursive true
+end
+
 if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
   directory node['apache']['log_dir'] do
     mode '0755'
@@ -57,20 +70,12 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
     group node['apache']['root_group']
   end
 
-  %w(sites-available sites-enabled mods-available mods-enabled).each do |dir|
-    directory "#{node['apache']['dir']}/#{dir}" do
-      mode '0755'
-      owner 'root'
-      group node['apache']['root_group']
-    end
-  end
-
   execute 'generate-module-list' do
     command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{node['apache']['dir']}/mods-available"
     action :nothing
   end
 
-  %w(a2ensite a2dissite a2enmod a2dismod).each do |modscript|
+  %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
     template "/usr/sbin/#{modscript}" do
       source "#{modscript}.erb"
       mode '0700'
@@ -80,54 +85,37 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
     end
   end
 
-  # installed by default on centos/rhel, remove in favour of mods-enabled
-  %w(proxy_ajp auth_pam authz_ldap webalizer ssl welcome).each do |f|
-    file "#{node['apache']['dir']}/conf.d/#{f}.conf" do
-      action :delete
-      backup false
-    end
-  end
-
-  # installed by default on centos/rhel, remove in favour of mods-enabled
-  file "#{node['apache']['dir']}/conf.d/README" do
-    action :delete
-    backup false
-  end
-
   # enable mod_deflate for consistency across distributions
   include_recipe 'apache2::mod_deflate'
 end
 
 if platform_family?('freebsd')
-  file "#{node['apache']['dir']}/Includes/no-accf.conf" do
-    action :delete
-    backup false
-  end
 
   directory "#{node['apache']['dir']}/Includes" do
     action :delete
-  end
-
-  %w(
-    httpd-autoindex.conf httpd-dav.conf httpd-default.conf httpd-info.conf
-    httpd-languages.conf httpd-manual.conf httpd-mpm.conf
-    httpd-multilang-errordoc.conf httpd-ssl.conf httpd-userdir.conf
-    httpd-vhosts.conf
-  ).each do |f|
-    file "#{node['apache']['dir']}/extra/#{f}" do
-      action :delete
-      backup false
-    end
+    recursive true
   end
 
   directory "#{node['apache']['dir']}/extra" do
     action :delete
+    recursive true
+  end
+end
+
+if node['apache']['version'] == '2.2' && platform_family?('debian')
+  %w(a2enconf a2disconf).each do |modscript|
+    template "/usr/sbin/#{modscript}" do
+      source "#{modscript}.erb"
+      mode '0700'
+      owner 'root'
+      group node['apache']['root_group']
+      action :create
+    end
   end
 end
 
 %W(
   #{node['apache']['dir']}/ssl
-  #{node['apache']['dir']}/conf.d
   #{node['apache']['cache_dir']}
 ).each do |path|
   directory path do
@@ -143,70 +131,32 @@ template '/etc/sysconfig/httpd' do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  notifies :restart, 'service[apache2]'
+  notifies :restart, 'service[apache2]', :delayed
   only_if  { platform_family?('rhel', 'fedora') }
 end
 
 template 'apache2.conf' do
-  case node['platform_family']
-  when 'rhel', 'fedora', 'arch'
-    path "#{node['apache']['dir']}/conf/httpd.conf"
-  when 'debian'
-    path "#{node['apache']['dir']}/apache2.conf"
-  when 'freebsd'
-    path "#{node['apache']['dir']}/httpd.conf"
+  if platform_family?('rhel', 'fedora', 'arch', 'freebsd')
+    path "#{node['apache']['conf_dir']}/httpd.conf"
+  elsif platform_family?('debian')
+    path "#{node['apache']['conf_dir']}/apache2.conf"
   end
-  case node['apache']['version']
-  when '2.4'
-    source 'apache2.4.conf.erb'
-  else
-    source 'apache2.conf.erb'
+  source 'apache2.conf.erb'
+  owner 'root'
+  group node['apache']['root_group']
+  mode '0644'
+  notifies :reload, 'service[apache2]', :delayed
+end
+
+%w(security charset).each do |conf|
+  apache_conf conf do
+    enable true
   end
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  notifies :reload, 'service[apache2]', :delayed
 end
 
-template 'apache2-conf-security' do
-  path "#{node['apache']['dir']}/conf.d/security.conf"
-  source 'security.erb'
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  backup false
-  notifies :reload, 'service[apache2]', :delayed
-end
-
-template 'apache2-conf-charset' do
-  path "#{node['apache']['dir']}/conf.d/charset.conf"
-  source 'charset.erb'
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  backup false
-  notifies :reload, 'service[apache2]', :delayed
-end
-
-template "#{node['apache']['dir']}/ports.conf" do
-  source 'ports.conf.erb'
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  notifies :reload, 'service[apache2]', :delayed
-end
-
-template "#{node['apache']['dir']}/sites-available/default.conf" do
-  case node['apache']['version']
-  when '2.4'
-    source 'default-site2.4.erb'
-  else
-    source 'default-site.erb'
-  end
-  owner 'root'
-  group node['apache']['root_group']
-  mode '0644'
-  notifies :reload, 'service[apache2]', :delayed
+apache_conf 'ports' do
+  enable false
+  conf_path node['apache']['dir']
 end
 
 if node['apache']['version'] == '2.4'
@@ -219,6 +169,7 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{module_recipe_name}"
 end
 
-apache_site node['apache']['default_site_name'] do
+web_app 'default-site' do
+  path "#{node['apache']['dir']}/sites-available/default.conf"
   enable node['apache']['default_site_enabled']
 end
