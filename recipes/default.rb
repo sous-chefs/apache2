@@ -164,12 +164,7 @@ apache_conf 'ports' do
 end
 
 template "#{node['apache']['dir']}/sites-available/default.conf" do
-  case node['apache']['version']
-  when '2.4'
-    source 'default-site2.4.erb'
-  else
-    source 'default-site.erb'
-  end
+  source 'default-site.erb'
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
