@@ -52,7 +52,7 @@ describe 'apache2::default' do
             expect(execute).to do_nothing
           end
 
-          %w(sites-available sites-enabled mods-available mods-enabled).each do |dir|
+          %w(sites-available sites-enabled mods-available mods-enabled conf-enabled conf-available).each do |dir|
             it "creates #{property[:apache][:dir]}/#{dir} directory" do
               expect(chef_run).to create_directory("#{property[:apache][:dir]}/#{dir}").with(
                 :mode => '0755',
@@ -66,22 +66,15 @@ describe 'apache2::default' do
             end
           end
 
-          %w(a2ensite a2dissite a2enmod a2dismod).each do |modscript|
+          %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
             it "creates /usr/sbin/#{modscript}" do
               expect(chef_run).to create_template("/usr/sbin/#{modscript}")
             end
           end
 
-          %w(proxy_ajp auth_pam authz_ldap webalizer ssl welcome).each do |f|
-            it "deletes #{property[:apache][:dir]}/conf.d/#{f}.conf" do
-              expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/#{f}.conf").with(:backup => false)
-              expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/#{f}.conf").with(:backup => true)
-            end
-          end
-
-          it "deletes #{property[:apache][:dir]}/conf.d/README" do
-            expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/README").with(:backup => false)
-            expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/README").with(:backup => true)
+          it "deletes #{property[:apache][:dir]}/conf.d" do
+            expect(chef_run).to delete_directory("#{property[:apache][:dir]}/conf.d").with(:recursive => true)
+            expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d").with(:recursive => false)
           end
 
           it 'includes the `apache2::mod_deflate` recipe' do
@@ -186,25 +179,12 @@ describe 'apache2::default' do
           end
         end
 
-        it "runs a a2dissite #{property[:apache][:default_site_name]}" do
-          allow(::File).to receive(:symlink?).with("#{property[:apache][:dir]}/sites-enabled/default").and_return(true)
-          allow(::File).to receive(:symlink?).with("#{property[:apache][:dir]}/sites-enabled/000-default").and_return(true)
-          expect(chef_run).to run_execute("a2dissite #{property[:apache][:default_site_name]}").with(
-             :command => "/usr/sbin/a2dissite #{property[:apache][:default_site_name]}"
-          )
-        end
-        it 'does not run a a2dissite default' do
-          allow(::File).to receive(:symlink?).with("#{property[:apache][:dir]}/sites-enabled/default").and_return(false)
-          allow(::File).to receive(:symlink?).with("#{property[:apache][:dir]}/sites-enabled/000-default").and_return(false)
-          expect(chef_run).to_not run_execute("a2dissite #{property[:apache][:default_site_name]}").with(
-             :command => "/usr/sbin/a2dissite #{property[:apache][:default_site_name]}"
-          )
+        it "deletes #{property[:apache][:dir]}/sites-available/default" do
+          expect(chef_run).to delete_file("#{property[:apache][:dir]}/sites-available/default")
         end
 
-        let(:execute) { chef_run.execute("a2dissite #{property[:apache][:default_site_name]}") }
-        it "notification is triggered by a2dissite #{property[:apache][:default_site_name]} to reload service[apache2]" do
-          expect(execute).to notify('service[apache2]').to(:reload)
-          expect(execute).to_not notify('service[apache2]').to(:stop)
+        it "deletes #{property[:apache][:dir]}/sites-enabled/000-default" do
+          expect(chef_run).to delete_file("#{property[:apache][:dir]}/sites-enabled/000-default")
         end
 
         it 'enables an apache2 service' do
