@@ -174,3 +174,8 @@ web_app 'default' do
   path "#{node['apache']['dir']}/sites-available/default.conf"
   enable node['apache']['default_site_enabled']
 end
+
+apache_site "000-#{node['apache']['default_site_name']}" do
+  conf_name "000-#{node['apache']['default_site_name']}"
+  enable node['apache']['default_site_enabled']
+end
