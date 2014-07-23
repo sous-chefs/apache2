@@ -37,9 +37,13 @@ template 'ssl_ports.conf' do
   path "#{node['apache']['dir']}/ports.conf"
   source 'ports.conf.erb'
   mode '0644'
-  notifies :restart, 'service[apache2]'
+  notifies :restart, 'service[apache2]', :delayed
 end
 
 apache_module 'ssl' do
   conf true
+end
+
+if node['apache']['version'] == '2.4'
+  include_recipe 'apache2::mod_socache_shmcb'
 end
