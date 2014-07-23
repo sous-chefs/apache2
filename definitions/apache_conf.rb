@@ -28,6 +28,9 @@ define :apache_conf, :enable => true do
 
   template "#{params[:conf_path]}/#{conf_name}" do
     source "#{conf_name}.erb"
+    owner 'root'
+    group node['apache']['root_group']
+    backup false
     mode '0644'
     notifies :reload, 'service[apache2]', :delayed
   end
