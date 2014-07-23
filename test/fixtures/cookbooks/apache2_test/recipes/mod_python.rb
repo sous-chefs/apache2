@@ -18,7 +18,7 @@
 #
 
 include_recipe 'apache2::default'
-if platform_family?('rhel', 'fedora')
+if platform_family?('rhel')
   include_recipe 'yum-epel'
 end
 include_recipe 'apache2::mod_python'
