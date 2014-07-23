@@ -32,7 +32,7 @@ describe 'apache2::default' do
   end
 
   # conf-enabled conf-available
-  %w(conf.d sites-enabled sites-available mods-enabled mods-available).each do |dir|
+  %w(sites-enabled sites-available mods-enabled mods-available conf-enabled).each do |dir|
     it "directory #{property[:apache][:dir]}/#{dir} exists and is mode 755" do
       expect(file("#{property[:apache][:dir]}/#{dir}")).to be_directory
       expect(file("#{property[:apache][:dir]}/#{dir}")).to be_mode 755
@@ -60,19 +60,19 @@ describe 'apache2::default' do
   end
 
   it "default site #{property[:apache][:dir]}/sites-available/default is a file" do
-    expect(file("#{property[:apache][:dir]}/sites-available/default")).to be_file
+    expect(file("#{property[:apache][:dir]}/sites-available/default.conf")).to be_file
   end
 
-  it file("#{property[:apache][:dir]}/sites-enabled/000-default") do
+  it file("#{property[:apache][:dir]}/sites-enabled/000-default.conf") do
     if property[:apache][:default_site_enabled]
-      expect(file("#{property[:apache][:dir]}/sites-enabled/000-default")).to be_linked_to "#{property[:apache][:dir]}/sites-available/default"
+      expect(file("#{property[:apache][:dir]}/sites-enabled/000-default.conf")).to be_linked_to "#{property[:apache][:dir]}/sites-available/default.conf"
     else
       skip('default_site_enabled is false')
     end
   end
 
   # a2enconf a2disconf
-  %w(a2ensite a2dissite a2enmod a2dismod).each do |mod_script|
+  %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |mod_script|
     it "cookbook script /usr/sbin/#{mod_script} exists and is executable" do
       expect(file("/usr/sbin/#{mod_script}")).to be_file
       expect(file("/usr/sbin/#{mod_script}")).to be_executable
@@ -97,11 +97,12 @@ describe 'apache2::default' do
   #   its(:content) { should match /^ServerTokens #{Regexp.escape(property['apache']['servertokens'])} *$/ }
   # end
 
-  Dir["#{property[:apache][:dir]}/conf.d/*.conf"].each do |f|
-    it "#{f} does not contain a LoadModule directive" do
-      expect(file(f)).to_not contain 'LoadModule'
-    end
-  end
+  # TODO: Verify this directory does NOT exist
+  # Dir["#{property[:apache][:dir]}/conf.d/*.conf"].each do |f|
+  #   it "#{f} does not contain a LoadModule directive" do
+  #     expect(file(f)).to_not contain 'LoadModule'
+  #   end
+  # end
 
   subject(:config) { file(property[:apache][:conf]) }
   it "#{property[:apache][:conf]} is the config file dropped by the cookbook" do
@@ -112,7 +113,7 @@ describe 'apache2::default' do
       expect(config).to contain "IncludeOptional #{property[:apache][:dir]}/conf-enabled/*.conf"
       expect(config).to_not contain "Include #{property[:apache][:dir]}/conf.d/*.conf"
     else
-      expect(config).to contain "Include #{property[:apache][:dir]}/conf.d/*.conf"
+      expect(config).to contain "Include #{property[:apache][:dir]}/conf-enabled/*.conf"
       expect(config).to_not contain "IncludeOptional #{property[:apache][:dir]}/conf-enabled/*.conf"
     end
   end
