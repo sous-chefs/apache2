@@ -163,7 +163,7 @@ the top of the file.
 * `node['apache']['user']` - User Apache runs as
 * `node['apache']['group']` - Group Apache runs as
 * `node['apache']['binary']` - Apache httpd server daemon
-* `node['apache'][conf_dir]` - Location for apache2/httpd.conf
+* `node['apache']['conf_dir']` - Location for the main config file (e.g apache2.conf or httpd.conf)
 * `node['apache']['docroot_dir']` - Location for docroot
 * `node['apache']['cgibin_dir']` - Location for cgi-bin
 * `node['apache']['icondir']` - Location for icons
