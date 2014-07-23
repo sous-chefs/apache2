@@ -29,6 +29,11 @@ platforms:
   run_list:
   - recipe[apt]
 - name: fedora-20
+  run_list:
+  - recipe[yum]
+  attributes:
+    apache:
+      version: '2.4'
 - name: freebsd-9.2
 #- name: amazon
 #- name: arch
