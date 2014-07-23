@@ -107,7 +107,7 @@ describe 'apache2::default' do
         %w(security charset).each do |config|
           it "creates #{property[:apache][:dir]}/conf-available/#{config}.conf" do
             expect(chef_run).to create_template("#{property[:apache][:dir]}/conf-available/#{config}.conf").with(
-              :source => "#{config}.erb",
+              :source => "#{config}.conf.erb",
               :owner => 'root',
               :group => property[:apache][:root_group],
               :mode =>  '0644',
@@ -139,7 +139,7 @@ describe 'apache2::default' do
 
         it "creates #{property[:apache][:dir]}/sites-available/default.conf" do
           expect(chef_run).to create_template("#{property[:apache][:dir]}/sites-available/default.conf").with(
-            :source => 'default-site.erb',
+            :source => 'default-site.conf.erb',
             :owner => 'root',
             :group => property[:apache][:root_group],
             :mode =>  '0644'
