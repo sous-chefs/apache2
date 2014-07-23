@@ -24,6 +24,8 @@ directory "#{node['apache_test']['root_dir']}/secure" do
   action :create
 end
 
+package 'apache2-utils' if platform_family?('debian') && node['apache']['version'] == '2.4'
+
 execute 'add-credentials' do
   command "htpasswd -b -c #{node['apache_test']['root_dir']}/secure/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}"
   action :run
