@@ -119,6 +119,6 @@ describe 'apache2::default' do
 
   # let(:pre_command) { "source #{property[:apache][:dir]}/envvars" }
   it 'the apache configuration has no syntax errors' do
-    expect(command("#{property[:apache][:binary]} -t")).to return_exit_status 0
+    expect(command("APACHE_LOG_DIR=#{property[:apache][:log_dir]} #{property[:apache][:binary]} -t")).to return_exit_status 0
   end
 end

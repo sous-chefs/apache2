@@ -36,7 +36,7 @@ describe 'apache2::mod_python' do
     end
   end
 
-  subject(:loaded_modules) { command("#{property[:apache][:binary]} -M") }
+  subject(:loaded_modules) { command("APACHE_LOG_DIR=#{property[:apache][:log_dir]} #{property[:apache][:binary]} -M") }
   it "#{expected_module} is loaded" do
     expect(loaded_modules).to return_exit_status 0
     expect(loaded_modules).to return_stdout(/#{expected_module}_module/)

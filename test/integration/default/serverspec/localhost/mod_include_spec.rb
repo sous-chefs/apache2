@@ -36,9 +36,10 @@ describe 'apache2::mod_include' do
     end
   end
 
+  subject(:loaded_modules) { command("APACHE_LOG_DIR=#{property[:apache][:log_dir]} #{property[:apache][:binary]} -M") }
   it "#{expected_module} is loaded" do
-    expect(command("#{property[:apache][:binary]} -M")).to return_exit_status 0
-    expect(command("#{property[:apache][:binary]} -M")).to return_stdout(/#{expected_module}_module/)
+    expect(loaded_modules).to return_exit_status 0
+    expect(loaded_modules).to return_stdout(/#{expected_module}_module/)
   end
 
   subject(:configfile) { file("#{property[:apache][:dir]}/mods-enabled/#{expected_module}.conf") }
