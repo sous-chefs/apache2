@@ -44,46 +44,10 @@ MaxKeepAliveRequests <%= node['apache']['keepaliverequests'] %>
 #
 KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
 
-<% if node['apache']['version'] == '2.2' -%>
-##
-## Server-Pool Size Regulation (MPM specific)
-##
-
-# prefork MPM
-# StartServers: number of server processes to start
-# MinSpareServers: minimum number of server processes which are kept spare
-# MaxSpareServers: maximum number of server processes which are kept spare
-# MaxClients: maximum number of server processes allowed to start
-# MaxRequestsPerChild: maximum number of requests a server process serves
-<IfModule mpm_prefork_module>
-    StartServers          <%= node['apache']['prefork']['startservers'] %>
-    MinSpareServers       <%= node['apache']['prefork']['minspareservers'] %>
-    MaxSpareServers       <%= node['apache']['prefork']['maxspareservers'] %>
-    ServerLimit           <%= node['apache']['prefork']['serverlimit'] %>
-    MaxClients            <%= node['apache']['prefork']['maxclients'] %>
-    MaxRequestsPerChild   <%= node['apache']['prefork']['maxrequestsperchild'] %>
-</IfModule>
-
-# worker MPM
-# StartServers: initial number of server processes to start
-# MaxClients: maximum number of simultaneous client connections
-# MinSpareThreads: minimum number of worker threads which are kept spare
-# MaxSpareThreads: maximum number of worker threads which are kept spare
-# ThreadsPerChild: constant number of worker threads in each server process
-# MaxRequestsPerChild: maximum number of requests a server process serves
-<IfModule mpm_worker_module>
-    StartServers          <%= node['apache']['worker']['startservers'] %>
-    ServerLimit           <%= node['apache']['worker']['serverlimit'] %>
-    MaxClients            <%= node['apache']['worker']['maxclients'] %>
-    MinSpareThreads       <%= node['apache']['worker']['minsparethreads'] %>
-    MaxSpareThreads       <%= node['apache']['worker']['maxsparethreads'] %>
-    ThreadsPerChild       <%= node['apache']['worker']['threadsperchild'] %>
-    MaxRequestsPerChild   <%= node['apache']['worker']['maxrequestsperchild'] %>
-</IfModule>
-<% end -%>
-
+<IfModule mod_unixd.c>
 User <%= node['apache']['user'] %>
 Group <%= node['apache']['group'] %>
+</IfModule>
 
 <% if node['apache']['version'] == '2.4' -%>
 # Sets the default security model of the Apache2 HTTPD server. It does
