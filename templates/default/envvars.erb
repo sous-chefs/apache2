@@ -10,8 +10,8 @@ export APACHE_RUN_USER=<%= node['apache']['user'] %>
 export APACHE_RUN_GROUP=<%= node['apache']['group'] %>
 # temporary state file location. This might be changed to /run in Wheezy+1
 export APACHE_PID_FILE=<%= node['apache']['pid_file'] %>
-export APACHE_RUN_DIR=/var/run/apache2
-export APACHE_LOCK_DIR=/var/lock/apache2
+export APACHE_RUN_DIR=<%= node['apache']['run_dir'] %>
+export APACHE_LOCK_DIR=<%= node['apache']['lock_dir'] %>
 # Only /var/log/apache2 is handled by /etc/logrotate.d/apache2.
 export APACHE_LOG_DIR=<%= node['apache']['log_dir'] %>
 
