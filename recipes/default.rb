@@ -169,7 +169,8 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{module_recipe_name}"
 end
 
-web_app 'default-site' do
+web_app 'default' do
+  template 'default-site.conf.erb'
   path "#{node['apache']['dir']}/sites-available/default.conf"
   enable node['apache']['default_site_enabled']
 end
