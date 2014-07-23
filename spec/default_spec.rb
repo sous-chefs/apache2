@@ -105,8 +105,8 @@ describe 'apache2::default' do
         end
 
         %w(security charset).each do |config|
-          it "creates #{property[:apache][:dir]}/conf.d/#{config}.conf" do
-            expect(chef_run).to create_template("#{property[:apache][:dir]}/conf.d/#{config}.conf").with(
+          it "creates #{property[:apache][:dir]}/conf-available/#{config}.conf" do
+            expect(chef_run).to create_template("#{property[:apache][:dir]}/conf-available/#{config}.conf").with(
               :source => "#{config}.erb",
               :owner => 'root',
               :group => property[:apache][:root_group],
@@ -115,8 +115,8 @@ describe 'apache2::default' do
             )
           end
 
-          let(:confd) { chef_run.template("#{property[:apache][:dir]}/conf.d/#{config}.conf") }
-          it "notification is triggered by #{property[:apache][:dir]}/conf.d/#{config}.conf template to reload service[apache2]" do
+          let(:confd) { chef_run.template("#{property[:apache][:dir]}/conf-available/#{config}.conf") }
+          it "notification is triggered by #{property[:apache][:dir]}/conf-available/#{config}.conf template to reload service[apache2]" do
             expect(confd).to notify('service[apache2]').to(:reload).delayed
             expect(confd).to_not notify('service[apache2]').to(:reload).immediately
           end
@@ -164,32 +164,16 @@ describe 'apache2::default' do
         end
 
         if platform == 'freebsd'
-          it "deletes #{property[:apache][:dir]}/Includes/no-accf.conf" do
-            expect(chef_run).to delete_file("#{property[:apache][:dir]}/Includes/no-accf.conf").with(:backup => false)
-            expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/Includes/no-accf.conf").with(:backup => true)
-          end
           it "deletes #{property[:apache][:dir]}/Includes" do
             expect(chef_run).to delete_directory("#{property[:apache][:dir]}/Includes")
           end
 
-          %w(
-            httpd-autoindex.conf httpd-dav.conf httpd-default.conf httpd-info.conf
-            httpd-languages.conf httpd-manual.conf httpd-mpm.conf
-            httpd-multilang-errordoc.conf httpd-ssl.conf httpd-userdir.conf
-            httpd-vhosts.conf
-          ).each do |f|
-            it "deletes #{property[:apache][:dir]}/extra/#{f}" do
-              expect(chef_run).to delete_file("#{property[:apache][:dir]}/extra/#{f}").with(:backup => false)
-              expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/extra/#{f}").with(:backup => true)
-            end
-          end
           it "deletes #{property[:apache][:dir]}/extra" do
             expect(chef_run).to delete_directory("#{property[:apache][:dir]}/extra")
           end
         end
         %W(
           #{property[:apache][:dir]}/ssl
-          #{property[:apache][:dir]}/conf.d
           #{property[:apache][:cache_dir]}
         ).each do |path|
           it "creates #{path} directory" do
