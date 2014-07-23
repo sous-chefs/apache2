@@ -146,12 +146,6 @@ describe 'apache2::default' do
           )
         end
 
-        let(:defaulttemplate) { chef_run.template("#{property[:apache][:dir]}/sites-available/default.conf") }
-        it "notification is triggered by #{property[:apache][:dir]}/sites-available/default.conf template to reload service[apache2]" do
-          expect(defaulttemplate).to notify('service[apache2]').to(:reload).delayed
-          expect(defaulttemplate).to_not notify('service[apache2]').to(:reload).immediately
-        end
-
         if %w(redhat centos fedora).include?(platform)
           it 'creates /etc/sysconfig/httpd' do
             expect(chef_run).to create_template('/etc/sysconfig/httpd').with(
