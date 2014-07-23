@@ -29,7 +29,7 @@ service 'apache2' do
     # This may happen with multiple recipes notifying apache to restart - like
     # during the initial bootstrap.
     restart_command '/sbin/service httpd restart && sleep 1'
-    reload_command '/sbin/service httpd reload && sleep 1'
+    reload_command '/sbin/service httpd graceful && sleep 1'
   when 'debian'
     service_name 'apache2'
     restart_command '/usr/sbin/invoke-rc.d apache2 restart && sleep 1'
