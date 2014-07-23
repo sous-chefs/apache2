@@ -51,6 +51,14 @@ end
   end
 end
 
+file "#{node['apache']['dir']}/sites-available/default" do
+  action :delete
+end
+
+file "#{node['apache']['dir']}/sites-enabled/000-default" do
+  action :delete
+end
+
 directory "#{node['apache']['dir']}/conf.d" do
   action :delete
   recursive true
@@ -172,10 +180,5 @@ end
 web_app 'default' do
   template 'default-site.conf.erb'
   path "#{node['apache']['dir']}/sites-available/default.conf"
-  enable node['apache']['default_site_enabled']
-end
-
-apache_site "000-#{node['apache']['default_site_name']}" do
-  conf_name "000-#{node['apache']['default_site_name']}"
   enable node['apache']['default_site_enabled']
 end
