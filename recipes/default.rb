@@ -53,10 +53,12 @@ end
 
 file "#{node['apache']['dir']}/sites-available/default" do
   action :delete
+  backup false
 end
 
 file "#{node['apache']['dir']}/sites-enabled/000-default" do
   action :delete
+  backup false
 end
 
 directory "#{node['apache']['dir']}/conf.d" do
