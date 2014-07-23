@@ -151,6 +151,7 @@ template 'apache2.conf' do
   elsif platform_family?('debian')
     path "#{node['apache']['conf_dir']}/apache2.conf"
   end
+  action :create
   source 'apache2.conf.erb'
   owner 'root'
   group node['apache']['root_group']
