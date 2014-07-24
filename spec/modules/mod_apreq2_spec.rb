@@ -1,11 +1,6 @@
 require 'spec_helper'
 
 describe 'apache2::mod_apreq2' do
-  before do
-    stub_command('test -f /usr/lib64/httpd/modules/mod_apreq2.so').and_return(true)
-    stub_command('test -f /usr/lib/httpd/modules/mod_apreq2.so').and_return(true)
-  end
-
   supported_platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
@@ -14,6 +9,11 @@ describe 'apache2::mod_apreq2' do
         end
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
+
+        before do
+          stub_command("test -f #{property[:apache][:libexec_dir]}/mod_apreq2.so").and_return(true)
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
+        end
 
         if %w(redhat centos fedora arch).include?(platform)
           it 'installs package libapreq2' do

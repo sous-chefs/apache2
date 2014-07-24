@@ -1,6 +1,7 @@
 {
     "apache": {
         "version": "2.2",
+        "binary": "/usr/local/sbin/httpd",
         "package": "apache22",
         "dir": "/usr/local/etc/apache22",
         "lib_dir": "/usr/local/libexec/apache22",

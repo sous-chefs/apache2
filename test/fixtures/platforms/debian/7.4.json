@@ -1,6 +1,7 @@
 {
     "apache": {
         "package": "apache2",
+        "binary": "/usr/sbin/apache2",
         "dir": "/etc/apache2",
         "lib_dir": "/usr/lib/apache2",
         "libexec_dir": "/usr/lib/apache2/modules",

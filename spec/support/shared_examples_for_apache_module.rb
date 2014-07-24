@@ -1,7 +1,4 @@
 RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, module_filename|
-  before do
-    allow(::File).to receive(:symlink?).and_return(true)
-  end
 
   platforms.each do |platform, versions|
     versions.each do |version|
@@ -9,6 +6,16 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, modul
         let(:chef_run) { ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe) }
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
+
+        before do
+          allow(::File).to receive(:symlink?).and_return(true)
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
+          # @todo how can we avoid having this here? It is only needed for the specific module.
+          # e.g. apache2::mod_apreq2 and apache2::mod_auth_openid
+          stub_command("test -f #{property[:apache][:libexec_dir]}/mod_apreq2.so").and_return(true)
+          stub_command("test -f #{property[:apache][:libexec_dir]}/mod_auth_openid.so").and_return(true)
+          stub_command('test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf').and_return(true)
+        end
 
         it 'includes the `apache2::default` recipe' do
           expect(chef_run).to include_recipe('apache2::default')

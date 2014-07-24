@@ -41,7 +41,7 @@ service 'apache2' do
   end
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
-  only_if "#{node[:apache]['apachectl']} configtest"
+  only_if "#{node[:apache]['binary']} -t", :environment => { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, :timeout => 2
 end
 
 %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|

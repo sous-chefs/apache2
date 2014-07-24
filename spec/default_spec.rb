@@ -16,6 +16,11 @@ describe 'apache2::default' do
           end.converge(described_recipe)
         end
         property = load_platform_properties(:platform => platform, :platform_version => version)
+
+        before do
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
+        end
+
         it "installs package #{property[:apache][:package]}" do
           expect(chef_run).to install_package(property[:apache][:package])
         end
@@ -226,7 +231,23 @@ describe 'apache2::default' do
           expect(chef_run).to delete_file("#{property[:apache][:dir]}/sites-enabled/000-default")
         end
 
-        it 'enables an apache2 service' do
+        context 'with invalid apache configuration' do
+          before do
+            stub_command("#{property[:apache][:binary]} -t").and_return(false)
+          end
+
+          it 'does not enable/start apache2 service' do
+            expect(chef_run).to_not enable_service('apache2').with(
+              :service_name => property[:apache][:service_name],
+              :restart_command => property[:apache][:service_restart_command],
+              :reload_command => property[:apache][:service_reload_command],
+              :supports => { :start => true, :restart => true, :reload => true, :status => true },
+              :action => [:enable, :start]
+            )
+          end
+        end
+
+        it 'enables and starts the apache2 service' do
           expect(chef_run).to enable_service('apache2').with(
             :service_name => property[:apache][:service_name],
             :restart_command => property[:apache][:service_restart_command],
@@ -235,7 +256,6 @@ describe 'apache2::default' do
             :action => [:enable, :start]
           )
         end
-
       end
     end
   end

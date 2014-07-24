@@ -3,17 +3,20 @@ require 'spec_helper'
 describe 'apache2::mod_auth_openid' do
   before do
     stub_command('test -f /var/chef/cache/mod_auth_openid-95043901eab868400937642d9bc55d17e9dd069f/src/.libs/mod_auth_openid.so').and_return(true)
-    stub_command('test -f /usr/lib64/httpd/modules/mod_auth_openid.so').and_return(true)
-    stub_command('test -f /usr/local/libexec/apache22/mod_auth_openid.so').and_return(true)
-    stub_command('test -f /usr/lib/httpd/modules/mod_auth_openid.so').and_return(true)
-    stub_command('test -f /usr/lib/apache2/modules/mod_auth_openid.so').and_return(true)
-
   end
+
   supported_platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
+        end
+
+        property = load_platform_properties(:platform => platform, :platform_version => version)
+
+        before do
+          stub_command("test -f #{property[:apache][:libexec_dir]}/mod_auth_openid.so").and_return(true)
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
         end
 
         if %w(debian ubuntu).include?(platform)

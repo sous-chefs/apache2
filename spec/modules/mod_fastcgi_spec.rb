@@ -1,16 +1,18 @@
 require 'spec_helper'
 
 describe 'apache2::mod_fastcgi' do
-  before do
-    stub_command('test -f /usr/lib/httpd/modules/mod_auth_openid.so').and_return(true)
-    stub_command('test -f /etc/httpd/mods-available/fastcgi.conf').and_return(true)
-  end
-
   supported_platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
+        end
+
+        property = load_platform_properties(:platform => platform, :platform_version => version)
+
+        before do
+          stub_command('test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf').and_return(true)
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
         end
 
         if %w(debian ubuntu).include?(platform)
