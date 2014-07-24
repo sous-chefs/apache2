@@ -35,6 +35,8 @@ platforms:
     apache:
       version: '2.4'
 - name: freebsd-9.2
+  run_list:
+  - recipe[freebsd::portsnap]
 #- name: amazon
 #- name: arch
 #- name: redhat
