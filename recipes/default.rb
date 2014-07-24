@@ -41,6 +41,7 @@ service 'apache2' do
   end
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
+  only_if "#{node[:apache]['apachectl']} configtest"
 end
 
 %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
