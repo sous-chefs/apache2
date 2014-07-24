@@ -18,7 +18,7 @@
 #
 
 # on platform_family debian this module is staticly linked into apache2
-if node[:apache][:version] == '2.4' && !platform_family?('debian')
+if node['apache']['version'] == '2.4' && !platform_family?('debian')
   apache_module 'unixd'
 else
   log 'Ignoring apache2::mod_unixd. Not available until apache 2.4'
