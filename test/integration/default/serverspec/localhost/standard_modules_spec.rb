@@ -16,6 +16,7 @@
 require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
 
 property[:apache][:default_modules].each do |expected_module|
+  expected_module = 'authz_default' if expected_module == 'authz_core' &&  property[:apache][:version] != '2.4'
   describe "apache2::mod_#{expected_module}" do
     subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
     it "mods-available/#{expected_module}.load is accurate" do
@@ -26,14 +27,7 @@ property[:apache][:default_modules].each do |expected_module|
 
     subject(:enabled) { file("#{property[:apache][:dir]}/mods-enabled/#{expected_module}.load") }
     it "mods-enabled/#{expected_module}.load is a symlink to mods-available/#{expected_module}.load" do
-      # rspec3 syntax
-      # is_expected.to be_linked_to("#{property[:apache][:dir]}/mods-available/#{expected_module}.load").or be_linked_to("../mods-available/#{expected_module}.load")
-      os = backend.check_os
-      if os[:family] == 'RedHat'
-        expect(enabled).to be_linked_to("#{property[:apache][:dir]}/mods-available/#{expected_module}.load")
-      else
-        expect(enabled).to be_linked_to("../mods-available/#{expected_module}.load")
-      end
+      expect(enabled).to be_linked_to("../mods-available/#{expected_module}.load")
     end
 
     subject(:loaded_modules) { command("APACHE_LOG_DIR=#{property[:apache][:log_dir]} #{property[:apache][:binary]} -M") }
