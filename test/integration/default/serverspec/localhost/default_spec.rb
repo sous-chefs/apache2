@@ -31,8 +31,7 @@ describe 'apache2::default' do
     expect(file(property[:apache][:dir])).to be_mode 755
   end
 
-  # conf-enabled conf-available
-  %w(sites-enabled sites-available mods-enabled mods-available conf-enabled).each do |dir|
+  %w(sites-enabled sites-available mods-enabled mods-available conf-available conf-enabled).each do |dir|
     it "directory #{property[:apache][:dir]}/#{dir} exists and is mode 755" do
       expect(file("#{property[:apache][:dir]}/#{dir}")).to be_directory
       expect(file("#{property[:apache][:dir]}/#{dir}")).to be_mode 755
@@ -71,7 +70,6 @@ describe 'apache2::default' do
     end
   end
 
-  # a2enconf a2disconf
   %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |mod_script|
     it "cookbook script /usr/sbin/#{mod_script} exists and is executable" do
       expect(file("/usr/sbin/#{mod_script}")).to be_file
