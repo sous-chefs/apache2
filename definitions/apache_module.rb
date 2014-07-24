@@ -26,11 +26,9 @@ define :apache_module, :enable => true, :conf => false do
 
   apache_mod params[:name] if params[:conf]
 
-  if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
-    file "#{node['apache']['dir']}/mods-available/#{params[:name]}.load" do
-      content "LoadModule #{params[:identifier]} #{params[:module_path]}\n"
-      mode '0644'
-    end
+  file "#{node['apache']['dir']}/mods-available/#{params[:name]}.load" do
+    content "LoadModule #{params[:identifier]} #{params[:module_path]}\n"
+    mode '0644'
   end
 
   if params[:enable]

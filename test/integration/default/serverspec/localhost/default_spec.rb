@@ -39,9 +39,9 @@ describe 'apache2::default' do
     end
   end
 
-  it "log dir #{property[:apache][:log_dir]} exists and is mode 750" do
+  it "log dir #{property[:apache][:log_dir]} exists and is mode 755" do
     expect(file(property[:apache][:log_dir])).to be_directory
-    expect(file(property[:apache][:log_dir])).to be_mode 750
+    expect(file(property[:apache][:log_dir])).to be_mode 755
   end
 
   it "lib dir #{property[:apache][:lib_dir]} exists and is mode 755" do

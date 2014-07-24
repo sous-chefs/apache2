@@ -3,6 +3,7 @@
         "package": "apache2",
         "dir": "/etc/apache2",
         "lib_dir": "/usr/lib/apache2",
+        "libexec_dir": "/usr/lib/apache2/modules",
         "cache_dir": "/var/cache/apache2",
         "conf": "/etc/apache2/apache2.conf",
         "perl_pkg": "perl",

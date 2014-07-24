@@ -66,13 +66,14 @@ directory "#{node['apache']['dir']}/conf.d" do
   recursive true
 end
 
+directory node['apache']['log_dir'] do
+  mode '0755'
+end
+
+# perl is needed for the a2* scripts
+package node['apache']['perl_pkg']
+
 if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
-  directory node['apache']['log_dir'] do
-    mode '0755'
-  end
-
-  package node['apache']['perl_pkg']
-
   cookbook_file '/usr/local/bin/apache2_module_conf_generate.pl' do
     source 'apache2_module_conf_generate.pl'
     mode '0755'
@@ -145,13 +146,12 @@ template '/etc/sysconfig/httpd' do
   only_if  { platform_family?('rhel', 'fedora') }
 end
 
-template 'envvars' do
-  path "#{node['apache']['dir']}/envvars"
+template "#{node['apache']['dir']}/envvars" do
   source 'envvars.erb'
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  notifies :restart, 'service[apache2]', :delayed
+  notifies :reload, 'service[apache2]', :delayed
   only_if  { platform_family?('debian') }
 end
 

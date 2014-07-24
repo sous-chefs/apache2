@@ -4,6 +4,7 @@
         "package": "httpd",
         "dir": "/etc/httpd",
         "lib_dir": "/usr/lib64/httpd",
+        "libexec_dir": "/usr/lib64/httpd/modules",
         "cache_dir": "/var/cache/httpd",
         "conf": "/etc/httpd/conf/httpd.conf",
         "perl_pkg": "perl",
