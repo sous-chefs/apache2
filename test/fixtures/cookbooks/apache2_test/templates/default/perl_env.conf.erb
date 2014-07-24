@@ -1,5 +1,5 @@
 <IfModule mod_perl.c>
-  Alias /env/ <%= @params[:app_dir] %>/
+  Alias /env/perl <%= @params[:app_dir] %>/perl
 
   <Location /env/perl>
       SetHandler perl-script
