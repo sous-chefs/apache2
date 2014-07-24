@@ -73,6 +73,16 @@ end
 # perl is needed for the a2* scripts
 package node['apache']['perl_pkg']
 
+%w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
+  template "/usr/sbin/#{modscript}" do
+    source "#{modscript}.erb"
+    mode '0700'
+    owner 'root'
+    group node['apache']['root_group']
+    action :create
+  end
+end
+
 if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
   cookbook_file '/usr/local/bin/apache2_module_conf_generate.pl' do
     source 'apache2_module_conf_generate.pl'
@@ -84,16 +94,6 @@ if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
   execute 'generate-module-list' do
     command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{node['apache']['dir']}/mods-available"
     action :nothing
-  end
-
-  %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
-    template "/usr/sbin/#{modscript}" do
-      source "#{modscript}.erb"
-      mode '0700'
-      owner 'root'
-      group node['apache']['root_group']
-      action :create
-    end
   end
 
   # enable mod_deflate for consistency across distributions
@@ -110,18 +110,6 @@ if platform_family?('freebsd')
   directory "#{node['apache']['dir']}/extra" do
     action :delete
     recursive true
-  end
-end
-
-if node['apache']['version'] == '2.2' && platform_family?('debian')
-  %w(a2enconf a2disconf).each do |modscript|
-    template "/usr/sbin/#{modscript}" do
-      source "#{modscript}.erb"
-      mode '0700'
-      owner 'root'
-      group node['apache']['root_group']
-      action :create
-    end
   end
 end
 
