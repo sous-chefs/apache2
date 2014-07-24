@@ -23,7 +23,7 @@ web_app 'broken' do
   template 'broken.conf.erb'
   server_name node['hostname']
   server_aliases [node['fqdn']]
-  docroot app_dir
+  docroot node['apache']['docroot_dir']
 end
 
 apache_site 'broken' do
@@ -34,5 +34,5 @@ web_app 'working' do
   template 'working.conf.erb'
   server_name node['hostname']
   server_aliases [node['fqdn']]
-  docroot app_dir
+  docroot node['apache']['docroot_dir']
 end
