@@ -1,0 +1,7 @@
+<VirtualHost *:80>
+  ServerName <%= @params[:server_name] %>
+  DocumentRoot <%= @params[:document_root] %>
+  <LocationMatch "^/+$">
+    Options -Indexes
+  </LocationMatch>
+</VirtualHost>

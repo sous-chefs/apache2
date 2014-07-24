@@ -53,6 +53,7 @@ suites:
       - recipe[apache2_test::setup]
       - recipe[apache2_test::default]
       - recipe[apache2_test::basic_web_app]
+      - recipe[apache2_test::broken_conf]
       - recipe[apache2_test::modules]
       - recipe[apache2_test::mod_auth_basic]
       - recipe[apache2_test::mod_auth_digest]
