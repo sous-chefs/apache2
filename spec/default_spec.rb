@@ -129,6 +129,11 @@ describe 'apache2::default' do
             )
           end
 
+          it " runs a2enconf #{config}.conf" do
+            stub_command("/usr/sbin/a2enconf #{config}.conf").and_return(false)
+            expect(chef_run).to run_execute("/usr/sbin/a2enconf #{config}.conf")
+          end
+
           subject(:confd) { chef_run.template("#{property[:apache][:dir]}/conf-available/#{config}.conf") }
           it "notification is triggered by #{property[:apache][:dir]}/conf-available/#{config}.conf template to reload service[apache2]" do
             expect(confd).to notify('service[apache2]').to(:reload).delayed
