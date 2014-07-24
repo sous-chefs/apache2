@@ -24,7 +24,7 @@ default['apache']['default_site_name'] = 'default'
 
 # Where the various parts of apache are
 case node['platform']
-when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
+when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['package']     = 'httpd'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['apachectl']   = '/usr/sbin/apachectl'
@@ -49,6 +49,28 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
                                      end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['default_site_enabled'] = false
+when 'suse'
+  default['apache']['package']     = 'apache2'
+  default['apache']['perl_pkg']    = 'perl'
+  default['apache']['dir']         = '/etc/apache2'
+  default['apache']['log_dir']     = '/var/log/apache2'
+  default['apache']['error_log']   = 'error.log'
+  default['apache']['access_log']  = 'access.log'
+  default['apache']['user']        = 'apache'
+  default['apache']['group']       = 'apache'
+  default['apache']['binary']      = '/usr/sbin/httpd2'
+  default['apache']['docroot_dir'] = '/var/www'
+  default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
+  default['apache']['icondir']     = '/usr/share/apache2/icons'
+  default['apache']['cache_dir']   = '/var/cache/apache2'
+  default['apache']['pid_file']    = if node['platform_version'].to_f >= 6
+                                       '/var/run/httpd/httpd.pid'
+                                     else
+                                       '/var/run/httpd.pid'
+                                     end
+  default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
+  default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}"
   default['apache']['default_site_enabled'] = false
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
