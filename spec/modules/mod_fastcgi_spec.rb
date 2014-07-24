@@ -11,7 +11,7 @@ describe 'apache2::mod_fastcgi' do
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
         before do
-          stub_command('test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf').and_return(true)
+          stub_command("test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf").and_return(true)
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
         end
 
