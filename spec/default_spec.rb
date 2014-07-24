@@ -112,6 +112,15 @@ describe 'apache2::default' do
             expect(envvars).to notify('service[apache2]').to(:reload).delayed
             expect(envvars).to_not notify('service[apache2]').to(:reload).immediately
           end
+        else
+          it "does not create #{property[:apache][:dir]}/envvars" do
+            expect(chef_run).to_not create_template("#{property[:apache][:dir]}/envvars").with(
+              :source => 'envvars.erb',
+              :owner => 'root',
+              :group => property[:apache][:root_group],
+              :mode =>  '0644'
+            )
+          end
         end
 
         %w(security charset).each do |config|
