@@ -19,17 +19,6 @@
 
 include_recipe 'apache2::default'
 
-app_dir = "#{node['apache_test']['root_dir']}/basic_web_app"
-
-directory app_dir do
-  action :create
-end
-
-file "#{app_dir}/index.html" do
-  content 'Hello World'
-  action :create
-end
-
 web_app 'broken' do
   template 'broken.conf.erb'
   server_name node['hostname']
