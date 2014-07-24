@@ -44,10 +44,10 @@ MaxKeepAliveRequests <%= node['apache']['keepaliverequests'] %>
 #
 KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
 
-<IfModule mod_unixd.c>
+#<IfModule unixd_module>
 User <%= node['apache']['user'] %>
 Group <%= node['apache']['group'] %>
-</IfModule>
+#</IfModule>
 
 <% if node['apache']['version'] == '2.4' -%>
 # Sets the default security model of the Apache2 HTTPD server. It does
