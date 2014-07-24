@@ -48,7 +48,7 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'suse', 'amazon', 'oracle'
                                        '/var/run/httpd.pid'
                                      end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
-  default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
@@ -75,7 +75,7 @@ when 'debian', 'ubuntu'
     default['apache']['pid_file']    = '/var/run/apache2.pid'
   end
   default['apache']['lib_dir']     = '/usr/lib/apache2'
-  default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
   default['apache']['default_site_name'] = '000-default'
 when 'arch'
@@ -98,7 +98,7 @@ when 'arch'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
   default['apache']['lib_dir']     = '/usr/lib/httpd'
-  default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
 when 'freebsd'
   if node['apache']['version'] == '2.4'
@@ -134,7 +134,7 @@ when 'freebsd'
   default['apache']['user']        = 'www'
   default['apache']['group']       = 'www'
   default['apache']['binary']      = '/usr/local/sbin/httpd'
-  default['apache']['libexecdir']  = node['apache']['lib_dir']
+  default['apache']['libexec_dir']  = node['apache']['lib_dir']
   default['apache']['default_site_enabled'] = false
 else
   default['apache']['dir']         = '/etc/apache2'
@@ -152,7 +152,7 @@ else
   default['apache']['lock_dir']    = 'logs'
   default['apache']['pid_file']    = 'logs/httpd.pid'
   default['apache']['lib_dir']     = '/usr/lib/apache2'
-  default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_enabled'] = false
 end
 

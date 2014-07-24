@@ -106,9 +106,9 @@ bash 'install-mod_auth_openid' do
   code <<-EOH
   #{make_cmd} install
   EOH
-  creates "#{node['apache']['libexecdir']}/mod_auth_openid.so"
+  creates "#{node['apache']['libexec_dir']}/mod_auth_openid.so"
   notifies :restart, 'service[apache2]'
-  not_if "test -f #{node['apache']['libexecdir']}/mod_auth_openid.so"
+  not_if "test -f #{node['apache']['libexec_dir']}/mod_auth_openid.so"
 end
 
 template "#{node['apache']['dir']}/mods-available/authopenid.load" do

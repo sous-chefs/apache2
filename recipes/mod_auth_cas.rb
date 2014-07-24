@@ -36,7 +36,7 @@ if node['apache']['mod_auth_cas']['from_source']
   execute 'compile mod_auth_cas' do
     command './configure && make && make install'
     cwd '/tmp/mod_auth_cas'
-    not_if "test -f #{node['apache']['libexecdir']}/mod_auth_cas.so"
+    not_if "test -f #{node['apache']['libexec_dir']}/mod_auth_cas.so"
   end
 
   template "#{node['apache']['dir']}/mods-available/auth_cas.load" do
