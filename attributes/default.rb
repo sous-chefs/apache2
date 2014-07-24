@@ -246,6 +246,8 @@ default['apache']['default_modules'] = %w(
   default['apache']['default_modules'] << log_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
 end
 
-%w(unixd).each do |unix_mod|
-  default['apache']['default_modules'] << unix_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
+if node['apache']['version'] == '2.4'
+  %w(unixd).each do |unix_mod|
+    default['apache']['default_modules'] << unix_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
+  end
 end
