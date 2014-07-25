@@ -31,6 +31,7 @@ platforms:
 - name: freebsd-9.2
   run_list:
   - recipe[freebsd::portsnap]
+- name: freebsd-10.0
 #- name: amazon
 #- name: arch
 #- name: redhat
