@@ -2,6 +2,17 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v1.11.0 (2014-07-25)
+--------------------
+- [GH-152] - Checking if server_aliases is defined in example
+- [GH-106] - Only turn rewrite on once in web_app.conf.erb
+- [GH-156] - Correct mod_basic/digest recipe names in README
+- Recipe iptables now includes the iptables::default recipe
+- Upgrade test-kitchen to latest version
+- Replaced minitest integration tests with serverspec tests
+- Added chefspec tests
+
+
 v1.10.4 (2014-04-23)
 --------------------
 - [COOK-4249] mod_proxy_http requires mod_proxy
