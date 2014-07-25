@@ -12,6 +12,13 @@ describe 'apache2::mod_pagespeed' do
         let(:chef_run) do
           ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
         end
+
+        property = load_platform_properties(:platform => platform, :platform_version => version)
+
+        before do
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
+        end
+
         it 'installs package mod_pagespeed' do
           expect(chef_run).to install_package('mod_pagespeed')
           expect(chef_run).to_not install_package('not_mod_pagespeed')

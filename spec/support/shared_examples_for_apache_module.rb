@@ -14,7 +14,7 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, modul
           # e.g. apache2::mod_apreq2 and apache2::mod_auth_openid
           stub_command("test -f #{property[:apache][:libexec_dir]}/mod_apreq2.so").and_return(true)
           stub_command("test -f #{property[:apache][:libexec_dir]}/mod_auth_openid.so").and_return(true)
-          stub_command('test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf').and_return(true)
+          stub_command("test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf").and_return(true)
         end
 
         it 'includes the `apache2::default` recipe' do
