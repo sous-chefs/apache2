@@ -31,7 +31,7 @@ platforms:
 - name: freebsd-9.2
   run_list:
   - recipe[freebsd::portsnap]
-- name: freebsd-10.0
+- name: freebsd-10.0 # chef unsupported until 11.14.0
 #- name: amazon
 #- name: arch
 #- name: redhat
