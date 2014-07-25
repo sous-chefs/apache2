@@ -272,7 +272,7 @@ IncludeOptional <%= node['apache']['dir'] %>/conf-enabled/*.conf
 
 # Include the virtual host configurations:
 IncludeOptional <%= node['apache']['dir'] %>/sites-enabled/*.conf
-<% elsif node['apache']['version'] == '2.2' -%>
+<% else -%>
 # Include generic snippets of statements
 Include <%= node['apache']['dir'] %>/conf-enabled/*.conf
 
