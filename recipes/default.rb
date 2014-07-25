@@ -121,6 +121,21 @@ if platform_family?('freebsd')
   end
 end
 
+if platform_family?('suse')
+
+  directory "#{node['apache']['dir']}/vhosts.d" do
+    action :delete
+    recursive true
+  end
+
+  %w(charset.conv default-vhost.conf default-vhost-ssl.conf errors.conf listen.conf mime.types mod_autoindex-defaults.conf mod_info.conf mod_log_config.conf mod_status.conf mod_userdir.conf mod_usertrack.conf uid.conf).each do |file|
+    file "#{node['apache']['dir']}/#{file}" do
+      action :delete
+      backup false
+    end
+  end
+end
+
 %W(
   #{node['apache']['dir']}/ssl
   #{node['apache']['cache_dir']}
@@ -152,10 +167,12 @@ template "#{node['apache']['dir']}/envvars" do
 end
 
 template 'apache2.conf' do
-  if platform_family?('rhel', 'fedora', 'arch', 'freebsd', 'suse')
+  if platform_family?('rhel', 'fedora', 'arch', 'freebsd')
     path "#{node['apache']['conf_dir']}/httpd.conf"
   elsif platform_family?('debian')
     path "#{node['apache']['conf_dir']}/apache2.conf"
+  elsif platform_family?('suse')
+    path "#{node['apache']['conf_dir']}/default-server.conf"
   end
   action :create
   source 'apache2.conf.erb'
