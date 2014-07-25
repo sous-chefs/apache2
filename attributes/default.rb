@@ -81,7 +81,7 @@ when 'suse'
                                        '/var/run/httpd.pid'
                                      end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
-  default['apache']['libexecdir']  = "#{node['apache']['lib_dir']}"
+  default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}"
   default['apache']['default_site_enabled'] = false
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
