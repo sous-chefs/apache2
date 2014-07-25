@@ -25,6 +25,8 @@ elsif node['platform'] == 'centos' && node['platform_version'].to_f >= 7.0
   default['apache']['version'] = '2.4'
 elsif node['platform'] == 'fedora' && node['platform_version'].to_f >= 18
   default['apache']['version'] = '2.4'
+elsif node['platform'] == 'opensuse' && node['platform_version'].to_f >= 13.1
+  default['apache']['version'] = '2.4'
 else
   default['apache']['version'] = '2.2'
 end
@@ -64,15 +66,16 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
 when 'suse', 'opensuse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
+  default['apache']['apachectl']   = '/usr/sbin/apache2ctl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
   default['apache']['error_log']   = 'error.log'
   default['apache']['access_log']  = 'access.log'
-  default['apache']['user']        = 'apache'
-  default['apache']['group']       = 'apache'
+  default['apache']['user']        = 'wwwrun'
+  default['apache']['group']       = 'www'
   default['apache']['binary']      = '/usr/sbin/httpd2'
-  default['apache']['docroot_dir'] = '/var/www'
-  default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
+  default['apache']['docroot_dir'] = '/srv/www/htdocs'
+  default['apache']['cgibin_dir']  = '/srv/www/cgi-bin'
   default['apache']['icondir']     = '/usr/share/apache2/icons'
   default['apache']['cache_dir']   = '/var/cache/apache2'
   if node['platform_version'].to_f >= 6
