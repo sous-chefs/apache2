@@ -14,6 +14,10 @@ describe 'apache2::mod_php5' do
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
+        before do
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
+        end
+
         if %w(redhat centos fedora arch).include?(platform)
           pkg = 'php'
           pkg = 'php53' if version.to_f < 6.0

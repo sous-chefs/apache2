@@ -9,6 +9,11 @@ describe 'apache2::mod_authn_core' do
           end.converge(described_recipe)
         end
         property = load_platform_properties(:platform => platform, :platform_version => version)
+
+        before do
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
+        end
+
         if property[:apache][:version] == '2.2'
           it 'writes to the log' do
             expect(chef_run).to write_log('Ignoring apache2::mod_authn_core. not available until apache 2.4')
