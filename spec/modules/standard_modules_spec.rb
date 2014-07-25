@@ -137,6 +137,10 @@ describe 'apache2::mod_ssl' do
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
+        before do
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
+        end
+
         if %w(redhat centos fedora arch suse).include?(platform)
           it 'installs package mod_ssl' do
             expect(chef_run).to install_package('mod_ssl')
