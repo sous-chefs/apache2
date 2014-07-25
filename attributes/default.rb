@@ -18,15 +18,15 @@
 #
 
 if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 13.10
-  default['apache']['version'] == '2.4'
+  default['apache']['version'] = '2.4'
 elsif node['platform'] == 'debian' && node['platform_version'].to_f >= 8.0
-  default['apache']['version'] == '2.4'
+  default['apache']['version'] = '2.4'
 elsif node['platform'] == 'centos' && node['platform_version'].to_f >= 7.0
-  default['apache']['version'] == '2.4'
+  default['apache']['version'] = '2.4'
 elsif node['platform'] == 'fedora' && node['platform_version'].to_f >= 18
-  default['apache']['version'] == '2.4'
+  default['apache']['version'] = '2.4'
 else
-  default['apache']['version'] == '2.2'
+  default['apache']['version'] = '2.2'
 end
 
 default['apache']['root_group'] = 'root'
