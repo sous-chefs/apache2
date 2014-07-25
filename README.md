@@ -92,13 +92,13 @@ ensure that the cookbook is available to the node, and to set up `god`.
 The following platforms and versions are tested and supported using
 [test-kitchen](http://kitchen.ci/)
 
-* Ubuntu 12.04
+* Ubuntu 12.04, 14.04
+* Debian 7.4
 * CentOS 5.10, 6.5
 
 The following platform families are supported in the code, and are
 assumed to work based on the successful testing on Ubuntu and CentOS.
 
-* Debian
 * Red Hat (rhel)
 * Fedora
 * Amazon Linux
