@@ -75,13 +75,13 @@ when 'suse'
   default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
   default['apache']['icondir']     = '/usr/share/apache2/icons'
   default['apache']['cache_dir']   = '/var/cache/apache2'
-  default['apache']['pid_file']    = if node['platform_version'].to_f >= 6
-                                       '/var/run/httpd/httpd.pid'
-                                     else
-                                       '/var/run/httpd.pid'
-                                     end
+  if node['platform_version'].to_f >= 6
+    default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
+  else
+    default['apache']['pid_file']    = '/var/run/httpd.pid'
+  end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
-  default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}"
+  default['apache']['libexec_dir'] = node['apache']['lib_dir']
   default['apache']['default_site_enabled'] = false
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
