@@ -34,10 +34,16 @@ database_modules_without_config.each do |mod|
 end
 
 # not supported modules: dav_lock
-dav_modules_without_config = %w(dav dav_fs)
+dav_modules_without_config = %w(dav)
+dav_modules_with_config = %w(dav_fs)
 dav_modules_without_config.each do |mod|
   describe "apache2::mod_#{mod}" do
     it_should_behave_like 'an apache2 module', mod, false, supported_platforms
+  end
+end
+dav_modules_with_config.each do |mod|
+  describe "apache2::mod_#{mod}" do
+    it_should_behave_like 'an apache2 module', mod, true, supported_platforms
   end
 end
 
@@ -85,8 +91,8 @@ loggers_modules_without_config.each do |mod|
 end
 
 # not supported modules: imagemap speling vhost_alias
-mappers_modules_without_config = %w(actions rewrite userdir)
-mappers_modules_with_config = %w(alias dir negotiation)
+mappers_modules_without_config = %w(rewrite)
+mappers_modules_with_config = %w(actions alias dir userdir negotiation)
 mappers_modules_without_config.each do |mod|
   describe "apache2::mod_#{mod}" do
     it_should_behave_like 'an apache2 module', mod, false, supported_platforms
@@ -113,8 +119,8 @@ metadata_modules_with_config.each do |mod|
 end
 
 # not supported modules: proxy_ftp proxy_scgi
-proxy_modules_without_config = %w(proxy_ajp proxy_balancer proxy_connect proxy_http)
-proxy_modules_with_config = %w(proxy)
+proxy_modules_without_config = %w(proxy_ajp proxy_connect proxy_http)
+proxy_modules_with_config = %w(proxy proxy_balancer)
 proxy_modules_without_config.each do |mod|
   describe "apache2::mod_#{mod}" do
     it_should_behave_like 'an apache2 module', mod, false, supported_platforms
