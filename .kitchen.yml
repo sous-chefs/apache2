@@ -38,14 +38,16 @@ platforms:
   run_list:
   - recipe[freebsd::portsnap]
 #- name: freebsd-10.0 # chef unsupported until 11.14.0
-- name: amazon-2014.3
-  driver:
-    box: amazon-linux64-2014.03
-    box_url: http://images.geekandi.com/amazon-linux/vagrant-amazon-linux64-2014.03-public-virtualbox.box
-- name: arch
-  driver:
-    box: arch-2013.02.01
-    box_url: http://cloud.terry.im/vagrant/archlinux-x86_64.box
+# Cannot pull from repo when not in EC2
+#- name: amazon-2014.3
+#  driver:
+#    box: amazon-linux64-2014.03
+#    box_url: http://images.geekandi.com/amazon-linux/vagrant-amazon-linux64-2014.03-public-virtualbox.box
+# Unsupported by omnibus-chef installation script
+#- name: arch
+#  driver:
+#    box: arch-2013.02.01
+#    box_url: http://cloud.terry.im/vagrant/archlinux-x86_64.box
 #- name: redhat
 - name: scientific-6.4
   driver:
