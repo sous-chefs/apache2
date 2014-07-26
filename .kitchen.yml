@@ -16,6 +16,12 @@ platforms:
 - name: centos-6.5
   run_list:
   - recipe[yum]
+- name: centos-7x
+  driver:
+    box: centos-7.x
+    box_url: http://packages.vstone.eu/vagrant-boxes/centos-7.x-64bit-latest.box
+  run_list:
+  - recipe[yum]
 - name: ubuntu-12.04
   run_list:
   - recipe[apt]
