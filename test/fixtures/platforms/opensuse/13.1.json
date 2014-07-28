@@ -2,7 +2,7 @@
     "apache": {
         "version": "2.4",
         "package": "apache2",
-        "binary": "/usr/sbin/apache2",
+        "binary": "/usr/sbin/httpd2",
         "apachectl": "/usr/sbin/apache2ctl",
         "dir": "/etc/apache2",
         "lib_dir": "/usr/lib64/apache2",
@@ -10,11 +10,13 @@
         "cache_dir": "/var/cache/apache2",
         "cgibin_dir": "/srv/www/cgi-bin",
         "docroot_dir": "/srv/www/htdocs",
-        "conf": "/etc/apache2/apache2.conf",
+        "conf": "/etc/apache2/default-server.conf",
         "perl_pkg": "perl",
         "log_dir": "/var/log/apache2",
         "root_group": "root",
         "service_name": "apache2",
+        "service_restart_command": "/sbin/service apache2 restart && sleep 1",
+        "service_reload_command":  "/sbin/service apache2 reload && sleep 1",
         "default_site_name": "000-default",
         "default_site_enabled": false,
         "default_modules": [
