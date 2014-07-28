@@ -24,10 +24,15 @@ directory "#{node['apache_test']['root_dir']}/secure" do
   action :create
 end
 
-package 'apache2-utils' if platform_family?('debian') && node['apache']['version'] == '2.4'
+package 'apache2-utils' if platform_family?('debian', 'suse') && node['apache']['version'] == '2.4'
 
 execute 'add-credentials' do
-  command "htpasswd -b -c #{node['apache_test']['root_dir']}/secure/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}"
+  case node['platform_family']
+  when 'suse'
+    command "htpasswd2 -b -c #{node['apache_test']['root_dir']}/secure/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}"
+  else
+    command "htpasswd -b -c #{node['apache_test']['root_dir']}/secure/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}"
+  end
   action :run
 end
 
