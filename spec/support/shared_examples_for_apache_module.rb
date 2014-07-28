@@ -1,4 +1,4 @@
-RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, module_filename|
+RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, a2filename = nil|
 
   platforms.each do |platform, versions|
     versions.each do |version|
@@ -22,11 +22,12 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, modul
         end
 
         module_name = a2module
+        module_name = 'authz_default' if a2module.eql?('authz_core') && property[:apache][:version] != '2.4'
         module_enable = true
         module_conf = a2conf
         module_identifier = "#{module_name}_module"
-        module_filename = "mod_#{module_name}.so" unless module_filename
-        module_path = "#{property[:apache][:libexec_dir]}/#{module_filename}"
+        module_filename = "mod_#{module_name}.so"
+        module_filename = a2filename if a2filename
 
         if module_conf == true
           it "creates #{property[:apache][:dir]}/mods-available/#{module_name}.conf" do
@@ -46,7 +47,7 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, modul
         if module_enable == true
           it "creates a #{property[:apache][:dir]}/mods-available/#{module_name}.load" do
             expect(chef_run).to create_file("#{property[:apache][:dir]}/mods-available/#{module_name}.load").with(
-              :content =>  "LoadModule #{module_identifier} #{module_path}\n",
+              :content =>  "LoadModule #{module_name}_module #{property[:apache][:libexec_dir]}/#{module_filename}\n",
               :mode => '0644'
             )
           end
