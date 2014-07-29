@@ -64,6 +64,11 @@ end
     action :delete
     backup false
   end
+
+  file "#{node['apache']['dir']}/sites-available/#{site}" do
+    action :delete
+    backup false
+  end
 end
 
 directory "#{node['apache']['dir']}/conf.d" do
