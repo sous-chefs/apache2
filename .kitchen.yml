@@ -53,6 +53,10 @@ platforms:
   driver:
     box: lyte-scientific-6-minimal
     box_url: http://lyte.id.au/vagrant/sl6-64-lyte.box
+- name: opensuse-11.1
+  driver:
+    box: opensuse-11.1
+    box_url: https://s3.amazonaws.com/minesense/vagrant/opensuse-11.1-i586.box
 - name: opensuse-13.1
   driver:
     box: opensuse-13.1_64
