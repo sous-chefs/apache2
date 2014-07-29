@@ -59,14 +59,11 @@ end
   end
 end
 
-file "#{node['apache']['dir']}/sites-available/default" do
-  action :delete
-  backup false
-end
-
-file "#{node['apache']['dir']}/sites-enabled/000-default" do
-  action :delete
-  backup false
+%w(default 000-default).each do |site|
+  file "#{node['apache']['dir']}/sites-enabled/#{site}" do
+    action :delete
+    backup false
+  end
 end
 
 directory "#{node['apache']['dir']}/conf.d" do
@@ -206,5 +203,9 @@ end
 web_app 'default' do
   template 'default-site.conf.erb'
   path "#{node['apache']['dir']}/sites-available/default.conf"
+  enable node['apache']['default_site_enabled']
+end
+
+apache_site '000-default' do
   enable node['apache']['default_site_enabled']
 end
