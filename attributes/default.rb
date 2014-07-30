@@ -287,5 +287,5 @@ if node['apache']['version'] == '2.4'
     default['apache']['default_modules'] << unix_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
   end
 
-  default['apache']['default_modules'] << 'systemd' if %w(rhel).include?(node['platform_family'])
+  default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
 end
