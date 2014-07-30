@@ -38,7 +38,7 @@ v2.0.0 (unreleased)
   needed for your upgrade.  Please take a moment to familiarize yourself with the Apache Software Foundation provided upgrade documentation before attempting to use this cookbook with apache 2.4. See http://httpd.apache.org/docs/current/upgrading.html
 
   - This cookbook does not automatically specify which version of apache to install. We are at the mercy of the `package` provider. It is important, however, to make sure that you configure the `apache.version` attribute to match. For your convenience, we try to set reasonable defaults based on different platforms in our test suite.
-  - `mod_proxy` -   In 2.4 mode, `apache.proxy.order`, `apache.proxy.deny_from`, `apache.proxy.allow_from` are ignored, as the attributes can not be supported in a backwards compatible way. We will want to setup a different way to approach it.
+  - `mod_proxy` -   In 2.4 mode, `apache.proxy.order`, `apache.proxy.deny_from`, `apache.proxy.allow_from` are ignored, as the attributes can not be supported in a backwards compatible way. 
   - `mpm modules` - per MPM settings: `maxclients` is now `maxrequestworkers`
   - `mpm modules` - per MPM settings: `maxrequestsperchild` is now `maxconnectionsperchild`
   - perl is a require package on all platforms to support the a2* scripts as we now use the debian versions directly.
