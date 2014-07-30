@@ -17,4 +17,14 @@
 # limitations under the License.
 #
 
-default['apache']['mod_ssl']['cipher_suite'] = 'RC4-SHA:HIGH:!ADH'
+default['apache']['mod_ssl']['protocol']               = 'all -SSLv2 -SSLv3'
+default['apache']['mod_ssl']['cipher_suite'] = 'EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH+aRSA+RC4:EECDH:EDH+aRSA:RC4!aNULL!eNULL!LOW!3DES!MD5!EXP!PSK!SRP!DSS'
+default['apache']['mod_ssl']['honor_cipher_order']     = 'On'
+default['apache']['mod_ssl']['insecure_renegotiation'] = 'Off'
+default['apache']['mod_ssl']['strict_sni_vhost_check'] = 'Off'
+default['apache']['mod_ssl']['session_cache_timeout']  = 300
+default['apache']['mod_ssl']['compression'] = 'Off'
+default['apache']['mod_ssl']['use_stapling'] = 'Off'
+default['apache']['mod_ssl']['stapling_responder_timeout'] = 5
+default['apache']['mod_ssl']['stapling_return_responder_errors'] = 'Off'
+default['apache']['mod_ssl']['stapling_cache'] = 'shmcb:/var/run/ocsp(128000)'
