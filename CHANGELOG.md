@@ -2,6 +2,56 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v2.0.0 (unreleased)
+--------------------
+- [GH-100] - Apache HTTP 2.4 Support
+  This provides Apache 2.4 support in a backwards compatible way. 
+  It adds the following new attributes:
+  - `apache.version` - This defaults to `2.2` and if changed to `2.4`; it triggers and assumes 2.4 packages will be installed.
+  - `apache.mpm` -  In 2.4 mode, this specifies which mpm to install. Default is `prefork`.
+  - `apache.run_dir`
+  - `apache.lock_dir`
+  - `apache.libexec_dir` replaces `apache.libexecdir`
+  - `apache.prefork.maxrequestworkers` replaces `apache.prefork.maxclients`
+  - `apache.prefork.maxrequestsperchild` replaces `apache.prefork.maxconnectionsperchild`
+  - `apache.worker.threadlimit`
+  - `apache.worker.maxrequestworkers` replaces `apache.worker.maxclients`
+  - `apache.worker.maxrequestsperchild `replaces `apache.prefork.maxconnectionsperchild`
+  - `apache.event.startservers`
+  - `apache.event.serverlimit`
+  - `apache.event.maxclients`
+  - `apache.event.minsparethreads`
+  - `apache.event.maxsparethreads`
+  - `apache.event.threadlimit`
+  - `apache.event.threadsperchild`
+  - `apache.event.maxrequestsperchild`
+  - `apache.event.maxrequestworkers`
+  - `apache.itk.startservers`
+  - `apache.itk.minspareservers`
+  - `apache.itk.maxspareservers`
+  - `apache.itk.maxrequestworkers`
+  - `apache.itk.maxrequestsperchild`
+
+  Apache 2.4 Upgrade Notes:
+  
+  Since the changes between apache 2.2 and apache 2.4 are pretty significant, we are unable to account for all changes
+  needed for your upgrade.  Please take a moment to familiarize yourself with the Apache Software Foundation provided upgrade documentation before attempting to use this cookbook with apache 2.4. See http://httpd.apache.org/docs/current/upgrading.html
+
+  - This cookbook does not automatically specify which version of apache to install. We are at the mercy of the `package` provider. It is important, however, to make sure that you configure the `apache.version` attribute to match. For your convenience, we try to set reasonable defaults based on different platforms in our test suite.
+  - `mod_proxy` -   In 2.4 mode, `apache.proxy.order`, `apache.proxy.deny_from`, `apache.proxy.allow_from` are ignored, as the attributes can not be supported in a backwards compatible way. We will want to setup a different way to approach it.
+
+
+v1.11.0 (2014-07-25)
+--------------------
+- [GH-152] - Checking if server_aliases is defined in example
+- [GH-106] - Only turn rewrite on once in web_app.conf.erb
+- [GH-156] - Correct mod_basic/digest recipe names in README
+- Recipe iptables now includes the iptables::default recipe
+- Upgrade test-kitchen to latest version
+- Replaced minitest integration tests with serverspec tests
+- Added chefspec tests
+
+
 v1.10.4 (2014-04-23)
 --------------------
 - [COOK-4249] mod_proxy_http requires mod_proxy

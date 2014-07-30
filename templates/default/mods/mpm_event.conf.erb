@@ -24,8 +24,8 @@
   StartServers          <%= node['apache']['event']['startservers'] %>
   MinSpareThreads       <%= node['apache']['event']['minsparethreads'] %>
   MaxSpareThreads       <%= node['apache']['event']['maxsparethreads'] %>
-  MaxClients            <%= node['apache']['event']['maxclients'] %>
-  MaxRequestsPerChild   <%= node['apache']['event']['maxrequestsperchild'] %>
+  MaxClients            <%= node['apache']['event']['maxrequestworkers'] %>
+  MaxRequestsPerChild   <%= node['apache']['event']['maxconnectionsperchild'] %>
   ThreadLimit           <%= node['apache']['event']['threadlimit'] %>
   ServerLimit           <%= node['apache']['event']['serverlimit'] %>
  <% end -%>

@@ -21,7 +21,7 @@
   MinSpareServers       <%= node['apache']['prefork']['minspareservers'] %>
   MaxSpareServers       <%= node['apache']['prefork']['maxspareservers'] %>
   ServerLimit           <%= node['apache']['prefork']['serverlimit'] %>
-  MaxClients            <%= node['apache']['prefork']['maxclients'] %>
-  MaxRequestsPerChild   <%= node['apache']['prefork']['maxrequestsperchild'] %>
+  MaxClients            <%= node['apache']['prefork']['maxrequestworkers'] %>
+  MaxRequestsPerChild   <%= node['apache']['prefork']['maxconnectionsperchild'] %>
  <% end -%>
 </IfModule>

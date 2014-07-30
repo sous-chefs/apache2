@@ -231,33 +231,27 @@ default['apache']['prefork']['startservers']        = 16
 default['apache']['prefork']['minspareservers']     = 16
 default['apache']['prefork']['maxspareservers']     = 32
 default['apache']['prefork']['serverlimit']         = 400
-default['apache']['prefork']['maxclients']          = 400
-default['apache']['prefork']['maxrequestsperchild'] = 10_000
-default['apache']['prefork']['maxrequestworkers']   = 150
-default['apache']['prefork']['maxconnectionsperchild'] = 0
+default['apache']['prefork']['maxrequestworkers']   = 400
+default['apache']['prefork']['maxconnectionsperchild'] = 10_000
 
 # Worker Attributes
 default['apache']['worker']['startservers']        = 4
 default['apache']['worker']['serverlimit']         = 16
-default['apache']['worker']['maxclients']          = 1024
 default['apache']['worker']['minsparethreads']     = 64
 default['apache']['worker']['maxsparethreads']     = 192
 default['apache']['worker']['threadlimit']         = 192
 default['apache']['worker']['threadsperchild']     = 64
-default['apache']['worker']['maxrequestsperchild'] = 0
-default['apache']['worker']['maxrequestworkers']   = 150
+default['apache']['worker']['maxrequestworkers']   = 1024
 default['apache']['worker']['maxconnectionsperchild'] = 0
 
 # Event Attributes
 default['apache']['event']['startservers']        = 4
 default['apache']['event']['serverlimit']         = 16
-default['apache']['event']['maxclients']          = 1024
 default['apache']['event']['minsparethreads']     = 64
 default['apache']['event']['maxsparethreads']     = 192
 default['apache']['event']['threadlimit']         = 192
 default['apache']['event']['threadsperchild']     = 64
-default['apache']['event']['maxrequestsperchild'] = 0
-default['apache']['event']['maxrequestworkers']   = 150
+default['apache']['event']['maxrequestworkers']   = 1024
 default['apache']['event']['maxconnectionsperchild'] = 0
 
 # ITK Attributes
