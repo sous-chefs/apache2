@@ -215,8 +215,8 @@ configuration.
 * `node['apache']['worker']['serverlimit']` - Upper limit on configurable server processes. Default 16.
 * `node['apache']['worker']['minsparethreads']` - Minimum number of spare worker threads. Default 64
 * `node['apache']['worker']['maxsparethreads']` - Maximum number of spare worker threads. Default 192.
-* `node['apache']['worker']['maxrequestworkers'] - Maximum number of simultaneous connections. Default 1024.
-* `node['apache']['worker']['maxconnectionsperchild']  - Limit on the number of connections that an individual child server will handle during its life.
+* `node['apache']['worker']['maxrequestworkers']` - Maximum number of simultaneous connections. Default 1024.
+* `node['apache']['worker']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
 
 Event attributes
 ----------------
@@ -231,7 +231,7 @@ configuration.
 * `node['apache']['event']['threadlimit']` - Upper limit on the configurable number of threads per child process. Default 192.
 * `node['apache']['event']['threadsperchild']` - Number of threads created by each child process. Default 64.
 * `node['apache']['event']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
-* `node['apache']['event']['maxconnectionsperchild']  - Limit on the number of connections that an individual child server will handle during its life.
+* `node['apache']['event']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
 
 ITK Attributes
 --------------
@@ -242,7 +242,7 @@ ITK attributes are used for tuning the experimental Apache HTTPD itk MPM configu
 * `node['apache']['itk']['minspareservers']` - Minimum number of spare servers. Default 16.
 * `node['apache']['itk']['maxspareservers']` - Maximum number of spare servers. Default 16.
 * `node['apache']['itk']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
-* `node['apache']['itk']['maxconnectionsperchild']  - Limit on the number of connections that an individual child server will handle during its life.
+* `node['apache']['itk']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
 
 mod\_auth\_openid attributes
 ----------------------------
