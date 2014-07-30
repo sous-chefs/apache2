@@ -37,10 +37,12 @@
   RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
   RewriteLogLevel 0
 
+  <% if @params[:canonical_host].nil? || @params[:canonical_host] -%>
   # Canonical host, <%= @params[:server_name] %>
   RewriteCond %{HTTP_HOST}   !^<%= @params[:server_name] %> [NC]
   RewriteCond %{HTTP_HOST}   !^$
   RewriteRule ^/(.*)$        http://<%= @params[:server_name] %>/$1 [L,R=301]
+  <% end -%>
 
   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html

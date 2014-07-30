@@ -512,6 +512,7 @@ an example. The following parameters are used in the template:
 * `directory_index` - Allow overriding the default DirectoryIndex setting, optional
 * `directory_options` - Override Options on the docroot, for example to add parameters like Includes or Indexes, optional.
 * `allow_override` - Modify the AllowOverride directive on the docroot to support apps that need .htaccess to modify configuration or require authentication.
+* `canonical_host` - Enable canonical host. True by default. If enabled, accesses by different hostname will be redirected to `server_name`.
 
 To use the default web_app, for example:
 
