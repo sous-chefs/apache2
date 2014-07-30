@@ -13,10 +13,10 @@ v2.0.0 (unreleased)
   - `apache.lock_dir`
   - `apache.libexec_dir` replaces `apache.libexecdir`
   - `apache.prefork.maxrequestworkers` replaces `apache.prefork.maxclients`
-  - `apache.prefork.maxrequestsperchild` replaces `apache.prefork.maxconnectionsperchild`
+  - `apache.prefork.maxconnectionsperchild` replaces `apache.prefork.maxrequestsperchild`
   - `apache.worker.threadlimit`
   - `apache.worker.maxrequestworkers` replaces `apache.worker.maxclients`
-  - `apache.worker.maxrequestsperchild `replaces `apache.prefork.maxconnectionsperchild`
+  - `apache.worker.maxconnectionsperchild `replaces `apache.worker.maxrequestsperchild`
   - `apache.event.startservers`
   - `apache.event.serverlimit`
   - `apache.event.maxclients`
@@ -24,13 +24,13 @@ v2.0.0 (unreleased)
   - `apache.event.maxsparethreads`
   - `apache.event.threadlimit`
   - `apache.event.threadsperchild`
-  - `apache.event.maxrequestsperchild`
   - `apache.event.maxrequestworkers`
+  - `apache.event.maxconnectionsperchild`
   - `apache.itk.startservers`
   - `apache.itk.minspareservers`
   - `apache.itk.maxspareservers`
   - `apache.itk.maxrequestworkers`
-  - `apache.itk.maxrequestsperchild`
+  - `apache.itk.maxconnectionsperchild`
 
   Apache 2.4 Upgrade Notes:
   
@@ -39,7 +39,13 @@ v2.0.0 (unreleased)
 
   - This cookbook does not automatically specify which version of apache to install. We are at the mercy of the `package` provider. It is important, however, to make sure that you configure the `apache.version` attribute to match. For your convenience, we try to set reasonable defaults based on different platforms in our test suite.
   - `mod_proxy` -   In 2.4 mode, `apache.proxy.order`, `apache.proxy.deny_from`, `apache.proxy.allow_from` are ignored, as the attributes can not be supported in a backwards compatible way. We will want to setup a different way to approach it.
-
+  - `mpm modules` - per MPM settings: `maxclients` is now `maxrequestworkers`
+  - `mpm modules` - per MPM settings: `maxrequestsperchild` is now `maxconnectionsperchild`
+  - perl is a require package on all platforms to support the a2* scripts as we now use the debian versions directly.
+  - `conf.d` is no longer used and replaced by `conf-available` and `conf-enabled` managed via the `a2enconf` and a2disconf` scripts
+  - `apache.log_dir` directory is now 0755 on all platforms (including the debian family)
+  - All configuration files need to end in `.conf` for them to be loaded
+  - Apache will only be started when a configuration test passes, this allows the chef run to fix any broken configuration without failing the chef run.
 
 v1.11.0 (2014-07-25)
 --------------------
