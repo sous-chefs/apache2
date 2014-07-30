@@ -35,7 +35,7 @@ As of v1.2.0, this cookbook makes use of `node['platform_family']` to
 simplify platform selection logic. This attribute was introduced in
 Ohai v0.6.12. The recipe methods were introduced in Chef v0.10.10. If
 you must run an older version of Chef or Ohai, use [version 1.1.16 of
-this cookbook](http://community.opscode.com/cookbooks/apache2/versions/1_1_16/downloads).
+this cookbook](https://supermarket.getchef.com/cookbooks/apache2/versions/1.1.16).
 
 ## Cookbooks:
 
@@ -196,28 +196,54 @@ The modules listed in `default_modules` will be included as recipes in `recipe[a
 Prefork attributes
 ------------------
 
-Prefork attributes are used for tuning the Apache HTTPD prefork MPM
-configuration.
+Prefork attributes are used for tuning the Apache HTTPD [prefork MPM](http://httpd.apache.org/docs/current/mod/prefork.html) configuration.
 
 * `node['apache']['prefork']['startservers']` - initial number of server processes to start. Default is 16.
 * `node['apache']['prefork']['minspareservers']` - minimum number of spare server processes. Default 16.
 * `node['apache']['prefork']['maxspareservers']` - maximum number of spare server processes. Default 32.
 * `node['apache']['prefork']['serverlimit']` - upper limit on configurable server processes. Default 400.
-* `node['apache']['prefork']['maxclients']` - Maximum number of simultaneous connections.
 * `node['apache']['prefork']['maxrequestsperchild']` - Maximum number of request a child process will handle. Default 10000.
+* `node['apache']['prefork']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously
+* `node['apache']['prefork']['maxconnectionsperchild']` -
 
 Worker attributes
 -----------------
 
-Worker attributes are used for tuning the Apache HTTPD worker MPM
+Worker attributes are used for tuning the Apache HTTPD [worker MPM](http://httpd.apache.org/docs/current/mod/worker.html)
 configuration.
 
 * `node['apache']['worker']['startservers']` - Initial number of server processes to start. Default 4
-* `node['apache']['worker']['serverlimit']` - upper limit on configurable server processes. Default 16.
-* `node['apache']['worker']['maxclients']` - Maximum number of simultaneous connections. Default 1024.
+* `node['apache']['worker']['serverlimit']` - Upper limit on configurable server processes. Default 16.
 * `node['apache']['worker']['minsparethreads']` - Minimum number of spare worker threads. Default 64
 * `node['apache']['worker']['maxsparethreads']` - Maximum number of spare worker threads. Default 192.
-* `node['apache']['worker']['maxrequestsperchild']` - Maximum number of requests a child process will handle.
+* `node['apache']['worker']['maxrequestworkers'] - Maximum number of simultaneous connections. Default 1024.
+* `node['apache']['worker']['maxconnectionsperchild']  - Limit on the number of connections that an individual child server will handle during its life.
+
+Event attributes
+----------------
+
+Event attributes are used for tuning the Apache HTTPD [event MPM](http://httpd.apache.org/docs/current/mod/event.html)
+configuration.
+
+* `node['apache']['event']['startservers']` - Initial number of child server processes created at startup. Default 4.
+* `node['apache']['event']['serverlimit']` - Upper limit on configurable number of processes. Default 16.
+* `node['apache']['event']['minsparethreads']` - Minimum number of spare worker threads. Default 64
+* `node['apache']['event']['maxsparethreads']` - Maximum number of spare worker threads. Default 192.
+* `node['apache']['event']['threadlimit']` - Upper limit on the configurable number of threads per child process. Default 192.
+* `node['apache']['event']['threadsperchild']` - Number of threads created by each child process. Default 64.
+* `node['apache']['event']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
+* `node['apache']['event']['maxconnectionsperchild']  - Limit on the number of connections that an individual child server will handle during its life.
+
+ITK Attributes
+--------------
+
+ITK attributes are used for tuning the experimental Apache HTTPD itk MPM configuration.
+
+* `node['apache']['itk']['startservers']` - Initial number of child server processes created at startup. Default 16.
+* `node['apache']['itk']['minspareservers']` - Minimum number of spare servers. Default 16.
+* `node['apache']['itk']['maxspareservers']` - Maximum number of spare servers. Default 16.
+* `node['apache']['itk']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
+* `node['apache']['itk']['maxconnectionsperchild']  - Limit on the number of connections that an individual child server will handle during its life.
 
 mod\_auth\_openid attributes
 ----------------------------
@@ -241,7 +267,7 @@ mod\_ssl attributes
   considered "sane" but you may need to change it for your local
   security policy, e.g. if you have PCI-DSS requirements. Additional
   commentary on the
-  [original pull request](https://github.com/opscode-cookbooks/apache2/pull/15#commitcomment-1605406).
+  [original pull request](https://github.com/onehealth-cookbooks/apache2/pull/15#commitcomment-1605406).
 
 Recipes
 =======
@@ -672,11 +698,10 @@ License and Authors
 * Author:: Sander van Zoest <svanzoest@onehealth.com>
 * Author:: Taylor Price <tprice@onehealth.com>
 
-* Copyright:: 2013-2014, OneHealth Solutions, Inc.
 * Copyright:: 2009-2012, Opscode, Inc
 * Copyright:: 2011, Atriso
 * Copyright:: 2011, CustomInk, LLC.
-* Copyright:: 2013, OneHealth Solutions, Inc.
+* Copyright:: 2013-2014, OneHealth Solutions, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
