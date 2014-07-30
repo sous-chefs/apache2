@@ -10,7 +10,7 @@
         "cache_dir": "/var/cache/apache2",
         "cgibin_dir": "/srv/www/cgi-bin",
         "docroot_dir": "/srv/www/htdocs",
-        "conf": "/etc/apache2/default-server.conf",
+        "conf": "/etc/apache2/httpd.conf",
         "perl_pkg": "perl",
         "log_dir": "/var/log/apache2",
         "root_group": "root",
