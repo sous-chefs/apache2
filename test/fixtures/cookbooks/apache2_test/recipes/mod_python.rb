@@ -16,36 +16,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+if node['apache']['version'] == '2.4' && %w(rhel fedora).include?(node['platform_family'])
+  Chef::Log.warn('The rhel and fedora platforms do not have a package for mod_python. This cookbook will not attempt to test compatability.')
+else
+  include_recipe 'apache2::default'
+  if platform_family?('rhel')
+    include_recipe 'yum-epel'
+  end
+  include_recipe 'apache2::mod_python'
 
-include_recipe 'apache2::default'
-if platform_family?('rhel')
-  include_recipe 'yum-epel'
-end
-include_recipe 'apache2::mod_python'
+  directory node['apache_test']['app_dir'] do
+    recursive true
+    action :create
+  end
 
-directory node['apache_test']['app_dir'] do
-  recursive true
-  action :create
-end
+  file "#{node['apache_test']['app_dir']}/python.py" do
+    content %q{
+  #!/usr/bin/python
+  import sys
+  sys.stderr = sys.stdout
+  import os
+  from cgi import escape
 
-file "#{node['apache_test']['app_dir']}/python.py" do
-  content %q{
-#!/usr/bin/python
-import sys
-sys.stderr = sys.stdout
-import os
-from cgi import escape
+  print "Content-type: text/plain"
+  print
+  for k in sorted(os.environ):
+    print "%s=%s" %(escape(k), escape(os.environ[k]))
+  }.strip
+    mode '0755'
+    action :create
+  end
 
-print "Content-type: text/plain"
-print
-for k in sorted(os.environ):
-  print "%s=%s" %(escape(k), escape(os.environ[k]))
-}.strip
-  mode '0755'
-  action :create
-end
-
-web_app 'python_env' do
-  template 'python_env.conf.erb'
-  app_dir node['apache_test']['app_dir']
+  web_app 'python_env' do
+    template 'python_env.conf.erb'
+    app_dir node['apache_test']['app_dir']
+  end
 end
