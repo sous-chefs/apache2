@@ -123,7 +123,7 @@ if platform_family?('freebsd')
   end
 end
 
-if platform_family?('suse')
+if platform_family?('suse') && node['apache']['version'] >= '2.4' 
 
   directory "#{node['apache']['dir']}/vhosts.d" do
     action :delete
