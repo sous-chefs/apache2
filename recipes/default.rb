@@ -130,7 +130,7 @@ if platform_family?('suse')
     recursive true
   end
 
-  %w(charset.conv default-vhost.conf default-vhost-ssl.conf errors.conf listen.conf mime.types mod_autoindex-defaults.conf mod_info.conf mod_log_config.conf mod_status.conf mod_userdir.conf mod_usertrack.conf uid.conf).each do |file|
+  %w(charset.conv default-vhost.conf default-server.conf default-vhost-ssl.conf errors.conf listen.conf mime.types mod_autoindex-defaults.conf mod_info.conf mod_log_config.conf mod_status.conf mod_userdir.conf mod_usertrack.conf uid.conf).each do |file|
     file "#{node['apache']['dir']}/#{file}" do
       action :delete
       backup false
@@ -174,7 +174,7 @@ template 'apache2.conf' do
   elsif platform_family?('debian')
     path "#{node['apache']['conf_dir']}/apache2.conf"
   elsif platform_family?('suse')
-    path "#{node['apache']['conf_dir']}/default-server.conf"
+    path "#{node['apache']['conf_dir']}/httpd.conf"
   end
   action :create
   source 'apache2.conf.erb'
