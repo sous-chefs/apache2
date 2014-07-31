@@ -93,8 +93,8 @@ The following platforms and versions are tested and supported using
 [test-kitchen](http://kitchen.ci/)
 
 * Ubuntu 12.04, 14.04
-* Debian 7.4
-* CentOS 5.10, 6.5, 7.0
+* Debian 7.6
+* CentOS 6.5, 7.0
 
 The following platform families are supported in the code, and are
 assumed to work based on the successful testing on Ubuntu and CentOS.
