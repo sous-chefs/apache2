@@ -1,12 +1,9 @@
 require 'spec_helper'
 
-supported_platforms = {
-  'ubuntu' => ['12.04', '14.04'],
-  'debian' => ['7.0', '7.4']
-}
+platforms = supported_platforms.select { |key, _| %w(debian ubuntu).include?(key) }
 
 describe 'apache2::mod_pagespeed' do
-  supported_platforms.each do |platform, versions|
+  platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
@@ -26,7 +23,7 @@ describe 'apache2::mod_pagespeed' do
       end
     end
   end
-  it_should_behave_like 'an apache2 module', 'pagespeed', true, supported_platforms
+  it_should_behave_like 'an apache2 module', 'pagespeed', true, platforms
   # it 'raises an exception' do
   #   expect { chef_run }
   #      .to raise_error(RuntimeError, "`mac_os_x' is not supported!")

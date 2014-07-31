@@ -93,8 +93,8 @@ The following platforms and versions are tested and supported using
 [test-kitchen](http://kitchen.ci/)
 
 * Ubuntu 12.04, 14.04
-* Debian 7.4
-* CentOS 5.10, 6.5
+* Debian 7.6
+* CentOS 6.5, 7.0
 
 The following platform families are supported in the code, and are
 assumed to work based on the successful testing on Ubuntu and CentOS.
@@ -115,7 +115,7 @@ tested manually but are not tested under test-kitchen.
 On Red Hat Enterprise Linux and derivatives, the EPEL repository may
 be necessary to install packages used in certain recipes. The
 `apache2::default` recipe, however, does not require any additional
-repositories. Opscode's `yum` cookbook contains a recipe to add the
+repositories. Opscode's `yum-epel` cookbook can be used to add the
 EPEL repository. See __Examples__ for more information.
 
 ### Notes for FreeBSD:

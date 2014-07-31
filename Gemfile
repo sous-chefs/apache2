@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'berkshelf',  '~> 3.1'
 
 group :unit do
-  gem 'foodcritic',       '~> 3.0'
+  gem 'foodcritic',       '~> 4.0'
   gem 'rubocop',          '~> 0.24', '>= 0.24.0'
   gem 'chefspec',         '~> 4.0'
 end
@@ -20,7 +20,7 @@ group :development do
   gem 'guard-rubocop',    '~> 1.0'
   gem 'guard-foodcritic', '~> 1.0'
   gem 'guard-kitchen',    '~> 0.0'
-  gem 'guard-rspec',      '~> 4.2'
+  gem 'guard-rspec',      '~> 4.3'
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
   gem 'terminal-notifier-guard', :require => false
