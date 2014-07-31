@@ -7,7 +7,7 @@
   <Proxy *>
     AddDefaultCharset off
   <% if node['apache']['version'] == "2.4" -%>
-    Require all denied
+    Require <%= node['apache']['proxy']['require'] %>
   <% else -%>
     Order <%= node['apache']['proxy']['order'] %>
     Deny from <%= node['apache']['proxy']['deny_from'] %>
