@@ -26,7 +26,6 @@ v2.0.0 (unreleased)
   - `apache.worker.maxconnectionsperchild `replaces `apache.worker.maxrequestsperchild`
   - `apache.event.startservers`
   - `apache.event.serverlimit`
-  - `apache.event.maxclients`
   - `apache.event.minsparethreads`
   - `apache.event.maxsparethreads`
   - `apache.event.threadlimit`
