@@ -1,5 +1,6 @@
 {
     "apache": {
+        "version": "2.4",
         "package": "httpd",
         "binary": "/usr/sbin/httpd",
         "dir": "/etc/httpd",
