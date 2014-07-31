@@ -230,8 +230,8 @@ default['apache']['mpm'] = 'prefork'
 default['apache']['prefork']['startservers']        = 16
 default['apache']['prefork']['minspareservers']     = 16
 default['apache']['prefork']['maxspareservers']     = 32
-default['apache']['prefork']['serverlimit']         = 400
-default['apache']['prefork']['maxrequestworkers']   = 400
+default['apache']['prefork']['serverlimit']         = 256
+default['apache']['prefork']['maxrequestworkers']   = 256
 default['apache']['prefork']['maxconnectionsperchild'] = 10_000
 
 # Worker Attributes
