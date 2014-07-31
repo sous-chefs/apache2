@@ -4,14 +4,16 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 v2.0.0 (unreleased)
 --------------------
-- Apache will only be started when a configuration test passes, this allows the chef run to fix any broken configuration without failing the chef run.
+- [GH-157] - Apache will only be started when a configuration test passes, this allows the chef run to fix any broken configuration without failing the chef run.
 - `apache.log_dir` directory is now 0755 on all platforms (including the debian platform family)
 - [GH-166, GH-173] - `conf.d` is no longer used and replaced by `conf-available` and `conf-enabled` managed via the `a2enconf` and `a2disconf` scripts
 - [GH-166, GH-173] - All configuration files need to end in `.conf` for them to be loaded
-- [GH-173] Perl is a required package on all platforms to support the a2* scripts as we now use the debian versions directly.
-- [GH-193] per MPM settings: `maxclients` is now `maxrequestworkers`
-- [GH-194] per MPM settings: `maxrequestsperchild` is now `maxconnectionsperchild`
-- [GH-100] - Apache HTTP 2.4 Support
+- [GH-173] - Perl is a required package on all platforms to support the a2* scripts as we now use the debian versions directly.
+- [GH-193] - per MPM settings: `maxclients` is now `maxrequestworkers`
+- [GH-194] - per MPM settings: `maxrequestsperchild` is now `maxconnectionsperchild`
+- [GH-161] - Added support for CentOS 7
+- [GH-180] - Improved SuSE support
+- [GH-100] - Apache HTTP 2.4 support
   This provides Apache 2.4 support in a backwards compatible way.
   It adds the following new attributes:
   - `apache.version` - This defaults to `2.2` and if changed to `2.4`; it triggers and assumes 2.4 packages will be installed.
