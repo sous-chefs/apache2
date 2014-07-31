@@ -8,7 +8,7 @@
   <Directory <%= @params[:docroot] %>>
     Options <%= [@params[:directory_options] || "FollowSymLinks" ].flatten.join " " %>
     AllowOverride <%= [@params[:allow_override] || "None" ].flatten.join " " %>
-  <% if node[:apache][:version] == '2.4' -%>
+  <% if node['apache']['version'] == '2.4' -%>
     Require all granted
   <% else -%>
     Order allow,deny
@@ -24,7 +24,7 @@
   <Location /server-status>
     SetHandler server-status
 
-  <% if node[:apache][:version] == '2.4' -%>
+  <% if node['apache']['version'] == '2.4' -%>
     Require local
   <% else -%>
     Order Deny,Allow
@@ -35,7 +35,7 @@
   </Location>
 
   RewriteEngine On
-  <%- if node[:apache][:version] == '2.4' -%>
+  <%- if node['apache']['version'] == '2.4' -%>
   LogLevel info rewrite:trace1
   <%- else -%>
   LogLevel info

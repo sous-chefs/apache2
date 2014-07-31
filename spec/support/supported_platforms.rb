@@ -2,10 +2,10 @@
 def supported_platforms
   platforms = {
     'ubuntu' => ['12.04', '14.04'],
-    'debian' => ['7.0', '7.4'],
+    'debian' => ['6.0.5', '7.6'],
     'fedora' => %w(18 20),
-    'redhat' => ['5.9', '6.5'],
-    'centos' => ['5.9', '6.5'],
+    'redhat' => ['6.5', '7.0'],
+    'centos' => ['6.5', '7.0'],
     'freebsd' => ['9.2'],
     'opensuse' => ['13.1']
   }

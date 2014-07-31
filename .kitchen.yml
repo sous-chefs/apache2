@@ -10,16 +10,10 @@ provisioner:
   data_path: test/fixtures
 
 platforms:
-- name: centos-5.10
-  run_list:
-  - recipe[yum]
 - name: centos-6.5
   run_list:
   - recipe[yum]
 - name: centos-7.0
-  driver:
-    box: centos-7.0
-    box_url: http://packages.vstone.eu/vagrant-boxes/centos-7.x-64bit-latest.box
   run_list:
   - recipe[yum]
 - name: ubuntu-12.04
@@ -28,7 +22,7 @@ platforms:
 - name: ubuntu-14.04
   run_list:
   - recipe[apt]
-- name: debian-7.4
+- name: debian-7.6
   run_list:
   - recipe[apt]
 - name: fedora-20
@@ -85,9 +79,9 @@ suites:
       - recipe[apache2_test::mod_cgi]
 #      - recipe[apache2_test::mod_dav_svn]
       - recipe[apache2_test::mod_expires]
-#      - recipe[apache2_test::mod_perl]
+      - recipe[apache2_test::mod_perl]
       - recipe[apache2_test::mod_php5]
 #      - recipe[apache2_test::mod_proxy_ajp]
       - recipe[apache2_test::mod_python]
       - recipe[apache2_test::mod_ssl]
-#      - recipe[apache2_test::mod_status_remote]
+      - recipe[apache2_test::mod_status_remote]

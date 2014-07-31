@@ -1,5 +1,6 @@
 {
     "apache": {
+        "version": "2.4",
         "package": "httpd",
         "binary": "/usr/sbin/httpd",
         "dir": "/etc/httpd",
@@ -22,7 +23,7 @@
             "alias",
             "auth_basic",
             "authn_file",
-            "authz_default",
+            "authz_core",
             "authz_groupfile",
             "authz_host",
             "authz_user",

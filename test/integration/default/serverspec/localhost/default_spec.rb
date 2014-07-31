@@ -112,6 +112,7 @@ describe 'apache2::default' do
       expect(config).to_not contain "Include #{property[:apache][:dir]}/conf.d/*.conf"
     else
       expect(config).to contain "Include #{property[:apache][:dir]}/conf-enabled/*.conf"
+      expect(config).to_not contain "Include #{property[:apache][:dir]}/conf.d/*.conf"
       expect(config).to_not contain "IncludeOptional #{property[:apache][:dir]}/conf-enabled/*.conf"
     end
   end

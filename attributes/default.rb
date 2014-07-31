@@ -21,6 +21,8 @@ if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 13.10
   default['apache']['version'] = '2.4'
 elsif node['platform'] == 'debian' && node['platform_version'].to_f >= 8.0
   default['apache']['version'] = '2.4'
+elsif node['platform'] == 'redhat' && node['platform_version'].to_f >= 7.0
+  default['apache']['version'] = '2.4'
 elsif node['platform'] == 'centos' && node['platform_version'].to_f >= 7.0
   default['apache']['version'] = '2.4'
 elsif node['platform'] == 'fedora' && node['platform_version'].to_f >= 18
@@ -230,8 +232,8 @@ default['apache']['mpm'] = 'prefork'
 default['apache']['prefork']['startservers']        = 16
 default['apache']['prefork']['minspareservers']     = 16
 default['apache']['prefork']['maxspareservers']     = 32
-default['apache']['prefork']['serverlimit']         = 400
-default['apache']['prefork']['maxrequestworkers']   = 400
+default['apache']['prefork']['serverlimit']         = 256
+default['apache']['prefork']['maxrequestworkers']   = 256
 default['apache']['prefork']['maxconnectionsperchild'] = 10_000
 
 # Worker Attributes
