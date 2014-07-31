@@ -50,6 +50,8 @@ recipe 'apache2::mod_xsendfile', 'Apache module "xsendfile"'
 
 depends 'iptables'
 depends 'logrotate'
+depends 'pacman'
+depends 'freebsd'
 
 supports 'debian'
 supports 'ubuntu'
