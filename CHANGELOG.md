@@ -4,8 +4,13 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 v2.0.0 (unreleased)
 --------------------
+- Apache will only be started when a configuration test passes, this allows the chef run to fix any broken configuration without failing the chef run.
+- `apache.log_dir` directory is now 0755 on all platforms (including the debian platform family)
 - [GH-166, GH-173] - `conf.d` is no longer used and replaced by `conf-available` and `conf-enabled` managed via the `a2enconf` and `a2disconf` scripts
 - [GH-166, GH-173] - All configuration files need to end in `.conf` for them to be loaded
+- [GH-173] Perl is a required package on all platforms to support the a2* scripts as we now use the debian versions directly.
+- [GH-193] per MPM settings: `maxclients` is now `maxrequestworkers`
+- [GH-194] per MPM settings: `maxrequestsperchild` is now `maxconnectionsperchild`
 - [GH-100] - Apache HTTP 2.4 Support
   This provides Apache 2.4 support in a backwards compatible way.
   It adds the following new attributes:
@@ -36,16 +41,10 @@ v2.0.0 (unreleased)
 
   Apache 2.4 Upgrade Notes:
 
-  Since the changes between apache 2.2 and apache 2.4 are pretty significant, we are unable to account for all changes
-  needed for your upgrade.  Please take a moment to familiarize yourself with the Apache Software Foundation provided upgrade documentation before attempting to use this cookbook with apache 2.4. See http://httpd.apache.org/docs/current/upgrading.html
+  Since the changes between apache 2.2 and apache 2.4 are pretty significant, we are unable to account for all changes needed for your upgrade.  Please take a moment to familiarize yourself with the Apache Software Foundation provided upgrade documentation before attempting to use this cookbook with apache 2.4. See http://httpd.apache.org/docs/current/upgrading.html
 
   - This cookbook does not automatically specify which version of apache to install. We are at the mercy of the `package` provider. It is important, however, to make sure that you configure the `apache.version` attribute to match. For your convenience, we try to set reasonable defaults based on different platforms in our test suite.
   - `mod_proxy` -   In 2.4 mode, `apache.proxy.order`, `apache.proxy.deny_from`, `apache.proxy.allow_from` are ignored, as the attributes can not be supported in a backwards compatible way.
-  - `mpm modules` - per MPM settings: `maxclients` is now `maxrequestworkers`
-  - `mpm modules` - per MPM settings: `maxrequestsperchild` is now `maxconnectionsperchild`
-  - perl is a require package on all platforms to support the a2* scripts as we now use the debian versions directly.
-  - `apache.log_dir` directory is now 0755 on all platforms (including the debian family)
-  - Apache will only be started when a configuration test passes, this allows the chef run to fix any broken configuration without failing the chef run.
 
 v1.11.0 (2014-07-25)
 --------------------
