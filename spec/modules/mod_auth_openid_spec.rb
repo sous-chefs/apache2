@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe 'apache2::mod_auth_openid' do
   before do
-    stub_command('test -f /var/chef/cache/mod_auth_openid-95043901eab868400937642d9bc55d17e9dd069f/src/.libs/mod_auth_openid.so').and_return(true)
+    # node['apache']['mod_auth_openid']['ref']
+    version = 'v0.8'
+    stub_command("test -f #{Chef::Config[:file_cache_path]}/mod_auth_openid-#{version}/src/.libs/mod_auth_openid.so").and_return(true)
   end
 
   supported_platforms.each do |platform, versions|
@@ -43,7 +45,7 @@ describe 'apache2::mod_auth_openid' do
         elsif %w(freebsd).include?(platform)
           %w(libopkele pcre sqlite3).each do |package|
             it "installs package #{package}" do
-              expect(chef_run).to install_package(package)
+              expect(chef_run).to install_freebsd_package(package)
             end
           end
         end
