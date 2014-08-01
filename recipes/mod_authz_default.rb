@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: authz_default
+# Recipe:: mod_authz_default
 #
-# Copyright 2008-2013, Opscode, Inc.
+# Copyright 2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,5 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-apache_module 'authz_default'
+#
+log 'apache2::mod_authz_default is deprecated in favor of apache2::mod_authz_core. Please adjust your cookbooks'
+include_recipe 'apache2::mod_authz_core'

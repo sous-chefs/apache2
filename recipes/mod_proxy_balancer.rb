@@ -1,8 +1,9 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: proxy
+# Recipe:: mod_proxy_balancer
 #
 # Copyright 2008-2013, Opscode, Inc.
+# Copyright 2014, OneHealth Solutions, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +18,8 @@
 # limitations under the License.
 #
 
-apache_module 'proxy_balancer'
+include_recipe 'apache2::mod_slotmem_shm' if node['apache']['version'] == '2.4'
+
+apache_module 'proxy_balancer' do
+  conf true
+end

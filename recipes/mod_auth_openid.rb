@@ -18,10 +18,11 @@
 #
 
 openid_dev_pkgs = value_for_platform_family(
-  'debian'        => %w[automake make g++ apache2-prefork-dev libopkele-dev libopkele3 libtool],
-  %w[rhel fedora] => %w[gcc-c++ httpd-devel curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make libtool],
-  'arch'          => %w[libopkele],
-  'freebsd'       => %w[libopkele pcre sqlite3]
+  'debian'        => %w(automake make g++ apache2-prefork-dev libopkele-dev libopkele3 libtool),
+  'suse'          => %w(automake make g++ apache2-prefork-dev libopkele-dev libopkele3 libtool),
+  %w(rhel fedora) => %w(gcc-c++ httpd-devel curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make libtool),
+  'arch'          => %w(libopkele),
+  'freebsd'       => %w(libopkele pcre sqlite3)
 )
 
 make_cmd = value_for_platform_family(
@@ -47,8 +48,8 @@ end
 case node['platform_family']
 when 'rhel', 'fedora'
   remote_file "#{Chef::Config['file_cache_path']}/libopkele-2.0.4.tar.gz" do
-    source   'http://kin.klever.net/dist/libopkele-2.0.4.tar.gz'
-    mode     '0644'
+    source 'http://kin.klever.net/dist/libopkele-2.0.4.tar.gz'
+    mode '0644'
     checksum '57a5bc753b7e80c5ece1e5968b2051b0ce7ed9ce4329d17122c61575a9ea7648'
   end
 
@@ -70,14 +71,14 @@ configure_flags = node['apache']['mod_auth_openid']['configure_flags']
 
 remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.gz" do
   source node['apache']['mod_auth_openid']['source_url']
-  mode   '0644'
+  mode '0644'
   action :create_if_missing
 end
 
 directory node['apache']['mod_auth_openid']['cache_dir'] do
   owner node['apache']['user']
   group node['apache']['group']
-  mode  '0700'
+  mode '0700'
 end
 
 bash 'untar mod_auth_openid' do
@@ -106,16 +107,16 @@ bash 'install-mod_auth_openid' do
   code <<-EOH
   #{make_cmd} install
   EOH
-  creates "#{node['apache']['libexecdir']}/mod_auth_openid.so"
+  creates "#{node['apache']['libexec_dir']}/mod_auth_openid.so"
   notifies :restart, 'service[apache2]'
-  not_if "test -f #{node['apache']['libexecdir']}/mod_auth_openid.so"
+  not_if "test -f #{node['apache']['libexec_dir']}/mod_auth_openid.so"
 end
 
 template "#{node['apache']['dir']}/mods-available/authopenid.load" do
   source 'mods/authopenid.load.erb'
-  owner  'root'
-  group  node['apache']['root_group']
-  mode   '0644'
+  owner 'root'
+  group node['apache']['root_group']
+  mode '0644'
 end
 
 apache_module 'authopenid' do

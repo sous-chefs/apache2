@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: default
+# Recipe:: mod_pagespeed
 #
 # Copyright 2013, ZOZI
 #
@@ -33,5 +33,5 @@ if platform_family?('debian')
     conf true
   end
 else
-  Chef::Log.warn "apache::mod_pagespeed does not support #{node["platform_family"]} yet, and is not being installed"
+  Chef::Log.warn "apache::mod_pagespeed does not support #{node['platform_family']} yet, and is not being installed"
 end

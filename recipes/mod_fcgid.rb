@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: fcgid
+# Recipe:: mod_fcgid
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

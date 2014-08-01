@@ -1,7 +1,9 @@
 AllCops:
-  Excludes:
+  Exclude:
     - vendor/**
     - ruby/**
+    - test/**/*
+    - files/**/*
 
 AlignParameters:
   Enabled: false

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: auth_basic
+# Recipe:: mod_auth_cas
 #
 # Copyright 2013, Opscode, Inc.
 #
@@ -22,28 +22,28 @@ include_recipe 'apache2::default'
 if node['apache']['mod_auth_cas']['from_source']
   package 'httpd-devel' do
     package_name value_for_platform_family(
-      %w[rhel fedora suse] => 'httpd-devel',
+      %w(rhel fedora suse) => 'httpd-devel',
       'debian' => 'apache2-dev'
     )
   end
 
   git '/tmp/mod_auth_cas' do
     repository 'git://github.com/Jasig/mod_auth_cas.git'
-    revision   node['apache']['mod_auth_cas']['source_revision']
-    notifies   :run, 'execute[compile mod_auth_cas]', :immediately
+    revision node['apache']['mod_auth_cas']['source_revision']
+    notifies :run, 'execute[compile mod_auth_cas]', :immediately
   end
 
   execute 'compile mod_auth_cas' do
     command './configure && make && make install'
-    cwd     '/tmp/mod_auth_cas'
-    not_if  "test -f #{node['apache']['libexecdir']}/mod_auth_cas.so"
+    cwd '/tmp/mod_auth_cas'
+    not_if "test -f #{node['apache']['libexec_dir']}/mod_auth_cas.so"
   end
 
   template "#{node['apache']['dir']}/mods-available/auth_cas.load" do
     source 'mods/auth_cas.load.erb'
-    owner  'root'
-    group  node['apache']['root_group']
-    mode   '0644'
+    owner 'root'
+    group node['apache']['root_group']
+    mode '0644'
   end
 else
   case node['platform_family']
@@ -69,5 +69,5 @@ end
 directory "#{node['apache']['cache_dir']}/mod_auth_cas" do
   owner node['apache']['user']
   group node['apache']['group']
-  mode  '0700'
+  mode '0700'
 end

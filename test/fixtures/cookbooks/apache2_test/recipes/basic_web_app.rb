@@ -23,6 +23,7 @@ app_dir = "#{node['apache_test']['root_dir']}/basic_web_app"
 
 directory app_dir do
   action :create
+  recursive true
 end
 
 file "#{app_dir}/index.html" do

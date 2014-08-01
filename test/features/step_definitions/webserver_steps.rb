@@ -62,7 +62,7 @@ When 'the browser requests a page specifying that it supports compression' do
   @response_was_compressed = compresses_response?(:client_supports)
 end
 
-When(/^the remote address is (not )?listed as authorized$/) do |not_listed|
+When(/^the remote address is (not )?listed as authorized$/) do
   http_request '/secure/'
 end
 

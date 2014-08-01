@@ -10,10 +10,10 @@ provisioner:
   data_path: test/fixtures
 
 platforms:
-- name: centos-5.10
+- name: centos-6.5
   run_list:
   - recipe[yum]
-- name: centos-6.5
+- name: centos-7.0
   run_list:
   - recipe[yum]
 - name: ubuntu-12.04
@@ -22,18 +22,39 @@ platforms:
 - name: ubuntu-14.04
   run_list:
   - recipe[apt]
-- name: debian-7.4
+- name: debian-7.6
   run_list:
   - recipe[apt]
 - name: fedora-20
+  run_list:
+  - recipe[yum]
 - name: freebsd-9.2
-#- name: amazon
-#- name: arch
-#- name: redhat
-#- name: scientific-6.4
+  run_list:
+  - recipe[freebsd::portsnap]
+#- name: freebsd-10.0 # chef unsupported until 11.14.0
+# Cannot pull from repo when not in EC2
+#- name: amazon-2014.3
 #  driver:
-#    box: lyte-scientific-6-minimal
-#    box_url: http://lyte.id.au/vagrant/sl6-64-lyte.box
+#    box: amazon-linux64-2014.03
+#    box_url: http://images.geekandi.com/amazon-linux/vagrant-amazon-linux64-2014.03-public-virtualbox.box
+# Unsupported by omnibus-chef installation script
+#- name: arch
+#  driver:
+#    box: arch-2013.02.01
+#    box_url: http://cloud.terry.im/vagrant/archlinux-x86_64.box
+#- name: redhat
+- name: scientific-6.4
+  driver:
+    box: lyte-scientific-6-minimal
+    box_url: http://lyte.id.au/vagrant/sl6-64-lyte.box
+- name: opensuse-11.1
+  driver:
+    box: opensuse-11.1
+    box_url: https://s3.amazonaws.com/minesense/vagrant/opensuse-11.1-i586.box
+- name: opensuse-13.1
+  driver:
+    box: opensuse-13.1_64
+    box_url: http://share.cabtec.net/packer/opensuse-13.1-x86_64-0.3.0-virtualbox.box
 
 suites:
   - name: default
@@ -45,6 +66,7 @@ suites:
       - recipe[apache2_test::setup]
       - recipe[apache2_test::default]
       - recipe[apache2_test::basic_web_app]
+      - recipe[apache2_test::broken_conf]
       - recipe[apache2_test::modules]
       - recipe[apache2_test::mod_auth_basic]
       - recipe[apache2_test::mod_auth_digest]
@@ -57,9 +79,9 @@ suites:
       - recipe[apache2_test::mod_cgi]
 #      - recipe[apache2_test::mod_dav_svn]
       - recipe[apache2_test::mod_expires]
-#      - recipe[apache2_test::mod_perl]
+      - recipe[apache2_test::mod_perl]
       - recipe[apache2_test::mod_php5]
 #      - recipe[apache2_test::mod_proxy_ajp]
       - recipe[apache2_test::mod_python]
       - recipe[apache2_test::mod_ssl]
-#      - recipe[apache2_test::mod_status_remote]
+      - recipe[apache2_test::mod_status_remote]

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: fastcgi
+# Recipe:: mod_fastcgi
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
@@ -20,7 +20,7 @@
 if platform_family?('debian')
   package 'libapache2-mod-fastcgi'
 elsif platform_family?('rhel')
-  %w[gcc make libtool httpd-devel apr-devel apr].each do |package|
+  %w(gcc make libtool httpd-devel apr-devel apr).each do |package|
     yum_package package do
       action :upgrade
     end
@@ -29,15 +29,15 @@ elsif platform_family?('rhel')
   src_filepath  = "#{Chef::Config['file_cache_path']}/fastcgi.tar.gz"
   remote_file 'download fastcgi source' do
     source node['apache']['mod_fastcgi']['download_url']
-    path   src_filepath
+    path src_filepath
     backup false
   end
 
   top_dir = node['apache']['lib_dir']
   bash 'compile fastcgi source' do
     notifies :run, 'execute[generate-module-list]', :immediately
-    not_if   "test -f #{node['apache']['dir']}/mods-available/fastcgi.conf"
-    cwd      ::File.dirname(src_filepath)
+    not_if "test -f #{node['apache']['dir']}/mods-available/fastcgi.conf"
+    cwd ::File.dirname(src_filepath)
     code <<-EOH
       tar zxf #{::File.basename(src_filepath)} &&
       cd mod_fastcgi-* &&

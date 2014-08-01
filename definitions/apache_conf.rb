@@ -2,7 +2,7 @@
 # Cookbook Name:: apache2
 # Definition:: apache_conf
 #
-# Copyright 2008-20013, Opscode, Inc.
+# Copyright 2008-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +17,28 @@
 # limitations under the License.
 #
 
-define :apache_conf do
-  template "#{node['apache']['dir']}/mods-available/#{params[:name]}.conf" do
-    source   "mods/#{params[:name]}.conf.erb"
-    mode     '0644'
-    notifies :reload, 'service[apache2]'
+define :apache_conf, :enable => true do
+
+  conf_name = "#{params[:name]}.conf"
+  params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/conf-available"
+
+  file "#{params[:conf_path]}/#{params[:name]}" do
+    action :delete
   end
+
+  template "#{params[:conf_path]}/#{conf_name}" do
+    source "#{conf_name}.erb"
+    owner 'root'
+    group node['apache']['root_group']
+    backup false
+    mode '0644'
+    notifies :reload, 'service[apache2]', :delayed
+  end
+
+  if params[:enable]
+    apache_config params[:name] do
+      enable true
+    end
+  end
+
 end

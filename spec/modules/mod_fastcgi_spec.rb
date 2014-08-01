@@ -1,21 +1,34 @@
 require 'spec_helper'
 
-platforms = {
-  'ubuntu' => ['12.04', '14.04'],
-  'debian' => ['7.0', '7.4'],
-  'fedora' => %w(18 20),
-  'redhat' => ['5.9', '6.5'],
-  'centos' => ['5.9', '6.5'],
-  'freebsd' => ['9.2'],
-  'suse' => ['11.3']
-}
-#  'arch' =>
-
 describe 'apache2::mod_fastcgi' do
-  before do
-    stub_command('test -f /usr/lib/httpd/modules/mod_auth_openid.so').and_return(true)
-    stub_command('test -f /etc/httpd/mods-available/fastcgi.conf').and_return(true)
+  supported_platforms.each do |platform, versions|
+    versions.each do |version|
+      context "on #{platform.capitalize} #{version}" do
+        let(:chef_run) do
+          ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
+        end
+
+        property = load_platform_properties(:platform => platform, :platform_version => version)
+
+        before do
+          stub_command("test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf").and_return(true)
+          stub_command("#{property[:apache][:binary]} -t").and_return(true)
+        end
+
+        if %w(debian ubuntu).include?(platform)
+          it 'installs package libapache2-mod-fastcgi' do
+            expect(chef_run).to install_package('libapache2-mod-fastcgi')
+          end
+        elsif %w(redhat centos).include?(platform)
+          %w(gcc make libtool httpd-devel apr-devel apr).each do |package|
+            it "installs package #{package}" do
+              expect(chef_run).to upgrade_yum_package(package)
+            end
+          end
+        end
+      end
+    end
   end
 
-  it_should_behave_like 'an apache2 module', 'fastcgi', true, platforms
+  it_should_behave_like 'an apache2 module', 'fastcgi', true, supported_platforms
 end

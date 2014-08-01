@@ -2,6 +2,51 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v2.0.0 (unreleased)
+--------------------
+- [GH-157] - Apache will only be started when a configuration test passes, this allows the chef run to fix any broken configuration without failing the chef run.
+- `apache.log_dir` directory is now 0755 on all platforms (including the debian platform family)
+- [GH-166, GH-173] - `conf.d` is no longer used and replaced by `conf-available` and `conf-enabled` managed via the `a2enconf` and `a2disconf` scripts
+- [GH-166, GH-173] - All configuration files need to end in `.conf` for them to be loaded
+- [GH-173] - Perl is a required package on all platforms to support the a2* scripts as we now use the debian versions directly.
+- [GH-193] - per MPM settings: `maxclients` is now `maxrequestworkers`
+- [GH-194] - per MPM settings: `maxrequestsperchild` is now `maxconnectionsperchild`
+- [GH-161] - Added support for CentOS 7
+- [GH-180] - Improved SuSE support
+- [GH-100] - Apache HTTP 2.4 support
+  This provides Apache 2.4 support in a backwards compatible way.
+  It adds the following new attributes:
+  - `apache.version` - This defaults to `2.2` and if changed to `2.4`; it triggers and assumes 2.4 packages will be installed.
+  - `apache.mpm` -  In 2.4 mode, this specifies which mpm to install. Default is `prefork`.
+  - `apache.run_dir`
+  - `apache.lock_dir`
+  - `apache.libexec_dir` replaces `apache.libexecdir`
+  - `apache.prefork.maxrequestworkers` replaces `apache.prefork.maxclients`
+  - `apache.prefork.maxconnectionsperchild` replaces `apache.prefork.maxrequestsperchild`
+  - `apache.worker.threadlimit`
+  - `apache.worker.maxrequestworkers` replaces `apache.worker.maxclients`
+  - `apache.worker.maxconnectionsperchild `replaces `apache.worker.maxrequestsperchild`
+  - `apache.event.startservers`
+  - `apache.event.serverlimit`
+  - `apache.event.minsparethreads`
+  - `apache.event.maxsparethreads`
+  - `apache.event.threadlimit`
+  - `apache.event.threadsperchild`
+  - `apache.event.maxrequestworkers`
+  - `apache.event.maxconnectionsperchild`
+  - `apache.itk.startservers`
+  - `apache.itk.minspareservers`
+  - `apache.itk.maxspareservers`
+  - `apache.itk.maxrequestworkers`
+  - `apache.itk.maxconnectionsperchild`
+
+  Apache 2.4 Upgrade Notes:
+
+  Since the changes between apache 2.2 and apache 2.4 are pretty significant, we are unable to account for all changes needed for your upgrade.  Please take a moment to familiarize yourself with the Apache Software Foundation provided upgrade documentation before attempting to use this cookbook with apache 2.4. See http://httpd.apache.org/docs/current/upgrading.html
+
+  - This cookbook does not automatically specify which version of apache to install. We are at the mercy of the `package` provider. It is important, however, to make sure that you configure the `apache.version` attribute to match. For your convenience, we try to set reasonable defaults based on different platforms in our test suite.
+  - `mod_proxy` -   In 2.4 mode, `apache.proxy.order`, `apache.proxy.deny_from`, `apache.proxy.allow_from` are ignored, as the attributes can not be supported in a backwards compatible way. Please use `apache.proxy.require` instead.
+
 v1.11.0 (2014-07-25)
 --------------------
 - [GH-152] - Checking if server_aliases is defined in example
@@ -53,7 +98,7 @@ v1.9.0 (2014-02-21)
 -------------------
 ### Improvement
 - **[COOK-4076](https://tickets.opscode.com/browse/COOK-4076)** - foodcritic: dependencies are not defined properly
-- **[COOK-2572](https://tickets.opscode.com/browse/COOK-2572)** - Add mod_pagespeed recipe to apache2 
+- **[COOK-2572](https://tickets.opscode.com/browse/COOK-2572)** - Add mod_pagespeed recipe to apache2
 
 ### Bug
 - **[COOK-4043](https://tickets.opscode.com/browse/COOK-4043)** - apache2 cookbook does not depend on 'iptables'

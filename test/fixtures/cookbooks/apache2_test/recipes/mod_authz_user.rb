@@ -24,11 +24,21 @@ directory secure_dir do
   action :create
 end
 
+package 'apache2-utils' if platform_family?('debian', 'suse') && node['apache']['version'] == '2.4'
+
 bash 'add-credentials' do
-  code %Q{
-    htpasswd -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
-    htpasswd -b #{secure_dir}/.htpasswd meatballs secret
-  }
+  case node['platform_family']
+  when 'suse'
+    code %Q{
+      htpasswd2 -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
+      htpasswd2 -b #{secure_dir}/.htpasswd meatballs secret
+    }
+  else
+    code %Q{
+      htpasswd -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
+      htpasswd -b #{secure_dir}/.htpasswd meatballs secret
+    }
+  end
   action :run
 end
 

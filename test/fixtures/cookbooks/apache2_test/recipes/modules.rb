@@ -28,7 +28,6 @@ include_recipe 'apache2::default'
   deflate
   expires
   headers
-  ldap
   proxy
   proxy_balancer
   proxy_connect

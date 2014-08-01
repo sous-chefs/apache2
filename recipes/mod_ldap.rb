@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: ldap
+# Recipe:: mod_ldap
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'ldap'
+apache_module 'ldap' do
+  conf true
+end

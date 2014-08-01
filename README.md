@@ -16,6 +16,8 @@ sites (vhosts). The scripts are:
 * a2dissite
 * a2enmod
 * a2dismod
+* a2enconf
+* a2disconf
 
 This cookbook ships with templates of these scripts for non
 Debian/Ubuntu platforms. The scripts are used in the __Definitions__
@@ -33,7 +35,7 @@ As of v1.2.0, this cookbook makes use of `node['platform_family']` to
 simplify platform selection logic. This attribute was introduced in
 Ohai v0.6.12. The recipe methods were introduced in Chef v0.10.10. If
 you must run an older version of Chef or Ohai, use [version 1.1.16 of
-this cookbook](http://community.opscode.com/cookbooks/apache2/versions/1_1_16/downloads).
+this cookbook](https://supermarket.getchef.com/cookbooks/apache2/versions/1.1.16).
 
 ## Cookbooks:
 
@@ -90,13 +92,13 @@ ensure that the cookbook is available to the node, and to set up `god`.
 The following platforms and versions are tested and supported using
 [test-kitchen](http://kitchen.ci/)
 
-* Ubuntu 12.04
-* CentOS 5.10, 6.5
+* Ubuntu 12.04, 14.04
+* Debian 7.6
+* CentOS 6.5, 7.0
 
 The following platform families are supported in the code, and are
 assumed to work based on the successful testing on Ubuntu and CentOS.
 
-* Debian
 * Red Hat (rhel)
 * Fedora
 * Amazon Linux
@@ -113,14 +115,14 @@ tested manually but are not tested under test-kitchen.
 On Red Hat Enterprise Linux and derivatives, the EPEL repository may
 be necessary to install packages used in certain recipes. The
 `apache2::default` recipe, however, does not require any additional
-repositories. Opscode's `yum` cookbook contains a recipe to add the
+repositories. Opscode's `yum-epel` cookbook can be used to add the
 EPEL repository. See __Examples__ for more information.
 
 ### Notes for FreeBSD:
 
-The `apache2::mod_php5` recipe depends on the `freebsd` cookbook,
+The `apache2::mod_php5` recipe depends on the `freebsd::portsnap` recipe,
 which it uses to set the correct options for compiling the `php5` port
-from sources. You need to ensure the `freebsd` is in the expanded run
+from sources. You need to ensure that `freebsd::portsnap` is in the expanded run
 list, or this recipe will fail. We don't set an explicit dependency
 because we feel the `freebsd` cookbook is something users would want
 on their nodes, and due to the generality of this cookbook we don't
@@ -161,6 +163,7 @@ the top of the file.
 * `node['apache']['user']` - User Apache runs as
 * `node['apache']['group']` - Group Apache runs as
 * `node['apache']['binary']` - Apache httpd server daemon
+* `node['apache']['conf_dir']` - Location for the main config file (e.g apache2.conf or httpd.conf)
 * `node['apache']['docroot_dir']` - Location for docroot
 * `node['apache']['cgibin_dir']` - Location for cgi-bin
 * `node['apache']['icondir']` - Location for icons
@@ -176,6 +179,7 @@ General settings
 These are general settings used in recipes and templates. Default
 values are noted.
 
+* `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support.  Default is 2.2.
 * `node['apache']['listen_addresses']` - Addresses that httpd should listen on. Default is any ("*").
 * `node['apache']['listen_ports']` - Ports that httpd should listen on. Default is port 80.
 * `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
@@ -185,34 +189,60 @@ values are noted.
 * `node['apache']['keepalivetimeout']` - Value for the KeepAliveTimeout directive. Default is 5.
 * `node['apache']['sysconfig_additional_params']` - Additionals variables set in sysconfig file. Default is empty.
 * `node['apache']['default_modules']` - Array of module names. Can take "mod_FOO" or "FOO" as names, where FOO is the apache module, e.g. "`mod_status`" or "`status`".
+* `node['apache']['mpm']` - With apache.version 2.4, specifies what Multi-Processing Module to enable. Default is "prefork".
 
 The modules listed in `default_modules` will be included as recipes in `recipe[apache::default]`.
 
 Prefork attributes
 ------------------
 
-Prefork attributes are used for tuning the Apache HTTPD prefork MPM
-configuration.
+Prefork attributes are used for tuning the Apache HTTPD [prefork MPM](http://httpd.apache.org/docs/current/mod/prefork.html) configuration.
 
 * `node['apache']['prefork']['startservers']` - initial number of server processes to start. Default is 16.
 * `node['apache']['prefork']['minspareservers']` - minimum number of spare server processes. Default 16.
 * `node['apache']['prefork']['maxspareservers']` - maximum number of spare server processes. Default 32.
 * `node['apache']['prefork']['serverlimit']` - upper limit on configurable server processes. Default 400.
-* `node['apache']['prefork']['maxclients']` - Maximum number of simultaneous connections.
-* `node['apache']['prefork']['maxrequestsperchild']` - Maximum number of request a child process will handle. Default 10000.
+* `node['apache']['prefork']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously
+* `node['apache']['prefork']['maxconnectionsperchild']` - Maximum number of request a child process will handle. Default 10000.
 
 Worker attributes
 -----------------
 
-Worker attributes are used for tuning the Apache HTTPD worker MPM
+Worker attributes are used for tuning the Apache HTTPD [worker MPM](http://httpd.apache.org/docs/current/mod/worker.html)
 configuration.
 
 * `node['apache']['worker']['startservers']` - Initial number of server processes to start. Default 4
-* `node['apache']['worker']['serverlimit']` - upper limit on configurable server processes. Default 16.
-* `node['apache']['worker']['maxclients']` - Maximum number of simultaneous connections. Default 1024.
+* `node['apache']['worker']['serverlimit']` - Upper limit on configurable server processes. Default 16.
 * `node['apache']['worker']['minsparethreads']` - Minimum number of spare worker threads. Default 64
 * `node['apache']['worker']['maxsparethreads']` - Maximum number of spare worker threads. Default 192.
-* `node['apache']['worker']['maxrequestsperchild']` - Maximum number of requests a child process will handle.
+* `node['apache']['worker']['maxrequestworkers']` - Maximum number of simultaneous connections. Default 1024.
+* `node['apache']['worker']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
+
+Event attributes
+----------------
+
+Event attributes are used for tuning the Apache HTTPD [event MPM](http://httpd.apache.org/docs/current/mod/event.html)
+configuration.
+
+* `node['apache']['event']['startservers']` - Initial number of child server processes created at startup. Default 4.
+* `node['apache']['event']['serverlimit']` - Upper limit on configurable number of processes. Default 16.
+* `node['apache']['event']['minsparethreads']` - Minimum number of spare worker threads. Default 64
+* `node['apache']['event']['maxsparethreads']` - Maximum number of spare worker threads. Default 192.
+* `node['apache']['event']['threadlimit']` - Upper limit on the configurable number of threads per child process. Default 192.
+* `node['apache']['event']['threadsperchild']` - Number of threads created by each child process. Default 64.
+* `node['apache']['event']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
+* `node['apache']['event']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
+
+ITK Attributes
+--------------
+
+ITK attributes are used for tuning the experimental Apache HTTPD itk MPM configuration.
+
+* `node['apache']['itk']['startservers']` - Initial number of child server processes created at startup. Default 16.
+* `node['apache']['itk']['minspareservers']` - Minimum number of spare servers. Default 16.
+* `node['apache']['itk']['maxspareservers']` - Maximum number of spare servers. Default 16.
+* `node['apache']['itk']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
+* `node['apache']['itk']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
 
 mod\_auth\_openid attributes
 ----------------------------
@@ -236,7 +266,7 @@ mod\_ssl attributes
   considered "sane" but you may need to change it for your local
   security policy, e.g. if you have PCI-DSS requirements. Additional
   commentary on the
-  [original pull request](https://github.com/opscode-cookbooks/apache2/pull/15#commitcomment-1605406).
+  [original pull request](https://github.com/onehealth-cookbooks/apache2/pull/15#commitcomment-1605406).
 
 Recipes
 =======
@@ -384,7 +414,85 @@ these definitions may be refactored into lightweight resources and
 providers as suggested by
 [foodcritic rule FC015](http://acrmp.github.com/foodcritic/#FC015).
 
+apache\_config
+------------
+
+Sets up configuration file for Apache from a template. The
+template should be in the same cookbook where the definition is used. This is used by the `apache_conf` definition and is not often used directly.
+
+It will use `a2enconf` and `a2disconf` to control the symlinking of configuration files between `conf-available` and `conf-enabled`.
+
+Enable or disable an Apache config file in
+`#{node['apache']['dir']}/conf-available` by calling `a2enmod` or
+`a2dismod` to manage the symbolic link in
+`#{node['apache']['dir']}/conf-enabled`. These config files should be created in your cookbook, and placed on the system using `apache_conf`
+
+### Parameters:
+
+* `name` - Name of the config enabled or disabled with the `a2enconf` or `a2disconf` scripts.
+* `enable` - Default true, which uses `a2enconf` to enable the config. If false, the config will be disabled with `a2disconf`.
+
+### Examples:
+
+Enable the example config.
+
+``````
+    apache_config 'example' do
+      enable true
+    end
+``````
+
+Disable a module:
+
+``````
+    apache_config 'disabled_example' do
+      enable false
+    end
+``````
+
+See the recipes directory for many more examples of `apache_config`.
+
 apache\_conf
+------------
+
+Writes conf files to the `conf-available` folder, and passes enabled values to `apache_config`.
+
+This definition should generally be called over `apache_config`.
+
+### Parameters:
+
+* `name` - Name of the config placed and enabled or disabled with the `a2enconf` or `a2disconf` scripts.
+* `enable` - Default true, which uses `a2enconf` to enable the config. If false, the config will be disabled with `a2disconf`.
+* `conf_path` - path to put the config in if you need to override the default `conf-available`.
+
+### Examples:
+
+Place and enable the example conf:
+
+``````
+    apache_conf 'example' do
+      enable true
+    end
+``````
+
+Place and disable (or never enable to begin with) the example conf:
+
+``````
+    apache_conf 'example' do
+      enable false
+    end
+``````
+
+Place the example conf, which has a different path than the default (conf-*):
+
+``````
+    apache_conf 'example' do
+      conf_path '/random/example/path'
+      enable false
+    end
+``````
+
+apache\_mod
 ------------
 
 Sets up configuration file for an Apache module from a template. The
@@ -406,7 +514,9 @@ __apache\_module__.
 
 Create `#{node['apache']['dir']}/mods-available/alias.conf`.
 
-    apache_conf "alias"
+``````
+    apache_mod "alias"
+``````
 
 apache\_module
 --------------
@@ -423,28 +533,34 @@ the definition is used. See __Examples__.
 * `name` - Name of the module enabled or disabled with the `a2enmod` or `a2dismod` scripts.
 * `identifier` - String to identify the module for the `LoadModule` directive. Not typically needed, defaults to `#{name}_module`
 * `enable` - Default true, which uses `a2enmod` to enable the module. If false, the module will be disabled with `a2dismod`.
-* `conf` - Default false. Set to true if the module has a config file, which will use `apache_conf` for the file.
+* `conf` - Default false. Set to true if the module has a config file, which will use `apache_mod` for the file.
 * `filename` - specify the full name of the file, e.g.
 
 ### Examples:
 
 Enable the ssl module, which also has a configuration template in `templates/default/mods/ssl.conf.erb`.
 
+``````
     apache_module "ssl" do
       conf true
     end
+``````
 
 Enable the php5 module, which has a different filename than the module default:
 
+``````
     apache_module "php5" do
       filename "libphp5.so"
     end
+``````
 
 Disable a module:
 
+``````
     apache_module "disabled_module" do
       enable false
     end
+``````
 
 See the recipes directory for many more examples of `apache_module`.
 
@@ -515,11 +631,13 @@ an example. The following parameters are used in the template:
 
 To use the default web_app, for example:
 
+``````
     web_app "my_site" do
       server_name node['hostname']
       server_aliases [node['fqdn'], "my-site.example.com"]
       docroot "/srv/www/my_site"
     end
+``````
 
 The parameters specified will be used as:
 
@@ -541,6 +659,7 @@ environment, you may have multiple roles that use different recipes
 from this cookbook. Adjust any attributes as desired. For example, to
 create a basic role for web servers that provide both HTTP and HTTPS:
 
+``````
     % cat roles/webserver.rb
     name "webserver"
     description "Systems that serve HTTP and HTTPS"
@@ -553,6 +672,7 @@ create a basic role for web servers that provide both HTTP and HTTPS:
         "listen_ports" => ["80", "443"]
       }
     )
+``````
 
 For examples of using the definitions in your own recipes, see their
 respective sections above.
@@ -577,10 +697,10 @@ License and Authors
 * Author:: Sander van Zoest <svanzoest@onehealth.com>
 * Author:: Taylor Price <tprice@onehealth.com>
 
-* Copyright:: 2013-2014, OneHealth Solutions, Inc.
 * Copyright:: 2009-2012, Opscode, Inc
 * Copyright:: 2011, Atriso
 * Copyright:: 2011, CustomInk, LLC.
+* Copyright:: 2013-2014, OneHealth Solutions, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -34,17 +34,10 @@ describe 'apache2::mod_ssl' do
 
   subject(:enabled) { file("#{property[:apache][:dir]}/mods-enabled/#{expected_module}.load") }
   it "mods-enabled/#{expected_module}.load is a symlink to mods-available/#{expected_module}.load" do
-    # rspec3 syntax
-    # is_expected.to be_linked_to("#{property[:apache][:dir]}/mods-available/#{expected_module}.load").or be_linked_to("../mods-available/#{expected_module}.load")
-    os = backend.check_os
-    if os[:family] == 'RedHat'
-      expect(enabled).to be_linked_to("#{property[:apache][:dir]}/mods-available/#{expected_module}.load")
-    else
-      expect(enabled).to be_linked_to("../mods-available/#{expected_module}.load")
-    end
+    expect(enabled).to be_linked_to("../mods-available/#{expected_module}.load")
   end
 
-  subject(:loaded_modules) { command("#{property[:apache][:binary]} -M") }
+  subject(:loaded_modules) { command("APACHE_LOG_DIR=#{property[:apache][:log_dir]} #{property[:apache][:binary]} -M") }
   it "#{expected_module} is loaded" do
     expect(loaded_modules).to return_exit_status 0
     expect(loaded_modules).to return_stdout(/#{expected_module}_module/)

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: perl
+# Recipe:: mod_perl
 #
 # adapted from the mod_python recipe by Jeremy Bingham
 #
@@ -21,7 +21,7 @@
 
 case node['platform_family']
 when 'debian'
-  %w[libapache2-mod-perl2 libapache2-request-perl apache2-mpm-prefork].each do |pkg|
+  %w(libapache2-mod-perl2 libapache2-request-perl apache2-mpm-prefork).each do |pkg|
     package pkg
   end
 when 'suse'
