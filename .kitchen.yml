@@ -28,10 +28,8 @@ platforms:
 - name: fedora-20
   run_list:
   - recipe[yum]
-- name: freebsd-9.2
-  run_list:
-  - recipe[freebsd::portsnap]
-#- name: freebsd-10.0 # chef unsupported until 11.14.0
+#- name: freebsd-9.2
+- name: freebsd-10.0
 # Cannot pull from repo when not in EC2
 #- name: amazon-2014.3
 #  driver:

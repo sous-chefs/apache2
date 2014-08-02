@@ -29,6 +29,8 @@ elsif node['platform'] == 'fedora' && node['platform_version'].to_f >= 18
   default['apache']['version'] = '2.4'
 elsif node['platform'] == 'opensuse' && node['platform_version'].to_f >= 13.1
   default['apache']['version'] = '2.4'
+elsif node['platform'] == 'freebsd' && node['platform_version'].to_f >= 10.0
+  default['apache']['version'] = '2.4'
 else
   default['apache']['version'] = '2.2'
 end
