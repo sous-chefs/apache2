@@ -23,9 +23,9 @@ describe 'apache2::default' do
 
         it "installs package #{property[:apache][:package]}" do
           if platform == 'freebsd'
-             expect(chef_run).to install_freebsd_package(property[:apache][:package])
+            expect(chef_run).to install_freebsd_package(property[:apache][:package])
           else
-             expect(chef_run).to install_package(property[:apache][:package])
+            expect(chef_run).to install_package(property[:apache][:package])
           end
         end
 
@@ -60,9 +60,9 @@ describe 'apache2::default' do
 
         it "installs package #{property[:apache][:perl_pkg]}" do
           if platform == 'freebsd'
-             expect(chef_run).to install_freebsd_package(property[:apache][:perl_pkg])
+            expect(chef_run).to install_freebsd_package(property[:apache][:perl_pkg])
           else
-             expect(chef_run).to install_package(property[:apache][:perl_pkg])
+            expect(chef_run).to install_package(property[:apache][:perl_pkg])
           end
         end
 
