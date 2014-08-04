@@ -176,6 +176,8 @@ when 'freebsd'
   default['apache']['libexec_dir']  = node['apache']['lib_dir']
   default['apache']['default_site_enabled'] = false
 else
+  default['apache']['package']     = 'apache2'
+  default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
   default['apache']['error_log']   = 'error.log'
@@ -183,6 +185,7 @@ else
   default['apache']['user']        = 'www-data'
   default['apache']['group']       = 'www-data'
   default['apache']['binary']      = '/usr/sbin/apache2'
+  default['apache']['conf_dir']    = '/etc/apache2'
   default['apache']['docroot_dir'] = '/var/www'
   default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
   default['apache']['icondir']     = '/usr/share/apache2/icons'
