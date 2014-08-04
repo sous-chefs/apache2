@@ -35,9 +35,6 @@ platforms:
 - name: debian-7.4
   run_list:
   - recipe[apt]
-- name: fedora-20
-  run_list:
-  - recipe[yum]
 - name: freebsd-10.0
 #- name: freebsd-9.2
 #  run_list:
@@ -62,14 +59,6 @@ platforms:
     apache:
       version: '2.4'
 - name: suse-11.3
-# - name: amazon
-# - name: arch
-# - name: redhat
-# - name: scientific-6.4
-#  driver:
-#    box: arch-2013.02.01
-#    box_url: http://cloud.terry.im/vagrant/archlinux-x86_64.box
-#- name: redhat
 - name: scientific-6.4
   driver:
     box: lyte-scientific-6-minimal
