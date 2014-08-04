@@ -64,7 +64,6 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
                                      end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
-  default['apache']['default_site_enabled'] = false
 when 'suse', 'opensuse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
@@ -88,7 +87,6 @@ when 'suse', 'opensuse'
   end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
-  default['apache']['default_site_enabled'] = false
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
@@ -115,7 +113,6 @@ when 'debian', 'ubuntu'
   end
   default['apache']['lib_dir']     = '/usr/lib/apache2'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
-  default['apache']['default_site_enabled'] = false
   default['apache']['default_site_name'] = '000-default'
 when 'arch'
   default['apache']['package']     = 'apache'
@@ -138,7 +135,6 @@ when 'arch'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
   default['apache']['lib_dir']     = '/usr/lib/httpd'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
-  default['apache']['default_site_enabled'] = false
 when 'freebsd'
   if node['apache']['version'] == '2.4'
     default['apache']['package']     = 'apache24'
@@ -174,8 +170,9 @@ when 'freebsd'
   default['apache']['group']       = 'www'
   default['apache']['binary']      = '/usr/local/sbin/httpd'
   default['apache']['libexec_dir']  = node['apache']['lib_dir']
-  default['apache']['default_site_enabled'] = false
 else
+  default['apache']['package']     = 'apache2'
+  default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
   default['apache']['error_log']   = 'error.log'
@@ -183,6 +180,7 @@ else
   default['apache']['user']        = 'www-data'
   default['apache']['group']       = 'www-data'
   default['apache']['binary']      = '/usr/sbin/apache2'
+  default['apache']['conf_dir']    = '/etc/apache2'
   default['apache']['docroot_dir'] = '/var/www'
   default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
   default['apache']['icondir']     = '/usr/share/apache2/icons'
@@ -192,7 +190,6 @@ else
   default['apache']['pid_file']    = 'logs/httpd.pid'
   default['apache']['lib_dir']     = '/usr/lib/apache2'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
-  default['apache']['default_site_enabled'] = false
 end
 
 ###
@@ -209,6 +206,7 @@ default['apache']['keepalive']         = 'On'
 default['apache']['keepaliverequests'] = 100
 default['apache']['keepalivetimeout']  = 5
 default['apache']['sysconfig_additional_params'] = {}
+default['apache']['default_site_enabled'] = false
 
 # Security
 default['apache']['servertokens']    = 'Prod'
