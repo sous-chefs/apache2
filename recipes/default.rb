@@ -82,7 +82,7 @@ directory node['apache']['log_dir'] do
 end
 
 # perl is needed for the a2* scripts
-package node['apache']['perl_pkg']
+package node['apache']['perl_pkg'] unless node['apache']['perl_pkg'].nil?
 
 %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
   template "/usr/sbin/#{modscript}" do
