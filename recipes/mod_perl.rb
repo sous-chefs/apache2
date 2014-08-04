@@ -36,6 +36,13 @@ when 'rhel', 'fedora'
   end
 
   package 'perl-libapreq2'
+when 'freebsd'
+  if node['apache']['version'] == '2.4'
+    package 'ap24mod_perl2'
+  else
+    package 'ap22mod_perl2'
+  end
+  package 'p5-libapreq2'
 end
 
 file "#{node['apache']['dir']}/conf.d/perl.conf" do

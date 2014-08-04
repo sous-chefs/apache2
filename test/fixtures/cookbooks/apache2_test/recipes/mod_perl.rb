@@ -23,7 +23,12 @@ if platform_family?('rhel')
   include_recipe 'yum-epel'
 end
 
-include_recipe 'apache2::mod_perl'
+if platform_family?('freebsd')
+  Chef::Log.warn('The freebsd platform do not have a working package for mod_perl.')
+  Chef::Log.warn('See https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=191471')
+else
+  include_recipe 'apache2::mod_perl'
+end
 
 package 'perl-CGI-SpeedyCGI' do
   action :install

@@ -49,8 +49,8 @@ when 'suse'
     not_if 'which php'
   end
 when 'freebsd'
-  freebsd_package 'php5' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+  %w(php5 mod_php5 libxml2).each do |pkg|
+    freebsd_package pkg
   end
 end
 

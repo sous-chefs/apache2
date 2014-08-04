@@ -6,7 +6,7 @@
         "dir": "/usr/local/etc/apache24",
         "lib_dir": "/usr/local/libexec/apache24",
         "libexec_dir": "/usr/local/libexec/apache24",
-        "cache_dir": "/var/run/apache24",
+        "cache_dir": "/var/cache/apache24",
         "docroot_dir": "/usr/local/www/apache24/data",
         "cgibin_dir": "/usr/local/www/apache24/cgi-bin",
         "conf": "/usr/local/etc/apache24/httpd.conf",

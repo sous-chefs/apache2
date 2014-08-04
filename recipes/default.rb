@@ -194,8 +194,8 @@ apache_conf 'ports' do
   conf_path node['apache']['dir']
 end
 
-if node['apache']['version'] == '2.4'
-  # in apache 2.4 on ubuntu, you need to explicitly load the mpm you want to use, it is no longer compiled in.
+if node['apache']['version'] == '2.4' && !platform_family?('freebsd')
+  # on freebsd the prefork mpm is staticly compiled in
   include_recipe "apache2::mpm_#{node['apache']['mpm']}"
 end
 
