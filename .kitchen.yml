@@ -58,7 +58,6 @@ platforms:
   attributes:
     apache:
       version: '2.4'
-- name: suse-11.3
 - name: scientific-6.4
   driver:
     box: lyte-scientific-6-minimal
@@ -67,10 +66,14 @@ platforms:
   driver:
     box: opensuse-11.1
     box_url: https://s3.amazonaws.com/minesense/vagrant/opensuse-11.1-i586.box
+  run_list:
+  - recipe[zypper]
 - name: opensuse-13.1
   driver:
-    box: opensuse-13.1_64
-    box_url: http://share.cabtec.net/packer/opensuse-13.1-x86_64-0.3.0-virtualbox.box
+    box: opscode-opensuse-13.1
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_opensuse-13.1-x86_64_chef-provisionerless.box
+  run_list:
+  - recipe[zypper]
 
 suites:
 - name: default
