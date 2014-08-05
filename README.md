@@ -120,13 +120,8 @@ EPEL repository. See __Examples__ for more information.
 
 ### Notes for FreeBSD:
 
-The `apache2::mod_php5` recipe depends on the `freebsd::portsnap` recipe,
-which it uses to set the correct options for compiling the `php5` port
-from sources. You need to ensure that `freebsd::portsnap` is in the expanded run
-list, or this recipe will fail. We don't set an explicit dependency
-because we feel the `freebsd` cookbook is something users would want
-on their nodes, and due to the generality of this cookbook we don't
-want additional specific dependencies.
+Version 2.0 has been had some basic testing against FreeBSD 10.0 using
+Chef 11.14.2 which has support for pkgng (CHEF-4637).
 
 Tests
 =====
