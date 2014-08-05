@@ -23,23 +23,21 @@ end
 
 service 'apache2' do
   case node['platform_family']
-  when 'rhel', 'fedora'
+  when 'fedora'
     service_name 'httpd'
-    # If restarted/reloaded too quickly httpd has a habit of failing.
-    # This may happen with multiple recipes notifying apache to restart - like
-    # during the initial bootstrap.
-    restart_command '/sbin/service httpd restart && sleep 1'
-    reload_command '/sbin/service httpd reload && sleep 1'
+    restart_command '/sbin/service httpd restart'
+    reload_command '/sbin/service httpd reload'
+  when 'rhel'
+    service_name 'httpd'
+    restart_command '/sbin/service httpd restart'
+    reload_command '/sbin/service httpd graceful'
   when 'suse'
-    # If restarted/reloaded too quickly httpd has a habit of failing.
-    # This may happen with multiple recipes notifying apache to restart - like
-    # during the initial bootstrap.
-    restart_command '/sbin/service apache2 restart && sleep 1'
-    reload_command '/sbin/service apache2 reload && sleep 1'
+    restart_command '/sbin/service apache2 restart'
+    reload_command '/sbin/service apache2 reload'
   when 'debian'
     provider Chef::Provider::Service::Debian
-    restart_command '/usr/sbin/invoke-rc.d apache2 restart && sleep 1'
-    reload_command '/usr/sbin/invoke-rc.d apache2 reload && sleep 1'
+    restart_command '/usr/sbin/invoke-rc.d apache2 restart'
+    reload_command '/usr/sbin/invoke-rc.d apache2 reload'
   when 'arch'
     service_name 'httpd'
   when 'freebsd'
@@ -92,7 +90,7 @@ package node['apache']['perl_pkg']
   end
 end
 
-if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
+unless platform_family?('debian')
   cookbook_file '/usr/local/bin/apache2_module_conf_generate.pl' do
     source 'apache2_module_conf_generate.pl'
     mode '0755'
