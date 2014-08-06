@@ -20,12 +20,12 @@
 actions :create, :delete, :enable, :disable
 default_action :create
 
-attribute :group, kind_of: String
-attribute :mode, kind_of: Fixnum, default: 00644
-attribute :owner, kind_of: String
-attribute :source, kind_of: String, default: 'web_app.conf.erb'
-attribute :cookbook, kind_of: String, default: 'apache2'
-attribute :variables, kind_of: Hash
+attribute :group, :kind_of => String
+attribute :mode, :kind_of => Fixnum, :default =>  00644
+attribute :owner, :kind_of => String
+attribute :source, :kind_of => String, :default => 'web_app.conf.erb'
+attribute :cookbook, :kind_of => String, :default => 'apache2'
+attribute :variables, :kind_of => Hash
 
 def initialize(*args)
   super

@@ -48,12 +48,12 @@ end
 action :delete do
   file available do
     action :delete
-    only_if { ::File.exists?(available) }
+    only_if { ::File.exist?(available) }
   end
 
   file enabled do
     action :delete
-    only_if { ::File.exists?(enabled) }
+    only_if { ::File.exist?(enabled) }
   end
   new_resource.updated_by_last_action(true)
 end
@@ -61,7 +61,7 @@ end
 action :enable do
   execute "a2ensite #{new_resource.name}.conf" do
     command "/usr/sbin/a2ensite #{new_resource.name}.conf"
-    only_if { ::File.exists?(available) }
+    only_if { ::File.exist?(available) }
   end
 
   new_resource.updated_by_last_action(true)
@@ -70,7 +70,7 @@ end
 action :disable do
   execute "a2dissite #{new_resource.name}.conf" do
     command "/usr/sbin/a2dissite #{new_resource.name}.conf"
-    only_if { ::File.exists?(enabled) }
+    only_if { ::File.exist?(enabled) }
   end
 
   new_resource.updated_by_last_action(true)

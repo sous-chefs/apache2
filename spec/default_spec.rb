@@ -188,7 +188,7 @@ describe 'apache2::default' do
         end
 
         let(:web_app) { chef_run.apache2_web_app('000-default') }
-        it "notification is triggered by apache2_web_app to reload service[apache2]" do
+        it 'notification is triggered by apache2_web_app to reload service[apache2]' do
           expect(web_app).to notify('service[apache2]').to(:reload)
           expect(web_app).to_not notify('service[apache2]').to(:stop)
         end

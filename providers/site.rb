@@ -27,7 +27,7 @@ end
 action :create do
   execute "a2ensite #{new_resource.name}" do
     command "/usr/sbin/a2ensite #{new_resource.name}"
-    only_if { ::File.exists?("#{node['apache']['dir']}/sites-available/#{new_resource.name}") }
+    only_if { ::File.exist?("#{node['apache']['dir']}/sites-available/#{new_resource.name}") }
   end
 
   new_resource.updated_by_last_action(true)
@@ -36,7 +36,7 @@ end
 action :delete do
   execute "a2dissite #{new_resource.name}" do
     command "/usr/sbin/a2dissite #{new_resource.name}"
-    only_if { ::File.exists?("#{node['apache']['dir']}/sites-enabled/#{new_resource.name}") }
+    only_if { ::File.exist?("#{node['apache']['dir']}/sites-enabled/#{new_resource.name}") }
   end
 
   new_resource.updated_by_last_action(true)

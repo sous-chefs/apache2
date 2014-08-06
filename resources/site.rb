@@ -20,8 +20,8 @@
 actions :create, :delete
 default_action :create
 
-attribute :conf, kind_of: String
-attribute :enable, kind_of: TrueClass, default: false
+attribute :conf, :kind_of => String
+attribute :enable, :kind_of => TrueClass, :default => false
 
 def initialize(*args)
   super
