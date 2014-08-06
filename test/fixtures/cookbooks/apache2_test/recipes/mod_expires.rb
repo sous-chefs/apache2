@@ -16,15 +16,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+extend Apache2::Helpers
 include_recipe 'apache2::default'
 include_recipe 'apache2::mod_expires'
 
-directory "#{node['apache_test']['root_dir']}/cachetest" do
+name = /([^\/]*)\.rb$/.match(__FILE__)[1]
+docroot = "#{node['apache_test']['root_dir']}/#{name}"
+
+directory docroot do
   action :create
 end
 
-web_app 'cachetest' do
-  template 'cache_test.conf.erb'
-  cache_expiry_seconds node['apache_test']['cache_expiry_seconds']
+file "#{docroot}/index.html" do
+  content "Hello #{name}"
+  action :create
+end
+
+template_variables = basic_web_app(name, docroot)
+template_variables['locations'] = {
+  '/' => {
+    'ExpiresActive' => 'on',
+    'ExpiresDefault' => "A#{node['apache_test']['cache_expiry_seconds']}"
+  }
+}
+
+apache2_web_app name do
+  variables template_variables
+  action [:create, :enable]
+  notifies :reload, 'service[apache2]'
 end

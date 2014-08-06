@@ -202,12 +202,13 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{module_recipe_name}"
 end
 
-web_app 'default' do
-  template 'default-site.conf.erb'
-  path "#{node['apache']['dir']}/sites-available/default.conf"
-  enable node['apache']['default_site_enabled']
-end
-
-apache_site '000-default' do
-  enable node['apache']['default_site_enabled']
+extend Apache2::Helpers
+template_variables = default_web_app
+apache2_web_app '000-default' do
+  variables template_variables
+  owner 'root'
+  group node['apache']['root_group']
+  action [:create, :enable]
+  notifies :reload, 'service[apache2]'
+  only_if { node['apache']['default_site_enabled'] }
 end

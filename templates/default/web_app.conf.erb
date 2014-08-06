@@ -1,61 +1,44 @@
-<VirtualHost *:<%= @params[:server_port] || node['apache']['listen_ports'].first %>>
-  ServerName <%= @params[:server_name] %>
-  <% if @params[:server_aliases] -%>
-  ServerAlias <%= @params[:server_aliases].join " " %>
-  <% end -%>
-  DocumentRoot <%= @params[:docroot] %>
+<VirtualHost *:<%= @port %>><% if @server_name -%>
+  ServerName <%= @server_name %><% end -%><% if @server_aliases -%>
+  ServerAlias <%= @server_aliases.join ' ' %><% end %><% if @server_admin -%>
+  ServerAdmin <%= @server_admin %><% end -%><% if @server_signature -%>
+  ServerSignature <%= @server_signature%><% end -%><% if @docroot -%>
+  DocumentRoot <%= @docroot %><% end -%><% if @log_level -%>
+  LogLevel <%= @log_level %><% end -%><% if @error_log -%>
+  ErrorLog <%= @error_log %><% end -%><% if @custom_log -%>
+  CustomLog <%= @custom_log %><% end -%><% if @script_alias -%>
+  ScriptAlias <%= @script_alias %><% end -%><% if @rewrite_engine -%>
+  RewriteEngine <%= @rewrite_engine %><% end -%><% if @rewrite_log -%>
+  RewriteLog <%= @rewrite_log %><% end -%><% if @rewrite_log_level -%>
+  RewriteLogLevel <%= @rewrite_log_level %><% end -%><% if @directory_index -%>
+  DirectoryIndex <%= @directory_index.join ' ' %><% end -%><% if @redirect -%><% @redirect.each do |src, dest| %>
+  Redirect <%= src %> <%= dest %><% end %><% end -%><% if @ssl_engine -%>
+  SSLEngine <%= @ssl_engine %><% end -%><% if @ssl_certificate_file -%>
+  SSLCertificateFile <%= @ssl_certificate_file %><% end -%><% if @ssl_certificate_key_file -%>
+  SSLCertificateKeyFile <%= @ssl_certificate_key_file %><% end -%><% if @ssl_protocol -%>
+  SSLProtocol <%= [@ssl_protocol].flatten.join " " %><% end -%><% if @ssl_cipher_suite -%>
+  SSLCipherSuite <%= [@ssl_cipher_suite].flatten.join ":" %><% end -%><% if @set_env_if -%><% @set_env_if.each do |a| %>
+  SetEnvIf <%= a %><% end %><% end -%><% if @aliases -%><% @aliases.each do |src, dest| %>
+  Alias <%= src %> <%= dest %><% end %><% end -%><% if @directories -%>
+  <% @directories.each do |directory, directives| %>
 
-  <Directory <%= @params[:docroot] %>>
-    Options <%= [@params[:directory_options] || "FollowSymLinks" ].flatten.join " " %>
-    AllowOverride <%= [@params[:allow_override] || "None" ].flatten.join " " %>
-  <% if node['apache']['version'] == '2.4' -%>
-    Require all granted
-  <% else -%>
-    Order allow,deny
-    Allow from all
-  <% end -%>
+  <Directory <%= directory %>>
+  <% directives.each do |d, a| %>
+    <%= d %> <%= a %>
+<% end %>
   </Directory>
-
-  <Directory />
-    Options FollowSymLinks
-    AllowOverride None
-  </Directory>
-
-  <Location /server-status>
-    SetHandler server-status
-
-  <% if node['apache']['version'] == '2.4' -%>
-    Require local
-  <% else -%>
-    Order Deny,Allow
-    Deny from all
-    Allow from 127.0.0.1
-  <% end -%>
-
-  </Location>
-
-  RewriteEngine On
-  <%- if node['apache']['version'] == '2.4' -%>
-  LogLevel info rewrite:trace1
-  <%- else -%>
-  LogLevel info
-  RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
-  RewriteLogLevel 0
-  <%- end -%>
-
-  ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
-  CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
-
-  <% if @params[:directory_index] -%>
-  DirectoryIndex <%= [@params[:directory_index]].flatten.join " " %>
-  <% end -%>
-
-  # Canonical host, <%= @params[:server_name] %>
-  RewriteCond %{HTTP_HOST}   !^<%= @params[:server_name] %> [NC]
-  RewriteCond %{HTTP_HOST}   !^$
-  RewriteRule ^/(.*)$        http://<%= @params[:server_name] %>/$1 [L,R=301]
-
-  RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
-  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
-  RewriteRule ^.*$ /system/maintenance.html [L]
+<% end %><% end -%><% if @locations -%><% @locations.each do |location, directives| %>
+  <Location <%= location %>>
+  <% directives.each do |d, a| %>
+    <%= d %> <%= a %>
+<% end %>
+  </Location><% end %><% end -%><% if @location_matches -%><% @location_matches.each do |location| %>
+  <LocationMatch "<%= location['location'] %>">
+  <% location['directives'].each do |d, a| %>
+    <%= d %> <%= a %>
+<% end %>
+  </LocationMatch><% end %><% end -%><% if @rewrite -%>
+<% @rewrite.each do |a| %><% if a['conditions'] -%>
+<% a['conditions'].each do |condition| %>  RewriteCond <%= condition %>
+<% end %><% end %><% if a['rules'] -%>  <% a['rules'].each do |rule| %>RewriteRule <%= rule %><% end %><% end %><% end %><% end -%>
 </VirtualHost>

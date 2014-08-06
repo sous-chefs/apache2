@@ -16,36 +16,51 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+extend Apache2::Helpers
 include_recipe 'apache2::default'
+include_recipe 'apache2::mod_authz_user'
 
-secure_dir = "#{node['apache_test']['root_dir']}/secure"
+name = /([^\/]*)\.rb$/.match(__FILE__)[1]
+docroot = "#{node['apache_test']['root_dir']}/#{name}"
 
-directory secure_dir do
+directory docroot do
+  action :create
+end
+
+file "#{docroot}/index.html" do
+  content "Hello #{name}"
   action :create
 end
 
 package 'apache2-utils' if platform_family?('debian', 'suse') && node['apache']['version'] == '2.4'
-
 bash 'add-credentials' do
   case node['platform_family']
   when 'suse'
     code %Q{
-      htpasswd2 -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
-      htpasswd2 -b #{secure_dir}/.htpasswd meatballs secret
+      htpasswd2 -b -c #{node['apache_test']['root_dir']}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
+      htpasswd2 -b #{node['apache_test']['root_dir']}/.htpasswd meatballs secret
     }
   else
     code %Q{
-      htpasswd -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
-      htpasswd -b #{secure_dir}/.htpasswd meatballs secret
+      htpasswd -b -c #{node['apache_test']['root_dir']}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
+      htpasswd -b #{node['apache_test']['root_dir']}/.htpasswd meatballs secret
     }
   end
   action :run
 end
 
-include_recipe 'apache2::mod_authz_user'
+template_variables = basic_web_app(name, docroot)
+template_variables['locations'] = {
+  '/' => {
+    'AuthUserFile' => "#{node['apache_test']['root_dir']}/.htpasswd",
+    'AuthType' => 'basic',
+    'AuthName' => '"private area"',
+    'Require' => "user #{node['apache_test']['auth_username']}"
+  }
+}
 
-web_app 'secure' do
-  template 'authz_user.conf.erb'
-  secure_dir secure_dir
-  username node['apache_test']['auth_username']
+apache2_web_app name do
+  variables template_variables
+  action [:create, :enable]
+  notifies :reload, 'service[apache2]'
 end

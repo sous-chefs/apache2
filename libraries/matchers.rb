@@ -1,8 +1,7 @@
+# encoding: utf-8
 #
-# Cookbook Name:: apache2_test
-# Recipe:: basic_web_app
-#
-# Copyright 2012, Opscode, Inc.
+# Cookbook Name:: nmddrupal
+# Library:: matchers
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,25 +15,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-extend Apache2::Helpers
-include_recipe 'apache2::default'
+if defined?(ChefSpec)
+  ChefSpec::Runner.define_runner_method(:apache2_web_app)
 
-name = /([^\/]*)\.rb$/.match(__FILE__)[1]
-docroot = "#{node['apache_test']['root_dir']}/#{name}"
+  def create_apache2_web_app(resource)
+    ChefSpec::Matchers::ResourceMatcher.new(:apache2_web_app, :create, resource)
+  end
 
-directory docroot do
-  action :create
-end
+  def delete_apache2_web_app(resource)
+    ChefSpec::Matchers::ResourceMatcher.new(:apache2_web_app, :delete, resource)
+  end
 
-file "#{docroot}/index.html" do
-  content "Hello #{name}"
-  action :create
-end
-
-template_variables = basic_web_app(name, docroot)
-
-apache2_web_app name do
-  variables template_variables
-  action [:create, :enable]
-  notifies :reload, 'service[apache2]'
 end

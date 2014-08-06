@@ -16,23 +16,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+extend Apache2::Helpers
 include_recipe 'apache2::default'
 
-web_app 'broken' do
-  template 'broken.conf.erb'
-  server_name node['hostname']
-  server_aliases [node['fqdn']]
-  docroot node['apache']['docroot_dir']
+name = /([^\/]*)\.rb$/.match(__FILE__)[1]
+docroot = "#{node['apache_test']['root_dir']}/#{name}"
+
+directory docroot do
+  action :create
 end
 
-apache_site 'broken' do
-  enable false
+file "#{docroot}/index.html" do
+  content "Hello #{name}"
+  action :create
 end
 
-web_app 'working' do
-  template 'working.conf.erb'
-  server_name node['hostname']
-  server_aliases [node['fqdn']]
-  docroot node['apache']['docroot_dir']
+template_variables = basic_web_app(name, docroot)
+template_variables[:rewrite_log_level] = 'ObviouslyBorkedConfig'
+
+apache2_web_app name do
+  variables template_variables
+  action [:create]
 end
+#
+#apache_site 'broken' do
+#  enable false
+#end
+#
+#web_app 'working' do
+#  template 'working.conf.erb'
+#  server_name node['hostname']
+#  server_aliases [node['fqdn']]
+#  docroot node['apache']['docroot_dir']
+#end

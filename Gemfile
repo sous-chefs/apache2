@@ -13,6 +13,7 @@ group :integration do
   gem 'kitchen-vagrant', '~> 0.11'
   gem 'kitchen-digitalocean'
   gem 'kitchen-ec2'
+  gem 'vagrant-wrapper'
 end
 
 group :development do

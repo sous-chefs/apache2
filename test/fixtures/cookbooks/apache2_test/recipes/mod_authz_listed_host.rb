@@ -16,15 +16,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+extend Apache2::Helpers
 include_recipe 'apache2::default'
 include_recipe 'apache2::mod_authz_host'
 
-directory "#{node['apache_test']['root_dir']}/secure" do
+name = /([^\/]*)\.rb$/.match(__FILE__)[1]
+docroot = "#{node['apache_test']['root_dir']}/#{name}"
+
+directory docroot do
   action :create
 end
 
-web_app 'secure' do
-  template 'authz_host.conf.erb'
-  remote_host_ip node['apache_test']['remote_host_ip']
+file "#{docroot}/index.html" do
+  content "Hello #{name}"
+  action :create
+end
+
+template_variables = basic_web_app(name, docroot)
+template_variables['locations'] = {
+  '/' => {
+    'Deny' => 'from all',
+    'Allow from' => node['apache_test']['remote_host_ip']
+  }
+}
+
+apache2_web_app name do
+  variables template_variables
+  action [:create, :enable]
+  notifies :reload, 'service[apache2]'
 end

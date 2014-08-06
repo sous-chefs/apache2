@@ -16,22 +16,42 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+extend Apache2::Helpers
 include_recipe 'apache2::default'
 include_recipe 'apache2::mod_auth_digest'
 
-directory "#{node['apache_test']['root_dir']}/secure" do
+name = /([^\/]*)\.rb$/.match(__FILE__)[1]
+docroot = "#{node['apache_test']['root_dir']}/#{name}"
+
+directory docroot do
+  action :create
+end
+
+file "#{docroot}/index.html" do
+  content "Hello #{name}"
   action :create
 end
 
 # htdigest won't read the password from STDIN
 bash 'add_credentials' do
   code %Q{
-    (echo -n "#{node['apache_test']['auth_username']}:private area:" && echo -n "#{node['apache_test']['auth_username']}:private area:#{node['apache_test']['auth_password']}" | md5sum | awk '{print $1}') > /#{node['apache_test']['root_dir']}/secure/.htdigest
+    (echo -n "#{node['apache_test']['auth_username']}:private area:" && echo -n "#{node['apache_test']['auth_username']}:private area:#{node['apache_test']['auth_password']}" | md5sum | awk '{print $1}') > #{node['apache_test']['root_dir']}/.htdigest
   }
 end
 
-web_app 'secure' do
-  template 'auth_digest.conf.erb'
-  auth_user_file "#{node['apache_test']['root_dir']}/secure/.htdigest"
+template_variables = basic_web_app(name, docroot)
+template_variables['locations'] = {
+  '/' => {
+    'AuthUserFile' => "#{node['apache_test']['root_dir']}/.htdigest",
+    'AuthType' => 'digest',
+    'AuthDigestDomain' => '/',
+    'AuthName' => '"private area"',
+    'Require' => 'valid-user'
+  }
+}
+
+apache2_web_app name do
+  variables template_variables
+  action [:create, :enable]
+  notifies :reload, 'service[apache2]'
 end
