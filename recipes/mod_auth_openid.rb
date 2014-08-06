@@ -66,7 +66,7 @@ when 'rhel', 'fedora'
   end
 end
 
-version = node['apache']['mod_auth_openid']['ref']
+version = node['apache']['mod_auth_openid']['version']
 configure_flags = node['apache']['mod_auth_openid']['configure_flags']
 
 remote_file "#{Chef::Config['file_cache_path']}/mod_auth_openid-#{version}.tar.gz" do

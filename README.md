@@ -249,6 +249,7 @@ they're logistically unrelated to the others, being specific to the
 
 * `node['apache']['mod_auth_openid']['checksum']` - sha256sum of the tarball containing the source.
 * `node['apache']['mod_auth_openid']['ref']` - Any sha, tag, or branch found from https://github.com/bmuller/mod_auth_openid
+* `node['apache']['mod_auth_openid']['version']` - directory name version within the tarball
 * `node['apache']['mod_auth_openid']['cache_dir']` - the cache directory is where the sqlite3 database is stored. It is separate so it can be managed as a directory resource.
 * `node['apache']['mod_auth_openid']['dblocation']` - filename of the sqlite3 database used for directive `AuthOpenIDDBLocation`, stored in the `cache_dir` by default.
 * `node['apache']['mod_auth_openid']['configure_flags']` - optional array of configure flags passed to the `./configure` step in the compilation of the module.

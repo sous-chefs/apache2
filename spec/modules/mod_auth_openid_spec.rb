@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'apache2::mod_auth_openid' do
   before do
-    # node['apache']['mod_auth_openid']['ref']
-    version = 'v0.8'
+    # node['apache']['mod_auth_openid']['version']
+    version = '0.8'
     stub_command("test -f #{Chef::Config[:file_cache_path]}/mod_auth_openid-#{version}/src/.libs/mod_auth_openid.so").and_return(true)
   end
 
