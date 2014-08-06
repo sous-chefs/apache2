@@ -1,7 +1,7 @@
 # encoding: utf-8
 #
 # Cookbook Name:: apache2
-# Resources:: web_app
+# Resources:: site
 #
 # Copyright 2012-2014, Opscode, Inc.
 #

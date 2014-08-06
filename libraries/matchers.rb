@@ -1,7 +1,9 @@
 # encoding: utf-8
 #
-# Cookbook Name:: nmddrupal
-# Library:: matchers
+# Cookbook Name:: apache2
+# Libraries:: matchers
+#
+# Copyright 2012-2014, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
