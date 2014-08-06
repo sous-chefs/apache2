@@ -22,26 +22,15 @@ package 'apache2' do
 end
 
 service 'apache2' do
+  service_name node['apache']['package']
   case node['platform_family']
-  when 'fedora'
-    service_name 'httpd'
-    restart_command '/sbin/service httpd restart'
-    reload_command '/sbin/service httpd reload'
   when 'rhel'
-    service_name 'httpd'
     restart_command '/sbin/service httpd restart'
     reload_command '/sbin/service httpd graceful'
-  when 'suse'
-    restart_command '/sbin/service apache2 restart'
-    reload_command '/sbin/service apache2 reload'
   when 'debian'
     provider Chef::Provider::Service::Debian
-    restart_command '/usr/sbin/invoke-rc.d apache2 restart'
-    reload_command '/usr/sbin/invoke-rc.d apache2 reload'
   when 'arch'
     service_name 'httpd'
-  when 'freebsd'
-    service_name node['apache']['package']
   end
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
