@@ -36,24 +36,6 @@ platforms:
   run_list:
   - recipe[apt]
 - name: freebsd-10.0
-#- name: freebsd-9.2
-#  run_list:
-#    - recipe[freebsd::portsnap]
-# Cannot pull from repo when not in EC2
-#- name: amazon-2014.3
-#  driver:
-#    box: amazon-linux64-2014.03
-#    box_url: http://images.geekandi.com/amazon-linux/vagrant-amazon-linux64-2014.03-public-virtualbox.box
-# Unsupported by omnibus-chef installation script
-#- name: arch
-- name: fedora-18
-  attributes:
-    apache:
-      version: '2.4'
-- name: fedora-19
-  attributes:
-    apache:
-      version: '2.4'
 - name: fedora-20
   attributes:
     apache:
