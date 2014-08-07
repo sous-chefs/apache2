@@ -2,7 +2,7 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-v2.0.0 (unreleased)
+v2.0.0 (2014-08-06)
 --------------------
 - [GH-204] mod_auth_openid: Added `apache.mod_auth_openid.version` attribute
 - FreeBSD support has been improved with the release of chef 11.14.2, portsnap is no longer used in favor of pkgng.
