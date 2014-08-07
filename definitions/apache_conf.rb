@@ -27,7 +27,8 @@ define :apache_conf, :enable => true do
   end
 
   template "#{params[:conf_path]}/#{conf_name}" do
-    source "#{conf_name}.erb"
+    source params[:source] || "#{conf_name}.erb"
+    cookbook params[:cookbook] if params[:cookbook]
     owner 'root'
     group node['apache']['root_group']
     backup false
