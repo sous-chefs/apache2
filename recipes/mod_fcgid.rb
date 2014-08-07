@@ -20,6 +20,8 @@
 if platform_family?('debian')
   package 'libapache2-mod-fcgid'
 elsif platform_family?('rhel', 'fedora')
+  include_recipe 'yum-epel' if platform_family?('rhel')
+
   package 'mod_fcgid' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end

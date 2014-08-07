@@ -48,9 +48,11 @@ recipe 'apache2::mod_ssl', 'Apache module "ssl" with config file, adds port 443 
 recipe 'apache2::mod_status', 'Apache module "status" with config file'
 recipe 'apache2::mod_xsendfile', 'Apache module "xsendfile"'
 
+depends 'apt'
 depends 'iptables'
 depends 'logrotate'
 depends 'pacman'
+depends 'yum-epel'
 
 supports 'debian'
 supports 'ubuntu'
