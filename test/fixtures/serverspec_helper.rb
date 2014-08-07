@@ -39,6 +39,11 @@ osmapping = {
     :platform_family => 'freebsd',
     :platform => 'freebsd',
     :platform_version => '9.2'
+  },
+  'FreeBSD10' => {
+    :platform_family => 'freebsd',
+    :platform => 'freebsd',
+    :platform_version => '10.0'
   }
 }
 

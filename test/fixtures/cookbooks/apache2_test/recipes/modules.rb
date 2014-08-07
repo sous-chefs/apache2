@@ -35,5 +35,9 @@ include_recipe 'apache2::default'
   rewrite
   include
 }.each do |a2mod|
-  include_recipe "apache2::mod_#{a2mod}"
+  if a2mod == 'proxy_balancer' && node['platform_family'] == 'freebsd'
+    Chef::Log.warn('The freebsd platform do not have mod_slotmem to enable mod_proxy_balancer.')
+  else
+    include_recipe "apache2::mod_#{a2mod}"
+  end
 end

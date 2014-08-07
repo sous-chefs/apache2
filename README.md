@@ -120,13 +120,8 @@ EPEL repository. See __Examples__ for more information.
 
 ### Notes for FreeBSD:
 
-The `apache2::mod_php5` recipe depends on the `freebsd::portsnap` recipe,
-which it uses to set the correct options for compiling the `php5` port
-from sources. You need to ensure that `freebsd::portsnap` is in the expanded run
-list, or this recipe will fail. We don't set an explicit dependency
-because we feel the `freebsd` cookbook is something users would want
-on their nodes, and due to the generality of this cookbook we don't
-want additional specific dependencies.
+Version 2.0 has been had some basic testing against FreeBSD 10.0 using
+Chef 11.14.2 which has support for pkgng (CHEF-4637).
 
 Tests
 =====
@@ -179,7 +174,7 @@ General settings
 These are general settings used in recipes and templates. Default
 values are noted.
 
-* `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support.  Default is 2.2.
+* `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support. If the platform is known during our test to install 2.4 by default, it will be set to 2.4 for you. Otherwise it falls back to 2.2.
 * `node['apache']['listen_addresses']` - Addresses that httpd should listen on. Default is any ("*").
 * `node['apache']['listen_ports']` - Ports that httpd should listen on. Default is port 80.
 * `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
@@ -254,6 +249,7 @@ they're logistically unrelated to the others, being specific to the
 
 * `node['apache']['mod_auth_openid']['checksum']` - sha256sum of the tarball containing the source.
 * `node['apache']['mod_auth_openid']['ref']` - Any sha, tag, or branch found from https://github.com/bmuller/mod_auth_openid
+* `node['apache']['mod_auth_openid']['version']` - directory name version within the tarball
 * `node['apache']['mod_auth_openid']['cache_dir']` - the cache directory is where the sqlite3 database is stored. It is separate so it can be managed as a directory resource.
 * `node['apache']['mod_auth_openid']['dblocation']` - filename of the sqlite3 database used for directive `AuthOpenIDDBLocation`, stored in the `cache_dir` by default.
 * `node['apache']['mod_auth_openid']['configure_flags']` - optional array of configure flags passed to the `./configure` step in the compilation of the module.

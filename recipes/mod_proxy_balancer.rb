@@ -18,7 +18,9 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::mod_slotmem_shm' if node['apache']['version'] == '2.4'
+if !platform_family?('freebsd') && node['apache']['version'] == '2.4'
+  include_recipe 'apache2::mod_slotmem_shm'
+end
 
 apache_module 'proxy_balancer' do
   conf true

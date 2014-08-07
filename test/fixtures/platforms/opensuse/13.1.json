@@ -15,8 +15,6 @@
         "log_dir": "/var/log/apache2",
         "root_group": "root",
         "service_name": "apache2",
-        "service_restart_command": "/sbin/service apache2 restart && sleep 1",
-        "service_reload_command":  "/sbin/service apache2 reload && sleep 1",
         "default_site_name": "000-default",
         "default_site_enabled": false,
         "default_modules": [

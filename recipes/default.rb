@@ -22,30 +22,14 @@ package 'apache2' do
 end
 
 service 'apache2' do
+  service_name node['apache']['package']
   case node['platform_family']
-  when 'rhel', 'fedora'
-    service_name 'httpd'
-    # If restarted/reloaded too quickly httpd has a habit of failing.
-    # This may happen with multiple recipes notifying apache to restart - like
-    # during the initial bootstrap.
-    restart_command '/sbin/service httpd restart && sleep 1'
-    reload_command '/sbin/service httpd reload && sleep 1'
-  when 'suse'
-    service_name 'apache2'
-    # If restarted/reloaded too quickly httpd has a habit of failing.
-    # This may happen with multiple recipes notifying apache to restart - like
-    # during the initial bootstrap.
-    restart_command '/sbin/service apache2 restart && sleep 1'
-    reload_command '/sbin/service apache2 reload && sleep 1'
+  when 'rhel'
+    reload_command '/sbin/service httpd graceful'
   when 'debian'
     provider Chef::Provider::Service::Debian
-    service_name 'apache2'
-    restart_command '/usr/sbin/invoke-rc.d apache2 restart && sleep 1'
-    reload_command '/usr/sbin/invoke-rc.d apache2 reload && sleep 1'
   when 'arch'
     service_name 'httpd'
-  when 'freebsd'
-    service_name 'apache22'
   end
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
@@ -94,7 +78,7 @@ package node['apache']['perl_pkg']
   end
 end
 
-if platform_family?('rhel', 'fedora', 'arch', 'suse', 'freebsd')
+unless platform_family?('debian')
   cookbook_file '/usr/local/bin/apache2_module_conf_generate.pl' do
     source 'apache2_module_conf_generate.pl'
     mode '0755'
@@ -196,8 +180,8 @@ apache_conf 'ports' do
   conf_path node['apache']['dir']
 end
 
-if node['apache']['version'] == '2.4'
-  # in apache 2.4 on ubuntu, you need to explicitly load the mpm you want to use, it is no longer compiled in.
+if node['apache']['version'] == '2.4' && !platform_family?('freebsd')
+  # on freebsd the prefork mpm is staticly compiled in
   include_recipe "apache2::mpm_#{node['apache']['mpm']}"
 end
 

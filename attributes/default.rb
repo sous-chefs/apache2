@@ -29,6 +29,8 @@ elsif node['platform'] == 'fedora' && node['platform_version'].to_f >= 18
   default['apache']['version'] = '2.4'
 elsif node['platform'] == 'opensuse' && node['platform_version'].to_f >= 13.1
   default['apache']['version'] = '2.4'
+elsif node['platform'] == 'freebsd' && node['platform_version'].to_f >= 10.0
+  default['apache']['version'] = '2.4'
 else
   default['apache']['version'] = '2.2'
 end
@@ -64,7 +66,6 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
                                      end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
-  default['apache']['default_site_enabled'] = false
 when 'suse', 'opensuse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
@@ -88,7 +89,6 @@ when 'suse', 'opensuse'
   end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
-  default['apache']['default_site_enabled'] = false
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
@@ -115,7 +115,6 @@ when 'debian', 'ubuntu'
   end
   default['apache']['lib_dir']     = '/usr/lib/apache2'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
-  default['apache']['default_site_enabled'] = false
   default['apache']['default_site_name'] = '000-default'
 when 'arch'
   default['apache']['package']     = 'apache'
@@ -138,7 +137,6 @@ when 'arch'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
   default['apache']['lib_dir']     = '/usr/lib/httpd'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
-  default['apache']['default_site_enabled'] = false
 when 'freebsd'
   if node['apache']['version'] == '2.4'
     default['apache']['package']     = 'apache24'
@@ -147,9 +145,9 @@ when 'freebsd'
     default['apache']['docroot_dir'] = '/usr/local/www/apache24/data'
     default['apache']['cgibin_dir']  = '/usr/local/www/apache24/cgi-bin'
     default['apache']['icondir']     = '/usr/local/www/apache24/icons'
-    default['apache']['cache_dir']   = '/var/run/apache24'
-    default['apache']['run_dir']     = '/var/run/apache24'
-    default['apache']['lock_dir']    = '/var/run/apache24'
+    default['apache']['cache_dir']   = '/var/cache/apache24'
+    default['apache']['run_dir']     = '/var/run'
+    default['apache']['lock_dir']    = '/var/run'
     default['apache']['lib_dir']     = '/usr/local/libexec/apache24'
   else
     default['apache']['package']     = 'apache22'
@@ -158,9 +156,9 @@ when 'freebsd'
     default['apache']['docroot_dir'] = '/usr/local/www/apache22/data'
     default['apache']['cgibin_dir']  = '/usr/local/www/apache22/cgi-bin'
     default['apache']['icondir']     = '/usr/local/www/apache22/icons'
-    default['apache']['cache_dir']   = '/var/run/apache22'
-    default['apache']['run_dir']     = '/var/run/apache22'
-    default['apache']['lock_dir']    = '/var/run/apache22'
+    default['apache']['cache_dir']   = '/var/cache/apache22'
+    default['apache']['run_dir']     = '/var/run'
+    default['apache']['lock_dir']    = '/var/run'
     default['apache']['lib_dir']     = '/usr/local/libexec/apache22'
   end
   default['apache']['perl_pkg']    = 'perl5'
@@ -174,7 +172,6 @@ when 'freebsd'
   default['apache']['group']       = 'www'
   default['apache']['binary']      = '/usr/local/sbin/httpd'
   default['apache']['libexec_dir']  = node['apache']['lib_dir']
-  default['apache']['default_site_enabled'] = false
 else
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
@@ -195,7 +192,6 @@ else
   default['apache']['pid_file']    = 'logs/httpd.pid'
   default['apache']['lib_dir']     = '/usr/lib/apache2'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
-  default['apache']['default_site_enabled'] = false
 end
 
 ###
@@ -212,6 +208,7 @@ default['apache']['keepalive']         = 'On'
 default['apache']['keepaliverequests'] = 100
 default['apache']['keepalivetimeout']  = 5
 default['apache']['sysconfig_additional_params'] = {}
+default['apache']['default_site_enabled'] = false
 
 # Security
 default['apache']['servertokens']    = 'Prod'

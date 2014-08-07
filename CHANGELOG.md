@@ -2,8 +2,10 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-v2.0.0 (unreleased)
+v2.0.0 (2014-08-06)
 --------------------
+- [GH-204] mod_auth_openid: Added `apache.mod_auth_openid.version` attribute
+- FreeBSD support has been improved with the release of chef 11.14.2, portsnap is no longer used in favor of pkgng.
 - [GH-157] - Apache will only be started when a configuration test passes, this allows the chef run to fix any broken configuration without failing the chef run.
 - `apache.log_dir` directory is now 0755 on all platforms (including the debian platform family)
 - [GH-166, GH-173] - `conf.d` is no longer used and replaced by `conf-available` and `conf-enabled` managed via the `a2enconf` and `a2disconf` scripts
