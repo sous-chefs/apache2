@@ -32,8 +32,6 @@ make_cmd = value_for_platform_family(
 
 case node['platform_family']
 when 'arch'
-  include_recipe 'pacman::default'
-
   package 'tidyhtml'
 
   pacman_aur openid_dev_pkgs.first do

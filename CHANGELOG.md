@@ -2,6 +2,10 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v2.0.1 (unreleased)
+-------------------
+- Remove ArchLinux pacman as a dependency and handle similar to apt, yum, zypper
+
 v2.0.0 (2014-08-06)
 --------------------
 - [GH-204] mod_auth_openid: Added `apache.mod_auth_openid.version` attribute

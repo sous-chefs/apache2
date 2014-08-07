@@ -42,6 +42,8 @@ platforms:
 #  driver:
 #    box: arch-2013.02.01
 #    box_url: http://cloud.terry.im/vagrant/archlinux-x86_64.box
+#  run_list:
+#  - recipe[pacman]
 #- name: redhat
 - name: scientific-6.4
   driver:
