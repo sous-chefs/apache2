@@ -632,6 +632,7 @@ To use the default web_app, for example:
       server_name node['hostname']
       server_aliases [node['fqdn'], "my-site.example.com"]
       docroot "/srv/www/my_site"
+      cookbook 'apache2'
     end
 ``````
 
