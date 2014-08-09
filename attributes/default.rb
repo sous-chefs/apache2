@@ -213,7 +213,7 @@ default['apache']['default_site_enabled'] = false
 # Security
 default['apache']['servertokens']    = 'Prod'
 default['apache']['serversignature'] = 'On'
-default['apache']['traceenable']     = 'On'
+default['apache']['traceenable']     = 'Off'
 
 # mod_auth_openids
 default['apache']['allowed_openids'] = []
