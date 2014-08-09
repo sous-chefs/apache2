@@ -627,6 +627,17 @@ a recipe, see __Examples__.
 
 ### Examples:
 
+The recommended way to use the `web_app` definition is in a application specific cookbook named "my_app".
+The following example would look for a template named 'web_app.conf.erb' in your cookbook containing
+the apache httpd directives defining the `VirtualHost` that would serve up "my_app".
+
+``````
+    web_app "my_app" do
+       template 'web_app.conf.erb'
+       server_name node['my_app']['hostname']
+    end
+``````
+
 All parameters are passed into the template. You can use whatever you
 like. The apache2 cookbook comes with a `web_app.conf.erb` template as
 an example. The following parameters are used in the template:
@@ -646,6 +657,7 @@ To use the default web_app, for example:
       server_name node['hostname']
       server_aliases [node['fqdn'], "my-site.example.com"]
       docroot "/srv/www/my_site"
+      cookbook 'apache2'
     end
 ``````
 

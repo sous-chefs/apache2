@@ -191,13 +191,36 @@ describe 'apache2::default' do
           )
         end
 
-        if %w(redhat centos fedora).include?(platform)
-          it 'creates /etc/sysconfig/httpd' do
-            expect(chef_run).to create_template('/etc/sysconfig/httpd').with(
+        if %w(redhat centos fedora suse opensuse).include?(platform)
+          it "creates /etc/sysconfig/#{property[:apache][:package]}" do
+            expect(chef_run).to create_template("/etc/sysconfig/#{property[:apache][:package]}").with(
               :source => 'etc-sysconfig-httpd.erb',
               :owner => 'root',
               :group => property[:apache][:root_group],
               :mode =>  '0644'
+            )
+
+            expect(chef_run).to render_file("/etc/sysconfig/#{property[:apache][:package]}").with_content(
+              /#HTTPD_LANG=C/
+            )
+          end
+
+          subject(:sysconfig) { chef_run.template("/etc/sysconfig/#{property[:apache][:package]}") }
+          it "notification is triggered by /etc/sysconfig/#{property[:apache][:package]} template to restart service[apache2]" do
+            expect(sysconfig).to notify('service[apache2]').to(:restart).delayed
+            expect(sysconfig).to_not notify('service[apache2]').to(:restart).immediately
+          end
+        else
+          it "does not create /etc/sysconfig/#{property[:apache][:package]}" do
+            expect(chef_run).to_not create_template("/etc/sysconfig/#{property[:apache][:package]}").with(
+              :source => 'etc-sysconfig-httpd.erb',
+              :owner => 'root',
+              :group => property[:apache][:root_group],
+              :mode =>  '0644'
+            )
+
+            expect(chef_run).to_not render_file("/etc/sysconfig/#{property[:apache][:package]}").with_content(
+              /#HTTPD_LANG=C/
             )
           end
         end
