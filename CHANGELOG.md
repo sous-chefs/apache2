@@ -6,7 +6,7 @@ v2.0.1 (unreleased)
 -------------------
 - Remove ArchLinux pacman as a dependency and handle similar to apt, yum, zypper
 - [GH-210] Clarify web_app definition usage around configuration templates.
-- [GH-208] `apache_conf` now accepts custom `source` for template files, as well as different `cookbook_source` values.
+- [GH-208] `apache_conf` now accepts `source` and `cookbook` parameters.
 
 v2.0.0 (2014-08-06)
 --------------------

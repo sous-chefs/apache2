@@ -426,6 +426,8 @@ Enable or disable an Apache config file in
 ### Parameters:
 
 * `name` - Name of the config enabled or disabled with the `a2enconf` or `a2disconf` scripts.
+* `source`  - The location of a template file. The default `name.erb`.
+* `cookbook` - The cookbook in which the configuration template is located (if it is not located in the current cookbook). The default value is the current cookbook.
 * `enable` - Default true, which uses `a2enconf` to enable the config. If false, the config will be disabled with `a2disconf`.
 
 ### Examples:
