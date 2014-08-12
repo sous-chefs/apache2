@@ -101,7 +101,6 @@ when 'debian', 'ubuntu'
   default['apache']['group']       = 'www-data'
   default['apache']['binary']      = '/usr/sbin/apache2'
   default['apache']['conf_dir']    = '/etc/apache2'
-  default['apache']['docroot_dir'] = '/var/www'
   default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
   default['apache']['icondir']     = '/usr/share/apache2/icons'
   default['apache']['cache_dir']   = '/var/cache/apache2'
@@ -110,8 +109,10 @@ when 'debian', 'ubuntu'
   # this should use COOK-3917 to educate the initscript of the pid location
   if node['apache']['version'] == '2.4'
     default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
+    default['apache']['docroot_dir'] = '/var/www/html'
   else
     default['apache']['pid_file']    = '/var/run/apache2.pid'
+    default['apache']['docroot_dir'] = '/var/www'
   end
   default['apache']['lib_dir']     = '/usr/lib/apache2'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
