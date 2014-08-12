@@ -66,6 +66,13 @@ describe 'apache2::default' do
           end
         end
 
+        %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
+
+          it "creates /usr/sbin/#{modscript}" do
+            expect(chef_run).to create_template("/usr/sbin/#{modscript}")
+          end
+        end
+
         if %w(redhat centos fedora arch suse freebsd).include?(platform)
           it 'creates /usr/local/bin/apache2_module_conf_generate.pl' do
             expect(chef_run).to create_cookbook_file('/usr/local/bin/apache2_module_conf_generate.pl').with(
@@ -82,12 +89,6 @@ describe 'apache2::default' do
             # )
             execute = chef_run.execute('generate-module-list')
             expect(execute).to do_nothing
-          end
-
-          %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
-            it "creates /usr/sbin/#{modscript}" do
-              expect(chef_run).to create_template("/usr/sbin/#{modscript}")
-            end
           end
 
           it 'includes the `apache2::mod_deflate` recipe' do
