@@ -30,6 +30,8 @@ elsif platform_family?('rhel', 'fedora')
   end
 
   directory '/var/run/httpd/mod_fcgid' do
+    owner node['apache']['user']
+    group node['apache']['group']
     recursive true
     only_if { node['platform_version'].to_i >= 6 }
   end
