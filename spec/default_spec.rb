@@ -259,7 +259,7 @@ describe 'apache2::default' do
         end
 
         it "deletes #{property[:apache][:dir]}/sites-enabled/000-default" do
-          expect(chef_run).to delete_file("#{property[:apache][:dir]}/sites-enabled/000-default")
+          expect(chef_run).to delete_link("#{property[:apache][:dir]}/sites-enabled/000-default")
         end
 
         context 'with invalid apache configuration' do
