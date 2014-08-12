@@ -228,17 +228,6 @@ configuration.
 * `node['apache']['event']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
 * `node['apache']['event']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
 
-ITK Attributes
---------------
-
-ITK attributes are used for tuning the experimental Apache HTTPD itk MPM configuration.
-
-* `node['apache']['itk']['startservers']` - Initial number of child server processes created at startup. Default 16.
-* `node['apache']['itk']['minspareservers']` - Minimum number of spare servers. Default 16.
-* `node['apache']['itk']['maxspareservers']` - Maximum number of spare servers. Default 16.
-* `node['apache']['itk']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
-* `node['apache']['itk']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
-
 mod\_auth\_openid attributes
 ----------------------------
 

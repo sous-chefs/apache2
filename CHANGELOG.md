@@ -9,6 +9,7 @@ v2.0.1 (unreleased)
 - [GH-208] `apache_conf` now accepts `source` and `cookbook` parameters.
 - [GH-232] Cookbook now deletes a2* if they are symlinks before dropping template versions
 - [GH-234] /var/run/httpd/mod_fcgid directory now belongs to apache on Fedora/RHEL systems.
+- [GH-235] Removed `apache2::mpm_itk` which is not part of core and therefore should be its own cookbook
 
 v2.0.0 (2014-08-06)
 --------------------
