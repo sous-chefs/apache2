@@ -7,6 +7,8 @@ v2.0.1 (unreleased)
 - Remove ArchLinux pacman as a dependency and handle similar to apt, yum, zypper
 - [GH-210] Clarify web_app definition usage around configuration templates.
 - [GH-208] `apache_conf` now accepts `source` and `cookbook` parameters.
+- [GH-232] Cookbook now deletes a2* if they are symlinks before dropping template versions
+- [GH-234] /var/run/httpd/mod_fcgid directory now belongs to apache on Fedora/RHEL systems.
 
 v2.0.0 (2014-08-06)
 --------------------
