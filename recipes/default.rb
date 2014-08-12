@@ -45,9 +45,8 @@ end
 end
 
 %w(default 000-default).each do |site|
-  file "#{node['apache']['dir']}/sites-enabled/#{site}" do
+  link "#{node['apache']['dir']}/sites-enabled/#{site}" do
     action :delete
-    backup false
   end
 
   file "#{node['apache']['dir']}/sites-available/#{site}" do
@@ -69,6 +68,12 @@ end
 package node['apache']['perl_pkg']
 
 %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
+
+  link "/usr/sbin/#{modscript}" do
+    action :delete
+    only_if { ::File.symlink?("/usr/sbin/#{modscript}") }
+  end
+
   template "/usr/sbin/#{modscript}" do
     source "#{modscript}.erb"
     mode '0700'
