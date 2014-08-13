@@ -57,5 +57,5 @@
 
   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html
-  RewriteRule ^.*$ /system/maintenance.html [L]
+  RewriteRule ^.*$ /system/maintenance.html [L,R=503]
 </VirtualHost>
