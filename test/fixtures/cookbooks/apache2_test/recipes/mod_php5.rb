@@ -16,22 +16,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+extend Apache2::Helpers
 include_recipe 'apache2::default'
-
-package 'which' do
-  action :install
-  only_if { platform_family?('rhel', 'fedora') }
-end
-
 include_recipe 'apache2::mod_php5'
 
-directory node['apache_test']['app_dir'] do
-  recursive true
+name = /([^\/]*)\.rb$/.match(__FILE__)[1]
+docroot = "#{node['apache_test']['root_dir']}/#{name}"
+
+directory docroot do
   action :create
 end
 
-file "#{node['apache_test']['app_dir']}/php" do
+file "#{docroot}/index.php" do
   content %q{
 <?PHP
 header("Content-type: text/plain");
@@ -44,7 +40,10 @@ foreach($_SERVER as $key_name => $key_value) {
   action :create
 end
 
-web_app 'php_env' do
-  template 'php_env.conf.erb'
-  app_dir node['apache_test']['app_dir']
+template_variables = basic_web_app(name, docroot)
+
+apache2_web_app name do
+  variables template_variables
+  action [:create, :enable]
+  notifies :reload, 'service[apache2]'
 end

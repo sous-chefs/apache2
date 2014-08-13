@@ -183,13 +183,15 @@ describe 'apache2::default' do
           expect(portsconf).to_not notify('service[apache2]').to(:reload).immediately
         end
 
-        it "creates #{property[:apache][:dir]}/sites-available/default.conf" do
-          expect(chef_run).to create_template("#{property[:apache][:dir]}/sites-available/default.conf").with(
-            :source => 'default-site.conf.erb',
-            :owner => 'root',
-            :group => property[:apache][:root_group],
-            :mode =>  '0644'
-          )
+        #  default_site_enabled defaults to false
+        it 'Creates a default web_app.' do
+          expect(chef_run).to_not create_apache2_web_app('000-default')
+        end
+
+        let(:web_app) { chef_run.apache2_web_app('000-default') }
+        it 'notification is triggered by apache2_web_app to reload service[apache2]' do
+          expect(web_app).to notify('service[apache2]').to(:reload)
+          expect(web_app).to_not notify('service[apache2]').to(:stop)
         end
 
         if %w(redhat centos fedora suse opensuse).include?(platform)

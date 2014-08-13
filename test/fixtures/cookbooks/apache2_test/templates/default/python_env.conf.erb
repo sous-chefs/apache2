@@ -1,8 +1,0 @@
-<IfModule mod_python.c>
-  Alias /env/python <%= @params[:app_dir] %>/python
-  <Location /env/python>
-    AddHandler mod_python .py
-    PythonHandler mod_python.cgihandler
-    PythonDebug On
-  </Location>
-</IfModule>

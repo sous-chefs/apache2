@@ -1,8 +1,9 @@
+# encoding: utf-8
 #
-# Cookbook Name:: apache2_test
-# Recipe:: basic_web_app
+# Cookbook Name:: apache2
+# Resources:: site
 #
-# Copyright 2012, Opscode, Inc.
+# Copyright 2012-2014, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,25 +17,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-extend Apache2::Helpers
-include_recipe 'apache2::default'
+actions :create, :delete
+default_action :create
 
-name = /([^\/]*)\.rb$/.match(__FILE__)[1]
-docroot = "#{node['apache_test']['root_dir']}/#{name}"
+attribute :conf, :kind_of => String
+attribute :enable, :kind_of => TrueClass, :default => false
 
-directory docroot do
-  action :create
-end
-
-file "#{docroot}/index.html" do
-  content "Hello #{name}"
-  action :create
-end
-
-template_variables = basic_web_app(name, docroot)
-
-apache2_web_app name do
-  variables template_variables
-  action [:create, :enable]
-  notifies :reload, 'service[apache2]'
+def initialize(*args)
+  super
+  @action = :create
 end

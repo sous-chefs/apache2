@@ -58,8 +58,12 @@ describe 'apache2::default' do
     expect(file(property[:apache][:cgibin_dir])).to be_mode 755
   end
 
-  it "default site #{property[:apache][:dir]}/sites-available/default is a file" do
-    expect(file("#{property[:apache][:dir]}/sites-available/default.conf")).to be_file
+  it "default site #{property[:apache][:dir]}/sites-available/001-default is a file" do
+    if property[:apache][:default_site_enabled]
+      expect(file("#{property[:apache][:dir]}/sites-available/001-default.conf")).to be_file
+    else
+      skip('default_site_enabled is false')
+    end
   end
 
   it file("#{property[:apache][:dir]}/sites-enabled/000-default.conf") do

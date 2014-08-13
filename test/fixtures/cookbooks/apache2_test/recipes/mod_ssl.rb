@@ -16,14 +16,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+extend Apache2::Helpers
 include_recipe 'apache2::default'
 include_recipe 'apache2::mod_ssl'
 
-directory node['apache_test']['ssl_dir'] do
-  owner node['apache']['user']
-  group node['apache']['group']
-  recursive true
+name = /([^\/]*)\.rb$/.match(__FILE__)[1]
+docroot = "#{node['apache_test']['root_dir']}/#{name}"
+
+directory docroot do
+  action :create
+end
+
+file "#{docroot}/index.html" do
+  content "Hello #{name}"
   action :create
 end
 
@@ -33,7 +38,7 @@ execute 'create-private-key' do
 end
 
 execute 'create-certficate' do
-  command %Q(openssl req -new -x509 -key #{node['apache_test']['ssl_cert_key_file']} -out #{node['apache_test']['ssl_cert_file']} -days 1 <<EOF
+  command %Q{openssl req -new -x509 -key #{node['apache_test']['ssl_cert_key_file']} -out #{node['apache_test']['ssl_cert_file']} -days 1 <<EOF
 US
 Washington
 Seattle
@@ -41,14 +46,18 @@ Opscode, Inc
 
 example.com
 webmaster@example.com
-EOF)
+EOF}
   not_if "test -f #{node['apache_test']['ssl_cert_file']}"
 end
 
-web_app 'ssl' do
-  template 'ssl.conf.erb'
-  server_name node['domain']
-  document_root node['apache_test']['root_dir']
-  ssl_cert_file node['apache_test']['ssl_cert_file']
-  ssl_cert_key_file node['apache_test']['ssl_cert_key_file']
+template_variables = basic_web_app(name, docroot)
+template_variables['port'] = 443
+template_variables['ssl_engine'] = 'on'
+template_variables['ssl_certificate_file'] = node['apache_test']['ssl_cert_file']
+template_variables['ssl_certificate_key_file'] = node['apache_test']['ssl_cert_key_file']
+
+apache2_web_app name do
+  variables template_variables
+  action [:create, :enable]
+  notifies :reload, 'service[apache2]'
 end
