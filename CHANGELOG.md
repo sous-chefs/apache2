@@ -8,6 +8,7 @@ v2.0.1 (unreleased)
 - Adjust ubuntu apache 2.4 docroot_dir to match package (from /var/www to /var/www/html)
 - [GH-208] `apache_conf` now accepts `source` and `cookbook` parameters.
 - [GH-210] Clarify web_app definition usage around configuration templates.
+- [GH-213] Adjust chefspec to use the package resource on FreeBSD (previously freebsd_package)
 - [GH-232] Cookbook now deletes a2* if they are symlinks before dropping template versions
 - [GH-233] Default web_app template should return 503 status code when maintenance file is present
 - [GH-234] /var/run/httpd/mod_fcgid directory now belongs to apache on Fedora/RHEL systems.
