@@ -50,7 +50,7 @@ when 'suse'
   end
 when 'freebsd'
   %w(php5 mod_php5 libxml2).each do |pkg|
-    freebsd_package pkg
+    package pkg
   end
 end
 

@@ -48,6 +48,13 @@ describe 'apache2::mod_php5' do
             expect(chef_run).to_not install_package('not_libapache2-mod-php5')
           end
         end
+        if %w(freebsd).include?(platform)
+          %w(php5 mod_php5 libxml2).each do |pkg|
+            it "installs package #{pkg}" do
+              expect(chef_run).to install_package(pkg)
+            end
+          end
+        end
 
         it "deletes #{property[:apache][:dir]}/conf.d/php.conf" do
           expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/php.conf").with(:backup => false)

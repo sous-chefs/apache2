@@ -22,11 +22,7 @@ describe 'apache2::default' do
         end
 
         it "installs package #{property[:apache][:package]}" do
-          if platform == 'freebsd'
-            expect(chef_run).to install_freebsd_package(property[:apache][:package])
-          else
-            expect(chef_run).to install_package(property[:apache][:package])
-          end
+          expect(chef_run).to install_package(property[:apache][:package])
         end
 
         it "creates #{property[:apache][:log_dir]} directory" do
@@ -59,11 +55,7 @@ describe 'apache2::default' do
         end
 
         it "installs package #{property[:apache][:perl_pkg]}" do
-          if platform == 'freebsd'
-            expect(chef_run).to install_freebsd_package(property[:apache][:perl_pkg])
-          else
-            expect(chef_run).to install_package(property[:apache][:perl_pkg])
-          end
+          expect(chef_run).to install_package(property[:apache][:perl_pkg])
         end
 
         %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|

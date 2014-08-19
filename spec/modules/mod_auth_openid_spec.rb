@@ -45,7 +45,7 @@ describe 'apache2::mod_auth_openid' do
         elsif %w(freebsd).include?(platform)
           %w(libopkele pcre sqlite3).each do |package|
             it "installs package #{package}" do
-              expect(chef_run).to install_freebsd_package(package)
+              expect(chef_run).to install_package(package)
             end
           end
         end
