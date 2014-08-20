@@ -1,5 +1,5 @@
 # More info at https://github.com/guard/guard#readme
-scope group: :unit
+scope :group => :unit
 
 group :unit do
   guard :rubocop do
@@ -15,7 +15,7 @@ group :unit do
     watch(%r{definitions/.+\.rb$})
   end
 
-  guard :rspec, cmd: 'bundle exec rspec --color --fail-fast', all_on_start: false do
+  guard :rspec, :cmd => 'bundle exec rspec --color --fail-fast', :all_on_start => false do
     watch(%r{^libraries/(.+)\.rb$})
     watch(%r{^spec/(.+)_spec\.rb$})
     watch(%r{^(recipes)/(.+)\.rb$})   { |m| "spec/#{m[1]}_spec.rb" }

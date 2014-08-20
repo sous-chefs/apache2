@@ -49,9 +49,9 @@ describe 'apache2::mod_php5' do
           end
         end
         if %w(freebsd).include?(platform)
-          %w(php5 mod_php5 libxml2).each do |pkg|
-            it "installs package #{pkg}" do
-              expect(chef_run).to install_package(pkg)
+          %w(php5 mod_php5 libxml2).each do |apkg|
+            it "installs package #{apkg}" do
+              expect(chef_run).to install_package(apkg)
             end
           end
         end

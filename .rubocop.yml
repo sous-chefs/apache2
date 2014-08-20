@@ -21,3 +21,5 @@ IfUnlessModifier:
   Enabled: false
 TrivialAccessors:
   ExactNameMatch: true
+Style/RegexpLiteral:
+  Enabled: false
