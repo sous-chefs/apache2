@@ -26,6 +26,8 @@ service 'apache2' do
   case node['platform_family']
   when 'rhel'
     reload_command '/sbin/service httpd graceful'
+  when 'debian'
+    provider Chef::Provider::Service::Debian
   when 'arch'
     service_name 'httpd'
   end
