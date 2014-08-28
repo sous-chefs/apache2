@@ -19,6 +19,7 @@ describe 'apache2::default' do
 
         before do
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
+          stub_command("#{property[:apache][:apachectl]} -t").and_return(true)
         end
 
         it "installs package #{property[:apache][:package]}" do
