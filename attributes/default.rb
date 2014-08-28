@@ -17,22 +17,33 @@
 # limitations under the License.
 #
 
-if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 13.10
+if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 14.04
   default['apache']['version'] = '2.4'
+  default['apache']['mpm'] = 'event'
+elsif node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 13.10
+  default['apache']['version'] = '2.4'
+  default['apache']['mpm'] = 'prefork'
 elsif node['platform'] == 'debian' && node['platform_version'].to_f >= 8.0
   default['apache']['version'] = '2.4'
+  default['apache']['mpm'] = 'prefork'
 elsif node['platform'] == 'redhat' && node['platform_version'].to_f >= 7.0
   default['apache']['version'] = '2.4'
+  default['apache']['mpm'] = 'prefork'
 elsif node['platform'] == 'centos' && node['platform_version'].to_f >= 7.0
   default['apache']['version'] = '2.4'
+  default['apache']['mpm'] = 'prefork'
 elsif node['platform'] == 'fedora' && node['platform_version'].to_f >= 18
   default['apache']['version'] = '2.4'
+  default['apache']['mpm'] = 'prefork'
 elsif node['platform'] == 'opensuse' && node['platform_version'].to_f >= 13.1
   default['apache']['version'] = '2.4'
+  default['apache']['mpm'] = 'prefork'
 elsif node['platform'] == 'freebsd' && node['platform_version'].to_f >= 10.0
   default['apache']['version'] = '2.4'
+  default['apache']['mpm'] = 'prefork'
 else
   default['apache']['version'] = '2.2'
+  default['apache']['mpm'] = 'prefork'
 end
 
 default['apache']['root_group'] = 'root'
@@ -228,7 +239,6 @@ default['apache']['ext_status'] = false
 # mod_info Allow list, space seprated list of allowed entries.
 default['apache']['info_allow_list'] = '127.0.0.1 ::1'
 
-default['apache']['mpm'] = 'prefork'
 # Prefork Attributes
 default['apache']['prefork']['startservers']        = 16
 default['apache']['prefork']['minspareservers']     = 16
