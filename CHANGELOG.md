@@ -14,6 +14,7 @@ v2.0.1 (unreleased)
 - [GH-234] /var/run/httpd/mod_fcgid directory now belongs to apache on Fedora/RHEL systems.
 - [GH-235] Removed `apache2::mpm_itk` which is not part of core and therefore should be its own cookbook
 - [GH-238] Bump service config syntax check guard timeout to 10 seconds
+- [GH-222] Set TraceEnable to off by default.
 
 v2.0.0 (2014-08-06)
 --------------------
