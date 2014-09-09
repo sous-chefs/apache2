@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
+include_recipe 'apache2::mod_ldap'
+
 apache_module 'authnz_ldap'
