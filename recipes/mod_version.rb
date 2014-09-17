@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: mod_unique_id
+# Recipe:: mod_version
 #
 # Copyright 2013, Michael Styne <mstyne@ubersmith.com>
 #
