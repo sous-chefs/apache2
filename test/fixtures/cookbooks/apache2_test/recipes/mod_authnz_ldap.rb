@@ -19,7 +19,7 @@
 directory '/var/cache/local/preseeding' do
   recursive true
   action :create
-  only_if { platform?('debian', 'ubuntu') }
+  only_if { platform_family?('debian') }
 end
 
 include_recipe 'openldap::server'

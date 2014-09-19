@@ -53,6 +53,7 @@ depends 'logrotate'
 
 supports 'debian'
 supports 'ubuntu'
+supports 'linuxmint'
 supports 'redhat'
 supports 'centos'
 supports 'fedora'

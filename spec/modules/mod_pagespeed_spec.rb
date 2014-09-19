@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-platforms = supported_platforms.select { |key, _| %w(debian ubuntu).include?(key) }
+platforms = supported_platforms.select { |key, _| %w(debian ubuntu linuxmint).include?(key) }
 
 describe 'apache2::mod_pagespeed' do
   platforms.each do |platform, versions|

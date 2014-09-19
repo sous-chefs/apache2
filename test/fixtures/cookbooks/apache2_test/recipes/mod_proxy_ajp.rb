@@ -28,7 +28,7 @@ end
 
 include_recipe 'tomcat::default'
 
-if platform?('debian', 'ubuntu')
+if platform_family?('debian')
   package 'tomcat6-examples' do
     action :install
   end

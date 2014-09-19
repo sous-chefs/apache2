@@ -21,7 +21,7 @@ describe 'apache2::mod_auth_openid' do
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
         end
 
-        if %w(debian ubuntu suse opensuse).include?(platform)
+        if %w(debian ubuntu linuxmint suse opensuse).include?(platform)
           %w(automake make g++ apache2-prefork-dev libopkele-dev libopkele3 libtool).each do |package|
             it "installs package #{package}" do
               expect(chef_run).to install_package(package)
