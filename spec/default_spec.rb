@@ -103,7 +103,7 @@ describe 'apache2::default' do
           expect(apacheconf).to_not notify('service[apache2]').to(:reload).immediately
         end
 
-        if %w(debian ubuntu).include?(platform)
+        if platform_family?('debian')
           it "creates #{property[:apache][:dir]}/envvars" do
             expect(chef_run).to create_template("#{property[:apache][:dir]}/envvars").with(
               :source => 'envvars.erb',

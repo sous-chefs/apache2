@@ -21,6 +21,8 @@ if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 13.10
   default['apache']['version'] = '2.4'
 elsif node['platform'] == 'debian' && node['platform_version'].to_f >= 8.0
   default['apache']['version'] = '2.4'
+elsif node['platform'] == 'linuxmint' && node['platform_version'].to_f >= 17.0
+  default['apache']['version'] = '2.4'
 elsif node['platform'] == 'redhat' && node['platform_version'].to_f >= 7.0
   default['apache']['version'] = '2.4'
 elsif node['platform'] == 'centos' && node['platform_version'].to_f >= 7.0
@@ -89,7 +91,7 @@ when 'suse', 'opensuse'
   end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
-when 'debian', 'ubuntu'
+when 'debian', 'ubuntu', 'linuxmint'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['apachectl']   = '/usr/sbin/apache2ctl'

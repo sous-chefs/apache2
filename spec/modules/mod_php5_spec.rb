@@ -42,7 +42,7 @@ describe 'apache2::mod_php5' do
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
         end
-        if %w(debian ubuntu).include?(platform)
+        if platform_family?('debian')
           it 'installs package libapache2-mod-php5' do
             expect(chef_run).to install_package('libapache2-mod-php5')
             expect(chef_run).to_not install_package('not_libapache2-mod-php5')

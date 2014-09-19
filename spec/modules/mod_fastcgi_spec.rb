@@ -15,7 +15,7 @@ describe 'apache2::mod_fastcgi' do
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
         end
 
-        if %w(debian ubuntu).include?(platform)
+        if platform_family?('debian')
           it 'installs package libapache2-mod-fastcgi' do
             expect(chef_run).to install_package('libapache2-mod-fastcgi')
           end

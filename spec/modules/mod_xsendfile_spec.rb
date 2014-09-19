@@ -36,7 +36,7 @@ describe 'apache2::mod_xsendfile' do
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
         end
-        if %w(debian ubuntu).include?(platform)
+        if platform_family?('debian')
           it 'installs package libapache2-mod-xsendfile' do
             expect(chef_run).to install_package('libapache2-mod-xsendfile')
             expect(chef_run).to_not install_package('not_libapache2-mod-xsendfile')
