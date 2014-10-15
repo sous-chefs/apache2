@@ -34,12 +34,15 @@ default['apache']['mod_ssl']['stapling_responder_timeout'] = 5
 default['apache']['mod_ssl']['stapling_return_responder_errors'] = 'Off'
 default['apache']['mod_ssl']['stapling_cache'] = 'shmcb:/var/run/ocsp(128000)'
 default['apache']['mod_ssl']['pass_phrase_dialog'] = 'builtin'
+default['apache']['mod_ssl']['mutex'] = 'file:/var/run/apache2/ssl_mutex'
 
 case node['platform']
   when 'freebsd'
     default['apache']['mod_ssl']['session_cache']  = 'shmcb:/var/run/ssl_scache(512000)'
+    default['apache']['mod_ssl']['mutex'] = 'file:/var/run/ssl_mutex'
   when 'rhel', 'fedora', 'suse'
     default['apache']['mod_ssl']['session_cache']  = 'shmcb:/var/cache/mod_ssl/scache(512000)'
+    default['apache']['mod_ssl']['mutex'] = 'default'
   when 'ubuntu'
     if node['apache']['version'] == '2.4'
       default['apache']['mod_ssl']['pass_phrase_dialog'] = 'exec:/usr/share/apache2/ask-for-passphrase'
