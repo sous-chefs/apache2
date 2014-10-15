@@ -38,14 +38,7 @@
   #   Inter-Process Session Cache:
   #   Configure the SSL Session Cache: First the mechanism
   #   to use and second the expiring timeout (in seconds).
-  #SSLSessionCache         dbm:/var/run/apache2/ssl_scache
-  <% if %w[rhel fedora suse].include?(node['platform_family']) -%>
-  SSLSessionCache        shmcb:/var/cache/mod_ssl/scache(512000)
-  <% elsif %w[freebsd].include?(node['platform_family']) -%>
-  SSLSessionCache        shmcb:/var/run/ssl_scache(512000)
-  <% else -%>
-  SSLSessionCache        shmcb:/var/run/apache2/ssl_scache
-  <% end -%>
+  SSLSessionCache         <%= node['apache']['mod_ssl']['session_cache'] %>
   SSLSessionCacheTimeout  <%= node['apache']['mod_ssl']['session_cache_timeout'] %>
 
 <% if node['apache']['version'] != '2.4' -%>
