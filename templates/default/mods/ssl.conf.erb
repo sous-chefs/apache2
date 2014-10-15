@@ -33,11 +33,7 @@
   #   Configure the pass phrase gathering process.
   #   The filtering dialog program (`builtin' is a internal
   #   terminal dialog) has to provide the pass phrase on stdout.
-<% if %w[ubuntu].include?(node['platform']) && node['apache']['version'] == '2.4' -%>
-  SSLPassPhraseDialog exec:/usr/share/apache2/ask-for-passphrase
-<% else -%>
-  SSLPassPhraseDialog  builtin
-<% end -%>
+  SSLPassPhraseDialog <%= node['apache']['mod_ssl']['pass_phrase_dialog'] %>
 
   #   Inter-Process Session Cache:
   #   Configure the SSL Session Cache: First the mechanism

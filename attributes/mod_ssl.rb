@@ -32,3 +32,12 @@ default['apache']['mod_ssl']['use_stapling'] = 'Off'
 default['apache']['mod_ssl']['stapling_responder_timeout'] = 5
 default['apache']['mod_ssl']['stapling_return_responder_errors'] = 'Off'
 default['apache']['mod_ssl']['stapling_cache'] = 'shmcb:/var/run/ocsp(128000)'
+default['apache']['mod_ssl']['pass_phrase_dialog'] = 'builtin'
+
+case node['platform']
+  when 'ubuntu'
+    if node['apache']['version'] == '2.4'
+      default['apache']['mod_ssl']['pass_phrase_dialog'] = 'exec:/usr/share/apache2/ask-for-passphrase'
+    end
+  else
+end
