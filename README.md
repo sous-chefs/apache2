@@ -270,6 +270,7 @@ For general information on this attributes see http://httpd.apache.org/docs/curr
 * `node['apache']['mod_ssl']['stapling_responder_timeout']` - 	Timeout for OCSP stapling queries. Default 5
 * `node['apache']['mod_ssl']['stapling_return_responder_errors']` - Pass stapling related OCSP errors on to client. Default 'Off'
 * `node['apache']['mod_ssl']['stapling_cache']` - Configures the OCSP stapling cache. Default `shmcb:/var/run/ocsp(128000)`
+* `node['apache']['mod_ssl']['directives']` - Hash for add any custom directive.
 
 For more information on these directives and how to best secure your site see
 - https://bettercrypto.org/

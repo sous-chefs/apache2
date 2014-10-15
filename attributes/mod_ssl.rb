@@ -28,3 +28,4 @@ default['apache']['mod_ssl']['use_stapling'] = 'Off'
 default['apache']['mod_ssl']['stapling_responder_timeout'] = 5
 default['apache']['mod_ssl']['stapling_return_responder_errors'] = 'Off'
 default['apache']['mod_ssl']['stapling_cache'] = 'shmcb:/var/run/ocsp(128000)'
+default['apache']['mod_ssl']['directives'] = {}
