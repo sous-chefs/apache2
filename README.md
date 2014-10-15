@@ -262,6 +262,7 @@ For general information on this attributes see http://httpd.apache.org/docs/curr
 * `node['apache']['mod_ssl']['stapling_cache']` - Configures the OCSP stapling cache. Default `shmcb:/var/run/ocsp(128000)`
 * `node['apache']['mod_ssl']['pass_phrase_dialog']` - Configures SSLPassPhraseDialog. Default `builtin`
 * `node['apache']['mod_ssl']['mutex']` - Configures SSLMutex. Default `file:/var/run/apache2/ssl_mutex`
+* `node['apache']['mod_ssl']['directives']` - Hash for add any custom directive.
 
 For more information on these directives and how to best secure your site see
 - https://bettercrypto.org/

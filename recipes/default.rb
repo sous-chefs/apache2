@@ -201,6 +201,6 @@ web_app 'default' do
   enable node['apache']['default_site_enabled']
 end
 
-apache_site '000-default' do
+apache_site node['apache']['default_site_name'] do
   enable node['apache']['default_site_enabled']
 end

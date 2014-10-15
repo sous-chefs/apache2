@@ -49,3 +49,5 @@ case node['platform']
     end
   else
 end
+
+default['apache']['mod_ssl']['directives'] = {}
