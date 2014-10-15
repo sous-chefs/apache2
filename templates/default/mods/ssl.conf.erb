@@ -120,4 +120,8 @@
   SSLStaplingCache        <%= node['apache']['mod_ssl']['stapling_cache'] %>
   <% end -%>
 <% end -%>
+
+  <% node['apache']['mod_ssl']['directives'].sort_by { |key, val| key }.each do |directive, value| -%>
+      <%= directive %> <%= value %>
+  <% end -%>
 </IfModule>
