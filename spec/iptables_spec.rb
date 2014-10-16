@@ -7,7 +7,7 @@ describe 'apache2::iptables' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
+          ChefSpec::SoloRunner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
         it 'includes the `iptables::default` recipe' do
