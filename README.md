@@ -253,6 +253,9 @@ mod\_ssl attributes
   commentary on the
   [original pull request](https://github.com/viverae-cookbooks/apache2/pull/15#commitcomment-1605406).
 
+* `node['apache']['mod_ssl']['ssl_protocol']` - sets the SSLProtocol value. 
+  Defaults to `all -SSLv2` on Apache > 2.4, and `all` on Apache 2.4
+
 Recipes
 =======
 
