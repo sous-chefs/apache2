@@ -268,7 +268,7 @@ The following recipes merely enable the specified module: `mod_alias`,
 `mod_headers`, `mod_ldap`, `mod_log_config`, `mod_mime`,
 `mod_negotiation`, `mod_proxy`, `mod_proxy_ajp`, `mod_proxy_balancer`,
 `mod_proxy_connect`, `mod_proxy_http`, `mod_python`, `mod_rewrite`,
-`mod_setenvif`, `mod_status`, `mod_wsgi`, `mod_xsendfile`.
+`mod_setenvif`, `mod_status`, `mod_version`, `mod_wsgi`, `mod_xsendfile`.
 
 On RHEL Family distributions, certain modules ship with a config file
 with the package. The recipes here may delete those configuration
