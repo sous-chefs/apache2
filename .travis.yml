@@ -10,8 +10,13 @@ notifications:
 rvm:
   - 1.9.3
   - 2.1.1
+env:
+  - "TEST_NUM_GROUPS=6 TEST_GROUPS=1,2"
+  - "TEST_NUM_GROUPS=6 TEST_GROUPS=3,4"
+  - "TEST_NUM_GROUPS=6 TEST_GROUPS=5,6"
+
 bundler_args: --without integration development
 script:
   - bundle exec foodcritic -f any . --tags ~FC007 --tags ~FC015 --tags ~FC023
   - bundle exec rubocop
-  - bundle exec rspec --color --format progress
+  - bundle exec parallel_rspec spec/ -n $TEST_NUM_GROUPS --only-group $TEST_GROUPS --group-by filesize
