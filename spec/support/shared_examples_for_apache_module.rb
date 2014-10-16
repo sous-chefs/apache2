@@ -3,7 +3,7 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, platforms, a2fil
   platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
-        let(:chef_run) { ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe) }
+        let(:chef_run) { ChefSpec::SoloRunner.new(:platform => platform, :version => version).converge(described_recipe) }
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
