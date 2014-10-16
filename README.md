@@ -1,5 +1,6 @@
 apache2 Cookbook
 ================
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/viverae-cookbooks/apache2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://secure.travis-ci.org/viverae-cookbooks/apache2.png?branch=master)](http://travis-ci.org/viverae-cookbooks/apache2)
 [![Gitter Chat](https://badges.gitter.im/viverae-cookbooks/apache2.png)](https://gitter.im/viverae-cookbooks/apache2)
 
