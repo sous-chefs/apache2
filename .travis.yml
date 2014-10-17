@@ -1,4 +1,5 @@
 language: ruby
+cache: bundler
 notifications:
   webhooks:
     urls:
@@ -9,8 +10,19 @@ notifications:
 rvm:
   - 1.9.3
   - 2.1.1
+env:
+  global:
+    - TEST_GROUPS_NUM=6
+  matrix:
+    - TEST_PATTERN="spec/[^/]*_spec\.rb" TEST_GROUPS=1,2,3,4,5,6
+    - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=1,2
+    - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=3,4
+    - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=5,6
+
 bundler_args: --without integration development
+before_script:
+  - bundle exec berks
 script:
   - bundle exec foodcritic -f any . --tags ~FC007 --tags ~FC015 --tags ~FC023
   - bundle exec rubocop
-  - bundle exec rspec --color --format progress
+  - bundle exec parallel_rspec spec/ -p $TEST_PATTERN --group-by filesize -n $TEST_GROUPS_NUM --only-group $TEST_GROUPS
