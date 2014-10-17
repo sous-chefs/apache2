@@ -20,6 +20,8 @@ env:
     - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=5,6
 
 bundler_args: --without integration development
+before_script:
+  - bundle exec berks
 script:
   - bundle exec foodcritic -f any . --tags ~FC007 --tags ~FC015 --tags ~FC023
   - bundle exec rubocop
