@@ -15,9 +15,9 @@ env:
     - TEST_GROUPS_NUM=6
   matrix:
     - TEST_PATTERN="spec/[^/]*_spec\.rb" TEST_GROUPS=1,2,3,4,5,6
-    - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=1,2
-    - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=3,4
-    - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=5,6
+    - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=1
+    - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=2
+    - TEST_PATTERN="spec/modules/.*_spec.rb" TEST_GROUPS=3,4,5,6
 
 bundler_args: --without integration development
 before_script:
