@@ -7,7 +7,7 @@ describe 'apache2::logrotate' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
+          ChefSpec::SoloRunner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
         # apache_service = service 'apache2' do

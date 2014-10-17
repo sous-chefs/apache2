@@ -5,7 +5,7 @@ describe 'apache2::mod_python' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
+          ChefSpec::SoloRunner.new(:platform => platform, :version => version).converge(described_recipe)
         end
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
