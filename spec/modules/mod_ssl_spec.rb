@@ -5,13 +5,15 @@ describe 'apache2::mod_ssl' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::SoloRunner.new(:platform => platform, :version => version).converge(described_recipe)
+          @chef_run
         end
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
-        before do
+        before(:context) do
+          @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
+          @chef_run.converge(described_recipe)
         end
 
         if %w(redhat centos fedora arch suse).include?(platform)
@@ -43,9 +45,8 @@ describe 'apache2::mod_ssl' do
           expect(template).to notify('service[apache2]').to(:restart)
           expect(template).to_not notify('service[apache2]').to(:stop)
         end
+        it_should_behave_like 'an apache2 module', 'ssl', true
       end
     end
   end
-
-  it_should_behave_like 'an apache2 module', 'ssl', true, supported_platforms
 end

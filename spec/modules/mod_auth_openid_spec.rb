@@ -10,12 +10,12 @@ describe 'apache2::mod_auth_openid' do
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
-        before do
+        before(:context) do
           @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
           stub_command("test -f #{Chef::Config[:file_cache_path]}/mod_auth_openid-#{property[:apache][:mod_auth_openid][:version]}/src/.libs/mod_auth_openid.so").and_return(true)
           stub_command("test -f #{property[:apache][:libexec_dir]}/mod_auth_openid.so").and_return(true)
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
-          chef_run.converge(described_recipe)
+          @chef_run.converge(described_recipe)
         end
 
         if %w(debian ubuntu suse opensuse).include?(platform)
@@ -46,9 +46,9 @@ describe 'apache2::mod_auth_openid' do
             end
           end
         end
+
+        it_should_behave_like 'an apache2 module', 'authopenid', false, 'mod_auth_openid.so'
       end
     end
   end
-
-  it_should_behave_like 'an apache2 module', 'authopenid', false, supported_platforms, 'mod_auth_openid.so'
 end
