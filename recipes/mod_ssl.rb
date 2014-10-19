@@ -27,10 +27,8 @@ if platform_family?('rhel', 'fedora', 'suse')
     notifies :run, 'execute[generate-module-list]', :immediately
   end
 
-  file "#{node['apache']['dir']}/conf.d/ssl.conf" do
-    action :delete
-    backup false
-  end
+  r = resources(:file => "#{node['apache']['dir']}/conf.d/ssl.conf")
+  r.content "# SSL Conf is under mods-enabled/ssl.conf\n"
 end
 
 template 'ssl_ports.conf' do
