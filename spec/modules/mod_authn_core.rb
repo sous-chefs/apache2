@@ -19,7 +19,7 @@ describe 'apache2::mod_authn_core' do
             expect(chef_run).to write_log('Ignoring apache2::mod_authn_core. not available until apache 2.4')
           end
         elsif property[:apache][:version] == '2.4'
-          # it_should_behave_like 'an apache2 module', 'authn_core', false, supported_platforms
+          # it_should_behave_like 'an apache2 module', 'authn_core', false
         end
       end
     end

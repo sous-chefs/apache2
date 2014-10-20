@@ -6,7 +6,6 @@ group :unit do
   gem 'foodcritic',       '~> 4.0'
   gem 'rubocop',          '~> 0.24', '>= 0.24.0'
   gem 'chefspec',         '~> 4.0'
-  gem 'parallel_tests'
 end
 
 group :integration do
