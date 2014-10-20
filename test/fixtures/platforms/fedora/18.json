@@ -31,6 +31,9 @@
             "mime",
             "negotiation",
             "setenvif"
-        ]
+        ],
+        "mod_auth_openid": {
+            "version": "0.8"
+        }
     }
 }

@@ -5,14 +5,16 @@ describe 'apache2::mod_fastcgi' do
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) do
-          ChefSpec::Runner.new(:platform => platform, :version => version).converge(described_recipe)
+          @chef_run
         end
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
-        before do
+        before(:context) do
+          @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
           stub_command("test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf").and_return(true)
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
+          @chef_run.converge(described_recipe)
         end
 
         if %w(debian ubuntu).include?(platform)
@@ -26,9 +28,8 @@ describe 'apache2::mod_fastcgi' do
             end
           end
         end
+        it_should_behave_like 'an apache2 module', 'fastcgi', true
       end
     end
   end
-
-  it_should_behave_like 'an apache2 module', 'fastcgi', true, supported_platforms
 end

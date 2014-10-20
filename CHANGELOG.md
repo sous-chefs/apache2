@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 v2.0.1 (unreleased)
 -------------------
+- OneHealth Solutions was acquired by Viverae
 - Remove ArchLinux pacman as a dependency and handle similar to apt, yum, zypper
 - Adjust ubuntu apache 2.4 docroot_dir to match package (from /var/www to /var/www/html)
 - [GH-208] `apache_conf` now accepts `source` and `cookbook` parameters.
