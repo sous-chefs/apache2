@@ -17,11 +17,7 @@
 # limitations under the License.
 #
 
-if node['apache']['version'] == '2.4'
-  default['apache']['mod_ssl']['protocol'] = 'all -SSLv2 -SSLv3'
-else
-  default['apache']['mod_ssl']['protocol'] = 'all -SSLv2'
-end
+default['apache']['mod_ssl']['protocol'] = 'All -SSLv2'
 default['apache']['mod_ssl']['cipher_suite'] = 'EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH+aRSA+RC4:EECDH:EDH+aRSA:RC4!aNULL!eNULL!LOW!3DES!MD5!EXP!PSK!SRP!DSS'
 default['apache']['mod_ssl']['honor_cipher_order']     = 'On'
 default['apache']['mod_ssl']['insecure_renegotiation'] = 'Off'
