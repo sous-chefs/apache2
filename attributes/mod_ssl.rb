@@ -36,7 +36,7 @@ case node['platform']
 when 'freebsd'
   default['apache']['mod_ssl']['session_cache']  = 'shmcb:/var/run/ssl_scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'file:/var/run/ssl_mutex'
-when 'rhel', 'fedora', 'suse'
+when 'rhel', 'fedora', 'suse', 'centos'
   default['apache']['mod_ssl']['session_cache']  = 'shmcb:/var/cache/mod_ssl/scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'default'
 when 'ubuntu'
