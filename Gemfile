@@ -25,5 +25,5 @@ group :development do
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
   gem 'terminal-notifier-guard', :require => false
-  gem 'psych'
+  gem 'psych', '~> 2.0.5'
 end
