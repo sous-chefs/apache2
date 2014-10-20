@@ -246,12 +246,32 @@ they're logistically unrelated to the others, being specific to the
 mod\_ssl attributes
 -------------------
 
-* `node['apache']['mod_ssl']['cipher_suite']` - sets the
-  SSLCiphersuite value to the specified string. The default is
-  considered "sane" but you may need to change it for your local
-  security policy, e.g. if you have PCI-DSS requirements. Additional
+For general information on this attributes see http://httpd.apache.org/docs/current/mod/mod_ssl.html
+
+* `node['apache']['mod_ssl']['cipher_suite']` - sets the SSLCiphersuite value to the specified string. The default is
+  considered "sane" but you may need to change it for your local security policy, e.g. if you have PCI-DSS requirements. Additional
   commentary on the
   [original pull request](https://github.com/viverae-cookbooks/apache2/pull/15#commitcomment-1605406).
+* `node['apache']['mod_ssl']['honor_cipher_order']` - Option to prefer the server's cipher preference order. Default 'On'.
+* `node['apache']['mod_ssl']['insecure_renegotiation']` - Option to enable support for insecure renegotiation. Default 'Off'.
+* `node['apache']['mod_ssl']['strict_sni_vhost_check']` - Whether to allow non-SNI clients to access a name-based virtual host. Default 'Off'.
+* `node['apache']['mod_ssl']['session_cache']` - Configures the OCSP stapling cache. Default `shmcb:/var/run/apache2/ssl_scache`
+* `node['apache']['mod_ssl']['session_cache_timeout']` - Number of seconds before an SSL session expires in the Session Cache. Default 300.
+*  `node['apache']['mod_ssl']['compression']` - 	Enable compression on the SSL level. Default 'Off'.
+* `node['apache']['mod_ssl']['use_stapling']` - Enable stapling of OCSP responses in the TLS handshake. Default 'Off'.
+* `node['apache']['mod_ssl']['stapling_responder_timeout']` - 	Timeout for OCSP stapling queries. Default 5
+* `node['apache']['mod_ssl']['stapling_return_responder_errors']` - Pass stapling related OCSP errors on to client. Default 'Off'
+* `node['apache']['mod_ssl']['stapling_cache']` - Configures the OCSP stapling cache. Default `shmcb:/var/run/ocsp(128000)`
+* `node['apache']['mod_ssl']['pass_phrase_dialog']` - Configures SSLPassPhraseDialog. Default `builtin`
+* `node['apache']['mod_ssl']['mutex']` - Configures SSLMutex. Default `file:/var/run/apache2/ssl_mutex`
+* `node['apache']['mod_ssl']['directives']` - Hash for add any custom directive.
+
+For more information on these directives and how to best secure your site see
+- https://bettercrypto.org/
+- https://www.ssllabs.com/projects/best-practices/
+- https://www.insecure.ws/2013/10/11/ssltls-configuration-for-apache-mod_ssl/
+- https://community.qualys.com/blogs/securitylabs/2013/08/05/configuring-apache-nginx-and-openssl-for-forward-secrecy/
+- https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
 
 Recipes
 =======
@@ -694,7 +714,7 @@ License and Authors
 * Author:: Seth Chisamore <schisamo@opscode.com>
 * Author:: Gilles Devaux <gilles@peerpong.com>
 * Author:: Sander van Zoest <sander.vanzoest@viverae.com>
-* Author:: Taylor Price <tprice@onehealth.com>
+* Author:: Taylor Price <tayworm@gmail.com>
 
 * Copyright:: 2009-2012, Opscode, Inc
 * Copyright:: 2011, Atriso
