@@ -112,8 +112,8 @@ default['apache']['keepalivetimeout'] = 5
 
 # Security
 default['apache']['servertokens'] = "Prod"
-default['apache']['serversignature'] = "On"
-default['apache']['traceenable'] = "On"
+default['apache']['serversignature'] = "Off"
+default['apache']['traceenable'] = "Off"
 
 # mod_auth_openids
 default['apache']['allowed_openids'] = Array.new
