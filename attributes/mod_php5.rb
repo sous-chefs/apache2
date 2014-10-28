@@ -2,7 +2,7 @@
 # Cookbook Name:: apache2
 # Attributes:: mod_php5
 #
-# Copyright 2012-2013, Opscode, Inc.
+# Copyright 2014, Viverae, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,4 +16,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default['apache']['php_install_method'] = 'package'
+default['apache']['mod_php5']['install_method'] = 'package'
