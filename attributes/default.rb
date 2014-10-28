@@ -17,34 +17,51 @@
 # limitations under the License.
 #
 
-if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 14.04
-  default['apache']['version'] = '2.4'
-  default['apache']['mpm'] = 'event'
-elsif node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 13.10
-  default['apache']['version'] = '2.4'
-  default['apache']['mpm'] = 'prefork'
-elsif node['platform'] == 'debian' && node['platform_version'].to_f >= 8.0
-  default['apache']['version'] = '2.4'
-  default['apache']['mpm'] = 'prefork'
-elsif node['platform'] == 'redhat' && node['platform_version'].to_f >= 7.0
-  default['apache']['version'] = '2.4'
-  default['apache']['mpm'] = 'prefork'
-elsif node['platform'] == 'centos' && node['platform_version'].to_f >= 7.0
-  default['apache']['version'] = '2.4'
-  default['apache']['mpm'] = 'prefork'
-elsif node['platform'] == 'fedora' && node['platform_version'].to_f >= 18
-  default['apache']['version'] = '2.4'
-  default['apache']['mpm'] = 'prefork'
-elsif node['platform'] == 'opensuse' && node['platform_version'].to_f >= 13.1
-  default['apache']['version'] = '2.4'
-  default['apache']['mpm'] = 'prefork'
-elsif node['platform'] == 'freebsd' && node['platform_version'].to_f >= 10.0
-  default['apache']['version'] = '2.4'
-  default['apache']['mpm'] = 'prefork'
-else
-  default['apache']['version'] = '2.2'
-  default['apache']['mpm'] = 'prefork'
-end
+default['apache']['mpm'] =
+  case node['platform_family']
+  when 'debian'
+    case node['platform']
+    when 'ubuntu'
+      node['platform_version'].to_f >= 14.04 ? 'event' : 'prefork'
+    when 'linuxmint'
+      node['platform_version'].to_i >= 17 ? 'event' : 'prefork'
+    else
+      'prefork'
+    end
+  else
+    'prefork'
+  end
+
+default['apache']['version'] =
+  case node['platform_family']
+  when 'debian'
+    case node['platform']
+    when 'ubuntu'
+      node['platform_version'].to_f >= 13.10 ? '2.4' : '2.2'
+    when 'linuxmint'
+      node['platform_version'].to_i >= 16 ? '2.4' : '2.2'
+    when 'debian', 'raspbian'
+      node['platform_version'].to_f >= 8.0 ? '2.4' : '2.2'
+    else
+      '2.4'
+    end
+  when 'rhel'
+    node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
+  when 'fedora'
+    node['platform_version'].to_f >= 18 ? '2.4' : '2.2'
+  when 'suse'
+    case node['platform']
+    when 'opensuse'
+      node['platform_version'].to_f >= 13.1 ? '2.4' : '2.2'
+      # FIXME: when "suse" for SLES
+    else
+      '2.4'
+    end
+  when 'freebsd'
+    node['platform_version'].to_f >= 10.0 ? '2.4' : '2.2'
+  else
+    '2.4'
+  end
 
 default['apache']['root_group'] = 'root'
 
