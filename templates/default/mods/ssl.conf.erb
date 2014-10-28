@@ -90,7 +90,7 @@
 <% if node['apache']['version'] == '2.4' -%>
   SSLProtocol all -SSLv3
 <% else -%>
-  SSLProtocol all -SSLv2
+  SSLProtocol all -SSLv2 -SSLv3
 <% end -%>
 
   #   Allow insecure renegotiation with clients which do not yet support the
