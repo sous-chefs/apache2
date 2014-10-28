@@ -88,7 +88,7 @@
   #   Available values: all, SSLv3, TLSv1, TLSv1.1, TLSv1.2
   #   SSL v2  is no longer supported
 <% if node['apache']['version'] == '2.4' -%>
-  SSLProtocol all
+  SSLProtocol all -SSLv3
 <% else -%>
   SSLProtocol all -SSLv2
 <% end -%>
