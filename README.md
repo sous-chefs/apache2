@@ -372,6 +372,8 @@ On Red Hat family distributions including Fedora, the php.conf that
 comes with the package is removed. On RHEL platforms less than v6, the
 `php53` package is used.
 
+* `node['apache']['mod_php5']['install_method']` - default `package` can be overridden to avoid package installs.
+
 mod\_ssl
 --------
 
