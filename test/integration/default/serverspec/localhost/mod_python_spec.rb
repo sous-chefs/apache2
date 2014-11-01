@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
-if property[:apache][:version] == '2.4' && %w(RedHat RedHat7 Fedora).include?(os[:family])
+if property[:apache][:version] == '2.4' && %w(redhat redhat7 fedora).include?(os[:family])
 
 else
   describe 'apache2::mod_python' do
