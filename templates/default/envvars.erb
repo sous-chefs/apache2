@@ -16,11 +16,15 @@ export APACHE_LOCK_DIR=<%= node['apache']['lock_dir'] %>
 export APACHE_LOG_DIR=<%= node['apache']['log_dir'] %>
 
 ## The locale used by some modules like mod_dav
-export LANG=C
+<%- if node['apache'].fetch('locale', 'C') != 'system' %>
+export LANG=<%= node['apache'].fetch('locale', 'C') %>
+export LC_ALL=<%= node['apache'].fetch('locale', 'C') %>
+<%- else %>
 ## Uncomment the following line to use the system default locale instead:
-#. /etc/default/locale
-
+. /etc/default/locale
 export LANG
+<%- end %>
+
 
 ## The command to get the status for 'apache2ctl status'.
 ## Some packages providing 'www-browser' need '--dump' instead of '-dump'.
