@@ -2,28 +2,38 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-v2.0.1 (unreleased)
+v3.0.0 (unreleased)
 -------------------
-- [GH-239] Added `apache.mod_php5.install_method` attribute defaults to `package`.
-  Install packages unless PHP is compiled from source.
-- [GH-277] Optimize files watching for Guard on Win32 platform
-- [GH-243] Expand mpm options for different distros/versions.
+Major version update because of SSL Improvements and new platform MPM and Version defaults.
+
+- [GH-286] Refactor MPM and Apache version defaults: default is now apache 2.4
+- [GH-281] mod_ssl: Disable SSLv3 by default to protect against POODLE attack (CVE-2014-3566)
+- [GH-280] mod_ssl: Major update with modern CipherSuite, and best practices
 - [GH-278] Improved chefspec tests execution time
+- [GH-277] Optimize files watching for Guard on Win32 platform
+- [GH-268] Now uses chefspec 4.1
+- [GH-267] Use Supermarket as the Berkshelf 3 source
+- [GH-266] Rubocop based ruby style/syntax improvements
+- [GH-264] mod_ssl: Add new attribute for to be ready to any custom directive
+- [GH-243] Expand mpm options for different distros/versions.
+- [GH-239] Added `apache.mod_php5.install_method` attribute defaults to `package`. Install packages unless PHP is compiled from source.
 - OneHealth Solutions was acquired by Viverae
 - Remove ArchLinux pacman as a dependency and handle similar to apt, yum, zypper
 - Adjust ubuntu apache 2.4 docroot_dir to match package (from /var/www to /var/www/html)
-- [GH-208] `apache_conf` now accepts `source` and `cookbook` parameters.
-- [GH-210] Clarify web_app definition usage around configuration templates.
-- [GH-213] Adjust chefspec to use the package resource on FreeBSD (previously freebsd_package)
-- [GH-232] Cookbook now deletes a2* if they are symlinks before dropping template versions
-- [GH-233] Default web_app template should return 503 status code when maintenance file is present
-- [GH-234] /var/run/httpd/mod_fcgid directory now belongs to apache on Fedora/RHEL systems.
-- [GH-235] Removed `apache2::mpm_itk` which is not part of core and therefore should be its own cookbook
 - [GH-238] Bump service config syntax check guard timeout to 10 seconds
+- [GH-235] Removed `apache2::mpm_itk` which is not part of core and therefore should be its own cookbook
+- [GH-234] /var/run/httpd/mod_fcgid directory now belongs to apache on Fedora/RHEL systems.
+- [GH-233] Default web_app template should return 503 status code when maintenance file is present
+- [GH-232] Cookbook now deletes a2* if they are symlinks before dropping template versions
 - [GH-222] Set TraceEnable to off by default.
+- [GH-213] Adjust chefspec to use the package resource on FreeBSD (previously freebsd_package)
+- [GH-210] Clarify web_app definition usage around configuration templates.
+- [GH-208] `apache_conf` now accepts `source` and `cookbook` parameters.
 
 v2.0.0 (2014-08-06)
 --------------------
+Major version update because of major overhaul to support Apache 2.4 and a2enconf and a2endisconf changes.
+
 - [GH-204] mod_auth_openid: Added `apache.mod_auth_openid.version` attribute
 - FreeBSD support has been improved with the release of chef 11.14.2, portsnap is no longer used in favor of pkgng.
 - [GH-157] - Apache will only be started when a configuration test passes, this allows the chef run to fix any broken configuration without failing the chef run.
