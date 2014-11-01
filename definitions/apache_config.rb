@@ -29,7 +29,7 @@ define :apache_config, :enable => true do
       notifies :reload, 'service[apache2]', :delayed
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{conf_name}") &&
-        (::File.exist?(params[:conf_path]) ? ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{conf_name}") : true)
+          (::File.exist?(params[:conf_path]) ? ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{conf_name}") : true)
       end
     end
   else

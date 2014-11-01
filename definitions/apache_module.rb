@@ -37,7 +37,7 @@ define :apache_module, :enable => true, :conf => false do
       notifies :reload, 'service[apache2]', :delayed
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") &&
-        (::File.exist?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
+          (::File.exist?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
       end
     end
   else
