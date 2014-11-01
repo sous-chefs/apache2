@@ -1,6 +1,5 @@
 #
 # Copyright (c) 2014 OneHealth Solutions, Inc.
-# Copyright (c) 2014 Viverae, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +15,7 @@
 #
 require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
 
-describe 'apache2::mod_cgi', :if => property[:apache][:mpm] == 'prefork' do
+describe 'apache2::mod_cgi' do
   expected_module = 'cgi'
   subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
   it "mods-available/#{expected_module}.load is accurate" do

@@ -1,6 +1,5 @@
 #
 # Copyright (c) 2014 OneHealth Solutions, Inc.
-# Copyright (c) 2014 Viverae, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,8 +15,8 @@
 #
 require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
 
-describe 'apache2::mod_cgi', :if => property[:apache][:mpm] == 'prefork' do
-  expected_module = 'cgi'
+describe 'apache2::mod_include' do
+  expected_module = 'include'
   subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
   it "mods-available/#{expected_module}.load is accurate" do
     expect(available).to be_file
@@ -34,5 +33,12 @@ describe 'apache2::mod_cgi', :if => property[:apache][:mpm] == 'prefork' do
   it "#{expected_module} is loaded" do
     expect(loaded_modules.exit_status).to eq 0
     expect(loaded_modules.stdout).to match(/#{expected_module}_module/)
+  end
+
+  subject(:configfile) { file("#{property[:apache][:dir]}/mods-enabled/#{expected_module}.conf") }
+  it "mods-enabled/#{expected_module}.conf adds .shtml handlers" do
+    expect(configfile).to be_file
+    expect(configfile).to contain(/AddType text\/html .shtml/)
+    expect(configfile).to contain(/AddOutputFilter INCLUDES .shtml/)
   end
 end

@@ -16,8 +16,8 @@
 #
 require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
 
-describe 'apache2::mod_cgi', :if => property[:apache][:mpm] == 'prefork' do
-  expected_module = 'cgi'
+describe 'apache2::mod_cgid', :unless => property[:apache][:mpm] == 'prefork' do
+  expected_module = 'cgid'
   subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
   it "mods-available/#{expected_module}.load is accurate" do
     expect(available).to be_file
