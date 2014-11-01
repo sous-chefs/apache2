@@ -1,8 +1,9 @@
 #
 # Cookbook Name:: apache2
-# Attributes:: apache
+# Attributes:: default
 #
 # Copyright 2008-2013, Opscode, Inc.
+# Copyright 2014, Viverae, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,23 +18,51 @@
 # limitations under the License.
 #
 
-if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 13.10
-  default['apache']['version'] = '2.4'
-elsif node['platform'] == 'debian' && node['platform_version'].to_f >= 8.0
-  default['apache']['version'] = '2.4'
-elsif node['platform'] == 'redhat' && node['platform_version'].to_f >= 7.0
-  default['apache']['version'] = '2.4'
-elsif node['platform'] == 'centos' && node['platform_version'].to_f >= 7.0
-  default['apache']['version'] = '2.4'
-elsif node['platform'] == 'fedora' && node['platform_version'].to_f >= 18
-  default['apache']['version'] = '2.4'
-elsif node['platform'] == 'opensuse' && node['platform_version'].to_f >= 13.1
-  default['apache']['version'] = '2.4'
-elsif node['platform'] == 'freebsd' && node['platform_version'].to_f >= 10.0
-  default['apache']['version'] = '2.4'
-else
-  default['apache']['version'] = '2.2'
-end
+default['apache']['mpm'] =
+  case node['platform_family']
+  when 'debian'
+    case node['platform']
+    when 'ubuntu'
+      node['platform_version'].to_f >= 14.04 ? 'event' : 'prefork'
+    when 'linuxmint'
+      node['platform_version'].to_i >= 17 ? 'event' : 'prefork'
+    else
+      'prefork'
+    end
+  else
+    'prefork'
+  end
+
+default['apache']['version'] =
+  case node['platform_family']
+  when 'debian'
+    case node['platform']
+    when 'ubuntu'
+      node['platform_version'].to_f >= 13.10 ? '2.4' : '2.2'
+    when 'linuxmint'
+      node['platform_version'].to_i >= 16 ? '2.4' : '2.2'
+    when 'debian', 'raspbian'
+      node['platform_version'].to_f >= 8.0 ? '2.4' : '2.2'
+    else
+      '2.4'
+    end
+  when 'rhel'
+    node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
+  when 'fedora'
+    node['platform_version'].to_f >= 18 ? '2.4' : '2.2'
+  when 'suse'
+    case node['platform']
+    when 'opensuse'
+      node['platform_version'].to_f >= 13.1 ? '2.4' : '2.2'
+      # FIXME: when "suse" for SLES
+    else
+      '2.4'
+    end
+  when 'freebsd'
+    node['platform_version'].to_f >= 10.0 ? '2.4' : '2.2'
+  else
+    '2.4'
+  end
 
 default['apache']['root_group'] = 'root'
 
@@ -228,7 +257,6 @@ default['apache']['ext_status'] = false
 # mod_info Allow list, space seprated list of allowed entries.
 default['apache']['info_allow_list'] = '127.0.0.1 ::1'
 
-default['apache']['mpm'] = 'prefork'
 # Prefork Attributes
 default['apache']['prefork']['startservers']        = 16
 default['apache']['prefork']['minspareservers']     = 16

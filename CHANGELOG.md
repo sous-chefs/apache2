@@ -4,6 +4,11 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 v2.0.1 (unreleased)
 -------------------
+- [GH-239] Added `apache.mod_php5.install_method` attribute defaults to `package`.
+  Install packages unless PHP is compiled from source.
+- [GH-277] Optimize files watching for Guard on Win32 platform
+- [GH-243] Expand mpm options for different distros/versions.
+- [GH-278] Improved chefspec tests execution time
 - OneHealth Solutions was acquired by Viverae
 - Remove ArchLinux pacman as a dependency and handle similar to apt, yum, zypper
 - Adjust ubuntu apache 2.4 docroot_dir to match package (from /var/www to /var/www/html)

@@ -52,7 +52,7 @@ when 'freebsd'
   %w(php5 mod_php5 libxml2).each do |pkg|
     package pkg
   end
-end
+end unless node['apache']['mod_php5']['install_method'] == 'source'
 
 file "#{node['apache']['dir']}/conf.d/php.conf" do
   action :delete
