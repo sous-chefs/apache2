@@ -17,4 +17,33 @@
 # limitations under the License.
 #
 
-default['apache']['mod_ssl']['cipher_suite'] = 'RC4-SHA:HIGH:!ADH'
+default['apache']['mod_ssl']['protocol'] = 'All -SSLv2 -SSLv3'
+default['apache']['mod_ssl']['cipher_suite'] = 'EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH+aRSA+RC4:EECDH:EDH+aRSA:RC4!aNULL!eNULL!LOW!3DES!MD5!EXP!PSK!SRP!DSS'
+default['apache']['mod_ssl']['honor_cipher_order']     = 'On'
+default['apache']['mod_ssl']['insecure_renegotiation'] = 'Off'
+default['apache']['mod_ssl']['strict_sni_vhost_check'] = 'Off'
+default['apache']['mod_ssl']['session_cache']  = 'shmcb:/var/run/apache2/ssl_scache'
+default['apache']['mod_ssl']['session_cache_timeout']  = 300
+default['apache']['mod_ssl']['compression'] = 'Off'
+default['apache']['mod_ssl']['use_stapling'] = 'Off'
+default['apache']['mod_ssl']['stapling_responder_timeout'] = 5
+default['apache']['mod_ssl']['stapling_return_responder_errors'] = 'Off'
+default['apache']['mod_ssl']['stapling_cache'] = 'shmcb:/var/run/ocsp(128000)'
+default['apache']['mod_ssl']['pass_phrase_dialog'] = 'builtin'
+default['apache']['mod_ssl']['mutex'] = 'file:/var/run/apache2/ssl_mutex'
+
+case node['platform']
+when 'freebsd'
+  default['apache']['mod_ssl']['session_cache']  = 'shmcb:/var/run/ssl_scache(512000)'
+  default['apache']['mod_ssl']['mutex'] = 'file:/var/run/ssl_mutex'
+when 'rhel', 'fedora', 'suse', 'centos'
+  default['apache']['mod_ssl']['session_cache']  = 'shmcb:/var/cache/mod_ssl/scache(512000)'
+  default['apache']['mod_ssl']['mutex'] = 'default'
+when 'ubuntu'
+  if node['apache']['version'] == '2.4'
+    default['apache']['mod_ssl']['pass_phrase_dialog'] = 'exec:/usr/share/apache2/ask-for-passphrase'
+  end
+else
+end
+
+default['apache']['mod_ssl']['directives'] = {}

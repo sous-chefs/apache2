@@ -33,36 +33,19 @@
   #   Configure the pass phrase gathering process.
   #   The filtering dialog program (`builtin' is a internal
   #   terminal dialog) has to provide the pass phrase on stdout.
-<% if %w[ubuntu].include?(node['platform']) && node['apache']['version'] == '2.4' -%>
-  SSLPassPhraseDialog exec:/usr/share/apache2/ask-for-passphrase
-<% else -%>
-  SSLPassPhraseDialog  builtin
-<% end -%>
+  SSLPassPhraseDialog <%= node['apache']['mod_ssl']['pass_phrase_dialog'] %>
 
   #   Inter-Process Session Cache:
   #   Configure the SSL Session Cache: First the mechanism
   #   to use and second the expiring timeout (in seconds).
-  #SSLSessionCache         dbm:/var/run/apache2/ssl_scache
-  <% if %w[rhel fedora suse].include?(node['platform_family']) -%>
-  SSLSessionCache        shmcb:/var/cache/mod_ssl/scache(512000)
-  <% elsif %w[freebsd].include?(node['platform_family']) -%>
-  SSLSessionCache        shmcb:/var/run/ssl_scache(512000)
-  <% else -%>
-  SSLSessionCache        shmcb:/var/run/apache2/ssl_scache
-  <% end -%>
-  SSLSessionCacheTimeout  300
+  SSLSessionCache         <%= node['apache']['mod_ssl']['session_cache'] %>
+  SSLSessionCacheTimeout  <%= node['apache']['mod_ssl']['session_cache_timeout'] %>
 
 <% if node['apache']['version'] != '2.4' -%>
   #   Semaphore:
   #   Configure the path to the mutual exclusion semaphore the
   #   SSL engine uses internally for inter-process synchronization.
-  <% if %w[rhel fedora suse].include?(node['platform_family']) -%>
-  SSLMutex  default
-  <% elsif %w[freebsd].include?(node['platform_family']) -%>
-  SSLMutex  file:/var/run/ssl_mutex
-  <% else -%>
-  SSLMutex  file:/var/run/apache2/ssl_mutex
-  <% end -%>
+  SSLMutex <%= node['apache']['mod_ssl']['mutex'] %>
 <% end -%>
 
   #   SSL Cipher Suite:
@@ -82,22 +65,42 @@
   #   compromised, captures of past or future traffic must be
   #   considered compromised, too.
   #SSLCipherSuite RC4-SHA:AES128-SHA:HIGH:MEDIUM:!aNULL:!MD5
-  SSLHonorCipherOrder On
+  SSLHonorCipherOrder <%= node['apache']['mod_ssl']['honor_cipher_order'] %>
 
   #   The protocols to enable.
   #   Available values: all, SSLv3, TLSv1, TLSv1.1, TLSv1.2
   #   SSL v2  is no longer supported
-<% if node['apache']['version'] == '2.4' -%>
-  SSLProtocol all
-<% else -%>
-  SSLProtocol all -SSLv2
-<% end -%>
+  SSLProtocol <%= node['apache']['mod_ssl']['protocol'] %>
 
   #   Allow insecure renegotiation with clients which do not yet support the
   #   secure renegotiation protocol. Default: Off
-  #SSLInsecureRenegotiation on
+  SSLInsecureRenegotiation <%= node['apache']['mod_ssl']['insecure_renegotiation'] %>
 
   #   Whether to forbid non-SNI clients to access name based virtual hosts.
   #   Default: Off
-  #SSLStrictSNIVHostCheck On
+  SSLStrictSNIVHostCheck <%= node['apache']['mod_ssl']['strict_sni_vhost_check'] %>
+
+<% if node['apache']['version'] == '2.4' -%>
+  #   Enable compression on the SSL level
+  #   Enabling compression causes security issues in most setups (the so called CRIME attack).
+  #   Default: Off
+  SSLCompression         <%= node['apache']['mod_ssl']['compression'] %>
+
+  #   OCSP Stapling, only in httpd 2.3.3 and later
+  #   This option enables OCSP stapling, as defined by the "Certificate Status Request" TLS
+  #   extension specified in RFC 6066. If enabled (and requested by the client), mod_ssl will
+  #   include an OCSP response for its own certificate in the TLS handshake.
+  #   Configuring an SSLStaplingCache is a prerequisite for enabling OCSP stapling.
+  #   Default: Off
+  <% if node['apache']['mod_ssl']['use_stapling'] == 'On' -%>
+  SSLUseStapling         <%= node['apache']['mod_ssl']['use_stapling'] %>
+  SSLStaplingResponderTimeout <%= node['apache']['mod_ssl']['stapling_responder_timeout'] %>
+  SSLStaplingReturnResponderErrors <%= node['apache']['mod_ssl']['stapling_return_responder_errors'] %>
+  SSLStaplingCache        <%= node['apache']['mod_ssl']['stapling_cache'] %>
+  <% end -%>
+<% end -%>
+
+  <% node['apache']['mod_ssl']['directives'].sort_by { |key, val| key }.each do |directive, value| -%>
+      <%= directive %> <%= value %>
+  <% end -%>
 </IfModule>
