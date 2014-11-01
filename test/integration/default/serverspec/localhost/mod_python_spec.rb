@@ -33,8 +33,8 @@ else
 
     subject(:loaded_modules) { command("APACHE_LOG_DIR=#{property[:apache][:log_dir]} #{property[:apache][:binary]} -M") }
     it "#{expected_module} is loaded" do
-      expect(loaded_modules).to return_exit_status 0
-      expect(loaded_modules).to return_stdout(/#{expected_module}_module/)
+      expect(loaded_modules.exit_status).to eq 0
+      expect(loaded_modules.stdout).to match(/#{expected_module}_module/)
     end
   end
 end

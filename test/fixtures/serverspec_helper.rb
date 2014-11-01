@@ -1,46 +1,48 @@
 require 'serverspec'
 require 'json'
 
-include SpecInfra::Helper::Exec
-include SpecInfra::Helper::DetectOS
-include SpecInfra::Helper::Properties
+
+# centos-59 doesn't have /sbin in the default path,
+# so we must ensure it's on serverspec's path
+set :path, '/sbin:/usr/local/sbin:$PATH'
+set :backend, :exec
 
 # http://serverspec.org/advanced_tips.html
 # os[:family]  # RedHat, Ubuntu, Debian and so on
 # os[:release] # OS release version (cleaned up in v2)
 # os[:arch]
 osmapping = {
-  'RedHat' => {
+  'redhat' => {
     :platform_family => 'rhel',
     :platform => 'centos',
     :platform_version => '6.5'
   },
-  'RedHat7' => {
+  'redhat7' => {
     :platform_family => 'rhel',
     :platform => 'centos',
     :platform_version => '7.0'
   },
-  'Fedora' => {
+  'fedora' => {
     :platform_family => 'rhel',
     :platform => 'fedora',
     :platform_version => '20'
   },
-  'Ubuntu' => {
+  'ubuntu' => {
     :platform_family => 'debian',
     :platform => 'ubuntu',
     :platform_version => '12.04'
   },
-  'Debian' => {
+  'debian' => {
     :platform_family => 'debian',
     :platform => 'debian',
     :platform_version => '7.4'
   },
-  'FreeBSD' => {
+  'freebsd' => {
     :platform_family => 'freebsd',
     :platform => 'freebsd',
     :platform_version => '9.2'
   },
-  'FreeBSD10' => {
+  'freebsd10' => {
     :platform_family => 'freebsd',
     :platform => 'freebsd',
     :platform_version => '10.0'
@@ -66,10 +68,5 @@ def load_nodestub(ohai)
 end
 
 RSpec.configure do |config|
-  set_property load_nodestub(ohai_platform(backend.check_os, osmapping))
-  config.before(:all) do
-    # centos-59 doesn't have /sbin in the default path,
-    # so we must ensure it's on serverspec's path
-    config.path = '/sbin'
-  end
+  set_property load_nodestub(ohai_platform(os, osmapping))
 end
