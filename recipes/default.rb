@@ -21,21 +21,6 @@ package 'apache2' do
   package_name node['apache']['package']
 end
 
-service 'apache2' do
-  service_name node['apache']['package']
-  case node['platform_family']
-  when 'rhel'
-    reload_command '/sbin/service httpd graceful'
-  when 'debian'
-    provider Chef::Provider::Service::Debian
-  when 'arch'
-    service_name 'httpd'
-  end
-  supports [:start, :restart, :reload, :status]
-  action [:enable, :start]
-  only_if "#{node['apache']['binary']} -t", :environment => { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, :timeout => 10
-end
-
 %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
   directory "#{node['apache']['dir']}/#{dir}" do
     mode '0755'
@@ -203,4 +188,19 @@ end
 
 apache_site node['apache']['default_site_name'] do
   enable node['apache']['default_site_enabled']
+end
+
+service 'apache2' do
+  service_name node['apache']['package']
+  case node['platform_family']
+  when 'rhel'
+    reload_command '/sbin/service httpd graceful'
+  when 'debian'
+    provider Chef::Provider::Service::Debian
+  when 'arch'
+    service_name 'httpd'
+  end
+  supports [:start, :restart, :reload, :status]
+  action [:enable, :start]
+  only_if "#{node['apache']['binary']} -t", :environment => { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, :timeout => 10
 end
