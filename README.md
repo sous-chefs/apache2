@@ -268,10 +268,10 @@ For general information on this attributes see http://httpd.apache.org/docs/curr
 
 For more information on these directives and how to best secure your site see
 - https://bettercrypto.org/
-- https://www.ssllabs.com/projects/best-practices/
-- https://www.insecure.ws/2013/10/11/ssltls-configuration-for-apache-mod_ssl/
-- https://community.qualys.com/blogs/securitylabs/2013/08/05/configuring-apache-nginx-and-openssl-for-forward-secrecy/
+- https://wiki.mozilla.org/Security/Server_Side_TLS
+- https://www.insecure.ws/linux/apache_ssl.html
 - https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
+- https://www.ssllabs.com/projects/best-practices/
 
 Recipes
 =======
