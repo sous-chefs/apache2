@@ -201,7 +201,7 @@ describe 'apache2::default' do
               )
 
               expect(chef_run).to render_file("/etc/sysconfig/#{property[:apache][:package]}").with_content(
-                /#HTTPD_LANG=C/
+                /HTTPD=#{property[:apache][:binary]}/
               )
             end
 
