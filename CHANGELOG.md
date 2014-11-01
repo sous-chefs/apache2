@@ -15,6 +15,7 @@ Major version update because of SSL Improvements and new platform MPM and Versio
 - [GH-267] Use Supermarket as the Berkshelf 3 source
 - [GH-266] Rubocop based ruby style/syntax improvements
 - [GH-264] mod_ssl: Add new attribute for to be ready to any custom directive
+- [GH-247] Explicitly include mod_ldap before mod_authnz_ldap
 - [GH-243] Expand mpm options for different distros/versions.
 - [GH-239] Added `apache.mod_php5.install_method` attribute defaults to `package`. Install packages unless PHP is compiled from source.
 - OneHealth Solutions was acquired by Viverae
