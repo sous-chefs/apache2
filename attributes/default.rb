@@ -65,7 +65,6 @@ default['apache']['version'] =
   end
 
 default['apache']['root_group'] = 'root'
-
 default['apache']['default_site_name'] = 'default'
 
 # Where the various parts of apache are
@@ -237,6 +236,7 @@ default['apache']['timeout']           = 300
 default['apache']['keepalive']         = 'On'
 default['apache']['keepaliverequests'] = 100
 default['apache']['keepalivetimeout']  = 5
+default['apache']['locale'] = 'C'
 default['apache']['sysconfig_additional_params'] = {}
 default['apache']['default_site_enabled'] = false
 

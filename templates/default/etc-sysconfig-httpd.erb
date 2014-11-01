@@ -19,7 +19,7 @@ HTTPD=<%= node['apache']['binary'] %>
 # change the locale in which the server runs, the HTTPD_LANG
 # variable can be set.
 #
-#HTTPD_LANG=C
+HTTPD_LANG=<%= node['apache']['locale'] %>
 
 #
 # By default, the httpd process will create the file
