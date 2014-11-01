@@ -11,6 +11,7 @@ Major version update because of SSL Improvements and new platform MPM and Versio
 - [GH-280] mod_ssl: Major update with modern CipherSuite, and best practices
 - [GH-278] Improved chefspec tests execution time
 - [GH-277] Optimize files watching for Guard on Win32 platform
+- [GH-270] Don't attempt start until after configuration is written
 - [GH-268] Now uses chefspec 4.1
 - [GH-267] Use Supermarket as the Berkshelf 3 source
 - [GH-266] Rubocop based ruby style/syntax improvements
