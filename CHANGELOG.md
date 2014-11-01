@@ -27,6 +27,7 @@ Major version update because of SSL Improvements and new platform MPM and Versio
 - [GH-232] Cookbook now deletes a2* if they are symlinks before dropping template versions
 - [GH-222] Set TraceEnable to off by default.
 - [GH-213] Adjust chefspec to use the package resource on FreeBSD (previously freebsd_package)
+- [GH-212] New attribute apache.locale which sets LANG. defaults to 'C'
 - [GH-210] Clarify web_app definition usage around configuration templates.
 - [GH-208] `apache_conf` now accepts `source` and `cookbook` parameters.
 

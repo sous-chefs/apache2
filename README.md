@@ -167,7 +167,7 @@ the top of the file.
 * `node['apache']['lib_dir']` - Location for shared libraries
 * `node['apache']['default_site_enabled']` - Default site enabled. Default is false.
 * `node['apache']['ext_status']` - if true, enables ExtendedStatus for `mod_status`
-* `node['apache']['locale'] - Locale to set in envvars and used for subprocesses and modules (like mod_dav and mod_wsgi). Uses system-local if set to 'system', defaults to 'C'.
+* `node['apache']['locale'] - Locale to set in sysconfig or envvars and used for subprocesses and modules (like mod_dav and mod_wsgi). On debian systems Uses system-local if set to 'system', defaults to 'C'.
 
 General settings
 ----------------
