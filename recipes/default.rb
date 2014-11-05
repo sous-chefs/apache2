@@ -214,6 +214,14 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{recipe_name}"
 end
 
+# Delete the autoindex link in mods-enabled if it exists.
+Dir["#{node['apache']['dir']}/mods-enabled/{autoindex*}"].each do |path|
+  file ::File.expand_path(path) do
+    Chef::Log.info("#{path} should be DELETED!!")
+    action :delete
+  end
+end
+
 apache_site "default" if node['apache']['default_site_enabled']
 
 service "apache2" do
