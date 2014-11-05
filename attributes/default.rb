@@ -71,6 +71,7 @@ default['apache']['default_site_name'] = 'default'
 case node['platform']
 when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['package']     = 'httpd'
+  default['apache']['package_options'] = nil
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['apachectl']   = '/usr/sbin/apachectl'
   default['apache']['dir']         = '/etc/httpd'
