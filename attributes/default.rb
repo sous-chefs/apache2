@@ -66,6 +66,7 @@ default['apache']['version'] =
 
 default['apache']['root_group'] = 'root'
 default['apache']['default_site_name'] = 'default'
+default['apache']['service_name'] = nil
 
 # Where the various parts of apache are
 case node['platform']

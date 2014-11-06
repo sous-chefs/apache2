@@ -192,7 +192,7 @@ apache_site node['apache']['default_site_name'] do
 end
 
 service 'apache2' do
-  service_name node['apache']['package']
+  service_name node['apache']['service_name'] || node['apache']['package']
   case node['platform_family']
   when 'rhel'
     reload_command '/sbin/service httpd graceful'
