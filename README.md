@@ -258,7 +258,7 @@ For general information on this attributes see http://httpd.apache.org/docs/curr
 * `node['apache']['mod_ssl']['strict_sni_vhost_check']` - Whether to allow non-SNI clients to access a name-based virtual host. Default 'Off'.
 * `node['apache']['mod_ssl']['session_cache']` - Configures the OCSP stapling cache. Default `shmcb:/var/run/apache2/ssl_scache`
 * `node['apache']['mod_ssl']['session_cache_timeout']` - Number of seconds before an SSL session expires in the Session Cache. Default 300.
-*  `node['apache']['mod_ssl']['compression']` - 	Enable compression on the SSL level. Default 'Off'.
+* `node['apache']['mod_ssl']['compression']` - 	Enable compression on the SSL level. Default 'Off'.
 * `node['apache']['mod_ssl']['use_stapling']` - Enable stapling of OCSP responses in the TLS handshake. Default 'Off'.
 * `node['apache']['mod_ssl']['stapling_responder_timeout']` - 	Timeout for OCSP stapling queries. Default 5
 * `node['apache']['mod_ssl']['stapling_return_responder_errors']` - Pass stapling related OCSP errors on to client. Default 'Off'
@@ -272,6 +272,7 @@ For more information on these directives and how to best secure your site see
 - https://wiki.mozilla.org/Security/Server_Side_TLS
 - https://www.insecure.ws/linux/apache_ssl.html
 - https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
+- https://istlsfastyet.com/
 - https://www.ssllabs.com/projects/best-practices/
 
 Recipes
