@@ -8,21 +8,21 @@ Major version update because of SSL Improvements and new platform MPM and Versio
 
 - [GH-286] Refactor MPM and Apache version defaults: default is now apache 2.4
 - [GH-281] mod_ssl: Disable SSLv3 by default to protect against POODLE attack (CVE-2014-3566)
-- [GH-280] mod_ssl: Major update with modern Cipher Suite, and best practices
-           Updated to a more modern default `apache.mod_ssl.cipher_suite`
-           Added the following additional mod_ssl attributes
-           `apache.mod_ssl.honor_cipher_order`
-           `apache.mod_ssl.insecure_renegotiation`
-           `apache.mod_ssl.strict_sni_vhost_check`
-           `apache.mod_ssl.session_cache_timeout`
-           `apache.mod_ssl.compression`
-           `apache.mod_ssl.use_stapling`
-           `apache.mod_ssl.stapling_responder_timeout`
-           `apache.mod_ssl.stapling_return_responder_errors`
-           `apache.mod_ssl.stapling_cache`
-           `apache.mod_ssl.pass_phrase_dialog`
-           `apache.mod_ssl.mutex`
-           `apache.mod_ssl.directives`
+- [GH-280] mod_ssl: Major update with modern Cipher Suite, and best practices.
+  Updated to a more modern default `apache.mod_ssl.cipher_suite`.
+  Added the following additional mod_ssl attributes
+  * `apache.mod_ssl.honor_cipher_order`
+  * `apache.mod_ssl.insecure_renegotiation`
+  * `apache.mod_ssl.strict_sni_vhost_check`
+  * `apache.mod_ssl.session_cache_timeout`
+  * `apache.mod_ssl.compression`
+  * `apache.mod_ssl.use_stapling`
+  * `apache.mod_ssl.stapling_responder_timeout`
+  * `apache.mod_ssl.stapling_return_responder_errors`
+  * `apache.mod_ssl.stapling_cache`
+  * `apache.mod_ssl.pass_phrase_dialog`
+  * `apache.mod_ssl.mutex`
+  * `apache.mod_ssl.directives`
 - [GH-278] Improved chefspec tests execution time
 - [GH-277] Optimize files watching for Guard on Win32 platform
 - [GH-270] Don't attempt start until after configuration is written
