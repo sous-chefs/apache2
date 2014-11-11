@@ -137,8 +137,7 @@ default['apache']['worker']['maxrequestsperchild'] = 0
 # Default modules to enable via include_recipe
 
 default['apache']['default_modules'] = %w{
-  status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex
-  dir env mime negotiation setenvif
+  status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user dir env mime negotiation setenvif
 }
 
 %w{ log_config logio }.each do |log_mod|

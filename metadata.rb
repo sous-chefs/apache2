@@ -3,7 +3,7 @@ maintainer_email  "cookbooks@opscode.com"
 license           "Apache 2.0"
 description       "Installs and configures all aspects of apache2 using Debian style symlinks with helper definitions"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "1.1.14"
+version           "1.1.15"
 recipe            "apache2", "Main Apache configuration"
 recipe            "apache2::mod_alias", "Apache module 'alias' with config file"
 recipe            "apache2::mod_apreq2", "Apache module 'apreq'"
@@ -16,7 +16,6 @@ recipe            "apache2::mod_authz_default", "Apache module 'authz_default'"
 recipe            "apache2::mod_authz_groupfile", "Apache module 'authz_groupfile'"
 recipe            "apache2::mod_authz_host", "Apache module 'authz_host'"
 recipe            "apache2::mod_authz_user", "Apache module 'authz_user'"
-recipe            "apache2::mod_autoindex", "Apache module 'autoindex' with config file"
 recipe            "apache2::mod_cgi", "Apache module 'cgi'"
 recipe            "apache2::mod_dav", "Apache module 'dav'"
 recipe            "apache2::mod_dav_svn", "Apache module 'dav_svn'"
@@ -202,4 +201,4 @@ attribute "apache/worker/maxrequestsperchild",
 attribute "apache/default_modules",
   :display_name => "Apache Default Modules",
   :description => "Default modules to enable via recipes",
-  :default => "status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex dir env mime negotiation setenvif"
+  :default => "status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user dir env mime negotiation setenvif"

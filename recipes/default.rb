@@ -214,6 +214,10 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{recipe_name}"
 end
 
+apache_module 'autoindex' do
+  enable false
+end
+
 apache_site "default" if node['apache']['default_site_enabled']
 
 service "apache2" do
