@@ -1,7 +1,6 @@
 require 'serverspec'
 require 'json'
 
-
 # centos-59 doesn't have /sbin in the default path,
 # so we must ensure it's on serverspec's path
 set :path, '/sbin:/usr/local/sbin:$PATH'
