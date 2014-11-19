@@ -18,14 +18,21 @@
 #
 
 if platform_family?('debian')
-  package 'libapache2-mod-fastcgi'
+  if node['apache']['mod_fastcgi']['force_source']
+    package 'build-essential'
+    package 'apache2-dev'
+  else
+    package 'libapache2-mod-fastcgi'
+  end
 elsif platform_family?('rhel')
   %w(gcc make libtool httpd-devel apr-devel apr).each do |package|
     yum_package package do
       action :upgrade
     end
   end
+end
 
+if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mod_fastcgi']['force_source'])
   src_filepath  = "#{Chef::Config['file_cache_path']}/fastcgi.tar.gz"
   remote_file 'download fastcgi source' do
     source node['apache']['mod_fastcgi']['download_url']
@@ -33,9 +40,14 @@ elsif platform_family?('rhel')
     backup false
   end
 
-  top_dir = node['apache']['lib_dir']
+  if platform_family?('debian')
+    top_dir = node['apache']['libdev_dir']
+  else
+    top_dir = node['apache']['lib_dir']
+  end
+  include_recipe 'apache2::default'
   bash 'compile fastcgi source' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+    notifies :run, 'execute[generate-module-list]', :immediately if platform_family?('rhel')
     not_if "test -f #{node['apache']['dir']}/mods-available/fastcgi.conf"
     cwd ::File.dirname(src_filepath)
     code <<-EOH
