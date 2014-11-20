@@ -67,7 +67,7 @@ describe 'apache2::mod_fastcgi' do
 
           before(:context) do
             @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
-              node.set['apache']['mod_fastcgi']['force_source'] = true
+              node.set['apache']['mod_fastcgi']['install_method'] = 'source'
             end
             stub_command("test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf").and_return(false)
             stub_command("#{property[:apache][:binary]} -t").and_return(true)

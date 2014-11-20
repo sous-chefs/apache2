@@ -18,4 +18,4 @@
 #
 
 default['apache']['mod_fastcgi']['download_url'] = 'http://www.fastcgi.com/dist/mod_fastcgi-current.tar.gz'
-default['apache']['mod_fastcgi']['force_source'] = false
+default['apache']['mod_fastcgi']['install_method'] = 'package'

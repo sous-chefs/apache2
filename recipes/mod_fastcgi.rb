@@ -18,7 +18,7 @@
 #
 
 if platform_family?('debian')
-  if node['apache']['mod_fastcgi']['force_source']
+  if node['apache']['mod_fastcgi']['install_method'] == 'source'
     package 'build-essential'
     package 'apache2-dev'
   else
@@ -32,7 +32,7 @@ elsif platform_family?('rhel')
   end
 end
 
-if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mod_fastcgi']['force_source'])
+if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mod_fastcgi']['install_method'] == 'source')
   src_filepath  = "#{Chef::Config['file_cache_path']}/fastcgi.tar.gz"
   remote_file 'download fastcgi source' do
     source node['apache']['mod_fastcgi']['download_url']
