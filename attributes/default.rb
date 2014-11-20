@@ -143,7 +143,7 @@ when 'debian', 'ubuntu'
     default['apache']['docroot_dir'] = '/var/www'
   end
   default['apache']['lib_dir']       = '/usr/lib/apache2'
-  default['apache']['libdev_dir']    = '/usr/share/apache2'
+  default['apache']['build_dir']     = '/usr/share/apache2'
   default['apache']['libexec_dir']   = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_name'] = '000-default'
 when 'arch'

@@ -41,7 +41,7 @@ if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mo
   end
 
   if platform_family?('debian')
-    top_dir = node['apache']['libdev_dir']
+    top_dir = node['apache']['build_dir']
   else
     top_dir = node['apache']['lib_dir']
   end
