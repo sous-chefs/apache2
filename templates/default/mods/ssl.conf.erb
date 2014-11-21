@@ -72,6 +72,6 @@ SSLCipherSuite <%= node['apache']['mod_ssl']['cipher_suite'] %>
 #SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
 
 # enable only secure protocols: SSLv3 and TLSv1, but not SSLv2
-SSLProtocol all -SSLv2
+SSLProtocol <%= node['apache']['mod_ssl']['ssl_protocol'] %>
 
 </IfModule>
