@@ -3,6 +3,7 @@
         "version": "2.4",
         "package": "apache2",
         "binary": "/usr/sbin/httpd2",
+        "mpm": "prefork",
         "apachectl": "/usr/sbin/apache2ctl",
         "dir": "/etc/apache2",
         "lib_dir": "/usr/lib64/apache2",

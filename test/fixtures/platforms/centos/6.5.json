@@ -2,6 +2,7 @@
     "apache": {
         "package": "httpd",
         "binary": "/usr/sbin/httpd",
+        "mpm": "prefork",
         "dir": "/etc/httpd",
         "lib_dir": "/usr/lib64/httpd",
         "libexec_dir": "/usr/lib64/httpd/modules",

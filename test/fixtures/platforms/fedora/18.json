@@ -3,6 +3,7 @@
         "version": "2.4",
         "package": "httpd",
         "binary": "/usr/sbin/httpd",
+        "mpm": "prefork",
         "dir": "/etc/httpd",
         "lib_dir": "/usr/lib/httpd",
         "libexec_dir": "/usr/lib/httpd/modules",

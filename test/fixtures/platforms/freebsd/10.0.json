@@ -3,6 +3,7 @@
         "version": "2.4",
         "binary": "/usr/local/sbin/httpd",
         "package": "apache24",
+        "mpm": "prefork",
         "dir": "/usr/local/etc/apache24",
         "lib_dir": "/usr/local/libexec/apache24",
         "libexec_dir": "/usr/local/libexec/apache24",
