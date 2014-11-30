@@ -23,7 +23,17 @@ default['apache']['mpm'] =
   when 'debian'
     case node['platform']
     when 'ubuntu'
-      node['platform_version'].to_f >= 14.04 ? 'event' : 'prefork'
+      if node['platform_version'].to_f >= 14.04
+        'event'
+      else
+        if node['platform_version'].to_f >= 12.04
+          'worker'
+        else
+          'prefork'
+        end
+      end
+    when 'debian'
+      node['platform_version'].to_f >= 7.0 ? 'worker' : 'prefork'
     when 'linuxmint'
       node['platform_version'].to_i >= 17 ? 'event' : 'prefork'
     else
