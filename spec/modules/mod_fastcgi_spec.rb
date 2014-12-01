@@ -21,7 +21,7 @@ describe 'apache2::mod_fastcgi' do
           it 'installs package libapache2-mod-fastcgi' do
             expect(chef_run).to install_package('libapache2-mod-fastcgi')
           end
-        elsif %w(redhat centos).include?(platform)
+        elsif %w(amazon redhat centos).include?(platform)
           %w(gcc make libtool httpd-devel apr-devel apr).each do |package|
             it "installs package #{package}" do
               expect(chef_run).to upgrade_yum_package(package)

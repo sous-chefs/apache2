@@ -16,7 +16,7 @@ describe 'apache2::mod_perl' do
           @chef_run.converge(described_recipe)
         end
 
-        if %w(redhat centos fedora arch).include?(platform)
+        if %w(amazon redhat centos fedora arch).include?(platform)
           it 'installs package mod_perl' do
             expect(chef_run).to install_package('mod_perl')
             expect(chef_run).to_not install_package('not_mod_perl')

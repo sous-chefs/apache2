@@ -17,7 +17,7 @@ describe 'apache2::mod_php5' do
           @chef_run.converge(described_recipe)
         end
 
-        if %w(redhat centos fedora arch).include?(platform)
+        if %w(amazon redhat centos fedora arch).include?(platform)
           pkg = 'php'
           pkg = 'php53' if version.to_f < 6.0
           it "installs package #{pkg}" do

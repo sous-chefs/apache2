@@ -16,7 +16,7 @@ describe 'apache2::mod_xsendfile' do
           @chef_run.converge(described_recipe)
         end
 
-        if %w(redhat centos fedora arch).include?(platform)
+        if %w(amazon redhat centos fedora arch).include?(platform)
           it 'installs package mod_xsendfile' do
             expect(chef_run).to install_package('mod_xsendfile')
             expect(chef_run).to_not install_package('not_mod_xsendfile')

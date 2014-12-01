@@ -17,7 +17,7 @@ describe 'apache2::mod_apreq2' do
           @chef_run.converge(described_recipe)
         end
 
-        if %w(redhat centos fedora arch).include?(platform)
+        if %w(amazon redhat centos fedora arch).include?(platform)
           it 'installs package libapreq2' do
             expect(chef_run).to install_package('libapreq2')
             expect(chef_run).to_not install_package('not_libapreq2')

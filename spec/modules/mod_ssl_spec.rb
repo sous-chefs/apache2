@@ -16,7 +16,7 @@ describe 'apache2::mod_ssl' do
           @chef_run.converge(described_recipe)
         end
 
-        if %w(redhat centos fedora arch suse).include?(platform)
+        if %w(amazon redhat centos fedora arch suse).include?(platform)
           it 'installs package mod_ssl' do
             expect(chef_run).to install_package('mod_ssl')
             expect(chef_run).to_not install_package('not_mod_ssl')

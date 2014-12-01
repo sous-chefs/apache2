@@ -15,11 +15,6 @@ osmapping = {
   'redhat' => {
     :platform_family => 'rhel',
     :platform => 'centos',
-    :platform_version => '6.5'
-  },
-  'redhat7' => {
-    :platform_family => 'rhel',
-    :platform => 'centos',
     :platform_version => '7.0'
   },
   'fedora' => {
@@ -35,14 +30,9 @@ osmapping = {
   'debian' => {
     :platform_family => 'debian',
     :platform => 'debian',
-    :platform_version => '7.4'
+    :platform_version => '7.6'
   },
   'freebsd' => {
-    :platform_family => 'freebsd',
-    :platform => 'freebsd',
-    :platform_version => '9.2'
-  },
-  'freebsd10' => {
     :platform_family => 'freebsd',
     :platform => 'freebsd',
     :platform_version => '10.0'
