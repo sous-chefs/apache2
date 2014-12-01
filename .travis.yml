@@ -8,7 +8,6 @@ notifications:
     on_failure: always # options: [always|never|change] default: always
     on_start: false # default: false
 rvm:
-  - 1.9.3
   - 2.1.1
 
 bundler_args: --without integration development
