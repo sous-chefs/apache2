@@ -150,6 +150,8 @@ attributes/default.rb file for default values in the case statement at
 the top of the file.
 
 * `node['apache']['package']` - Package name for Apache2
+* `node['apache']['package_options']` - Package install options for RH family
+* `node['apache']['service_name']` - Name for the Apache2 service, if nil, package name will be used
 * `node['apache']['perl_pkg']` - Package name for Perl
 * `node['apache']['dir']` - Location for the Apache configuration
 * `node['apache']['log_dir']` - Location for Apache logs

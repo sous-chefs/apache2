@@ -74,11 +74,13 @@ default['apache']['version'] =
 
 default['apache']['root_group'] = 'root'
 default['apache']['default_site_name'] = 'default'
+default['apache']['service_name'] = nil
 
 # Where the various parts of apache are
 case node['platform']
 when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['package']     = 'httpd'
+  default['apache']['package_options'] = nil #"--enablerepo=rpmforge,myfoorepo"
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['apachectl']   = '/usr/sbin/apachectl'
   default['apache']['dir']         = '/etc/httpd'
