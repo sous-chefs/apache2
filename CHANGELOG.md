@@ -2,7 +2,7 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-v3.0.0 (unreleased)
+v3.0.0 (2014-11-30)
 -------------------
 Major version update because of SSL Improvements and new platform MPM and Version defaults.
 
