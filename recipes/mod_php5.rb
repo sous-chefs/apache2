@@ -4,6 +4,7 @@
 #
 # Copyright 2008-2013, Opscode, Inc.
 # Copyright 2014, OneHealth Solutions, Inc.
+# Copyright 2014, Viverae, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +18,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+if node['apache']['mpm'] != 'prefork'
+  Chef::Log.warn('apache2::mod_php5 generally is expected to be run under a non-threaded MPM, such as prefork')
+  Chef::Log.warn('See http://php.net/manual/en/faq.installation.php#faq.installation.apache2')
+  Chef::Log.warn("Currently the apache2 cookbook is configured to use the '#{node['apache']['mpm']}' MPM")
+end
 
 case node['platform_family']
 when 'debian'
