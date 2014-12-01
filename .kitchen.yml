@@ -87,7 +87,7 @@ suites:
   - recipe[apache2_test::mod_status_remote]
 - name: prefork
   includes: [
-    'centos-7.0',
+    'centos-6.5',
     'ubuntu-14.04'
   ]
   attributes:
@@ -110,13 +110,29 @@ suites:
 - name: worker
   includes: [
     'centos-7.0',
-    'ubuntu-14.04'
+    'ubuntu-12.04'
   ]
   attributes:
     machine_fqdn: working.computers.biz
     machine_fqdn_as_hostname: true
     apache:
       mpm: worker
+  run_list:
+  - recipe[fqdn]
+  - recipe[apache2_test::setup]
+  - recipe[apache2_test::default]
+  - recipe[apache2_test::basic_web_app]
+  - recipe[apache2_test::broken_conf]
+  - recipe[apache2_test::modules]
+- name: event
+  includes: [
+    'ubuntu-14.04'
+  ]
+  attributes:
+    machine_fqdn: working.computers.biz
+    machine_fqdn_as_hostname: true
+    apache:
+      mpm: event
   run_list:
   - recipe[fqdn]
   - recipe[apache2_test::setup]
