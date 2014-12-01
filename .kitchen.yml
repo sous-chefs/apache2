@@ -4,7 +4,7 @@ driver:
 
 provisioner:
   name: chef_solo
-  require_chef_omnibus: latest
+  require_chef_omnibus: 11.16.4
   data_path: test/fixtures
 
 platforms:
