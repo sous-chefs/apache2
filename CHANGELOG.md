@@ -11,6 +11,7 @@ v3.0.0 (2014-11-30)
 Major version update because of SSL Improvements and new platform MPM and Version defaults.
 
 - [GH-286] Refactor MPM and Apache version defaults: default is now apache 2.4
+- Note: set `apache.mpm` to `prefork` if you are using `mod_php` in Ubuntu >=14.04
 - [GH-281] mod_ssl: Disable SSLv3 by default to protect against POODLE attack (CVE-2014-3566)
 - [GH-280] mod_ssl: Major update with modern Cipher Suite, and best practices.
   Updated to a more modern default `apache.mod_ssl.cipher_suite`.
