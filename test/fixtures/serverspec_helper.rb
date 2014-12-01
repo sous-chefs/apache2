@@ -44,7 +44,8 @@ def ohai_platform(os, osmapping)
   ohaistub = {}
   ohaistub[:platform_family] = osmapping[os[:family]][:platform_family]
   ohaistub[:platform] = osmapping[os[:family]][:platform]
-  if os[:release]
+  # Hack: avoid freebsd to just use a release of 10 and force 10.0 instead to match chefspec
+  if os[:release] && os[:family] != 'freebsd'
     ohaistub[:platform_version] = os[:release]
   else
     ohaistub[:platform_version] = osmapping[os[:family]][:platform_version]
