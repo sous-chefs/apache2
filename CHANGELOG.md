@@ -3,6 +3,7 @@ apache2 Cookbook Changelog
 This file is used to list changes made in each version of the apache2 cookbook.
 
 v3.0.1 (unreleased)
+-------------------
 
 - [GH-298] Add non-threaded MPM break notice for PHP users
 
