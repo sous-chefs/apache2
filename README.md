@@ -35,7 +35,7 @@ As of v1.2.0, this cookbook makes use of `node['platform_family']` to
 simplify platform selection logic. This attribute was introduced in
 Ohai v0.6.12. The recipe methods were introduced in Chef v0.10.10. If
 you must run an older version of Chef or Ohai, use [version 1.1.16 of
-this cookbook](https://supermarket.getchef.com/cookbooks/apache2/versions/1.1.16).
+this cookbook](https://supermarket.chef.io/cookbooks/apache2/versions/1.1.16).
 
 ## Cookbooks:
 
@@ -56,7 +56,7 @@ settings may affect the behavior of this cookbook:
 On Ubuntu/Debian, use Opscode's `apt` cookbook to ensure the package
 cache is updated so Chef can install packages, or consider putting
 apt-get in your bootstrap process or
-[knife bootstrap template](http://wiki.opscode.com/display/chef/Knife+Bootstrap).
+[knife bootstrap template](http://docs.chef.io/knife_bootstrap.html)
 
 On RHEL, SELinux is enabled by default. The `selinux` cookbook
 contains a `permissive` recipe that can be used to set SELinux to
@@ -671,7 +671,7 @@ The parameters specified will be used as:
 In the template. When you write your own, the `@` is significant.
 
 For more information about Definitions and parameters, see the
-[Chef Wiki](http://wiki.opscode.com/display/chef/Definitions)
+[Chef Wiki](http://docs.chef.io/definitions.html)
 
 Usage
 =====
