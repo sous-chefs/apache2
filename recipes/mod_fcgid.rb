@@ -29,12 +29,15 @@ elsif platform_family?('rhel', 'fedora')
     backup false
   end
 
-  directory '/var/run/httpd/mod_fcgid' do
-    owner node['apache']['user']
-    group node['apache']['group']
-    recursive true
-    only_if { node['platform_version'].to_i >= 6 }
+  if ((node['platform_family'] == 'rhel') && (node['platform_version'].to_i == 6)) ||
+      ((node['platform_family'] == 'fedora') && (node['platform_version'].to_i < 20))
+    directory '/var/run/httpd/mod_fcgid' do
+      owner node['apache']['user']
+      group node['apache']['group']
+      recursive true
+    end
   end
+
 elsif platform_family?('suse')
   apache_lib_path = node['apache']['lib_dir']
 
