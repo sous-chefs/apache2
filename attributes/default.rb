@@ -210,6 +210,8 @@ default['apache']['keepalivetimeout']  = 5
 default['apache']['sysconfig_additional_params'] = {}
 default['apache']['default_site_enabled'] = false
 
+default['apache']['directives'] = []
+
 # Security
 default['apache']['servertokens']    = 'Prod'
 default['apache']['serversignature'] = 'On'

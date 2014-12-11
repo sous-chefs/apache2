@@ -279,3 +279,7 @@ Include <%= node['apache']['dir'] %>/conf-enabled/*.conf
 # Include the virtual host configurations:
 Include <%= node['apache']['dir'] %>/sites-enabled/*.conf
 <% end -%>
+
+<% node['apache']['directives'].each do |directive| %>
+<%= directive %>
+<% end -%>
