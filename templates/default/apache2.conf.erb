@@ -283,3 +283,6 @@ Include <%= node['apache']['dir'] %>/sites-enabled/*.conf
 <% node['apache']['directives'].each do |directive| %>
 <%= directive %>
 <% end -%>
+<% node['apache']['directives_options'].each do |name, value| %>
+<%= name %> <%= value %>
+<% end -%>

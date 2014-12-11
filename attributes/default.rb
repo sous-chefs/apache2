@@ -211,6 +211,7 @@ default['apache']['sysconfig_additional_params'] = {}
 default['apache']['default_site_enabled'] = false
 
 default['apache']['directives'] = []
+default['apache']['directives_options'] = {}
 
 # Security
 default['apache']['servertokens']    = 'Prod'
