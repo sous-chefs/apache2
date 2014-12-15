@@ -22,6 +22,9 @@ package "apache2" do
   action :install
 end
 
+Chef::Log.info( "➲➲➲➲ Entering into a loathsome sleep to attmept to mitigate a turtle condition ☚☚☚☚☚☚")
+sleep 15
+
 service "apache2" do
   case node['platform']
   when "redhat","centos","scientific","fedora","suse","amazon"
