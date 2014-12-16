@@ -22,9 +22,6 @@ package "apache2" do
   action :install
 end
 
-Chef::Log.info( "➲➲➲➲ Entering into a loathsome sleep to attmept to mitigate a turtle condition ☚☚☚☚☚☚")
-sleep 15
-
 service "apache2" do
   case node['platform']
   when "redhat","centos","scientific","fedora","suse","amazon"
@@ -36,8 +33,8 @@ service "apache2" do
     reload_command "/sbin/service httpd reload && sleep 1"
   when "debian","ubuntu"
     service_name "apache2"
-    restart_command "/usr/sbin/invoke-rc.d apache2 restart && sleep 5"
-    reload_command "/usr/sbin/invoke-rc.d apache2 reload && sleep 5"
+    restart_command "/usr/sbin/invoke-rc.d apache2 restart && sleep 15"
+    reload_command "/usr/sbin/invoke-rc.d apache2 reload && sleep 15"
   when "arch"
     service_name "httpd"
   when "freebsd"
