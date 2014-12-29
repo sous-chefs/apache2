@@ -53,6 +53,7 @@ end
 package node['apache']['perl_pkg']
 
 %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
+
   link "/usr/sbin/#{modscript}" do
     action :delete
     only_if { ::File.symlink?("/usr/sbin/#{modscript}") }

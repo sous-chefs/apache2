@@ -18,6 +18,7 @@
 #
 
 define :apache_conf, :enable => true do
+
   conf_name = "#{params[:name]}.conf"
   params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/conf-available"
 
@@ -40,4 +41,5 @@ define :apache_conf, :enable => true do
       enable true
     end
   end
+
 end

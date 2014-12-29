@@ -18,6 +18,7 @@
 #
 
 define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => true do
+
   application_name = params[:name]
 
   include_recipe 'apache2::default'
