@@ -66,7 +66,6 @@ describe 'apache2::default' do
           end
 
           %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
-
             it "creates /usr/sbin/#{modscript}" do
               expect(chef_run).to create_template("/usr/sbin/#{modscript}")
             end
