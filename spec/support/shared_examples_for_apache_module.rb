@@ -26,11 +26,7 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, a2filename = nil
 
     let(:template) { chef_run.template("#{chef_run.node[:apache][:dir]}/mods-available/#{module_name}.conf") }
     it "notification is triggered by <apache_dir>/mods-available/#{module_name}.conf template to reload/restart service[apache2]" do
-      if service_restart == true
-        expect(template).to notify('service[apache2]').to(:restart)
-      else
-        expect(template).to notify('service[apache2]').to(:reload)
-      end
+      expect(template).to notify('service[apache2]').to(:reload)
       expect(template).to_not notify('service[apache2]').to(:stop)
     end
   end
