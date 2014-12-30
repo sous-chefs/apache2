@@ -55,9 +55,9 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, a2filename = nil
     let(:execute) { chef_run.execute("a2enmod #{module_name}") }
     it "notification is triggered by a2enmod #{module_name} to reload service[apache2]" do
       if service_restart == true
-        expect(template).to notify('service[apache2]').to(:restart)
+        expect(execute).to notify('service[apache2]').to(:restart)
       else
-        expect(template).to notify('service[apache2]').to(:reload)
+        expect(execute).to notify('service[apache2]').to(:reload)
       end
       expect(execute).to_not notify('service[apache2]').to(:stop)
     end
@@ -71,9 +71,9 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, a2filename = nil
     let(:execute) { chef_run.execute("a2dismod #{module_name}") }
     it "notification is triggered by a2dismod #{module_name} to reload service[apache2]" do
       if service_restart == true
-        expect(template).to notify('service[apache2]').to(:restart)
+        expect(execute).to notify('service[apache2]').to(:restart)
       else
-        expect(template).to notify('service[apache2]').to(:reload)
+        expect(execute).to notify('service[apache2]').to(:reload)
       end
       expect(execute).to_not notify('service[apache2]').to(:stop)
     end
