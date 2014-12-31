@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-define :apache_module, :enable => true, :conf => false, :restart => false do
+define :apache_module, :enable => true, :conf => false do
   include_recipe 'apache2::default'
 
   params[:filename]    = params[:filename] || "mod_#{params[:name]}.so"
@@ -34,11 +34,7 @@ define :apache_module, :enable => true, :conf => false, :restart => false do
   if params[:enable]
     execute "a2enmod #{params[:name]}" do
       command "/usr/sbin/a2enmod #{params[:name]}"
-      if params[:restart]
-        notifies :restart, 'service[apache2]', :delayed
-      else
-        notifies :reload, 'service[apache2]', :delayed
-      end
+      notifies :reload, 'service[apache2]', :delayed
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") &&
           (::File.exist?("#{node['apache']['dir']}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.conf") : true)
@@ -47,11 +43,7 @@ define :apache_module, :enable => true, :conf => false, :restart => false do
   else
     execute "a2dismod #{params[:name]}" do
       command "/usr/sbin/a2dismod #{params[:name]}"
-      if params[:restart]
-        notifies :restart, 'service[apache2]', :delayed
-      else
-        notifies :reload, 'service[apache2]', :delayed
-      end
+      notifies :reload, 'service[apache2]', :delayed
       only_if { ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") }
     end
   end

@@ -23,5 +23,4 @@ apache_module('mpm_prefork') { enable false }
 
 apache_module 'mpm_worker' do
   conf true
-  restart true
 end

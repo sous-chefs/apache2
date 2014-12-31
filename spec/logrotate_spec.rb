@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'apache2::logrotate' do
-
   # Test all defaults on all platforms
   supported_platforms.each do |platform, versions|
     versions.each do |version|
