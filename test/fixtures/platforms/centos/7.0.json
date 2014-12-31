@@ -32,7 +32,8 @@
             "env",
             "mime",
             "negotiation",
-            "setenvif"
+            "setenvif",
+            "systemd"
         ],
         "mod_auth_openid": {
             "version": "0.8"
