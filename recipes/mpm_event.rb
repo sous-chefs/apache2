@@ -23,4 +23,5 @@ apache_module('mpm_worker') { enable false }
 
 apache_module 'mpm_event' do
   conf true
+  restart true
 end
