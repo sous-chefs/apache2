@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf',  '~> 3.1'
+gem 'berkshelf',  '~> 3.2'
 
 group :unit do
   gem 'foodcritic',       '~> 4.0'
-  gem 'rubocop',          '~> 0.27', '>= 0.27.0'
+  gem 'rubocop',          '~> 0.28', '>= 0.28.0'
   gem 'chefspec',         '~> 4.1'
 end
 
