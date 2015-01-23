@@ -123,9 +123,9 @@ end
   end
 end
 
- %W(
--  #{node['apache']['lock_dir']}
- ).each do |path|
+%W(
+  #{node['apache']['lock_dir']}
+).each do |path|
   directory path do
     mode '0755'
     user node['apache']['user']
