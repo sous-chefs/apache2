@@ -129,7 +129,6 @@ end
   directory path do
     mode '0755'
     user node['apache']['user']
-    group node['apache']['group']
   end
 end
 
