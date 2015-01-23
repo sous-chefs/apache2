@@ -115,12 +115,20 @@ end
 %W(
   #{node['apache']['dir']}/ssl
   #{node['apache']['cache_dir']}
-  #{node['apache']['lock_dir']}
 ).each do |path|
   directory path do
     mode '0755'
     owner 'root'
     group node['apache']['root_group']
+  end
+end
+
+%W(
+  #{node['apache']['lock_dir']}
+).each do |path|
+  directory path do
+    mode '0755'
+    user node['apache']['user']
   end
 end
 
