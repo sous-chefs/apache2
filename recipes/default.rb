@@ -115,13 +115,22 @@ end
 %W(
   #{node['apache']['dir']}/ssl
   #{node['apache']['cache_dir']}
-  #{node['apache']['lock_dir']}
 ).each do |path|
   directory path do
     mode '0755'
     owner 'root'
     group node['apache']['root_group']
   end
+end
+
+directory node['apache']['lock_dir'] do
+  mode '0755'
+  if node['platform_family'] == 'debian' && node['apache']['version'] == '2.2'
+    owner node['apache']['user']
+  else
+    owner 'root'
+  end
+  group node['apache']['root_group']
 end
 
 # Set the preferred execution binary - prefork or worker
