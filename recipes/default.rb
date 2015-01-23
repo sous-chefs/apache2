@@ -125,7 +125,7 @@ end
 
 directory node['apache']['lock_dir'] do
   mode '0755'
-  if node['platform_family'] == 'debian' && node['apache']['version'] = '2.2'
+  if node['platform_family'] == 'debian' && node['apache']['version'] == '2.2'
     owner node['apache']['user']
   else
     owner 'root'
