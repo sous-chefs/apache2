@@ -123,6 +123,16 @@ end
   end
 end
 
+ %W(
+-  #{node['apache']['lock_dir']}
+ ).each do |path|
+  directory path do
+    mode '0755'
+    user node['apache']['user']
+    group node['apache']['group']
+  end
+end
+
 # Set the preferred execution binary - prefork or worker
 template "/etc/sysconfig/#{node['apache']['package']}" do
   source 'etc-sysconfig-httpd.erb'
