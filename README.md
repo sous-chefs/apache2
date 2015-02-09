@@ -127,7 +127,7 @@ Tests
 =====
 
 This cookbook in the
-[source repository](https://github.com/viverae-cookbooks/apache2)
+[source repository](https://github.com/svanzoest/apache2-cookbook/)
 contains chefspec, serverspec and cucumber tests. This is an initial proof of
 concept that will be fleshed out with more supporting infrastructure
 at a future time.
@@ -252,7 +252,7 @@ For general information on this attributes see http://httpd.apache.org/docs/curr
 * `node['apache']['mod_ssl']['cipher_suite']` - sets the SSLCiphersuite value to the specified string. The default is
   considered "sane" but you may need to change it for your local security policy, e.g. if you have PCI-DSS requirements. Additional
   commentary on the
-  [original pull request](https://github.com/viverae-cookbooks/apache2/pull/15#commitcomment-1605406).
+  [original pull request](https://github.com/svanzoest/apache2-cookbook/pull/15#commitcomment-1605406).
 * `node['apache']['mod_ssl']['honor_cipher_order']` - Option to prefer the server's cipher preference order. Default 'On'.
 * `node['apache']['mod_ssl']['insecure_renegotiation']` - Option to enable support for insecure renegotiation. Default 'Off'.
 * `node['apache']['mod_ssl']['strict_sni_vhost_check']` - Whether to allow non-SNI clients to access a name-based virtual host. Default 'Off'.
@@ -717,7 +717,7 @@ License and Authors
 * Author:: Sean OMeara <someara@opscode.com>
 * Author:: Seth Chisamore <schisamo@opscode.com>
 * Author:: Gilles Devaux <gilles@peerpong.com>
-* Author:: Sander van Zoest <sander.vanzoest@viverae.com>
+* Author:: Sander van Zoest <sander+cookbooks@vanzoest.com>
 * Author:: Taylor Price <tayworm@gmail.com>
 
 * Copyright:: 2009-2012, Opscode, Inc
@@ -725,6 +725,7 @@ License and Authors
 * Copyright:: 2011, CustomInk, LLC.
 * Copyright:: 2013-2014, OneHealth Solutions, Inc.
 * Copyright:: 2014, Viverae, Inc.
+* Copyright:: 2015, Alexander van Zoest
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

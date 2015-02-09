@@ -1,11 +1,11 @@
-# Contributing to Viverae Cookbooks
+# Contributing to the apache2 cookbook
 
-We are glad you want to contribute to Viverae Cookbooks! The first
+We are glad you want to contribute to the apache2 cookbook! The first
 step is the desire to improve the project.
 
 ## Quick-contribute
 
-* Create an issue on the github [issue tracker](https://github.com/viverae-cookbooks/apache2/issues)
+* Create an issue on the github [issue tracker](https://github.com/svanzoest/apache2-cookbook/issues)
 * Link to your patch as a rebased git branch or pull request from the ticket
 
 We regularly review contributions and will get back to you if we have
@@ -101,5 +101,5 @@ information above.
 
 Please do not update the CHANGELOG.md for a new version. Not all
 changes to a cookbook may be merged and released in the same versions.
-Viverae will update the CHANGELOG.md when releasing a new version of
+We will update the CHANGELOG.md when releasing a new version of
 the cookbook.
