@@ -25,8 +25,11 @@ describe 'apache2::default' do
           end
 
           it "installs package #{property[:apache][:package]}" do
-            if platform == 'freebsd'
-              expect(chef_run).to install_freebsd_package(property[:apache][:package])
+            case platform
+            when 'freebsd'
+                 expect(chef_run).to install_freebsd_package(property[:apache][:package])
+            when 'amazon', 'fedora', 'redhat', 'centos'
+                 expect(chef_run).to install_yum_package(property[:apache][:package])
             else
               expect(chef_run).to install_package(property[:apache][:package])
             end
