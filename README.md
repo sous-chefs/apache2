@@ -1,6 +1,6 @@
 apache2 Cookbook
 ================
-[![Build Status](https://secure.travis-ci.org/viverae-cookbooks/apache2.png?branch=master)](http://travis-ci.org/viverae-cookbooks/apache2)
+[![Build Status](https://travis-ci.org/svanzoest/apache2-cookbook.svg)](http://travis-ci.org/svnzoest/apache2-cookbook)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/svanzoest/apache2-cookbook?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD
