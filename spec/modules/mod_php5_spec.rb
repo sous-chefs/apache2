@@ -24,7 +24,7 @@ describe 'apache2::mod_php5' do
             expect(chef_run).to install_yum_package(pkg)
             expect(chef_run).to_not install_yum_package("not_#{pkg}")
           end
-          let(:package) { chef_run.package(pkg) }
+          let(:package) { chef_run.yum_package(pkg) }
           it "triggers a notification by #{pkg} package install to execute[generate-module-list]" do
             expect(package).to notify('execute[generate-module-list]').to(:run)
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
