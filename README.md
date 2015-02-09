@@ -1,5 +1,7 @@
 apache2 Cookbook
 ================
+
+[![Join the chat at https://gitter.im/svanzoest/apache2-cookbook](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/svanzoest/apache2-cookbook?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://secure.travis-ci.org/viverae-cookbooks/apache2.png?branch=master)](http://travis-ci.org/viverae-cookbooks/apache2)
 [![Gitter Chat](https://badges.gitter.im/viverae-cookbooks/apache2.png)](https://gitter.im/viverae-cookbooks/apache2)
 
@@ -35,7 +37,7 @@ As of v1.2.0, this cookbook makes use of `node['platform_family']` to
 simplify platform selection logic. This attribute was introduced in
 Ohai v0.6.12. The recipe methods were introduced in Chef v0.10.10. If
 you must run an older version of Chef or Ohai, use [version 1.1.16 of
-this cookbook](https://supermarket.getchef.com/cookbooks/apache2/versions/1.1.16).
+this cookbook](https://supermarket.chef.io/cookbooks/apache2/versions/1.1.16).
 
 ## Cookbooks:
 
@@ -56,7 +58,7 @@ settings may affect the behavior of this cookbook:
 On Ubuntu/Debian, use Opscode's `apt` cookbook to ensure the package
 cache is updated so Chef can install packages, or consider putting
 apt-get in your bootstrap process or
-[knife bootstrap template](http://wiki.opscode.com/display/chef/Knife+Bootstrap).
+[knife bootstrap template](http://docs.chef.io/knife_bootstrap.html)
 
 On RHEL, SELinux is enabled by default. The `selinux` cookbook
 contains a `permissive` recipe that can be used to set SELinux to
@@ -167,6 +169,7 @@ the top of the file.
 * `node['apache']['lib_dir']` - Location for shared libraries
 * `node['apache']['default_site_enabled']` - Default site enabled. Default is false.
 * `node['apache']['ext_status']` - if true, enables ExtendedStatus for `mod_status`
+* `node['apache']['locale'] - Locale to set in sysconfig or envvars and used for subprocesses and modules (like mod_dav and mod_wsgi). On debian systems Uses system-local if set to 'system', defaults to 'C'.
 
 General settings
 ----------------
@@ -174,7 +177,7 @@ General settings
 These are general settings used in recipes and templates. Default
 values are noted.
 
-* `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support. If the platform is known during our test to install 2.4 by default, it will be set to 2.4 for you. Otherwise it falls back to 2.2.
+* `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support. If the platform is known during our test to install 2.4 by default, it will be set to 2.4 for you. Otherwise it falls back to 2.2. This value should be specified as a string.
 * `node['apache']['listen_addresses']` - Addresses that httpd should listen on. Default is any ("*").
 * `node['apache']['listen_ports']` - Ports that httpd should listen on. Default is port 80.
 * `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
@@ -246,12 +249,33 @@ they're logistically unrelated to the others, being specific to the
 mod\_ssl attributes
 -------------------
 
-* `node['apache']['mod_ssl']['cipher_suite']` - sets the
-  SSLCiphersuite value to the specified string. The default is
-  considered "sane" but you may need to change it for your local
-  security policy, e.g. if you have PCI-DSS requirements. Additional
+For general information on this attributes see http://httpd.apache.org/docs/current/mod/mod_ssl.html
+
+* `node['apache']['mod_ssl']['cipher_suite']` - sets the SSLCiphersuite value to the specified string. The default is
+  considered "sane" but you may need to change it for your local security policy, e.g. if you have PCI-DSS requirements. Additional
   commentary on the
   [original pull request](https://github.com/viverae-cookbooks/apache2/pull/15#commitcomment-1605406).
+* `node['apache']['mod_ssl']['honor_cipher_order']` - Option to prefer the server's cipher preference order. Default 'On'.
+* `node['apache']['mod_ssl']['insecure_renegotiation']` - Option to enable support for insecure renegotiation. Default 'Off'.
+* `node['apache']['mod_ssl']['strict_sni_vhost_check']` - Whether to allow non-SNI clients to access a name-based virtual host. Default 'Off'.
+* `node['apache']['mod_ssl']['session_cache']` - Configures the OCSP stapling cache. Default `shmcb:/var/run/apache2/ssl_scache`
+* `node['apache']['mod_ssl']['session_cache_timeout']` - Number of seconds before an SSL session expires in the Session Cache. Default 300.
+* `node['apache']['mod_ssl']['compression']` - 	Enable compression on the SSL level. Default 'Off'.
+* `node['apache']['mod_ssl']['use_stapling']` - Enable stapling of OCSP responses in the TLS handshake. Default 'Off'.
+* `node['apache']['mod_ssl']['stapling_responder_timeout']` - 	Timeout for OCSP stapling queries. Default 5
+* `node['apache']['mod_ssl']['stapling_return_responder_errors']` - Pass stapling related OCSP errors on to client. Default 'Off'
+* `node['apache']['mod_ssl']['stapling_cache']` - Configures the OCSP stapling cache. Default `shmcb:/var/run/ocsp(128000)`
+* `node['apache']['mod_ssl']['pass_phrase_dialog']` - Configures SSLPassPhraseDialog. Default `builtin`
+* `node['apache']['mod_ssl']['mutex']` - Configures SSLMutex. Default `file:/var/run/apache2/ssl_mutex`
+* `node['apache']['mod_ssl']['directives']` - Hash for add any custom directive.
+
+For more information on these directives and how to best secure your site see
+- https://bettercrypto.org/
+- https://wiki.mozilla.org/Security/Server_Side_TLS
+- https://www.insecure.ws/linux/apache_ssl.html
+- https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
+- https://istlsfastyet.com/
+- https://www.ssllabs.com/projects/best-practices/
 
 Recipes
 =======
@@ -371,6 +395,8 @@ ArchLinux.
 On Red Hat family distributions including Fedora, the php.conf that
 comes with the package is removed. On RHEL platforms less than v6, the
 `php53` package is used.
+
+* `node['apache']['mod_php5']['install_method']` - default `package` can be overridden to avoid package installs.
 
 mod\_ssl
 --------
@@ -647,7 +673,7 @@ The parameters specified will be used as:
 In the template. When you write your own, the `@` is significant.
 
 For more information about Definitions and parameters, see the
-[Chef Wiki](http://wiki.opscode.com/display/chef/Definitions)
+[Chef Wiki](http://docs.chef.io/definitions.html)
 
 Usage
 =====
@@ -694,7 +720,7 @@ License and Authors
 * Author:: Seth Chisamore <schisamo@opscode.com>
 * Author:: Gilles Devaux <gilles@peerpong.com>
 * Author:: Sander van Zoest <sander.vanzoest@viverae.com>
-* Author:: Taylor Price <tprice@onehealth.com>
+* Author:: Taylor Price <tayworm@gmail.com>
 
 * Copyright:: 2009-2012, Opscode, Inc
 * Copyright:: 2011, Atriso
