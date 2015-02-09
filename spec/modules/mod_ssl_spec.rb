@@ -34,10 +34,10 @@ describe 'apache2::mod_ssl' do
 
         it 'creates /etc/apache2/ports.conf' do
           expect(chef_run).to create_template('ssl_ports.conf').with(
-                                  :path => "#{property[:apache][:dir]}/ports.conf",
-                                  :source => 'ports.conf.erb',
-                                  :mode => '0644'
-                              )
+            :path => "#{property[:apache][:dir]}/ports.conf",
+            :source => 'ports.conf.erb',
+            :mode => '0644'
+          )
         end
 
         let(:template) { chef_run.template('ssl_ports.conf') }

@@ -263,12 +263,12 @@ describe 'apache2::default' do
 
           it 'enables and starts the apache2 service' do
             expect(chef_run).to enable_service('apache2').with(
-                                    :service_name => property[:apache][:service_name],
-                                    :restart_command => property[:apache][:service_restart_command],
-                                    :reload_command => property[:apache][:service_reload_command],
-                                    :supports => { :start => true, :restart => true, :reload => true, :status => true },
-                                    :action => [:enable, :start]
-                                )
+              :service_name => property[:apache][:service_name],
+              :restart_command => property[:apache][:service_restart_command],
+              :reload_command => property[:apache][:service_reload_command],
+              :supports => { :start => true, :restart => true, :reload => true, :status => true },
+              :action => [:enable, :start]
+            )
           end
         end
         context 'with invalid apache configuration' do
