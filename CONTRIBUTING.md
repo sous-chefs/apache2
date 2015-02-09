@@ -41,7 +41,7 @@ integration tests after the node has been converged to verify that
 the state of the node.
 
 Test kitchen should run completely without exception using the default
-[baseboxes provided by Opscode](http://opscode.github.io/bento/).
+[baseboxes provided by Chef](http://chef.github.io/bento/).
 Because Test Kitchen creates VirtualBox machines and runs through
 every configuration in the .kitchen.yml file, it may take some time for
 these tests to complete.
