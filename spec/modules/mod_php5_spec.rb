@@ -21,8 +21,8 @@ describe 'apache2::mod_php5' do
           pkg = 'php'
           pkg = 'php53' if version.to_f < 6.0
           it "installs package #{pkg}" do
-            expect(chef_run).to install_package(pkg)
-            expect(chef_run).to_not install_package("not_#{pkg}")
+            expect(chef_run).to install_yum_package(pkg)
+            expect(chef_run).to_not install_yum_package("not_#{pkg}")
           end
           let(:package) { chef_run.package(pkg) }
           it "triggers a notification by #{pkg} package install to execute[generate-module-list]" do
