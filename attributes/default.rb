@@ -95,11 +95,11 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
-  default['apache']['pid_file']    = if node['platform_version'].to_f >= 6
-                                       '/var/run/httpd/httpd.pid'
-                                     else
-                                       '/var/run/httpd.pid'
-                                     end
+  if node['platform_version'].to_f >= 6
+    default['apache']['pid_file'] = '/var/run/httpd/httpd.pid'
+  else
+    default['apache']['pid_file'] = '/var/run/httpd.pid'
+  end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
 when 'suse', 'opensuse'
@@ -118,6 +118,8 @@ when 'suse', 'opensuse'
   default['apache']['cgibin_dir']  = '/srv/www/cgi-bin'
   default['apache']['icondir']     = '/usr/share/apache2/icons'
   default['apache']['cache_dir']   = '/var/cache/apache2'
+  default['apache']['run_dir']     = '/var/run/httpd'
+  default['apache']['lock_dir']    = '/var/run/httpd'
   if node['platform_version'].to_f >= 6
     default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
   else
