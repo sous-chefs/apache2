@@ -85,7 +85,7 @@ Group <%= node['apache']['group'] %>
 # directive.
 #
 
-AccessFileName .htaccess
+AccessFileName <%= node['apache']['access_file_name'] %>
 
 #
 # The following lines prevent .htaccess and .htpasswd files from being
