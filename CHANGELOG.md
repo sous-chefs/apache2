@@ -2,11 +2,14 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v3.0.2 (unreleased)
+-------------------
+
 v3.0.1 (2015-02-11)
 -------------------
 
 - [GH-310] Ubuntu Apache 2.2 requires the lock_dir to be owned by www-data
-- [GH-307] Clarify that apache.version is a string
+- [GH-309] Clarify that apache.version is a string
 - [GH-305] Restart service after MPM changes
 - [GH-304] Don't install systemd module on Amazon Linux
 - [GH-298] Add non-threaded MPM break notice for PHP users
