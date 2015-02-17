@@ -24,6 +24,7 @@ group :development do
   gem 'rb-fsevent', :require => false
   gem 'rb-inotify', :require => false
   gem 'terminal-notifier-guard', :require => false
+  gem 'psych', '~> 2.0.12'
   require 'rbconfig'
   if RbConfig::CONFIG['target_os'] =~ /mswin|mingw|cygwin/i
     gem 'wdm', '>= 0.1.0'
