@@ -19,6 +19,7 @@
 
 package 'apache2' do
   package_name node['apache']['package']
+  options node['apache']['package_options'] unless node['apache']['package_options'].nil?
 end
 
 %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
