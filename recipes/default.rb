@@ -3,6 +3,7 @@
 # Recipe:: default
 #
 # Copyright 2008-2013, Opscode, Inc.
+# Copyright 2014-2015, Alexander van Zoest
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,14 +30,16 @@ end
   end
 end
 
-%w(default 000-default).each do |site|
+%w(default default.conf 000-default 000-default.conf).each do |site|
   link "#{node['apache']['dir']}/sites-enabled/#{site}" do
     action :delete
+    not_if  { site eq node['default_site_name'] }
   end
 
   file "#{node['apache']['dir']}/sites-available/#{site}" do
     action :delete
     backup false
+    not_if  { site eq node['default_site_name'] }
   end
 end
 
@@ -189,13 +192,8 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{module_recipe_name}"
 end
 
-web_app 'default' do
+web_app node['apache']['default_site_name'] do
   template 'default-site.conf.erb'
-  path "#{node['apache']['dir']}/sites-available/default.conf"
-  enable node['apache']['default_site_enabled']
-end
-
-apache_site node['apache']['default_site_name'] do
   enable node['apache']['default_site_enabled']
 end
 
