@@ -5,6 +5,11 @@ This file is used to list changes made in each version of the apache2 cookbook.
 v3.0.2 (unreleased)
 -------------------
 
+- [GH-315] Fix `apache.default_site_name` .conf extension references to ensure deletion
+- [GH-258] Use `apache.default_site_name` for consistency, minimize hardcoding of filenames
+- [GH-276] Add psych gem to development gems
+- [GH-271] Remove FreeBSD 9.x, Red Hat and CentOS 5.x and OpenSUSE 11.x Series from tests and focus on newer releases
+
 v3.0.1 (2015-02-11)
 -------------------
 
