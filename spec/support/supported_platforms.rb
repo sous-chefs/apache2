@@ -10,5 +10,4 @@ def supported_platforms
     'freebsd' => ['10.0'],
     'opensuse' => ['13.1']
   }
-  #  'suse' => ['11.3']
 end
