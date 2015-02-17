@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: apache2
-# Attributes:: mod_fastcgi
+# Cookbook Name:: apache2_test
+# Recipe:: mod_fastcgi
 #
-# Copyright 2013, Opscode, Inc.
+# Copyright 2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-default['apache']['mod_fastcgi']['download_url'] = 'http://www.fastcgi.com/dist/mod_fastcgi-current.tar.gz'
-default['apache']['mod_fastcgi']['install_method'] = 'package'
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_fastcgi'
