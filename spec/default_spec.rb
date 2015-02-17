@@ -184,8 +184,8 @@ describe 'apache2::default' do
             expect(portsconf).to_not notify('service[apache2]').to(:reload).immediately
           end
 
-          it "creates #{property[:apache][:dir]}/sites-available/default.conf" do
-            expect(chef_run).to create_template("#{property[:apache][:dir]}/sites-available/default.conf").with(
+          it "creates #{property[:apache][:dir]}/sites-available/#{property[:apache][:default_site_name]}.conf" do
+            expect(chef_run).to create_template("#{property[:apache][:dir]}/sites-available/#{property[:apache][:default_site_name]}.conf").with(
               :source => 'default-site.conf.erb',
               :owner => 'root',
               :group => property[:apache][:root_group],
