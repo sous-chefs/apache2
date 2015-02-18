@@ -73,7 +73,7 @@ mailing list, or the #chef-hacking IRC channel.
 
 Please do include tests for your contribution. If you need help, ask
 on the
-[chef-dev mailing list](http://lists.opscode.com/sympa/info/chef-dev)
+[chef-dev mailing list](http://lists.chef.io/sympa/info/chef-dev)
 or the
 [#chef-hacking IRC channel](https://botbot.me/freenode/chef-hacking/).
 Not all platforms that a cookbook supports may be supported by Test
