@@ -1,7 +1,7 @@
 apache2 Cookbook
 ================
-[![Build Status](https://travis-ci.org/svanzoest/apache2-cookbook.svg?branch=master)](https://travis-ci.org/svanzoest/apache2-cookbook)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/svanzoest/apache2-cookbook?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Build Status](https://travis-ci.org/svanzoest-cookbooks/apache2.svg?branch=master)](https://travis-ci.org/svanzoest-cookbooks/apache2)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/svanzoest-cookbooks/apache2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD
 configuration. Non-Debian based distributions such as Red Hat/CentOS,
@@ -127,7 +127,7 @@ Tests
 =====
 
 This cookbook in the
-[source repository](https://github.com/svanzoest/apache2-cookbook/)
+[source repository](https://github.com/svanzoest-cookbooks/apache2/)
 contains chefspec, serverspec and cucumber tests. This is an initial proof of
 concept that will be fleshed out with more supporting infrastructure
 at a future time.
@@ -252,7 +252,7 @@ For general information on this attributes see http://httpd.apache.org/docs/curr
 * `node['apache']['mod_ssl']['cipher_suite']` - sets the SSLCiphersuite value to the specified string. The default is
   considered "sane" but you may need to change it for your local security policy, e.g. if you have PCI-DSS requirements. Additional
   commentary on the
-  [original pull request](https://github.com/svanzoest/apache2-cookbook/pull/15#commitcomment-1605406).
+  [original pull request](https://github.com/svanzoest-cookbooks/apache2/pull/15#commitcomment-1605406).
 * `node['apache']['mod_ssl']['honor_cipher_order']` - Option to prefer the server's cipher preference order. Default 'On'.
 * `node['apache']['mod_ssl']['insecure_renegotiation']` - Option to enable support for insecure renegotiation. Default 'Off'.
 * `node['apache']['mod_ssl']['strict_sni_vhost_check']` - Whether to allow non-SNI clients to access a name-based virtual host. Default 'Off'.

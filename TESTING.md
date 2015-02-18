@@ -26,7 +26,7 @@ Development
 -----------
 1. Clone the git repository from GitHub:
 
-        $ git clone git@github.com:svanzoest/apache2-cookbook.git
+        $ git clone git@github.com:svanzoest-cookbooks/apache2.git
 
 2. Install the dependencies using bundler:
 
@@ -46,4 +46,4 @@ Development
 
 7. Assuming the tests pass, open a Pull Request on GitHub
 
-For more information, see [the cookbooks Contribution Guidelines](https://github.com/svanzoest/apache2-cookbook/blob/master/CONTRIBUTING.md)
+For more information, see [the cookbooks Contribution Guidelines](https://github.com/svanzoest-cookbooks/apache2/blob/master/CONTRIBUTING.md)
