@@ -140,7 +140,7 @@ v1.10.2 (2014-04-09)
 - [COOK-4492] - Fix service[apache2] CHEF-3694 duplication
 - [COOK-4493] - Fix template[ports.conf] CHEF-3694 duplication
 
-As of 2014-04-04 and per [Community Cookbook Diversification](https://wiki.opscode.com/display/chef/Community+Cookbook+Diversification) this cookbook now maintained by OneHealth Solutions. Please be patient as we get into the swing of things.
+As of 2014-04-04 and per [Community Cookbook Diversification](https://wiki.chef.io/display/chef/Community+Cookbook+Diversification) this cookbook now maintained by OneHealth Solutions. Please be patient as we get into the swing of things.
 
 v1.10.0 (2014-03-28)
 --------------------
@@ -167,16 +167,16 @@ v1.9.1 (2014-02-27)
 v1.9.0 (2014-02-21)
 -------------------
 ### Improvement
-- **[COOK-4076](https://tickets.opscode.com/browse/COOK-4076)** - foodcritic: dependencies are not defined properly
-- **[COOK-2572](https://tickets.opscode.com/browse/COOK-2572)** - Add mod_pagespeed recipe to apache2
+- **[COOK-4076](https://tickets.chef.io/browse/COOK-4076)** - foodcritic: dependencies are not defined properly
+- **[COOK-2572](https://tickets.chef.io/browse/COOK-2572)** - Add mod_pagespeed recipe to apache2
 
 ### Bug
-- **[COOK-4043](https://tickets.opscode.com/browse/COOK-4043)** - apache2 cookbook does not depend on 'iptables'
-- **[COOK-3919](https://tickets.opscode.com/browse/COOK-3919)** - Move the default pidfile for apache2 on Ubuntu 13.10 or greater
-- **[COOK-3863](https://tickets.opscode.com/browse/COOK-3863)** - Add recipe for mod_jk
-- **[COOK-3804](https://tickets.opscode.com/browse/COOK-3804)** - Fix incorrect datatype for apache/default_modules, use recipes option in metadata
-- **[COOK-3800](https://tickets.opscode.com/browse/COOK-3800)** - Cannot load modules that use non-standard module identifiers
-- **[COOK-1689](https://tickets.opscode.com/browse/COOK-1689)** - The perl package name should be configurable
+- **[COOK-4043](https://tickets.chef.io/browse/COOK-4043)** - apache2 cookbook does not depend on 'iptables'
+- **[COOK-3919](https://tickets.chef.io/browse/COOK-3919)** - Move the default pidfile for apache2 on Ubuntu 13.10 or greater
+- **[COOK-3863](https://tickets.chef.io/browse/COOK-3863)** - Add recipe for mod_jk
+- **[COOK-3804](https://tickets.chef.io/browse/COOK-3804)** - Fix incorrect datatype for apache/default_modules, use recipes option in metadata
+- **[COOK-3800](https://tickets.chef.io/browse/COOK-3800)** - Cannot load modules that use non-standard module identifiers
+- **[COOK-1689](https://tickets.chef.io/browse/COOK-1689)** - The perl package name should be configurable
 
 
 v1.8.14
@@ -207,36 +207,36 @@ Locking yum dependency to '< 3'
 v1.8.4
 ------
 ### Bug
-- **[COOK-3769](https://tickets.opscode.com/browse/COOK-3769)** - Fix a critical bug where the `apache_module` could not enable modules
+- **[COOK-3769](https://tickets.chef.io/browse/COOK-3769)** - Fix a critical bug where the `apache_module` could not enable modules
 
 
 v1.8.2
 ------
 ### Bug
-- **[COOK-3766](https://tickets.opscode.com/browse/COOK-3766)** - Fix an issue where the `mod_ssl` recipe fails due to a missing attribute
+- **[COOK-3766](https://tickets.chef.io/browse/COOK-3766)** - Fix an issue where the `mod_ssl` recipe fails due to a missing attribute
 
 
 v1.8.0
 ------
 ### Bug
-- **[COOK-3680](https://tickets.opscode.com/browse/COOK-3680)** - Update template paths
-- **[COOK-3570](https://tickets.opscode.com/browse/COOK-3570)** - Apache cookbook breaks on RHEL / CentOS 6
-- **[COOK-2944](https://tickets.opscode.com/browse/COOK-2944)** - Fix foodcritic failures
-- **[COOK-2893](https://tickets.opscode.com/browse/COOK-2893)** - Improve mod_auth_openid recipe with guards and idempotency
-- **[COOK-2758](https://tickets.opscode.com/browse/COOK-2758)** - Fix use of non-existent attribute
+- **[COOK-3680](https://tickets.chef.io/browse/COOK-3680)** - Update template paths
+- **[COOK-3570](https://tickets.chef.io/browse/COOK-3570)** - Apache cookbook breaks on RHEL / CentOS 6
+- **[COOK-2944](https://tickets.chef.io/browse/COOK-2944)** - Fix foodcritic failures
+- **[COOK-2893](https://tickets.chef.io/browse/COOK-2893)** - Improve mod_auth_openid recipe with guards and idempotency
+- **[COOK-2758](https://tickets.chef.io/browse/COOK-2758)** - Fix use of non-existent attribute
 
 ### New Feature
-- **[COOK-3665](https://tickets.opscode.com/browse/COOK-3665)** - Add recipe for mod_userdir
-- **[COOK-3646](https://tickets.opscode.com/browse/COOK-3646)** - Add recipe for mod_cloudflare
-- **[COOK-3213](https://tickets.opscode.com/browse/COOK-3213)** - Add recipe for mod_info
+- **[COOK-3665](https://tickets.chef.io/browse/COOK-3665)** - Add recipe for mod_userdir
+- **[COOK-3646](https://tickets.chef.io/browse/COOK-3646)** - Add recipe for mod_cloudflare
+- **[COOK-3213](https://tickets.chef.io/browse/COOK-3213)** - Add recipe for mod_info
 
 ### Improvement
-- **[COOK-3656](https://tickets.opscode.com/browse/COOK-3656)** - Parameterize apache2 binary
-- **[COOK-3562](https://tickets.opscode.com/browse/COOK-3562)** - Allow mod_proxy settings to be configured as attributes
-- **[COOK-3326](https://tickets.opscode.com/browse/COOK-3326)** - Fix default_test to use ServerTokens attribute
-- **[COOK-2635](https://tickets.opscode.com/browse/COOK-2635)** - Add support for SVG mime types
-- **[COOK-2598](https://tickets.opscode.com/browse/COOK-2598)** - FastCGI Module only works on Debian-based platforms
-- **[COOK-1984](https://tickets.opscode.com/browse/COOK-1984)** - Add option to configure the address apache listens to
+- **[COOK-3656](https://tickets.chef.io/browse/COOK-3656)** - Parameterize apache2 binary
+- **[COOK-3562](https://tickets.chef.io/browse/COOK-3562)** - Allow mod_proxy settings to be configured as attributes
+- **[COOK-3326](https://tickets.chef.io/browse/COOK-3326)** - Fix default_test to use ServerTokens attribute
+- **[COOK-2635](https://tickets.chef.io/browse/COOK-2635)** - Add support for SVG mime types
+- **[COOK-2598](https://tickets.chef.io/browse/COOK-2598)** - FastCGI Module only works on Debian-based platforms
+- **[COOK-1984](https://tickets.chef.io/browse/COOK-1984)** - Add option to configure the address apache listens to
 
 
 v1.7.0

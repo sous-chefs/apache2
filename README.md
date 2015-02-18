@@ -64,7 +64,7 @@ contains a `permissive` recipe that can be used to set SELinux to
 by the user to address SELinux permissions.
 
 The easiest but **certainly not ideal way** to deal with IPtables is
-to flush all rules. Opscode does provide an `iptables` cookbook but is
+to flush all rules. Chef Software does provide an `iptables` cookbook but is
 migrating from the approach used there to a more robust solution
 utilizing a general "firewall" LWRP that would have an "iptables"
 provider. Alternately, you can use ufw, with Opscode's `ufw` and
@@ -703,8 +703,8 @@ respective sections above.
 License and Authors
 ===================
 
-* Author:: Adam Jacob <adam@opscode.com>
-* Author:: Joshua Timberman <joshua@opscode.com>
+* Author:: Adam Jacob <adam@chef.io>
+* Author:: Joshua Timberman <joshua@chef.io>
 * Author:: Bryan McLellan <bryanm@widemile.com>
 * Author:: Dave Esposito <esposito@espolinux.corpnet.local>
 * Author:: David Abdemoulaie <github@hobodave.com>
@@ -714,13 +714,13 @@ License and Authors
 * Author:: Matthew Kent <mkent@magoazul.com>
 * Author:: Nathen Harvey <nharvey@customink.com>
 * Author:: Ringo De Smet <ringo.de.smet@amplidata.com>
-* Author:: Sean OMeara <someara@opscode.com>
-* Author:: Seth Chisamore <schisamo@opscode.com>
+* Author:: Sean OMeara <someara@chef.io>
+* Author:: Seth Chisamore <schisamo@chef.io>
 * Author:: Gilles Devaux <gilles@peerpong.com>
 * Author:: Sander van Zoest <sander+cookbooks@vanzoest.com>
 * Author:: Taylor Price <tayworm@gmail.com>
 
-* Copyright:: 2009-2012, Opscode, Inc
+* Copyright:: 2009-2012, Chef Software, Inc
 * Copyright:: 2011, Atriso
 * Copyright:: 2011, CustomInk, LLC.
 * Copyright:: 2013-2014, OneHealth Solutions, Inc.
