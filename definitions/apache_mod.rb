@@ -18,6 +18,8 @@
 #
 
 define :apache_mod do
+  include_recipe 'apache2::default'
+
   template "#{node['apache']['dir']}/mods-available/#{params[:name]}.conf" do
     source "mods/#{params[:name]}.conf.erb"
     mode '0644'

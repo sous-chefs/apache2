@@ -18,6 +18,8 @@
 #
 
 define :apache_conf, :enable => true do
+  include_recipe 'apache2::default'
+
   conf_name = "#{params[:name]}.conf"
   params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/conf-available"
 
