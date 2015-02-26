@@ -135,10 +135,15 @@ default['apache']['worker']['threadsperchild'] = 64
 default['apache']['worker']['maxrequestsperchild'] = 0
 
 # Default modules to enable via include_recipe
-
+if node['platform'] == 'ubuntu' && node['platform_version'].to_f >= 13.10
+  default['apache']['default_modules'] = %w{
+    status alias auth_basic authn_file authz_groupfile authz_host authz_user dir env mime negotiation setenvif
+  }
+else
 default['apache']['default_modules'] = %w{
   status alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user dir env mime negotiation setenvif
 }
+end
 
 %w{ log_config logio }.each do |log_mod|
   default['apache']['default_modules'] << log_mod if ["redhat", "centos", "scientific", "fedora", "suse", "arch", "freebsd", "amazon"].include?(node['platform'])
