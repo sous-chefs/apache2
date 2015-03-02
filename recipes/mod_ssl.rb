@@ -16,10 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-unless node['apache']['listen'].values.any? { |ports| ports.include?(node['apache']['mod_ssl']['port']) }
-  node['apache']['listen'].each_key do |address|
-    node.default['apache']['listen'][address] = node['apache']['listen'][address] + [node['apache']['mod_ssl']['port']]
-  end
+if node['apache']['listen'] == ['*:80']
+  node.default['apache']['listen'] = ['*:80', "*:#{node['apache']['mod_ssl']['port']}"]
 end
 
 include_recipe 'apache2::default'

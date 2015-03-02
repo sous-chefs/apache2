@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => true do
+define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => true, :server_port => 80 do
   application_name = params[:name]
 
   include_recipe 'apache2::default'

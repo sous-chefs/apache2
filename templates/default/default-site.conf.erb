@@ -1,3 +1,6 @@
+<% if node['apache']['version'] != '2.4' -%>
+NameVirtualHost *:<%= node['apache']['default_site_port'] %>
+<% end -%>
 <VirtualHost *:<%= node['apache']['default_site_port'] %>>
   ServerAdmin <%= node['apache']['contact'] %>
 
