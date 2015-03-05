@@ -184,13 +184,8 @@ describe 'apache2::default' do
             expect(portsconf).to_not notify('service[apache2]').to(:reload).immediately
           end
 
-          it "creates #{property[:apache][:dir]}/sites-available/#{property[:apache][:default_site_name]}.conf" do
-            expect(chef_run).to create_template("#{property[:apache][:dir]}/sites-available/#{property[:apache][:default_site_name]}.conf").with(
-              :source => 'default-site.conf.erb',
-              :owner => 'root',
-              :group => property[:apache][:root_group],
-              :mode =>  '0644'
-            )
+          it "does not create #{property[:apache][:dir]}/sites-available/#{property[:apache][:default_site_name]}.conf" do
+            expect(chef_run).to_not create_template("#{property[:apache][:dir]}/sites-available/#{property[:apache][:default_site_name]}.conf")
           end
 
           if %w(amazon redhat centos fedora suse opensuse).include?(platform)
@@ -260,8 +255,16 @@ describe 'apache2::default' do
             expect(chef_run).to delete_file("#{property[:apache][:dir]}/sites-available/default")
           end
 
+          it "deletes #{property[:apache][:dir]}/sites-available/default.conf" do
+            expect(chef_run).to delete_file("#{property[:apache][:dir]}/sites-available/default.conf")
+          end
+
           it "deletes #{property[:apache][:dir]}/sites-enabled/000-default" do
             expect(chef_run).to delete_link("#{property[:apache][:dir]}/sites-enabled/000-default")
+          end
+
+          it "deletes #{property[:apache][:dir]}/sites-enabled/000-default.conf" do
+            expect(chef_run).to delete_link("#{property[:apache][:dir]}/sites-enabled/000-default.conf")
           end
 
           it 'enables and starts the apache2 service' do

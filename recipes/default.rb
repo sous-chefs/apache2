@@ -192,9 +192,11 @@ node['apache']['default_modules'].each do |mod|
   include_recipe "apache2::#{module_recipe_name}"
 end
 
-web_app node['apache']['default_site_name'] do
-  template 'default-site.conf.erb'
-  enable node['apache']['default_site_enabled']
+if node['apache']['default_site_enabled']
+  web_app node['apache']['default_site_name'] do
+    template 'default-site.conf.erb'
+    enable node['apache']['default_site_enabled']
+  end
 end
 
 service 'apache2' do
