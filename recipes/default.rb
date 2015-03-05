@@ -33,13 +33,13 @@ end
 %w(default default.conf 000-default 000-default.conf).each do |site|
   link "#{node['apache']['dir']}/sites-enabled/#{site}" do
     action :delete
-    not_if  { site == node['default_site_name'] }
+    not_if { site == "#{node['apache']['default_site_name']}.conf" && node['apache']['default_site_enabled'] }
   end
 
   file "#{node['apache']['dir']}/sites-available/#{site}" do
     action :delete
     backup false
-    not_if  { site == node['default_site_name'] }
+    not_if { site == "#{node['apache']['default_site_name']}.conf" && node['apache']['default_site_enabled'] }
   end
 end
 
