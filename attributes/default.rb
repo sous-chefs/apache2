@@ -251,6 +251,7 @@ default['apache']['keepalivetimeout']  = 5
 default['apache']['locale'] = 'C'
 default['apache']['sysconfig_additional_params'] = {}
 default['apache']['default_site_enabled'] = false
+default['apache']['default_site_port']    = '80'
 
 # Security
 default['apache']['servertokens']    = 'Prod'
