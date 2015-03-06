@@ -18,6 +18,7 @@
 # limitations under the License.
 #
 
+default['apache']['mod_ssl']['port'] = 443
 default['apache']['mod_ssl']['protocol'] = 'All -SSLv2 -SSLv3'
 default['apache']['mod_ssl']['cipher_suite'] = 'EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA+SHA384:EECDH+ECDSA+SHA256:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH+aRSA+RC4:EECDH:EDH+aRSA:RC4!aNULL!eNULL!LOW!3DES!MD5!EXP!PSK!SRP!DSS'
 default['apache']['mod_ssl']['honor_cipher_order']     = 'On'
