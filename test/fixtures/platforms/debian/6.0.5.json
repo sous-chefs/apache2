@@ -1,6 +1,7 @@
 {
     "apache": {
         "package": "apache2",
+        "devel_package": "apache2-prefork-dev",
         "binary": "/usr/sbin/apache2",
         "mpm": "prefork",
         "dir": "/etc/apache2",

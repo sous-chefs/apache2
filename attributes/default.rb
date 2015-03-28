@@ -95,6 +95,11 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
+  if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+    default['apache']['devel_package'] = 'httpd24-devel'
+  else
+    default['apache']['devel_package'] = 'httpd-devel'
+  end
   if node['platform_version'].to_f >= 6
     default['apache']['pid_file'] = '/var/run/httpd/httpd.pid'
   else
@@ -105,6 +110,7 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
 when 'suse', 'opensuse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
+  default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['apachectl']   = '/usr/sbin/apache2ctl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
@@ -130,6 +136,11 @@ when 'suse', 'opensuse'
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
+  if node['apache']['mpm'] == 'prefork'
+    default['apache']['devel_package'] = 'apache2-prefork-dev'
+  else
+    default['apache']['devel_package'] = 'apache2-dev'
+  end
   default['apache']['apachectl']   = '/usr/sbin/apache2ctl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
@@ -201,6 +212,7 @@ when 'freebsd'
     default['apache']['lock_dir']    = '/var/run'
     default['apache']['lib_dir']     = '/usr/local/libexec/apache22'
   end
+  default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['perl_pkg']    = 'perl5'
   default['apache']['apachectl']   = '/usr/local/sbin/apachectl'
   default['apache']['pid_file']    = '/var/run/httpd.pid'
@@ -214,6 +226,7 @@ when 'freebsd'
   default['apache']['libexec_dir']  = node['apache']['lib_dir']
 else
   default['apache']['package']     = 'apache2'
+  default['apache']['devel_package'] = 'apache2-dev'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'

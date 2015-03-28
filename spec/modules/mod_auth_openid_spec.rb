@@ -25,7 +25,7 @@ describe 'apache2::mod_auth_openid' do
             end
           end
         elsif %w(amazon redhat centos fedora).include?(platform)
-          %w(gcc-c++ httpd-devel curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make libtool).each do |package|
+          %W(gcc-c++ #{property[:apache][:devel_package]} curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make libtool).each do |package|
             it "installs package #{package}" do
               expect(chef_run).to install_package(package)
             end

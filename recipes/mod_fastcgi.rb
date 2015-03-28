@@ -20,12 +20,12 @@
 if platform_family?('debian')
   if node['apache']['mod_fastcgi']['install_method'] == 'source'
     package 'build-essential'
-    package 'apache2-dev'
+    package node['apache']['devel_package']
   else
     package 'libapache2-mod-fastcgi'
   end
 elsif platform_family?('rhel')
-  %w(gcc make libtool httpd-devel apr-devel apr).each do |package|
+  %W(gcc make libtool #{node['apache']['devel_package']} apr-devel apr).each do |package|
     yum_package package do
       action :upgrade
     end

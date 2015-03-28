@@ -2,6 +2,7 @@
     "apache": {
         "version": "2.4",
         "package": "httpd",
+        "devel_package": "httpd-devel",
         "mpm": "prefork",
         "binary": "/usr/sbin/httpd",
         "dir": "/etc/httpd",

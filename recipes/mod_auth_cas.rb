@@ -20,12 +20,7 @@
 include_recipe 'apache2::default'
 
 if node['apache']['mod_auth_cas']['from_source']
-  package 'httpd-devel' do
-    package_name value_for_platform_family(
-      %w(rhel fedora suse) => 'httpd-devel',
-      'debian' => 'apache2-dev'
-    )
-  end
+  package node['apache']['devel_package']
 
   git '/tmp/mod_auth_cas' do
     repository 'git://github.com/Jasig/mod_auth_cas.git'

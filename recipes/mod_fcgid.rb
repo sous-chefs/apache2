@@ -38,7 +38,7 @@ elsif platform_family?('rhel', 'fedora')
 elsif platform_family?('suse')
   apache_lib_path = node['apache']['lib_dir']
 
-  package 'httpd-devel'
+  package node['apache']['devel_package']
 
   bash 'install-fcgid' do
     code <<-EOH

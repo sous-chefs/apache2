@@ -1,6 +1,7 @@
 {
     "apache": {
         "package": "apache2",
+        "devel_package": "apache2-dev",
         "binary": "/usr/sbin/apache2",
         "mpm": "worker",
         "dir": "/etc/apache2",
