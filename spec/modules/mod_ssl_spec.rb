@@ -21,8 +21,8 @@ describe 'apache2::mod_ssl' do
             expect(chef_run).to install_package(property[:apache][:mod_ssl][:pkg_name])
             expect(chef_run).to_not install_package('not_mod_ssl')
           end
-          let(:package) { chef_run.package('mod_ssl') }
-          it 'triggers a notification by mod_ssl package install to execute[generate-module-list]' do
+          let(:package) { chef_run.package(property[:apache][:mod_ssl][:pkg_name]) }
+          it "triggers a notification by #{property[:apache][:mod_ssl][:pkg_name]} package install to execute[generate-module-list]" do
             expect(package).to notify('execute[generate-module-list]').to(:run)
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
