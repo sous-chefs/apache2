@@ -41,8 +41,10 @@ this cookbook](https://supermarket.chef.io/cookbooks/apache2/versions/1.1.16).
 
 ## Cookbooks:
 
-This cookbook doesn't have direct dependencies on other cookbooks, as
-none are needed for the default recipe or the general use cases.
+This cookbook depends on the following community cookbooks:
+
+* iptables
+* logrotate
 
 Depending on your OS configuration and security policy, you may need
 additional recipes or cookbooks for this cookbook's recipes to
