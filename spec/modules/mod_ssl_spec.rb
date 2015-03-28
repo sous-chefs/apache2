@@ -17,8 +17,8 @@ describe 'apache2::mod_ssl' do
         end
 
         if %w(amazon redhat centos fedora arch suse).include?(platform)
-          it 'installs package mod_ssl' do
-            expect(chef_run).to install_package('mod_ssl')
+          it "installs package #{property[:apache][:mod_ssl][:pkg_name]}" do
+            expect(chef_run).to install_package(property[:apache][:mod_ssl][:pkg_name])
             expect(chef_run).to_not install_package('not_mod_ssl')
           end
           let(:package) { chef_run.package('mod_ssl') }
