@@ -9,7 +9,8 @@ v3.0.2 (unreleased)
 - [GH-258] Use `apache.default_site_name` for consistency, minimize hardcoding of filenames
 - [GH-276] Add psych gem to development gems
 - [GH-271] Remove FreeBSD 9.x, Red Hat and CentOS 5.x and OpenSUSE 11.x Series from tests and focus on newer releases
-- [GH-293] Add `apache.mod_fastcgi.install_method` flag to allow install of mod_fastcgi from source (even on Debian family) 
+- [GH-293] Add `apache.mod_fastcgi.install_method` flag to allow install of mod_fastcgi from source (even on Debian family)
+- Add `apache.mod_ssl.pkg_name` to allow custom mod_ssl package names. Set defaults for supported platforms including Amazon Linux
 
 v3.0.1 (2015-02-11)
 -------------------

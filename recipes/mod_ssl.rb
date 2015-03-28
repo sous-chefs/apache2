@@ -23,7 +23,7 @@ end
 include_recipe 'apache2::default'
 
 if platform_family?('rhel', 'fedora', 'suse')
-  package 'mod_ssl' do
+  package node['apache']['mod_ssl']['pkg_name'] do
     notifies :run, 'execute[generate-module-list]', :immediately
   end
 

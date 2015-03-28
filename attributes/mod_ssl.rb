@@ -33,6 +33,7 @@ default['apache']['mod_ssl']['stapling_cache'] = 'shmcb:/var/run/ocsp(128000)'
 default['apache']['mod_ssl']['pass_phrase_dialog'] = 'builtin'
 default['apache']['mod_ssl']['mutex'] = 'file:/var/run/apache2/ssl_mutex'
 default['apache']['mod_ssl']['directives'] = {}
+default['apache']['mod_ssl']['pkg_name'] = 'mod_ssl'
 
 case node['platform_family']
 when 'debian'
@@ -46,6 +47,12 @@ when 'freebsd'
   default['apache']['mod_ssl']['session_cache']  = 'shmcb:/var/run/ssl_scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'file:/var/run/ssl_mutex'
 when 'rhel', 'fedora', 'suse'
+  case node['platform']
+  when 'amazon'
+    if node['apache']['version'] == '2.4'
+      default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl'
+    end
+  end
   default['apache']['mod_ssl']['session_cache']  = 'shmcb:/var/cache/mod_ssl/scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'default'
 end
