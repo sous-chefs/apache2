@@ -34,6 +34,9 @@
             "negotiation",
             "setenvif",
             "systemd"
-        ]
+        ],
+        "mod_ssl": {
+            "pkg_name": "mod_ssl"
+        }
     }
 }

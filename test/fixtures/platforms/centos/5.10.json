@@ -32,6 +32,9 @@
             "mime",
             "negotiation",
             "setenvif"
-        ]
+        ],
+        "mod_ssl": {
+            "pkg_name": "mod_ssl"
+        }
     }
 }

@@ -36,6 +36,9 @@
         ],
         "mod_auth_openid": {
             "version": "0.8"
+        },
+        "mod_ssl": {
+            "pkg_name": "mod_ssl"
         }
     }
 }
