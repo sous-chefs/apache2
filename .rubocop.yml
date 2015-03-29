@@ -4,6 +4,7 @@ AllCops:
     - ruby/**/*
     - test/**/*
     - files/**/*
+    - .kitchen/**/*
 
 AlignParameters:
   Enabled: false
