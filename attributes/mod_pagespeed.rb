@@ -18,17 +18,8 @@
 #
 
 default['apache2']['mod_pagespeed']['package_link'] =
-case node['platform_family']
-when 'debian'
   if node['kernel']['machine'] =~ /^i[36']86$/
     'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.deb'
   else
     'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb'
   end
-when 'rhel', 'fedora'
-  if node['kernel']['machine'] =~ /^i[36']86$/
-    'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.rpm'
-  else
-    'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.rpm'
-  end
-end
