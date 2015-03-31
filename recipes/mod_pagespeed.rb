@@ -17,15 +17,22 @@
 # limitations under the License.
 #
 
-if platform_family?('debian')
-  remote_file "#{Chef::Config[:file_cache_path]}/mod-pagespeed.deb" do
+if %w(rhel debian fedora).include?(node['platform_family'])
+  case node['platform_family']
+  when 'rhel', 'fedora'
+    pkg = 'mod-pagespeed.rpm'
+  when 'debian'
+    pkg = 'mod-pagespeed.deb'
+  end
+
+  remote_file "#{Chef::Config[:file_cache_path]}/#{pkg}" do
     source node['apache2']['mod_pagespeed']['package_link']
     mode '0644'
     action :create_if_missing
   end
 
   package 'mod_pagespeed' do
-    source "#{Chef::Config[:file_cache_path]}/mod-pagespeed.deb"
+    source "#{Chef::Config[:file_cache_path]}/#{pkg}"
     action :install
   end
 
