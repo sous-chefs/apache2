@@ -38,6 +38,11 @@ if %w(rhel debian fedora).include?(node['platform_family'])
 
   apache_module 'pagespeed' do
     conf true
+    if node['apache']['version'] == '2.2'
+      filename 'mod_pagespeed.so'
+    elsif node['apache']['version'] == '2.4'
+      filename 'mod_pagespeed_ap24.so'
+    end
   end
 else
   Chef::Log.warn "apache::mod_pagespeed does not support #{node['platform_family']} yet, and is not being installed"
