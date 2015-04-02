@@ -22,7 +22,11 @@ include_recipe 'apache2::mod_dav'
 package 'libapache2-svn' do
   case node['platform_family']
   when 'rhel', 'fedora', 'suse'
-    package_name 'mod_dav_svn'
+    if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+      package_name 'mod24_dav_svn'
+    else 
+      package_name 'mod_dav_svn'
+    end 
   else
     package_name 'libapache2-svn'
   end

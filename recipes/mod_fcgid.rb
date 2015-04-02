@@ -20,7 +20,12 @@
 if platform_family?('debian')
   package 'libapache2-mod-fcgid'
 elsif platform_family?('rhel', 'fedora')
-  package 'mod_fcgid' do
+  package_name = 'mod_fcgid'
+  if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+    package_name = 'mod24_fcgid'
+  end
+
+  package package_name do
     notifies :run, 'execute[generate-module-list]', :immediately
   end
 

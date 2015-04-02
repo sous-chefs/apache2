@@ -31,7 +31,12 @@ when 'suse'
 
   package 'perl-Apache2-Request'
 when 'rhel', 'fedora'
-  package 'mod_perl' do
+package_name = 'mod_perl'
+  if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+    package_name = 'mod24_perl'
+  end
+
+  package package_name do
     notifies :run, 'execute[generate-module-list]', :immediately
   end
 

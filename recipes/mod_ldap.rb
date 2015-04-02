@@ -16,6 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+  package 'mod24_ldap' do
+    notifies :run, 'execute[generate-module-list]', :immediately
+  end
+end
 
 apache_module 'ldap' do
   conf true
