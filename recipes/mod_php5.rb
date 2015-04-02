@@ -68,5 +68,5 @@ end
 
 apache_module 'php5' do
   conf true
-  filename 'libphp5.so'
+  filename node['apache']['mod_php5']['so_filename']
 end
