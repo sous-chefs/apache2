@@ -208,9 +208,9 @@ node['apache']['default_modules'].each do |module_name|
       end
 
       apache_module module_name do
-        conf        true
-        filename    node['apache']['modules'][module_name]['filename']
-        identifier  node['apache']['modules'][module_name]['identifier']
+        conf true
+        filename node['apache']['modules'][module_name]['filename']
+        identifier node['apache']['modules'][module_name]['identifier']
         module_path node['apache']['modules'][module_name]['module_path']
       end
     end

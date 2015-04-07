@@ -66,7 +66,7 @@ file "#{node['apache']['dir']}/conf.d/php.conf" do
   backup false
 end
 
-if ! node['apache']['modules']['php5'].nil? && ! node['apache']['modules']['php5']['filename'].nil?
+if !node['apache']['modules']['php5'].nil? && !node['apache']['modules']['php5']['filename'].nil?
   modfilename = node['apache']['modules']['php5']['filename']
 else
   modfilename = 'libphp5.so'

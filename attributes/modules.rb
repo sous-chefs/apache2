@@ -164,6 +164,7 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
       else
         default['apache']['modules']['wsgi']['package_name'] = 'mod24_wsgi-python27.x86_64'
       end
+    end
   end
 when 'suse', 'opensuse'
   default['apache']['modules']['package_prefix'] = 'apache2-mod_'
