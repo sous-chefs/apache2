@@ -102,6 +102,7 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+    default['apache']['package']     = 'httpd24'
     default['apache']['devel_package'] = 'httpd24-devel'
   end
   if node['platform_version'].to_f >= 6
