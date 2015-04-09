@@ -84,6 +84,7 @@ default['apache']['default_site_name'] = 'default'
 case node['platform']
 when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['package']     = 'httpd'
+  default['apache']['service_name'] = 'httpd'
   default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['apachectl']   = '/usr/sbin/apachectl'
@@ -258,7 +259,9 @@ end
 ###
 
 # General settings
-default['apache']['service_name'] = default['apache']['package']
+if default['apache']['service_name'].nil?
+  default['apache']['service_name'] = default['apache']['package']
+end
 default['apache']['listen_addresses']  = %w(*)
 default['apache']['listen_ports']      = %w(80)
 default['apache']['contact']           = 'ops@example.com'
