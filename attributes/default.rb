@@ -259,8 +259,8 @@ end
 ###
 
 # General settings
-if default['apache']['service_name'].nil?
-  default['apache']['service_name'] = default['apache']['package']
+if node['apache']['service_name'].nil?
+  default['apache']['service_name'] = node['apache']['package']
 end
 default['apache']['listen_addresses']  = %w(*)
 default['apache']['listen_ports']      = %w(80)
