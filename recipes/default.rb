@@ -22,6 +22,9 @@ package 'apache2' do
   package_name node['apache']['package']
 end
 
+## include the shared service definition
+include_recipe 'apache2::_service_def'
+
 %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
   directory "#{node['apache']['dir']}/#{dir}" do
     mode '0755'
@@ -197,19 +200,4 @@ if node['apache']['default_site_enabled']
     template 'default-site.conf.erb'
     enable node['apache']['default_site_enabled']
   end
-end
-
-service 'apache2' do
-  service_name node['apache']['service_name']
-  case node['platform_family']
-  when 'rhel'
-    reload_command '/sbin/service httpd graceful'
-  when 'debian'
-    provider Chef::Provider::Service::Debian
-  when 'arch'
-    service_name 'httpd'
-  end
-  supports [:start, :restart, :reload, :status]
-  action [:enable, :start]
-  only_if "#{node['apache']['binary']} -t", :environment => { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, :timeout => 10
 end

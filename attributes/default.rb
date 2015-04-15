@@ -331,6 +331,10 @@ default['apache']['default_modules'] = %w(
   authz_host authz_user autoindex dir env mime negotiation setenvif
 )
 
+# If the default apache2 script should be called from definitions
+default['apache']['definitions']['default_install'] = true
+default['apache']['definitions']['web_app_install'] = true
+
 %w(log_config logio).each do |log_mod|
   default['apache']['default_modules'] << log_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
 end
