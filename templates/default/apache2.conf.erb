@@ -164,13 +164,6 @@ IncludeOptional <%= node['apache']['dir'] %>/mods-enabled/*.conf
 # Include ports listing
 Include <%= node['apache']['dir'] %>/ports.conf
 
-#<Directory /srv/>
-#       Options Indexes FollowSymLinks
-#       AllowOverride None
-#       Require all granted
-#</Directory>
-<% end -%>
-
 #
 # The following directives define some format nicknames for use with
 # a CustomLog directive (see below).
