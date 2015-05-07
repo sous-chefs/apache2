@@ -98,7 +98,11 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['conf_dir']    = '/etc/httpd/conf'
   default['apache']['docroot_dir'] = '/var/www/html'
   default['apache']['cgibin_dir']  = '/var/www/cgi-bin'
-  default['apache']['icondir']     = '/var/www/icons'
+  if node['apache']['version'] == '2.4'
+    default['apache']['icondir'] = '/usr/share/httpd/icons'
+  else
+    default['apache']['icondir'] = '/var/www/icons'
+  end
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
