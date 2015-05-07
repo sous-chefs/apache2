@@ -291,6 +291,9 @@ default['apache']['ext_status'] = false
 # mod_info Allow list, space seprated list of allowed entries.
 default['apache']['info_allow_list'] = '127.0.0.1 ::1'
 
+# Supported mpm list
+default['apache']['mpm_support'] = %w(prefork worker event)
+
 # Prefork Attributes
 default['apache']['prefork']['startservers']        = 16
 default['apache']['prefork']['minspareservers']     = 16
