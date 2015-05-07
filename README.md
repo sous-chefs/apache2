@@ -233,6 +233,15 @@ configuration.
 * `node['apache']['event']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
 * `node['apache']['event']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
 
+Other/Unsupported MPM
+---------------------
+
+To use the cookbook with an unsupported mpm (other than prefork, event or worker):
+
+* set `node['apache']['mpm']` to the name of the module (e.g. `itk`)
+* in your cookbook, after `include_recipe 'apache2'` use the `apache_module` definition to enable/disable the required module(s)
+ 
+
 mod\_auth\_openid attributes
 ----------------------------
 
