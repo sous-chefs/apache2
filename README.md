@@ -41,10 +41,7 @@ this cookbook](https://supermarket.chef.io/cookbooks/apache2/versions/1.1.16).
 
 ## Cookbooks:
 
-This cookbook depends on the following community cookbooks:
-
-* iptables
-* logrotate
+This cookbook has no direct external dependencies.
 
 Depending on your OS configuration and security policy, you may need
 additional recipes or cookbooks for this cookbook's recipes to
@@ -240,7 +237,7 @@ To use the cookbook with an unsupported mpm (other than prefork, event or worker
 
 * set `node['apache']['mpm']` to the name of the module (e.g. `itk`)
 * in your cookbook, after `include_recipe 'apache2'` use the `apache_module` definition to enable/disable the required module(s)
- 
+
 
 mod\_auth\_openid attributes
 ----------------------------
