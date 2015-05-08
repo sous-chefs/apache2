@@ -19,11 +19,6 @@
 default['apache']['mod_php5']['install_method'] = 'package'
 default['apache']['mod_php5']['so_filename'] = 'libphp5.so'
 
-case node['platform_family']
-when 'rhel'
-  if node['platform'] == 'amazon'
-    if node['apache']['version'] == '2.4'
-      default['apache']['mod_php5']['so_filename'] = 'libphp.so'
-    end
-  end
+if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+  default['apache']['mod_php5']['so_filename'] = 'libphp.so'
 end
