@@ -207,6 +207,7 @@ service 'apache2' do
   service_name node['apache']['service_name']
   case node['platform_family']
   when 'rhel'
+    restart_command '/sbin/service httpd restart && sleep 1' if node['apache']['version'] == '2.2'
     reload_command '/sbin/service httpd graceful'
   when 'debian'
     provider Chef::Provider::Service::Debian
