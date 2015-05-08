@@ -18,7 +18,6 @@
 # limitations under the License.
 #
 
-
 if node['apache']['version'] != '2.4' && platform_family == 'debian'
   package 'libapache2-mod-proxy-html'
 end
