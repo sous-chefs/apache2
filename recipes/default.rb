@@ -184,7 +184,11 @@ end
 
 if node['apache']['version'] == '2.4' && !platform_family?('freebsd')
   # on freebsd the prefork mpm is staticly compiled in
-  include_recipe "apache2::mpm_#{node['apache']['mpm']}"
+  if node['apache']['mpm_support'].include?(node['apache']['mpm'])
+    include_recipe "apache2::mpm_#{node['apache']['mpm']}"
+  else
+    Chef::Log.warn("apache2: #{node['apache']['mpm']} module is not supported and must be handled separately!")
+  end
 end
 
 node['apache']['default_modules'].each do |mod|
