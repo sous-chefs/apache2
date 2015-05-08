@@ -331,23 +331,3 @@ default['apache']['proxy']['require']    = 'all denied'
 default['apache']['proxy']['order']      = 'deny,allow'
 default['apache']['proxy']['deny_from']  = 'all'
 default['apache']['proxy']['allow_from'] = 'none'
-
-# Default modules to enable via include_recipe
-default['apache']['default_modules'] = %w(
-  status alias auth_basic authn_core authn_file authz_core authz_groupfile
-  authz_host authz_user autoindex dir env mime negotiation setenvif
-)
-
-%w(log_config logio).each do |log_mod|
-  default['apache']['default_modules'] << log_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
-end
-
-if node['apache']['version'] == '2.4'
-  %w(unixd).each do |unix_mod|
-    default['apache']['default_modules'] << unix_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
-  end
-
-  unless node['platform'] == 'amazon'
-    default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
-  end
-end

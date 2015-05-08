@@ -191,9 +191,34 @@ if node['apache']['version'] == '2.4' && !platform_family?('freebsd')
   end
 end
 
-node['apache']['default_modules'].each do |mod|
-  module_recipe_name = mod =~ /^mod_/ ? mod : "mod_#{mod}"
-  include_recipe "apache2::#{module_recipe_name}"
+node['apache']['default_modules'].each do |module_name|
+  module_name.sub! 'mod_', ''  # remove leading mod_
+  if node['apache']['modules'][module_name].nil?
+    # no attributes configured
+    apache_module module_name do
+      conf true
+    end
+  else
+    # custom options
+    if node['apache']['modules'][module_name]['has_recipe']
+      include_recipe "apache2::mod_#{module_name}"
+    else
+      # Default no weird stuff recipe
+      module_package = node['apache']['modules'][module_name]['package_name'] || node['apache']['modules']['package_prefix'] + module_name
+
+      package module_package do
+        only_if node['apache']['modules'][module_name]['install_package']
+        notifies :run, 'execute[generate-module-list]', :delayed
+      end
+
+      apache_module module_name do
+        conf true
+        filename node['apache']['modules'][module_name]['filename']
+        identifier node['apache']['modules'][module_name]['identifier']
+        module_path node['apache']['modules'][module_name]['module_path']
+      end
+    end
+  end
 end
 
 if node['apache']['default_site_enabled']
