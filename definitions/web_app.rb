@@ -20,10 +20,13 @@
 define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => true do
   application_name = params[:name]
 
-  include_recipe 'apache2::default'
-  include_recipe 'apache2::mod_rewrite'
-  include_recipe 'apache2::mod_deflate'
-  include_recipe 'apache2::mod_headers'
+  if node['apache']['definitions']['web_app_install']
+    include_recipe 'apache2::default'
+    include_recipe 'apache2::mod_rewrite'
+    include_recipe 'apache2::mod_deflate'
+    include_recipe 'apache2::mod_headers'
+  end
+  include_recipe 'apache2::_service_def'
 
   template "#{node['apache']['dir']}/sites-available/#{application_name}.conf" do
     source params[:template]

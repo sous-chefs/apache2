@@ -190,6 +190,8 @@ values are noted.
 * `node['apache']['sysconfig_additional_params']` - Additionals variables set in sysconfig file. Default is empty.
 * `node['apache']['default_modules']` - Array of module names. Can take "mod_FOO" or "FOO" as names, where FOO is the apache module, e.g. "`mod_status`" or "`status`".
 * `node['apache']['mpm']` - With apache.version 2.4, specifies what Multi-Processing Module to enable. Default is "prefork".
+* `node['apache']['definitions']['default_install`]` - Default true. If the definitions should call default recipe. Useful if you are installing and configuring apache separately.
+* `node['apache']['definitions']['web_app_install`]` - Default true. If the web_app definition should call default recipe. Useful if you are installing and configuring apache separately.
 
 The modules listed in `default_modules` will be included as recipes in `recipe[apache::default]`.
 
@@ -612,13 +614,15 @@ Manage a template resource for a VirtualHost site, and enable it with
 such as Ruby on Rails, PHP or Django, and the default behavior
 reflects that. However it is flexible.
 
-This definition includes some recipes to make sure the system is
-configured to have Apache and some sane default modules:
+This definition includes some recipes by default to make sure the system 
+is configured to have Apache and some sane default modules:
 
 * `apache2`
 * `apache2::mod_rewrite`
 * `apache2::mod_deflate`
 * `apache2::mod_headers`
+
+This feature can be disabled by overriding the default value definitions:web_app_install = true
 
 It will then configure the template (see __Parameters__ and
 __Examples__ below), and enable or disable the site per the `enable`

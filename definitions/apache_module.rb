@@ -18,7 +18,11 @@
 #
 
 define :apache_module, :enable => true, :conf => false, :restart => false do
-  include_recipe 'apache2::default'
+  if node['apache']['definitions']['default_install']
+    include_recipe 'apache2::default'
+  end
+  include_recipe 'apache2::_service_def'
+
 
   params[:filename]    = params[:filename] || "mod_#{params[:name]}.so"
   params[:module_path] = params[:module_path] || "#{node['apache']['libexec_dir']}/#{params[:filename]}"

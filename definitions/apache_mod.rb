@@ -18,7 +18,10 @@
 #
 
 define :apache_mod do
-  include_recipe 'apache2::default'
+  if node['apache']['definitions']['default_install']
+    include_recipe 'apache2::default'
+  end
+  include_recipe 'apache2::_service_def'
 
   template "#{node['apache']['dir']}/mods-available/#{params[:name]}.conf" do
     source "mods/#{params[:name]}.conf.erb"

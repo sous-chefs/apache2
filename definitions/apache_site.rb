@@ -18,7 +18,10 @@
 #
 
 define :apache_site, :enable => true do
-  include_recipe 'apache2::default'
+  if node['apache']['definitions']['default_install']
+    include_recipe 'apache2::default'
+  end
+  include_recipe 'apache2::_service_def'
   conf_name = "#{params[:name]}.conf"
 
   if params[:enable]
