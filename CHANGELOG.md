@@ -13,6 +13,7 @@ v3.0.2 (unreleased)
 - [GH-322] Add `apache.mod_ssl.pkg_name` to allow custom mod_ssl package names. Set defaults for supported platforms including Amazon Linux
 - [GH-285] Made `apache.devel_package` configurable based on platform, including support for Amazon Linux.
 - [GH-334] Removed `iptables`, `god-monitor`, and `logrotate` recipes to avoid having external dependencies. These services should be managed in a wrapper cookbook going forward.
+- [GH-259] Add `&& sleep 1` to end of apache restart command on rhel-based systems using apache2.2
 
 v3.0.1 (2015-02-11)
 -------------------
