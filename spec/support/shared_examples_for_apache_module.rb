@@ -31,14 +31,14 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, a2filename = nil
     end
   end
 
-  if module_enable == true
-    it "creates <apache_dir>/mods-available/#{module_name}.load" do
-      expect(chef_run).to create_file("#{chef_run.node[:apache][:dir]}/mods-available/#{module_name}.load").with(
-        :content =>  "LoadModule #{module_name}_module #{chef_run.node[:apache][:libexec_dir]}/#{module_filename}\n",
-        :mode => '0644'
-      )
-    end
+  it "creates <apache_dir>/mods-available/#{module_name}.load" do
+    expect(chef_run).to create_file("#{chef_run.node[:apache][:dir]}/mods-available/#{module_name}.load").with(
+      :content =>  "LoadModule #{module_name}_module #{chef_run.node[:apache][:libexec_dir]}/#{module_filename}\n",
+      :mode => '0644'
+    )
+  end
 
+  if module_enable == true
     it "runs a2enmod #{module_name}" do
       # not_if do
       allow(::File).to receive(:symlink?).with("#{chef_run.node[:apache][:dir]}/mods-enabled/#{module_name}.load").and_return(false)
