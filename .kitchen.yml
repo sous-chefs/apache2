@@ -73,7 +73,8 @@ suites:
   - recipe[apache2_test::mod_authz_unlisted_host]
   - recipe[apache2_test::mod_authz_user]
   - recipe[apache2_test::mod_cgi]
-  - recipe[apache2_test::mod_fastcgi]
+# not supported by apache 2.4 without source compile with non-maintainer patches
+# - recipe[apache2_test::mod_fastcgi]
 # - recipe[apache2_test::mod_dav_svn]
   - recipe[apache2_test::mod_expires]
   - recipe[apache2_test::mod_status_remote]
