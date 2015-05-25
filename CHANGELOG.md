@@ -2,7 +2,7 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-v3.0.2 (unreleased)
+v3.1.0 (2015-05-25)
 -------------------
 
 - [GH-315] Fix `apache.default_site_name` .conf extension references to ensure deletion
