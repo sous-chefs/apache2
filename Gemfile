@@ -4,7 +4,7 @@ gem 'berkshelf',  '~> 3.2', '>= 3.2.0'
 
 group :unit do
   gem 'foodcritic',       '~> 4.0', '>= 4.0.0'
-  gem 'rubocop',          '~> 0.29', '>= 0.29.0'
+  gem 'rubocop',          '~> 0.31', '>= 0.31.0'
   gem 'chefspec',         '~> 4.2', '>= 4.2.0'
 end
 
