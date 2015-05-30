@@ -18,9 +18,13 @@
 #
 
 apache_module('mpm_event') { enable false }
-apache_module('mpm_prefork') { enable false }
 apache_module('mpm_worker') { enable false }
+# itk depends on prefork
+apache_module('mpm_prefork') { enable true }
+
+package 'apache2-mpm-itk'
 
 apache_module 'mpm_itk' do
   conf true
+  filename 'mpm_itk.so'
 end
