@@ -56,8 +56,13 @@ when 'suse'
     not_if 'which php'
   end
 when 'freebsd'
-  %w(php56 mod_php56 libxml2).each do |pkg|
+  %w(php56 libxml2).each do |pkg|
     package pkg
+  end
+  %w(mod_php56).each do |pkg|
+    package pkg do
+      options '-I'
+    end
   end
 end unless node['apache']['mod_php5']['install_method'] == 'source'
 
