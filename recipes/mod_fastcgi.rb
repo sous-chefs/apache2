@@ -57,6 +57,10 @@ if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mo
       make top_dir=#{top_dir} && make install top_dir=#{top_dir}
     EOH
   end
+elsif platform_family?('freebsd')
+  if node['apache']['mod_fastcgi']['install_method'] == 'package'
+    package 'ap24-mod_fastcgi'
+  end
 end
 
 apache_module 'fastcgi' do
