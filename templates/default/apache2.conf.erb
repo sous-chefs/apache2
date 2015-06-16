@@ -93,9 +93,9 @@ AccessFileName <%= node['apache']['access_file_name'] %>
 #
 <% access_file_name_prefix = node['apache']['access_file_name'][0..2] if !node['apache']['access_file_name'].empty?
    if access_file_name_prefix != '.ht'
-    file_name_prefix = '(' + access_file_name_prefix + '|.ht)'
+    file_name_prefix = '(' + access_file_name_prefix + '|\.ht)'
    else
-    file_name_prefix = '.ht'
+    file_name_prefix = '\.ht'
    end
 %>
 <Files ~ "^<%= file_name_prefix %>">
