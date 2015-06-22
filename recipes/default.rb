@@ -50,6 +50,7 @@ end
 
 directory node['apache']['log_dir'] do
   mode '0755'
+  recursive true
 end
 
 # perl is needed for the a2* scripts
