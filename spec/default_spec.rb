@@ -105,7 +105,7 @@ describe 'apache2::default' do
               :mode =>  '0644'
             )
             expect(chef_run).to render_file("#{property[:apache][:conf]}").with_content(/AccessFileName[\s]*\.htaccess/)
-            expect(chef_run).to render_file("#{property[:apache][:conf]}").with_content(/Files ~ \"\^\.ht\"/)
+            expect(chef_run).to render_file("#{property[:apache][:conf]}").with_content(/Files ~ \"\^\\\.ht\"/)
           end
 
           subject(:apacheconf) { chef_run.template(property[:apache][:conf]) }
@@ -298,7 +298,7 @@ describe 'apache2::default' do
               :mode =>  '0644'
             )
             expect(chef_run).to render_file("#{property[:apache][:conf]}").with_content(/AccessFileName[\s]*\.customaccess/)
-            expect(chef_run).to render_file("#{property[:apache][:conf]}").with_content(/Files ~ \"\^\(\.cu\|\.ht\)\"/)
+            expect(chef_run).to render_file("#{property[:apache][:conf]}").with_content(/Files ~ \"\^\(\.cu\|\\\.ht\)\"/)
           end
         end
 
