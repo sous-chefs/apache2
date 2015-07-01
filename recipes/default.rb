@@ -203,16 +203,18 @@ if node['apache']['default_site_enabled']
   end
 end
 
+apache_service_name = node['apache']['service_name']
+
 service 'apache2' do
-  service_name node['apache']['service_name']
+  service_name apache_service_name
   case node['platform_family']
   when 'rhel'
-    restart_command '/sbin/service httpd restart && sleep 1' if node['apache']['version'] == '2.2'
-    reload_command '/sbin/service httpd graceful'
+    restart_command "/sbin/service #{apache_service_name} restart && sleep 1" if node['apache']['version'] == '2.2'
+    reload_command "/sbin/service #{apache_service_name} graceful"
   when 'debian'
     provider Chef::Provider::Service::Debian
   when 'arch'
-    service_name 'httpd'
+    service_name apache_service_name
   end
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
