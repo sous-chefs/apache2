@@ -40,7 +40,7 @@
   LogLevel warn
 
   CustomLog <%= node['apache']['log_dir'] %>/<%= node['apache']['access_log'] %> combined
-  ServerSignature On
+  ServerSignature <%= node['apache']['serversignature'] %>
 
   Alias /doc/ "/usr/share/doc/"
   <Directory "/usr/share/doc/">

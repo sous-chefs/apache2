@@ -26,10 +26,11 @@
 
   <% if node['apache']['version'] == '2.4' -%>
     Require local
+    Require ip <%=node['apache']['status_allow_list']%>
   <% else -%>
     Order Deny,Allow
     Deny from all
-    Allow from 127.0.0.1
+    Allow from <%= node['apache']['status_allow_list'] %>
   <% end -%>
 
   </Location>
