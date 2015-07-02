@@ -369,6 +369,9 @@ mod\_fastcgi
 
 Install the fastcgi package and enable the module.
 
+Note: In Ubuntu 14.04, the `libapache2-mod-fastcgi` module is not available by default due to the [Multiverse](https://help.ubuntu.com/community/Repositories/Ubuntu) repositories.
+You need to enable the multiverse repositories either from `/etc/apt/sources.list` or use the `apt` cookbook.
+
 Only work on Debian/Ubuntu
 
 mod\_fcgid
