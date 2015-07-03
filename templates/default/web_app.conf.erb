@@ -40,7 +40,7 @@
   LogLevel info rewrite:trace1
   <%- else -%>
   LogLevel info
-  RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
+  RewriteLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-rewrite.log
   RewriteLogLevel 0
   <%- end -%>
 
