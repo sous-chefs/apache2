@@ -1,4 +1,4 @@
-<VirtualHost *:<%= @params[:server_port] || node['apache']['listen_ports'].first %>>
+<VirtualHost *:<%= @params[:server_port] || node['apache']['listen'].values.map(&:to_a).flatten.first %>>
   ServerName <%= @params[:server_name] %>
   <% if @params[:server_aliases] -%>
   ServerAlias <%= @params[:server_aliases].join " " %>
