@@ -2,7 +2,8 @@ require 'spec_helper'
 
 platforms = supported_platforms.select { |key, _| %w(debian ubuntu redhat centos fedora).include?(key) }
 
-describe 'apache2::mod_cloudflare' do
+# use the test fixture cookbook because we need apt_repository or yum_repository
+describe 'apache2_test::mod_cloudflare' do
   platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
