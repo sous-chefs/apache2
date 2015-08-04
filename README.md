@@ -710,6 +710,7 @@ License and Authors
 * Author:: Gilles Devaux <gilles@peerpong.com>
 * Author:: Sander van Zoest <sander+cookbooks@vanzoest.com>
 * Author:: Taylor Price <tayworm@gmail.com>
+* Author:: Ben Dean <ben.dean@ontariosystems.com>
 
 * Copyright:: 2009-2012, Chef Software, Inc
 * Copyright:: 2011, Atriso
@@ -717,6 +718,7 @@ License and Authors
 * Copyright:: 2013-2014, OneHealth Solutions, Inc.
 * Copyright:: 2014, Viverae, Inc.
 * Copyright:: 2015, Alexander van Zoest
+* Copyright:: 2015, Ontario Systems, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
