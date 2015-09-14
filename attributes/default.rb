@@ -145,6 +145,7 @@ when 'suse', 'opensuse'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
+  default['apache']['default_release']     = ''
   default['apache']['perl_pkg']    = 'perl'
   if node['apache']['mpm'] == 'prefork'
     default['apache']['devel_package'] = 'apache2-prefork-dev'

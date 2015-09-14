@@ -18,8 +18,15 @@
 # limitations under the License.
 #
 
-package 'apache2' do
-  package_name node['apache']['package']
+if platform_family?('debian')
+  apt_package 'apache2' do
+    default_release node['apache']['default_release'] unless node['apache']['default_release'].empty?
+    package_name node['apache']['package']
+  end
+else
+  package 'apache2' do
+    package_name node['apache']['package']
+  end
 end
 
 %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
