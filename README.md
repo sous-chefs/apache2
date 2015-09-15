@@ -422,8 +422,8 @@ template should be in the same cookbook where the definition is used. This is us
 It will use `a2enconf` and `a2disconf` to control the symlinking of configuration files between `conf-available` and `conf-enabled`.
 
 Enable or disable an Apache config file in
-`#{node['apache']['dir']}/conf-available` by calling `a2enmod` or
-`a2dismod` to manage the symbolic link in
+`#{node['apache']['dir']}/conf-available` by calling `a2enconf` or
+`a2disconf` to manage the symbolic link in
 `#{node['apache']['dir']}/conf-enabled`. These config files should be created in your cookbook, and placed on the system using `apache_conf`
 
 ### Parameters:
