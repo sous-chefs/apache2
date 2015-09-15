@@ -151,7 +151,7 @@ describe 'apache2::default' do
                 :owner => 'root',
                 :group => property[:apache][:root_group],
                 :mode =>  '0644',
-                :backup =>  false
+                :backup => false
               )
             end
 
