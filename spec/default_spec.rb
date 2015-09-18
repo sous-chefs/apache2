@@ -27,9 +27,9 @@ describe 'apache2::default' do
           it "installs package #{property[:apache][:package]}" do
             case platform
             when 'freebsd'
-              expect(chef_run).to install_freebsd_package(property[:apache][:package])
-            when 'amazon', 'fedora', 'redhat', 'centos'
-              expect(chef_run).to install_yum_package(property[:apache][:package])
+              expect(chef_run).to install_package(property[:apache][:package])
+            when 'debian', 'ubuntu'
+              expect(chef_run).to install_apt_package(property[:apache][:package])
             else
               expect(chef_run).to install_package(property[:apache][:package])
             end
@@ -151,7 +151,7 @@ describe 'apache2::default' do
                 :owner => 'root',
                 :group => property[:apache][:root_group],
                 :mode =>  '0644',
-                :backup =>  false
+                :backup => false
               )
             end
 
