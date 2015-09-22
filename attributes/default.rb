@@ -83,7 +83,7 @@ default['apache']['default_site_name'] = 'default'
 # Where the various parts of apache are
 case node['platform']
 when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
-  default['apache']['package']     = 'httpd'
+  default['apache']['package'] = 'httpd'
   default['apache']['service_name'] = 'httpd'
   default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['perl_pkg']    = 'perl'
@@ -115,8 +115,8 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   else
     default['apache']['pid_file'] = '/var/run/httpd.pid'
   end
-  default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
-  default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
+  default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'suse', 'opensuse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
@@ -178,7 +178,7 @@ when 'debian', 'ubuntu'
   default['apache']['libexec_dir']   = "#{node['apache']['lib_dir']}/modules"
   default['apache']['default_site_name'] = '000-default'
 when 'arch'
-  default['apache']['package']     = 'apache'
+  default['apache']['package'] = 'apache'
   default['apache']['service_name'] = 'httpd'
   default['apache']['perl_pkg']    = 'perl'
   # default['apache']['apachectl']   = '/usr/sbin/apachectl'
@@ -198,7 +198,7 @@ when 'arch'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
   default['apache']['lib_dir']     = '/usr/lib/httpd'
-  default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'freebsd'
   if node['apache']['version'] == '2.4'
     default['apache']['package']     = 'apache24'
@@ -234,9 +234,9 @@ when 'freebsd'
   default['apache']['user']        = 'www'
   default['apache']['group']       = 'www'
   default['apache']['binary']      = '/usr/local/sbin/httpd'
-  default['apache']['libexec_dir']  = node['apache']['lib_dir']
+  default['apache']['libexec_dir'] = node['apache']['lib_dir']
 else
-  default['apache']['package']     = 'apache2'
+  default['apache']['package'] = 'apache2'
   default['apache']['devel_package'] = 'apache2-dev'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/apache2'
