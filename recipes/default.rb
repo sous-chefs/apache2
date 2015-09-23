@@ -20,6 +20,7 @@
 
 package 'apache2' do
   package_name node['apache']['package']
+  default_release unless node['apache']['default_release'].nil?
 end
 
 %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
