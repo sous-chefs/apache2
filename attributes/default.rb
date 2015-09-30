@@ -279,7 +279,7 @@ default['apache']['sysconfig_additional_params'] = {}
 default['apache']['default_site_enabled'] = false
 default['apache']['default_site_port']    = '80'
 default['apache']['access_file_name'] = '.htaccess'
-default['apache']['default_release']     = nil
+default['apache']['default_release'] = nil
 
 # Security
 default['apache']['servertokens']    = 'Prod'
