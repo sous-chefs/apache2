@@ -18,6 +18,7 @@
 
 default['apache']['mod_php5']['install_method'] = 'package'
 default['apache']['mod_php5']['so_filename'] = 'libphp5.so'
+default['apache']['mod_php5']['so_filename'] = 'mod_php5.so' if node['platform_family'] == 'suse'
 
 if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
   default['apache']['mod_php5']['so_filename'] = 'libphp.so'
