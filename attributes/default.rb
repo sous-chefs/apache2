@@ -65,9 +65,8 @@ default['apache']['version'] =
     node['platform_version'].to_f >= 18 ? '2.4' : '2.2'
   when 'suse'
     case node['platform']
-    when 'opensuse'
-      node['platform_version'].to_f >= 13.1 ? '2.4' : '2.2'
-      # FIXME: when "suse" for SLES
+    when 'suse'
+      node['platform_version'].to_f >= 12.1 ? '2.4' : '2.2'
     else
       '2.4'
     end
