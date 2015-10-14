@@ -173,8 +173,7 @@ These are general settings used in recipes and templates. Default
 values are noted.
 
 * `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support. If the platform is known during our test to install 2.4 by default, it will be set to 2.4 for you. Otherwise it falls back to 2.2. This value should be specified as a string.
-* `node['apache']['listen_addresses']` - Addresses that httpd should listen on. Default is any ("*").
-* `node['apache']['listen_ports']` - Ports that httpd should listen on. Default is port 80.
+* `node['apache']['listen']` - Hash of address and arrays of ports that httpd should listen on. Default is any address and port 80 (`{"*" => ["80"]}`).
 * `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
 * `node['apache']['timeout']` - Value for the Timeout directive. Default is 300.
 * `node['apache']['keepalive']` - Value for the KeepAlive directive. Default is On.
@@ -402,7 +401,7 @@ mod\_ssl
 --------
 
 Besides installing and enabling `mod_ssl`, this recipe will append
-port 443 to the `node['apache']['listen_ports']` attribute array and
+port 443 to the `node['apache']['listen']` attributes for all addresses and
 update the ports.conf.
 
 Definitions
@@ -682,7 +681,9 @@ create a basic role for web servers that provide both HTTP and HTTPS:
     )
     default_attributes(
       "apache" => {
-        "listen_ports" => ["80", "443"]
+        "listen" => {
+          "*" => ["80", "443"]
+        }
       }
     )
 ``````
@@ -709,6 +710,7 @@ License and Authors
 * Author:: Gilles Devaux <gilles@peerpong.com>
 * Author:: Sander van Zoest <sander+cookbooks@vanzoest.com>
 * Author:: Taylor Price <tayworm@gmail.com>
+* Author:: Ben Dean <ben.dean@ontariosystems.com>
 
 * Copyright:: 2009-2012, Chef Software, Inc
 * Copyright:: 2011, Atriso
@@ -716,6 +718,7 @@ License and Authors
 * Copyright:: 2013-2014, OneHealth Solutions, Inc.
 * Copyright:: 2014, Viverae, Inc.
 * Copyright:: 2015, Alexander van Zoest
+* Copyright:: 2015, Ontario Systems, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
