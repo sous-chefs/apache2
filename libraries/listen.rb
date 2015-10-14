@@ -17,13 +17,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require 'chef/mixin/deep_merge'
+
 module Apache2
   # Provides method to convert node['apache']['listen_ports'] and node['apache']['listen_addresses'] into new node['apache']['listen']
   module Listen
     # @param node [Chef::Node] the chef node
     # @return [Hash] a hash indexed by address where the values are arrays of ports to listen to
     def listen_ports_by_address(node)
-      node['apache']['listen'].to_hash.merge(Apache2::Listen.converted_listen_ports_and_addresses(node))
+      Chef::Mixin::DeepMerge.deep_merge(Apache2::Listen.converted_listen_ports_and_addresses(node), node['apache']['listen'].to_hash)
     end
 
     module_function :listen_ports_by_address
