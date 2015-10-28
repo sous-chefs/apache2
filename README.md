@@ -287,7 +287,7 @@ Most of the recipes in the cookbook are for enabling Apache modules.
 Where additional configuration or behavior is used, it is documented
 below in more detail.
 
-The following recipes merely enable the specified module: `mod_alias`,
+The following recipes merely enable the specified module: `mod_actions`, `mod_alias`,
 `mod_auth_basic`, `mod_auth_digest`, `mod_authn_file`, `mod_authnz_ldap`,
 `mod_authz_default`, `mod_authz_groupfile`, `mod_authz_host`,
 `mod_authz_user`, `mod_autoindex`, `mod_cgi`, `mod_dav_fs`,
