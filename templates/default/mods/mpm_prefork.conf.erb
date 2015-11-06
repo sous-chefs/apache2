@@ -9,6 +9,7 @@
   StartServers           <%= node['apache']['prefork']['startservers'] %>
   MinSpareServers        <%= node['apache']['prefork']['minspareservers'] %>
   MaxSpareServers        <%= node['apache']['prefork']['maxspareservers'] %>
+  ServerLimit            <%= node['apache']['prefork']['serverlimit'] %>
   MaxRequestWorkers      <%= node['apache']['prefork']['maxrequestworkers'] %>
   MaxConnectionsPerChild <%= node['apache']['prefork']['maxconnectionsperchild'] %>
  <% else -%>
