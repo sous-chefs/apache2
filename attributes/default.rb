@@ -105,9 +105,11 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
+  default['apache']['magic_file_dir'] = node['apache']['conf_dir']
   if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
     default['apache']['package']     = 'httpd24'
     default['apache']['devel_package'] = 'httpd24-devel'
+    default['apache']['magic_file_dir'] = '/etc/httpd'
   end
   if node['platform_version'].to_f >= 6
     default['apache']['pid_file'] = '/var/run/httpd/httpd.pid'
