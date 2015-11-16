@@ -82,9 +82,19 @@ default['apache']['default_site_name'] = 'default'
 # Where the various parts of apache are
 case node['platform']
 when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
-  default['apache']['package'] = 'httpd'
+  if node['platform'] == 'amazon'
+    if node['apache']['version'] == '2.4'
+      default['apache']['package'] = 'httpd24'
+      default['apache']['devel_package'] = 'httpd24-devel'
+    else
+      default['apache']['package'] = 'httpd22'
+      default['apache']['devel_package'] = 'httpd22-devel'
+    end
+  else
+    default['apache']['package'] = 'httpd'
+    default['apache']['devel_package'] = 'httpd-devel'
+  end
   default['apache']['service_name'] = 'httpd'
-  default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['apachectl']   = '/usr/sbin/apachectl'
   default['apache']['dir']         = '/etc/httpd'
@@ -105,10 +115,6 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
-  if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
-    default['apache']['package']     = 'httpd24'
-    default['apache']['devel_package'] = 'httpd24-devel'
-  end
   if node['platform_version'].to_f >= 6
     default['apache']['pid_file'] = '/var/run/httpd/httpd.pid'
   else
