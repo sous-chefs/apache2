@@ -18,5 +18,5 @@
 #
 
 apache_module 'headers' do
-      restart true
+  restart true
 end
