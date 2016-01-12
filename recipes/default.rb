@@ -84,9 +84,6 @@ unless platform_family?('debian')
     command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{node['apache']['dir']}/mods-available"
     action :nothing
   end
-
-  # enable mod_deflate for consistency across distributions
-  include_recipe 'apache2::mod_deflate'
 end
 
 if platform_family?('freebsd')
