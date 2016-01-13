@@ -134,3 +134,15 @@ suites:
   - recipe[apache2_test::basic_web_app]
   - recipe[apache2_test::broken_conf]
   - recipe[apache2_test::modules]
+- name: swat
+  attributes:
+    machine_fqdn: working.computers.biz
+    machine_fqdn_as_hostname: true
+  run_list:
+  - recipe[fqdn]
+  - recipe[apache2_test::setup]
+  - recipe[apache2_test::default]
+  - recipe[apache2_test::basic_web_app]
+  includes: [
+    'centos-6.5'
+  ]
