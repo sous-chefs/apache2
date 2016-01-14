@@ -143,6 +143,14 @@ suites:
   - recipe[apache2_test::setup]
   - recipe[apache2_test::default]
   - recipe[apache2_test::basic_web_app]
+  - recipe[sparrow]
   includes: [
     'centos-6.5'
   ]
+  attributes:
+    sparrow:
+      plugin:
+        list: [
+            'swat-apache2-cookbook'
+        ]
+
