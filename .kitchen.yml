@@ -138,6 +138,11 @@ suites:
   attributes:
     machine_fqdn: working.computers.biz
     machine_fqdn_as_hostname: true
+    sparrow:
+      plugin:
+        list: [
+            'swat-apache2-cookbook'
+        ]
   run_list:
   - recipe[fqdn]
   - recipe[apache2_test::setup]
@@ -148,10 +153,4 @@ suites:
     'centos-6.5',
     'debian-7.6'
   ]
-  attributes:
-    sparrow:
-      plugin:
-        list: [
-            'swat-apache2-cookbook'
-        ]
 
