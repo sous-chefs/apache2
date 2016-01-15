@@ -145,7 +145,8 @@ suites:
   - recipe[apache2_test::basic_web_app]
   - recipe[sparrow]
   includes: [
-    'centos-6.5'
+    'centos-6.5',
+    'debian-7.6'
   ]
   attributes:
     sparrow:
