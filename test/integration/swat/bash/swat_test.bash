@@ -6,7 +6,7 @@ sparrow project create foo
 
 sparrow check add foo apache
 
-sparrow check set foo apache -p swat-apache2-cookbook -u `hostname -f`
+sparrow check set foo apache swat-apache2-cookbook `hostname -f`
 
 landing_page_line='Hello World' \
 match_l=300 \
