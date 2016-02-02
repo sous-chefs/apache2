@@ -41,10 +41,7 @@ this cookbook](https://supermarket.chef.io/cookbooks/apache2/versions/1.1.16).
 
 ## Cookbooks:
 
-This cookbook depends on the following community cookbooks:
-
-* iptables
-* logrotate
+This cookbook has no direct external dependencies.
 
 Depending on your OS configuration and security policy, you may need
 additional recipes or cookbooks for this cookbook's recipes to
@@ -86,10 +83,6 @@ you also need the `pacman` cookbook for the `pacman_aur` LWRP. Put
 role). This is not an explicit dependency because it is only required
 for this single recipe and platform; the pacman default recipe
 performs `pacman -Sy` to keep pacman's package cache updated.
-
-The `apache2::god_monitor` recipe uses a definition from the `god`
-cookbook. Include `recipe[god]` in the node's expanded run list to
-ensure that the cookbook is available to the node, and to set up `god`.
 
 ## Platforms:
 
@@ -233,6 +226,15 @@ configuration.
 * `node['apache']['event']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously.
 * `node['apache']['event']['maxconnectionsperchild']`  - Limit on the number of connections that an individual child server will handle during its life.
 
+Other/Unsupported MPM
+---------------------
+
+To use the cookbook with an unsupported mpm (other than prefork, event or worker):
+
+* set `node['apache']['mpm']` to the name of the module (e.g. `itk`)
+* in your cookbook, after `include_recipe 'apache2'` use the `apache_module` definition to enable/disable the required module(s)
+
+
 mod\_auth\_openid attributes
 ----------------------------
 
@@ -308,13 +310,6 @@ default
 The default recipe does a number of things to set up Apache HTTPd. It
 also includes a number of modules based on the attribute
 `node['apache']['default_modules']` as recipes.
-
-logrotate
----------
-
-Logrotate adds a logrotate entry for your apache2 logs. This recipe
-requires the `logrotate` cookbook; ensure that `recipe[logrotate]` is
-in the node's expanded run list.
 
 mod\_auth\_cas
 --------------
@@ -406,18 +401,6 @@ mod\_ssl
 Besides installing and enabling `mod_ssl`, this recipe will append
 port 443 to the `node['apache']['listen_ports']` attribute array and
 update the ports.conf.
-
-god\_monitor
-------------
-
-Sets up a `god` monitor for Apache. External requirements are the
-`god` and `runit` cookbooks from Opscode. When using this recipe,
-include `recipe[god]` in the node's expanded run list to ensure the
-client downloads it; `god` depends on runit so that will also be
-downloaded.
-
-**Note** This recipe is not tested under test-kitchen yet and is
-  pending fix in COOK-744.
 
 Definitions
 ===========

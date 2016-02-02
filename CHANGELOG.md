@@ -2,16 +2,28 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-v3.0.2 (unreleased)
+v3.1.0 (2015-05-25)
 -------------------
 
 - [GH-315] Fix `apache.default_site_name` .conf extension references to ensure deletion
 - [GH-258] Use `apache.default_site_name` for consistency, minimize hardcoding of filenames
-- [GH-276] Add psych gem to development gems
+- [GH-259] Add `&& sleep 1` to end of apache restart command on rhel-based systems using apache2.2
 - [GH-271] Remove FreeBSD 9.x, Red Hat and CentOS 5.x and OpenSUSE 11.x Series from tests and focus on newer releases
+- [GH-276] Add psych gem to development gems
 - [GH-293] Add `apache.mod_fastcgi.install_method` flag to allow install of mod_fastcgi from source (even on Debian family)
-- [GH-322] Add `apache.mod_ssl.pkg_name` to allow custom mod_ssl package names. Set defaults for supported platforms including Amazon Linux
 - [GH-285] Made `apache.devel_package` configurable based on platform, including support for Amazon Linux.
+- [GH-316] Update Opscode references to Chef
+- [GH-318] Apply default recipe in all definitions
+- [GH-320] Add attribute to adjust `apache.default_site_port`
+- [GH-321] Fix issue with default_site name in not_if guards
+- [GH-322] Add `apache.mod_ssl.pkg_name` to allow custom mod_ssl package names. Set defaults for supported platforms including Amazon Linux
+- [GH-323] Don't create the default site configuration file in `sites-available` unless it is enabled.
+- [GH-324] Add `apache.mod_ssl.port` to set the default ssl port to something other than 443
+- [GH-328] Add the ability to pass in a pipe as to log
+- [GH-332] `SSLStrictSNIVHostCheck` is only written to config if enabled to avoid breaking apache prior to 2.2.12.
+- [GH-334] Removed `iptables`, `god-monitor`, and `logrotate` recipes to avoid having external dependencies. These services should be managed in a wrapper cookbook going forward.
+- [GH-339] Allow custom names for php so_filename (`node['apache']['mod_php5']['so_filename']`)
+
 
 v3.0.1 (2015-02-11)
 -------------------

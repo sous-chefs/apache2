@@ -59,7 +59,7 @@ describe 'apache2::mod_php5' do
           expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/php.conf").with(:backup => false)
           expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/php.conf").with(:backup => true)
         end
-        it_should_behave_like 'an apache2 module', 'php5', true, 'libphp5.so'
+        it_should_behave_like 'an apache2 module', 'php5', true, property[:apache][:mod_php5][:so_filename]
       end
     end
   end

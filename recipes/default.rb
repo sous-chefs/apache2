@@ -184,7 +184,11 @@ end
 
 if node['apache']['version'] == '2.4' && !platform_family?('freebsd')
   # on freebsd the prefork mpm is staticly compiled in
-  include_recipe "apache2::mpm_#{node['apache']['mpm']}"
+  if node['apache']['mpm_support'].include?(node['apache']['mpm'])
+    include_recipe "apache2::mpm_#{node['apache']['mpm']}"
+  else
+    Chef::Log.warn("apache2: #{node['apache']['mpm']} module is not supported and must be handled separately!")
+  end
 end
 
 node['apache']['default_modules'].each do |mod|
@@ -204,9 +208,8 @@ service 'apache2' do
   case node['platform_family']
   when 'rhel'
     if node['platform_version'].to_f < 7.0
-      reload_command '/sbin/service httpd graceful'
-    else
-      provider Chef::Provider::Service::Systemd
+        restart_command '/sbin/service httpd restart && sleep 1' if node['apache']['version'] == '2.2'
+        reload_command '/sbin/service httpd graceful'
     end
   when 'debian'
     provider Chef::Provider::Service::Debian

@@ -84,6 +84,7 @@ default['apache']['default_site_name'] = 'default'
 case node['platform']
 when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['package']     = 'httpd'
+  default['apache']['service_name'] = 'httpd'
   default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['apachectl']   = '/usr/sbin/apachectl'
@@ -97,11 +98,16 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['conf_dir']    = '/etc/httpd/conf'
   default['apache']['docroot_dir'] = '/var/www/html'
   default['apache']['cgibin_dir']  = '/var/www/cgi-bin'
-  default['apache']['icondir']     = '/var/www/icons'
+  if node['apache']['version'] == '2.4'
+    default['apache']['icondir'] = '/usr/share/httpd/icons'
+  else
+    default['apache']['icondir'] = '/var/www/icons'
+  end
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+    default['apache']['package']     = 'httpd24'
     default['apache']['devel_package'] = 'httpd24-devel'
   end
   if node['platform_version'].to_f >= 6
@@ -257,7 +263,9 @@ end
 ###
 
 # General settings
-default['apache']['service_name'] = default['apache']['package']
+if node['apache']['service_name'].nil?
+  default['apache']['service_name'] = node['apache']['package']
+end
 default['apache']['listen_addresses']  = %w(*)
 default['apache']['listen_ports']      = %w(80)
 default['apache']['contact']           = 'ops@example.com'
@@ -269,6 +277,7 @@ default['apache']['locale'] = 'C'
 default['apache']['sysconfig_additional_params'] = {}
 default['apache']['default_site_enabled'] = false
 default['apache']['default_site_port']    = '80'
+default['apache']['access_file_name'] = '.htaccess'
 
 # Security
 default['apache']['servertokens']    = 'Prod'
@@ -286,6 +295,9 @@ default['apache']['ext_status'] = false
 
 # mod_info Allow list, space seprated list of allowed entries.
 default['apache']['info_allow_list'] = '127.0.0.1 ::1'
+
+# Supported mpm list
+default['apache']['mpm_support'] = %w(prefork worker event)
 
 # Prefork Attributes
 default['apache']['prefork']['startservers']        = 16

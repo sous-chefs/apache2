@@ -59,7 +59,11 @@ describe 'apache2::default' do
   end
 
   it "default site #{property[:apache][:dir]}/sites-available/default is a file" do
-    expect(file("#{property[:apache][:dir]}/sites-available/default.conf")).to be_file
+    if property[:apache][:default_site_enabled]
+      expect(file("#{property[:apache][:dir]}/sites-available/default.conf")).to be_file
+    else
+      skip('default_site_enabled is false')
+    end
   end
 
   it file("#{property[:apache][:dir]}/sites-enabled/000-default.conf") do
