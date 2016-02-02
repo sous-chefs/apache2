@@ -33,7 +33,7 @@ elsif platform_family?('rhel')
 end
 
 if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mod_fastcgi']['install_method'] == 'source')
-  src_filepath  = "#{Chef::Config['file_cache_path']}/fastcgi.tar.gz"
+  src_filepath = "#{Chef::Config['file_cache_path']}/fastcgi.tar.gz"
   remote_file 'download fastcgi source' do
     source node['apache']['mod_fastcgi']['download_url']
     path src_filepath
@@ -56,6 +56,10 @@ if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mo
       cp Makefile.AP2 Makefile &&
       make top_dir=#{top_dir} && make install top_dir=#{top_dir}
     EOH
+  end
+elsif platform_family?('freebsd')
+  if node['apache']['mod_fastcgi']['install_method'] == 'package'
+    package 'ap24-mod_fastcgi'
   end
 end
 

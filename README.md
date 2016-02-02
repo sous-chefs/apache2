@@ -164,7 +164,7 @@ the top of the file.
 * `node['apache']['lib_dir']` - Location for shared libraries
 * `node['apache']['default_site_enabled']` - Default site enabled. Default is false.
 * `node['apache']['ext_status']` - if true, enables ExtendedStatus for `mod_status`
-* `node['apache']['locale'] - Locale to set in sysconfig or envvars and used for subprocesses and modules (like mod_dav and mod_wsgi). On debian systems Uses system-local if set to 'system', defaults to 'C'.
+* `node['apache']['locale']` - Locale to set in sysconfig or envvars and used for subprocesses and modules (like mod_dav and mod_wsgi). On debian systems Uses system-local if set to 'system', defaults to 'C'.
 
 General settings
 ----------------
@@ -173,8 +173,7 @@ These are general settings used in recipes and templates. Default
 values are noted.
 
 * `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support. If the platform is known during our test to install 2.4 by default, it will be set to 2.4 for you. Otherwise it falls back to 2.2. This value should be specified as a string.
-* `node['apache']['listen_addresses']` - Addresses that httpd should listen on. Default is any ("*").
-* `node['apache']['listen_ports']` - Ports that httpd should listen on. Default is port 80.
+* `node['apache']['listen']` - Hash of address and arrays of ports that httpd should listen on. Default is any address and port 80 (`{"*" => ["80"]}`).
 * `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
 * `node['apache']['timeout']` - Value for the Timeout directive. Default is 300.
 * `node['apache']['keepalive']` - Value for the KeepAlive directive. Default is On.
@@ -288,7 +287,7 @@ Most of the recipes in the cookbook are for enabling Apache modules.
 Where additional configuration or behavior is used, it is documented
 below in more detail.
 
-The following recipes merely enable the specified module: `mod_alias`,
+The following recipes merely enable the specified module: `mod_actions`, `mod_alias`,
 `mod_auth_basic`, `mod_auth_digest`, `mod_authn_file`, `mod_authnz_ldap`,
 `mod_authz_default`, `mod_authz_groupfile`, `mod_authz_host`,
 `mod_authz_user`, `mod_autoindex`, `mod_cgi`, `mod_dav_fs`,
@@ -369,6 +368,9 @@ mod\_fastcgi
 
 Install the fastcgi package and enable the module.
 
+Note: In Ubuntu 14.04, the `libapache2-mod-fastcgi` module is not available by default due to the [Multiverse](https://help.ubuntu.com/community/Repositories/Ubuntu) repositories.
+You need to enable the multiverse repositories either from `/etc/apt/sources.list` or use the `apt` cookbook.
+
 Only work on Debian/Ubuntu
 
 mod\_fcgid
@@ -399,7 +401,7 @@ mod\_ssl
 --------
 
 Besides installing and enabling `mod_ssl`, this recipe will append
-port 443 to the `node['apache']['listen_ports']` attribute array and
+port 443 to the `node['apache']['listen']` attributes for all addresses and
 update the ports.conf.
 
 Definitions
@@ -419,8 +421,8 @@ template should be in the same cookbook where the definition is used. This is us
 It will use `a2enconf` and `a2disconf` to control the symlinking of configuration files between `conf-available` and `conf-enabled`.
 
 Enable or disable an Apache config file in
-`#{node['apache']['dir']}/conf-available` by calling `a2enmod` or
-`a2dismod` to manage the symbolic link in
+`#{node['apache']['dir']}/conf-available` by calling `a2enconf` or
+`a2disconf` to manage the symbolic link in
 `#{node['apache']['dir']}/conf-enabled`. These config files should be created in your cookbook, and placed on the system using `apache_conf`
 
 ### Parameters:
@@ -679,7 +681,9 @@ create a basic role for web servers that provide both HTTP and HTTPS:
     )
     default_attributes(
       "apache" => {
-        "listen_ports" => ["80", "443"]
+        "listen" => {
+          "*" => ["80", "443"]
+        }
       }
     )
 ``````
@@ -706,6 +710,7 @@ License and Authors
 * Author:: Gilles Devaux <gilles@peerpong.com>
 * Author:: Sander van Zoest <sander+cookbooks@vanzoest.com>
 * Author:: Taylor Price <tayworm@gmail.com>
+* Author:: Ben Dean <ben.dean@ontariosystems.com>
 
 * Copyright:: 2009-2012, Chef Software, Inc
 * Copyright:: 2011, Atriso
@@ -713,6 +718,7 @@ License and Authors
 * Copyright:: 2013-2014, OneHealth Solutions, Inc.
 * Copyright:: 2014, Viverae, Inc.
 * Copyright:: 2015, Alexander van Zoest
+* Copyright:: 2015, Ontario Systems, LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
