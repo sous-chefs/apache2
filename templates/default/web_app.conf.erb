@@ -1,4 +1,7 @@
-<VirtualHost *:<%= @params[:server_port] || Apache2::Listen.listen_ports_by_address(node).values.map(&:to_a).flatten.first %>>
+<% if node['apache']['version'] != '2.4' -%>
+NameVirtualHost *:<%= @params[:server_port] %>
+<% end -%>
+<VirtualHost *:<%= @params[:server_port] %>>
   ServerName <%= @params[:server_name] %>
   <% if @params[:server_aliases] -%>
   ServerAlias <%= @params[:server_aliases].join " " %>

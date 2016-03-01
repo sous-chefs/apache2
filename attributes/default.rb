@@ -272,7 +272,7 @@ end
 if node['apache']['service_name'].nil?
   default['apache']['service_name'] = node['apache']['package']
 end
-default['apache']['listen']['*']       = ['80']
+default['apache']['listen']            = ['*:80']
 default['apache']['contact']           = 'ops@example.com'
 default['apache']['timeout']           = 300
 default['apache']['keepalive']         = 'On'

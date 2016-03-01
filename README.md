@@ -173,7 +173,7 @@ These are general settings used in recipes and templates. Default
 values are noted.
 
 * `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support. If the platform is known during our test to install 2.4 by default, it will be set to 2.4 for you. Otherwise it falls back to 2.2. This value should be specified as a string.
-* `node['apache']['listen']` - Hash of address and arrays of ports that httpd should listen on. Default is any address and port 80 (`{"*" => ["80"]}`).
+* `node['apache']['listen']` - Array of address:port combinations that httpd should listen on. Default is any address and port 80 (`["*:80"]`).
 * `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
 * `node['apache']['timeout']` - Value for the Timeout directive. Default is 300.
 * `node['apache']['keepalive']` - Value for the KeepAlive directive. Default is On.
@@ -681,9 +681,7 @@ create a basic role for web servers that provide both HTTP and HTTPS:
     )
     default_attributes(
       "apache" => {
-        "listen" => {
-          "*" => ["80", "443"]
-        }
+        "listen" => ["*:80", "*:443"]
       }
     )
 ``````
