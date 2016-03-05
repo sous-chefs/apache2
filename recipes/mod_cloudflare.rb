@@ -17,14 +17,26 @@
 # limitations under the License.
 #
 
-apt_repository 'cloudflare' do
-  uri 'http://pkg.cloudflare.com'
-  distribution node['lsb']['codename']
-  components ['main']
-  key 'http://pkg.cloudflare.com/pubkey.gpg'
-  action :add
-end
-
-package 'libapache2-mod-cloudflare' do
-  notifies :restart, 'service[apache2]'
+case node['platform_family']
+when 'debian'
+  apt_repository 'cloudflare' do
+    uri 'http://pkg.cloudflare.com'
+    distribution node['lsb']['codename']
+    components ['main']
+    key 'http://pkg.cloudflare.com/pubkey.gpg'
+    action :add
+  end
+  package 'libapache2-mod-cloudflare'
+  apache_module 'cloudflare'
+when 'rhel', 'fedora'
+  yum_repository 'cloudflare' do
+    description 'CloudFlare Packages'
+    baseurl 'http://pkg.cloudflare.com/dists/$releasever/main/binary-$basearch'
+    gpgkey 'http://pkg.cloudflare.com/pubkey.gpg'
+    action :create
+  end
+  package 'mod_cloudflare'
+  apache_module 'cloudflare'
+else
+  Chef::Log.warn "apache::mod_cloudflare does not support #{node['platform_family']}; mod_cloudflare is not being installed"
 end
