@@ -25,7 +25,7 @@ default['apache']['mod_fastcgi']['package'] =
     when 'debian'
      'libapache2-mod-fastcgi'
     when 'rhel'
-      package 'mod_fcgid'
+     'mod_fcgid'
     when 'freebsd'
        if node['apache']['version'] == '2.4'
          'ap24-mod_fastcgi'
