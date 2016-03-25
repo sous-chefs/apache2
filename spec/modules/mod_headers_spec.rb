@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "apache2::mod_headers" do
+describe 'apache2::mod_headers' do
   supported_platforms.each do |platform, versions|
     versions.each do |version|
       property = load_platform_properties(:platform => platform, :platform_version => version)

@@ -107,19 +107,21 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['conf_dir']    = '/etc/httpd/conf'
   default['apache']['docroot_dir'] = '/var/www/html'
   default['apache']['cgibin_dir']  = '/var/www/cgi-bin'
-  if node['apache']['version'] == '2.4'
-    default['apache']['icondir'] = '/usr/share/httpd/icons'
-  else
-    default['apache']['icondir'] = '/var/www/icons'
-  end
+  default['apache']['icondir'] =
+    if node['apache']['version'] == '2.4'
+      '/usr/share/httpd/icons'
+    else
+      '/var/www/icons'
+    end
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
-  if node['platform_version'].to_f >= 6
-    default['apache']['pid_file'] = '/var/run/httpd/httpd.pid'
-  else
-    default['apache']['pid_file'] = '/var/run/httpd.pid'
-  end
+  default['apache']['pid_file'] =
+    if node['platform_version'].to_f >= 6
+      '/var/run/httpd/httpd.pid'
+    else
+      '/var/run/httpd.pid'
+    end
   default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'suse', 'opensuse'
@@ -141,21 +143,23 @@ when 'suse', 'opensuse'
   default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
-  if node['platform_version'].to_f >= 6
-    default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
-  else
-    default['apache']['pid_file']    = '/var/run/httpd.pid'
-  end
+  default['apache']['pid_file']    =
+    if node['platform_version'].to_f >= 6
+      '/var/run/httpd/httpd.pid'
+    else
+      '/var/run/httpd.pid'
+    end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
 when 'debian', 'ubuntu'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
-  if node['apache']['mpm'] == 'prefork'
-    default['apache']['devel_package'] = 'apache2-prefork-dev'
-  else
-    default['apache']['devel_package'] = 'apache2-dev'
-  end
+  default['apache']['devel_package'] =
+    if node['apache']['mpm'] == 'prefork'
+      'apache2-prefork-dev'
+    else
+      'apache2-dev'
+    end
   default['apache']['apachectl']   = '/usr/sbin/apache2ctl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'

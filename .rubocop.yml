@@ -17,7 +17,7 @@ LineLength:
 MethodLength:
   Max: 11
 HashSyntax:
-  EnforcedStyle: hash_rockets
+  Enabled: false
 IfUnlessModifier:
   Enabled: false
 TrivialAccessors:
