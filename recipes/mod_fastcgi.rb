@@ -17,22 +17,19 @@
 # limitations under the License.
 #
 
-if platform_family?('debian')
-  if node['apache']['mod_fastcgi']['install_method'] == 'source'
+if node['apache']['mod_fastcgi']['install_method'] == 'package'
+  package node['apache']['mod_fastcgi']['package']
+else
+  if platform_family?('debian')
     package 'build-essential'
     package node['apache']['devel_package']
-  else
-    package 'libapache2-mod-fastcgi'
-  end
-elsif platform_family?('rhel')
-  %W(gcc make libtool #{node['apache']['devel_package']} apr-devel apr).each do |package|
+  elsif platform_family?('rhel')
+    %W(gcc make libtool #{node['apache']['devel_package']} apr-devel apr).each do |package|
     yum_package package do
       action :upgrade
     end
   end
-end
 
-if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mod_fastcgi']['install_method'] == 'source')
   src_filepath = "#{Chef::Config['file_cache_path']}/fastcgi.tar.gz"
   remote_file 'download fastcgi source' do
     source node['apache']['mod_fastcgi']['download_url']
@@ -56,10 +53,6 @@ if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mo
       cp Makefile.AP2 Makefile &&
       make top_dir=#{top_dir} && make install top_dir=#{top_dir}
     EOH
-  end
-elsif platform_family?('freebsd')
-  if node['apache']['mod_fastcgi']['install_method'] == 'package'
-    package 'ap24-mod_fastcgi'
   end
 end
 
