@@ -19,6 +19,13 @@ describe 'apache2::mod_fastcgi' do
       expect(chef_run).to_not install_package('build-essential')
     end
   end
+  shared_examples "rhel doesn't install compilation tools" do
+    it "doesn't install compilation tools" do
+      %w(gcc make libtool httpd-devel apr-devel apr).each do |package|
+        expect(chef_run).to_not upgrade_package(package)
+      end
+    end
+  end
   shared_examples 'compiles mod_fastcgi from source' do
     it 'compiles mod_fastcgi from source' do
       expect(chef_run).to run_bash('compile fastcgi source')
@@ -53,8 +60,8 @@ describe 'apache2::mod_fastcgi' do
           it_should_behave_like "debian doesn't install compilation tools"
           it_should_behave_like "doesn't compile mod_fastcgi from source"
         elsif %w(redhat centos).include?(platform)
-          it_should_behave_like 'rhel installs compilation tools'
-          it_should_behave_like 'compiles mod_fastcgi from source'
+          it_should_behave_like "rhel doesn't install compilation tools"
+          it_should_behave_like "doesn't compile mod_fastcgi from source"
         end
         it_should_behave_like 'an apache2 module', 'fastcgi', true
 
