@@ -25,8 +25,9 @@ else
     package node['apache']['devel_package']
   elsif platform_family?('rhel')
     %W(gcc make libtool #{node['apache']['devel_package']} apr-devel apr).each do |package|
-    yum_package package do
-      action :upgrade
+      yum_package package do
+        action :upgrade
+      end
     end
   end
 

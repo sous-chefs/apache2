@@ -22,16 +22,16 @@ default['apache']['mod_fastcgi']['download_url'] = 'http://www.fastcgi.com/dist/
 default['apache']['mod_fastcgi']['install_method'] = 'package'
 default['apache']['mod_fastcgi']['package'] =
   case node['platform_family']
-    when 'debian'
-     'libapache2-mod-fastcgi'
-    when 'rhel'
-      package 'mod_fastcgi'
-    when 'freebsd'
-       if node['apache']['version'] == '2.4'
-         'ap24-mod_fastcgi'
-       else
-         'ap22-mod_fastcgi'
-       end
+  when 'debian'
+    'libapache2-mod-fastcgi'
+  when 'rhel'
+    'mod_fastcgi'
+  when 'freebsd'
+    if node['apache']['version'] == '2.4'
+      'ap24-mod_fastcgi'
     else
-      package 'mod_fastcgi'
+      'ap22-mod_fastcgi'
     end
+  else
+    'mod_fastcgi'
+  end
