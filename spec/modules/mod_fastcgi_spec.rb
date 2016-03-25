@@ -4,7 +4,7 @@ describe 'apache2::mod_fastcgi' do
   shared_examples 'rhel installs compilation tools' do
     it 'installs compilation tools' do
       %w(gcc make libtool httpd-devel apr-devel apr).each do |package|
-        expect(chef_run).to upgrade_yum_package(package)
+        expect(chef_run).to upgrade_package(package)
       end
     end
   end

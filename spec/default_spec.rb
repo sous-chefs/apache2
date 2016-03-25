@@ -25,14 +25,7 @@ describe 'apache2::default' do
           end
 
           it "installs package #{property[:apache][:package]}" do
-            case platform
-            when 'freebsd'
-              expect(chef_run).to install_freebsd_package(property[:apache][:package])
-            when 'amazon', 'fedora', 'redhat', 'centos'
-              expect(chef_run).to install_yum_package(property[:apache][:package])
-            else
-              expect(chef_run).to install_package(property[:apache][:package])
-            end
+            expect(chef_run).to install_package(property[:apache][:package])
           end
 
           it "creates #{property[:apache][:log_dir]} directory" do
@@ -155,7 +148,7 @@ describe 'apache2::default' do
               )
             end
 
-            it " runs a2enconf #{config}.conf" do
+            it "runs a2enconf #{config}.conf" do
               stub_command("/usr/sbin/a2enconf #{config}.conf").and_return(false)
               expect(chef_run).to run_execute("/usr/sbin/a2enconf #{config}.conf")
             end
