@@ -35,7 +35,7 @@ when 'arch'
 when 'rhel'
   package 'which'
   package 'php package' do
-    if node['platform_version'].to_f < 6.0
+    if node['platform_version'].to_f < 6.0 && node['platform'] != 'amazon'
       package_name 'php53'
     else
       package_name 'php'

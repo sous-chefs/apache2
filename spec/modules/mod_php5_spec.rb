@@ -11,7 +11,10 @@ describe 'apache2::mod_php5' do
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
         before(:context) do
-          @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
+          @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
+            node.set['apache']['mpm'] = 'prefork'
+          end
+
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
           stub_command('which php').and_return(false)
           @chef_run.converge(described_recipe)
@@ -21,10 +24,10 @@ describe 'apache2::mod_php5' do
           pkg = 'php'
           pkg = 'php53' if version.to_f < 6.0
           it "installs package #{pkg}" do
-            expect(chef_run).to install_yum_package(pkg)
-            expect(chef_run).to_not install_yum_package("not_#{pkg}")
+            expect(chef_run).to install_package(pkg)
+            expect(chef_run).to_not install_package("not_#{pkg}")
           end
-          let(:package) { chef_run.yum_package(pkg) }
+          let(:package) { chef_run.package(pkg) }
           it "triggers a notification by #{pkg} package install to execute[generate-module-list]" do
             expect(package).to notify('execute[generate-module-list]').to(:run)
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
