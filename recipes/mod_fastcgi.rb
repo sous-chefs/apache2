@@ -40,11 +40,11 @@ if platform_family?('rhel') || (platform_family?('debian') && node['apache']['mo
     backup false
   end
 
-  if platform_family?('debian')
-    top_dir = node['apache']['build_dir']
-  else
-    top_dir = node['apache']['lib_dir']
-  end
+  top_dir = if platform_family?('debian')
+              node['apache']['build_dir']
+            else
+              node['apache']['lib_dir']
+            end
   include_recipe 'apache2::default'
   bash 'compile fastcgi source' do
     notifies :run, 'execute[generate-module-list]', :immediately if platform_family?('rhel')
