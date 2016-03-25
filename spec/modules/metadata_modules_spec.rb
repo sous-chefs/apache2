@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 # not supported modules: cern_meta ident mime_magic unique_id usertrack version
-metadata_modules_without_config = %w(env expires headers)
+metadata_modules_without_config = %w(env expires)
 metadata_modules_with_config = %w(setenvif)
 metadata_modules_without_config.each do |mod|
   describe "apache2::mod_#{mod}" do
