@@ -2,6 +2,32 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+Unreleased (2016-0X-XX)
+-------------------
+
+This release breaks any outside references to `apache.listen_addresses` and `apache.listen_ports` as this has
+been replaced by the more flexible `apache.listen`
+
+- [GH-378] Deprecates `apache.listen_addresses` and `apache.listen_ports` infavor of [GH-409]
+- [GH-409] `apache.listen` now accepts an array of `addr:port` strings
+- [GH-358] FreeBSD: Update 10.1 support; Adds php 5.6 in collaboration with chef-cookbooks/php#119
+- [GH-394] Have `apache.prefork.serverlimit` set ServerLimit directive on 2.4
+- [GH-363] Escape '.' in regex for .htaccess/.htpasswd files
+- [GH-365] Force log directory creation to be recursive
+- [GH-368] Change the service creation to use the service_name attribute throughout
+- [GH-374] Make metadata.rb compatible with chef versions < 12.
+- [GH-382] Fixed typo in node['platform_family'] for NameError in `mod_proxy_html`
+- [GH-369] README: Added on Ubuntu `mod_fastcgi` requires `multiverse` apt repository to enabled.
+- [GH-381] README: Add missing backtick
+- [GH-384] README: Fix names for a2enconf and a2disconf
+- [GH-393] README: mention availability of `mod_actions` support
+- [GH-383] Debian: Add possibility to use other releases via `apache.default_release`
+- [GH-377] Restart service when including `mod_headers` to allow healing of failed service because of missing directives.
+- [GH-416] Change the default of `apache.mod_fastcgi.install_method` to 'package' all platforms, as `source` is no longer available.
+- [GH-401] Move `mod_deflate` to `apache.default_modules` and no longer force installation on `debian` families.
+- [GH-386] Do not install an extra mod_ssl package on SUSE Linux Enterprise
+- Update `apache.mod_ssl.cipher_suite` to latest from https://bettercrypto.org/
+
 v3.1.0 (2015-05-25)
 -------------------
 
