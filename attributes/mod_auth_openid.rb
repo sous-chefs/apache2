@@ -1,8 +1,9 @@
 #
 # Cookbook Name:: apache2
-# Attributes:: mod_auth_cas
+# Attributes:: mod_auth_openid
 #
 # Copyright 2013, Chef Software, Inc.
+# Copyright 2014-2016, Alexander van Zoest
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +18,8 @@
 # limitations under the License.
 #
 
+# mod_auth_openids
+default['apache']['allowed_openids'] = []
 default['apache']['mod_auth_openid']['ref']        = 'v0.8'
 default['apache']['mod_auth_openid']['version']    = '0.8'
 default['apache']['mod_auth_openid']['source_url'] = "https://github.com/bmuller/mod_auth_openid/archive/#{node['apache']['mod_auth_openid']['ref']}.tar.gz"

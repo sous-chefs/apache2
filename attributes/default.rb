@@ -294,9 +294,6 @@ default['apache']['servertokens']    = 'Prod'
 default['apache']['serversignature'] = 'On'
 default['apache']['traceenable']     = 'Off'
 
-# mod_auth_openids
-default['apache']['allowed_openids'] = []
-
 # mod_status Allow list, space seprated list of allowed entries.
 default['apache']['status_allow_list'] = '127.0.0.1 ::1'
 
