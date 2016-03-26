@@ -144,10 +144,10 @@ when 'suse', 'opensuse'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    =
-    if node['platform_version'].to_f >= 6
-      '/var/run/httpd/httpd.pid'
-    else
+    if node['platform_version'].to_f > 11.4
       '/var/run/httpd.pid'
+    else
+      '/var/run/httpd2.pid'
     end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
