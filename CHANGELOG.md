@@ -2,11 +2,8 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-Unreleased (2016-0X-XX)
+v3.2.0 (2016-0X-XX)
 -------------------
-
-This release breaks any outside references to `apache.listen_addresses` and `apache.listen_ports` as this has
-been replaced by the more flexible `apache.listen`
 
 - [GH-378] Deprecates `apache.listen_addresses` and `apache.listen_ports` infavor of [GH-409]
 - [GH-409] `apache.listen` now accepts an array of `addr:port` strings
@@ -14,7 +11,7 @@ been replaced by the more flexible `apache.listen`
 - [GH-394] Have `apache.prefork.serverlimit` set ServerLimit directive on 2.4
 - [GH-363] Escape '.' in regex for .htaccess/.htpasswd files
 - [GH-365] Force log directory creation to be recursive
-- [GH-368] Change the service creation to use the service_name attribute throughout
+- [GH-368] Change the service creation to use the `apache.service_name` attribute throughout
 - [GH-374] Make metadata.rb compatible with chef versions < 12.
 - [GH-382] Fixed typo in node['platform_family'] for NameError in `mod_proxy_html`
 - [GH-369] README: Added on Ubuntu `mod_fastcgi` requires `multiverse` apt repository to enabled.
@@ -26,7 +23,9 @@ been replaced by the more flexible `apache.listen`
 - [GH-416] Change the default of `apache.mod_fastcgi.install_method` to 'package' all platforms, as `source` is no longer available.
 - [GH-401] Move `mod_deflate` to `apache.default_modules` and no longer force installation on `debian` families.
 - [GH-386] Do not install an extra mod_ssl package on SUSE Linux Enterprise
+- [GH-335] Do not hardcoded reload/restart on more modern rhel platforms, allowing systemd on CentOS 7
 - Update `apache.mod_ssl.cipher_suite` to latest from https://bettercrypto.org/
+- README: Re-organize README to make it easier to find usage and remove old references.
 
 v3.1.0 (2015-05-25)
 -------------------
