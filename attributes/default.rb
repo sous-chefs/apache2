@@ -343,10 +343,10 @@ default['apache']['proxy']['allow_from'] = 'none'
 # Default modules to enable via include_recipe
 default['apache']['default_modules'] = %w(
   status alias auth_basic authn_core authn_file authz_core authz_groupfile
-  authz_host authz_user autoindex dir env mime negotiation setenvif
+  authz_host authz_user autoindex deflate dir env mime negotiation setenvif
 )
 
-%w(log_config logio deflate).each do |log_mod|
+%w(log_config logio).each do |log_mod|
   default['apache']['default_modules'] << log_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
 end
 
