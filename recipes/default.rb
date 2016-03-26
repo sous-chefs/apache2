@@ -207,8 +207,10 @@ service 'apache2' do
   service_name apache_service_name
   case node['platform_family']
   when 'rhel'
-    restart_command "/sbin/service #{apache_service_name} restart && sleep 1" if node['apache']['version'] == '2.2'
-    reload_command "/sbin/service #{apache_service_name} graceful"
+    if node['platform_version'].to_f < 7.0
+      restart_command "/sbin/service #{apache_service_name} restart && sleep 1" if node['apache']['version'] == '2.2'
+      reload_command "/sbin/service #{apache_service_name} graceful"
+    end
   when 'debian'
     provider Chef::Provider::Service::Debian
   when 'arch'
