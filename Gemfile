@@ -14,9 +14,10 @@ end
 
 group :integration do
   gem 'test-kitchen', '~> 1.5'
-  gem 'kitchen-vagrant', '~> 0.19'
-  gem 'kitchen-digitalocean'
-  gem 'kitchen-ec2'
+  gem 'kitchen-vagrant', '~> 0.19', :require => false
+  gem 'kitchen-digitalocean', :require => false
+  gem 'kitchen-ec2', :require => false
+  gem 'kitchen-docker', :require => false
 end
 
 group :development do
