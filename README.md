@@ -397,6 +397,8 @@ This definition should generally be called over `apache_config`.
 * `name` - Name of the config placed and enabled or disabled with the `a2enconf` or `a2disconf` scripts.
 * `enable` - Default true, which uses `a2enconf` to enable the config. If false, the config will be disabled with `a2disconf`.
 * `conf_path` - path to put the config in if you need to override the default `conf-available`.
+* `source` - The source configuration template name. The default value is `params[:name].conf.erb`
+* `cookbook` - The cookbook in which the configuration template is located. The default value is the current cookbook.
 
 ### Examples:
 
