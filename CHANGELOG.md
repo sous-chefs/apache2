@@ -2,6 +2,11 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v3.2.1 (unreleased)
+-------------------
+
+- [GH-225] notify `restart` instead of `reload` service on `apache_conf`, `apache_config`
+
 v3.2.0 (2016-03-26)
 -------------------
 
