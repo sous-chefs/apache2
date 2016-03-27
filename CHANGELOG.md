@@ -2,7 +2,7 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-v3.2.0 (2016-0X-XX)
+v3.2.0 (2016-03-26)
 -------------------
 
 - [GH-378] Deprecates `apache.listen_addresses` and `apache.listen_ports` infavor of [GH-409]
