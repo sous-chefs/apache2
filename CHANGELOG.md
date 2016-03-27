@@ -28,8 +28,8 @@ v3.2.0 (2016-0X-XX)
 - Update `apache.mod_ssl.cipher_suite` to latest from https://bettercrypto.org/
 - README: Re-organize README to make it easier to find usage and remove old references.
 - Added new standard and missing modules (Note: these may not be available natively on all operating systems)
-  * [mod_http2](http://httpd.apache.org/docs/2.4/mod/mod_http2.html) (available since 2.4.17) - Support for the HTTP/2 transport layer.
-  * [mod_authnz_fcgi](http://httpd.apache.org/docs/2.4/mod/mod_authnz_fcgi.html)(available since 2.4.10) - Enable FastCGI authorizer applications to authenticate and/or authorize clients.
+  * [mod_http2](http://httpd.apache.org/docs/2.4/mod/mod_http2.html) - Support for the HTTP/2 transport layer. (available since 2.4.17) 
+  * [mod_authnz_fcgi](http://httpd.apache.org/docs/2.4/mod/mod_authnz_fcgi.html) - Enable FastCGI authorizer applications to authenticate and/or authorize clients.  (available since 2.4.10) 
   * [mod_cern_meta](http://httpd.apache.org/docs/2.4/mod/mod_cern_meta.html) - CERN httpd metafile semantics
   * [mod_ident](http://httpd.apache.org/docs/2.4/mod/mod_ident.html) - RFC 1413 ident lookups
   * [mod_privileges](http://httpd.apache.org/docs/2.4/mod/mod_privileges.html) - Support for Solaris privileges and for running virtual hosts under different user IDs.
