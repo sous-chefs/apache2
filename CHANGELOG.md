@@ -27,15 +27,15 @@ v3.2.0 (2016-0X-XX)
 - [GH-375] Install package `mod_ldap` on CentOS 7 (triggered by `apache.version` == 2.4)
 - Update `apache.mod_ssl.cipher_suite` to latest from https://bettercrypto.org/
 - README: Re-organize README to make it easier to find usage and remove old references.
-- Added new standard modules (Note: these may not be available natively on all operating systems)
-  * [mod_authnz_fcgi](http://httpd.apache.org/docs/2.4/mod/mod_authnz_fcgi.html)
-  * [mod_cern_meta](http://httpd.apache.org/docs/2.4/mod/mod_cern_meta.html)
-  * [mod_http2](http://httpd.apache.org/docs/2.4/mod/mod_http2.html)
-  * [mod_ident](http://httpd.apache.org/docs/2.4/mod/mod_ident.html)
-  * [mod_privileges](http://httpd.apache.org/docs/2.4/mod/mod_privileges.html)
-  * [mod_socache_dc](http://httpd.apache.org/docs/2.4/mod/mod_socache_dc.html)
-  * [mod_version](http://httpd.apache.org/docs/2.4/mod/mod_version.html)
-  * [mod_watchdog](http://httpd.apache.org/docs/2.4/mod/mod_watchdog.html)
+- Added new standard and missing modules (Note: these may not be available natively on all operating systems)
+  * [mod_http2](http://httpd.apache.org/docs/2.4/mod/mod_http2.html) (available since 2.4.17) - Support for the HTTP/2 transport layer.
+  * [mod_authnz_fcgi](http://httpd.apache.org/docs/2.4/mod/mod_authnz_fcgi.html)(available since 2.4.10) - Enable FastCGI authorizer applications to authenticate and/or authorize clients.
+  * [mod_cern_meta](http://httpd.apache.org/docs/2.4/mod/mod_cern_meta.html) - CERN httpd metafile semantics
+  * [mod_ident](http://httpd.apache.org/docs/2.4/mod/mod_ident.html) - RFC 1413 ident lookups
+  * [mod_privileges](http://httpd.apache.org/docs/2.4/mod/mod_privileges.html) - Support for Solaris privileges and for running virtual hosts under different user IDs.
+  * [mod_socache_dc](http://httpd.apache.org/docs/2.4/mod/mod_socache_dc.html) - Distcache based shared object cache provider.
+  * [mod_version](http://httpd.apache.org/docs/2.4/mod/mod_version.html) - Version dependent configuration
+  * [mod_watchdog](http://httpd.apache.org/docs/2.4/mod/mod_watchdog.html) - Provides infrastructure for other modules to periodically run tasks
 
 v3.1.0 (2015-05-25)
 -------------------
