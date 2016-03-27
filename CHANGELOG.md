@@ -24,8 +24,18 @@ v3.2.0 (2016-0X-XX)
 - [GH-401] Move `mod_deflate` to `apache.default_modules` and no longer force installation on `debian` families.
 - [GH-386] Do not install an extra mod_ssl package on SUSE Linux Enterprise
 - [GH-335] Do not hardcoded reload/restart on more modern rhel platforms, allowing systemd on CentOS 7
+- [GH-375] Install package `mod_ldap` on CentOS 7 (triggered by `apache.version` == 2.4)
 - Update `apache.mod_ssl.cipher_suite` to latest from https://bettercrypto.org/
 - README: Re-organize README to make it easier to find usage and remove old references.
+- Added new standard modules (Note: these may not be available natively on all operating systems)
+  * [mod_authnz_fcgi](http://httpd.apache.org/docs/2.4/mod/mod_authnz_fcgi.html)
+  * [mod_cern_meta](http://httpd.apache.org/docs/2.4/mod/mod_cern_meta.html)
+  * [mod_http2](http://httpd.apache.org/docs/2.4/mod/mod_http2.html)
+  * [mod_ident](http://httpd.apache.org/docs/2.4/mod/mod_ident.html)
+  * [mod_privileges](http://httpd.apache.org/docs/2.4/mod/mod_privileges.html)
+  * [mod_socache_dc](http://httpd.apache.org/docs/2.4/mod/mod_socache_dc.html)
+  * [mod_version](http://httpd.apache.org/docs/2.4/mod/mod_version.html)
+  * [mod_watchdog](http://httpd.apache.org/docs/2.4/mod/mod_watchdog.html)
 
 v3.1.0 (2015-05-25)
 -------------------
