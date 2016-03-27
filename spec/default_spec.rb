@@ -155,9 +155,9 @@ describe 'apache2::default' do
             end
 
             subject(:confd) { chef_run.template("#{property[:apache][:dir]}/conf-available/#{config}.conf") }
-            it "notification is triggered by #{property[:apache][:dir]}/conf-available/#{config}.conf template to reload service[apache2]" do
-              expect(confd).to notify('service[apache2]').to(:reload).delayed
-              expect(confd).to_not notify('service[apache2]').to(:reload).immediately
+            it "notification is triggered by #{property[:apache][:dir]}/conf-available/#{config}.conf template to restart service[apache2]" do
+              expect(confd).to notify('service[apache2]').to(:restart).delayed
+              expect(confd).to_not notify('service[apache2]').to(:restart).immediately
             end
           end
 
@@ -175,9 +175,9 @@ describe 'apache2::default' do
           end
 
           subject(:portsconf) { chef_run.template("#{property[:apache][:dir]}/ports.conf") }
-          it "notification is triggered by #{property[:apache][:dir]}/ports.conf template to reload service[apache2]" do
-            expect(portsconf).to notify('service[apache2]').to(:reload).delayed
-            expect(portsconf).to_not notify('service[apache2]').to(:reload).immediately
+          it "notification is triggered by #{property[:apache][:dir]}/ports.conf template to restart service[apache2]" do
+            expect(portsconf).to notify('service[apache2]').to(:restart).delayed
+            expect(portsconf).to_not notify('service[apache2]').to(:restart).immediately
           end
 
           it "does not create #{property[:apache][:dir]}/sites-available/#{property[:apache][:default_site_name]}.conf" do
