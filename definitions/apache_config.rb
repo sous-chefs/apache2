@@ -26,7 +26,7 @@ define :apache_config, :enable => true do
   if params[:enable]
     execute "a2enconf #{conf_name}" do
       command "/usr/sbin/a2enconf #{conf_name}"
-      notifies :reload, 'service[apache2]', :delayed
+      notifies :restart, 'service[apache2]', :delayed
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{conf_name}") &&
           (::File.exist?(params[:conf_path]) ? ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{conf_name}") : true)
