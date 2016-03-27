@@ -17,6 +17,10 @@
 # limitations under the License.
 #
 
+if node['platform_family'] == 'rhel' && node['apache']['version'] == '2.4'
+  package 'mod_ldap'
+end
+
 apache_module 'ldap' do
   conf true
 end
