@@ -8,8 +8,8 @@ gem 'berkshelf', '~> 4.3', '>= 4.3.1'
 
 group :unit do
   gem 'foodcritic',       '~> 5.0', '>= 5.0.0'
-  gem 'rubocop',          '~> 0.36', '>= 0.36.0'
-  gem 'chefspec',         '~> 4.5', '>= 4.5.0'
+  gem 'rubocop',          '~> 0.39', '>= 0.39.0'
+  gem 'chefspec',         '~> 4.6', '>= 4.6.0'
 end
 
 group :integration do
