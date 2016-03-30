@@ -176,7 +176,7 @@ values are noted.
 * `node['apache']['keepalivetimeout']` - Value for the KeepAliveTimeout directive. Default is 5.
 * `node['apache']['sysconfig_additional_params']` - Additionals variables set in sysconfig file. Default is empty.
 * `node['apache']['default_modules']` - Array of module names. Can take "mod_FOO" or "FOO" as names, where FOO is the apache module, e.g. "`mod_status`" or "`status`".
-* `node['apache']['mpm']` - With apache.version 2.4, specifies what Multi-Processing Module to enable. Default is "prefork".
+* `node['apache']['mpm']` - With apache.version 2.4, specifies what Multi-Processing Module to enable. Defaults to platform default, otherwise it is "prefork"
 
 The modules listed in `default_modules` will be included as recipes in `recipe[apache::default]`.
 
