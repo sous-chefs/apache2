@@ -3,6 +3,7 @@ apache2 Cookbook
 [![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg?style=flat)](https://supermarket.chef.io/cookbooks/apache2)
 [![Build Status](https://travis-ci.org/svanzoest-cookbooks/apache2.svg?branch=master)](https://travis-ci.org/svanzoest-cookbooks/apache2)
 [![Dependency Status](http://img.shields.io/gemnasium/svanzoest-cookbooks/apache2.svg?style=flat)](https://gemnasium.com/svanzoest-cookbooks/apache2)
+[![License](https://img.shields.io/badge/license-Apache_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/svanzoest-cookbooks/apache2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD
