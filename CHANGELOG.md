@@ -2,10 +2,11 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-v3.2.1 (unreleased)
+v3.2.1 (2016-04-11)
 -------------------
 
 - [GH-225] notify `restart` instead of `reload` service on `apache_conf`, `apache_config`
+- Update to foodcritic 6
 
 v3.2.0 (2016-03-26)
 -------------------
