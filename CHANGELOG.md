@@ -2,6 +2,12 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v3.2.2 (2016-04-13)
+-------------------
+
+- [GH-420] Allow auto-conversion if either of `apache.listen_ports` or `apache.listen_addresses` are set rather than '&&'. This ensures conversion occurs if only one of the two is set.
+
+
 v3.2.1 (2016-04-11)
 -------------------
 
