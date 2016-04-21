@@ -207,7 +207,10 @@ service 'apache2' do
   service_name apache_service_name
   case node['platform_family']
   when 'rhel'
-    if node['platform_version'].to_f < 7.0
+    if node['platform_version'].to_f < 7.0 && node['apache']['package'] = 'httpd24'
+      restart_command "/sbin/service #{apache_service_name} restart && sleep 1"
+      reload_command "/sbin/service #{apache_service_name} reload && sleep 1"
+    else if node['platform_version'].to_f < 7.0
       restart_command "/sbin/service #{apache_service_name} restart && sleep 1"
       reload_command "/sbin/service #{apache_service_name} graceful && sleep 1"
     end
