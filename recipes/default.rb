@@ -203,20 +203,30 @@ end
 
 apache_service_name = node['apache']['service_name']
 
-service 'apache2' do
-  service_name apache_service_name
-  case node['platform_family']
-  when 'rhel'
-    if node['platform_version'].to_f < 7.0
-      restart_command "/sbin/service #{apache_service_name} restart && sleep 1"
-      reload_command "/sbin/service #{apache_service_name} graceful && sleep 1"
+if node['platform_version'].to_f < 7.0 && node['apache']['package'] == 'httpd24'
+    service 'apache2' do
+        service_name apache_service_name
+        action :restart
+        supports [:start, :restart, :reload, :status]
     end
-  when 'debian'
-    provider Chef::Provider::Service::Debian
-  when 'arch'
-    service_name apache_service_name
-  end
-  supports [:start, :restart, :reload, :status]
-  action [:enable, :start]
-  only_if "#{node['apache']['binary']} -t", :environment => { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, :timeout => 10
+else
+
+    service 'apache2' do
+      service_name apache_service_name
+      case node['platform_family']
+      when 'rhel'
+        if node['platform_version'].to_f < 7.0
+            restart_command "/sbin/service #{apache_service_name} restart && sleep 1"
+            reload_command "/sbin/service #{apache_service_name} graceful && sleep 1"
+        end
+      when 'debian'
+        provider Chef::Provider::Service::Debian
+      when 'arch'
+        service_name apache_service_name
+      end
+      supports [:start, :restart, :reload, :status]
+      #action [:enable, :start]
+      action [:start]
+      only_if "#{node['apache']['binary']} -t", :environment => { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, :timeout => 10
+    end
 end
