@@ -18,8 +18,6 @@
 # limitations under the License.
 #
 
-apache_service_name = node['apache']['service_name']
-
 package 'apache2' do # ~FC009 only available in apt_package. See #388
   package_name node['apache']['package']
   default_release node['apache']['default_release'] unless node['apache']['default_release'].nil?
@@ -202,6 +200,8 @@ if node['apache']['default_site_enabled']
     enable node['apache']['default_site_enabled']
   end
 end
+
+apache_service_name = node['apache']['service_name']
 
 if node['platform_version'].to_f < 7.0 && node['apache']['package'] == 'httpd24'
     service 'apache2' do
