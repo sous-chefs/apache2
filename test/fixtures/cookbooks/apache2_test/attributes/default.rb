@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+default['apache']['listen_ports'] = ['80']
 default['apache_test']['auth_username'] = 'bork'
 default['apache_test']['auth_password'] = 'secret'
 default['apache_test']['cache_expiry_seconds'] = 60

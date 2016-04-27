@@ -34,8 +34,9 @@ module Apache2
       return [] unless node['apache']['listen_ports'] || node['apache']['listen_addresses']
       Chef::Log.warn "node['apache']['listen_ports'] and node['apache']['listen_addresses'] are deprecated in favor of node['apache']['listen']. Please adjust your cookbooks"
 
-      node['apache']['listen_addresses'].uniq.each_with_object([]) do |address, listen|
-        node['apache']['listen_ports'].uniq.each do |port|
+      # Defaults to * for addresses or 80 / 443 for ports if not specified
+      (node['apache']['listen_addresses'] || %w(*)).uniq.each_with_object([]) do |address, listen|
+        (node['apache']['listen_ports'] || %w(80 443)).uniq.each do |port|
           listen << "#{address}:#{port}"
         end
       end
