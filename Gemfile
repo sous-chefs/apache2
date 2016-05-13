@@ -21,7 +21,7 @@ group :integration do
 end
 
 group :development do
-  gem 'guard',            '~> 2.13'
+  gem 'guard', '~> 2.13'
   # lock at ruby 2.1 for chefdk
   gem 'listen', '~> 3.0.7', '<= 3.1.0'
   gem 'guard-rubocop',    '~> 1.2'
