@@ -8,25 +8,28 @@ provisioner:
   data_path: test/fixtures
 
 platforms:
-- name: centos-6.5
+- name: centos-6.7
   run_list:
   - recipe[yum]
-- name: centos-7.0
+- name: centos-7.2
   run_list:
   - recipe[yum]
-- name: ubuntu-12.04
-  run_list:
-  - recipe[apt]
 - name: ubuntu-14.04
   run_list:
   - recipe[apt]
-- name: debian-7.6
+- name: ubuntu-16.04
   run_list:
   - recipe[apt]
-- name: fedora-21
+- name: debian-7.10
+  run_list:
+  - recipe[apt]
+- name: debian-8.4
+  run_list:
+  - recipe[apt]
+- name: fedora-23
   run_list:
   - recipe[yum]
-- name: freebsd-10.1
+- name: freebsd-10.3
 # Cannot pull from repo when not in EC2
 #- name: amazon-2014.3
 #  driver:
@@ -44,10 +47,11 @@ platforms:
   driver:
     box: lyte-scientific-6-minimal
     box_url: http://lyte.id.au/vagrant/sl6-64-lyte.box
-- name: opensuse-13.1
+# https://github.com/openSUSE/vagrant
+- name: opensuse-13.2
   driver:
-    box: opscode-opensuse-13.1
-    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_opensuse-13.1-x86_64_chef-provisionerless.box
+    box: opensuse-13.2
+    box_url: http://download.opensuse.org/vagrant/openSUSE-13.2-virtualbox-x86_64-1.0.0.box
   run_list:
   - recipe[zypper]
 
@@ -80,8 +84,9 @@ suites:
   - recipe[apache2_test::mod_status_remote]
 - name: prefork
   includes: [
-    'centos-6.5',
-    'ubuntu-14.04'
+    'centos-6.7',
+    'ubuntu-14.04',
+    'ubuntu-16.04'
   ]
   attributes:
     machine_fqdn: working.computers.biz
@@ -103,8 +108,8 @@ suites:
   - recipe[apache2_test::mod_ssl]
 - name: worker
   includes: [
-    'centos-7.0',
-    'ubuntu-12.04'
+    'centos-7.2',
+    'ubuntu-14.04'
   ]
   attributes:
     machine_fqdn: working.computers.biz
@@ -120,7 +125,7 @@ suites:
   - recipe[apache2_test::modules]
 - name: event
   includes: [
-    'ubuntu-14.04'
+    'ubuntu-16.04'
   ]
   attributes:
     machine_fqdn: working.computers.biz

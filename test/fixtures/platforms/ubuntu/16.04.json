@@ -1,0 +1,47 @@
+{
+    "apache": {
+        "version": "2.4",
+        "devel_package": "apache2-dev",
+        "package": "apache2",
+        "binary": "/usr/sbin/apache2",
+        "mpm": "event",
+        "dir": "/etc/apache2",
+        "lib_dir": "/usr/lib/apache2",
+        "libexec_dir": "/usr/lib/apache2/modules",
+        "cache_dir": "/var/cache/apache2",
+        "cgibin_dir": "/usr/lib/cgi-bin",
+        "docroot_dir": "/var/www",
+        "conf": "/etc/apache2/apache2.conf",
+        "perl_pkg": "perl",
+        "log_dir": "/var/log/apache2",
+        "root_group": "root",
+        "service_name": "apache2",
+        "default_site_name": "000-default",
+        "default_site_enabled": false,
+        "default_modules": [
+            "status",
+            "alias",
+            "auth_basic",
+            "authn_file",
+            "authz_core",
+            "authz_groupfile",
+            "authz_host",
+            "authz_user",
+            "autoindex",
+            "dir",
+            "env",
+            "mime",
+            "negotiation",
+            "setenvif"
+        ],
+        "mod_auth_openid": {
+            "version": "0.8"
+        },
+        "mod_ssl": {
+            "pkg_name": "mod_ssl"
+        },
+        "mod_php5": {
+            "so_filename": "libphp5.so"
+        }
+    }
+}
