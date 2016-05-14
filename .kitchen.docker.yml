@@ -28,6 +28,15 @@ platforms:
     provision_command:
       - /usr/bin/apt-get update
       - /usr/bin/apt-get install apt-transport-https net-tools -y
+- name: ubuntu-16.04
+  driver:
+    image: ubuntu:16.04
+    platform: ubuntu
+    disable_upstart: false
+    run_command: /sbin/init
+    provision_command:
+      - /usr/bin/apt-get update
+      - /usr/bin/apt-get install apt-transport-https net-tools -y
 
 suites:
 - name: default
