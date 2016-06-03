@@ -589,6 +589,7 @@ Current parameters used by the definition:
   cookbook where the definition is used.
 * `template` - Default `web_app.conf.erb`, source template file.
 * `enable` - Default true. Passed to the `apache_site` definition.
+* `modules` - Default `%w(rewrite deflate headers)`. Passed to the `apache_site` definition. Unscoped module names default to `apache2::` recipes. Additional modules can be loaded with `wrapper-cookbook::module`.
 
 Additional parameters can be defined when the definition is called in
 a recipe, see __Examples__.
