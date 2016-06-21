@@ -91,13 +91,17 @@ AccessFileName <%= node['apache']['access_file_name'] %>
 # The following lines prevent .htaccess and .htpasswd files from being
 # viewed by Web clients.
 #
-<% access_file_name_prefix = node['apache']['access_file_name'][0..2] if !node['apache']['access_file_name'].empty?
-   if access_file_name_prefix != '.ht'
-    file_name_prefix = '(' + access_file_name_prefix + '|\.ht)'
-   else
-    file_name_prefix = '\.ht'
-   end
-%>
+<% if node['apache']['version'] == '2.2' -%>
+<Files ~ "^\.ht">
+    Order allow,deny
+    Deny from all
+</Files>
+<% elsif node['apache']['version'] == '2.4' -%>
+<FilesMatch "^\.ht">
+        Require all denied
+</FilesMatch>
+<% end -%>
+
 <Files ~ "^<%= file_name_prefix %>">
     <% if node['apache']['version'] == '2.2' -%>
     Order allow,deny
