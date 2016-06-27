@@ -196,7 +196,8 @@ end
 
 if node['apache']['default_site_enabled']
   web_app node['apache']['default_site_name'] do
-    template 'default-site.conf.erb'
+    template node['apache']['default_site_template']
+    cookbook node['apache']['default_site_cookbook']
     enable node['apache']['default_site_enabled']
   end
 end
