@@ -324,6 +324,13 @@ default['apache']['worker']['threadsperchild']     = 64
 default['apache']['worker']['maxrequestworkers']   = 1024
 default['apache']['worker']['maxconnectionsperchild'] = 0
 
+# LogFormat Attributes
+default['apache']['logformat']['vhost_combined'] = '"%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\""'
+default['apache']['logformat']['combined'] = '"%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\""'
+default['apache']['logformat']['common'] = '"%h %l %u %t \"%r\" %>s %b"'
+default['apache']['logformat']['referer'] = '"%{Referer}i -> %U"'
+default['apache']['logformat']['agent'] = '"%{User-agent}i"'
+
 # Event Attributes
 default['apache']['event']['startservers']        = 4
 default['apache']['event']['serverlimit']         = 16
