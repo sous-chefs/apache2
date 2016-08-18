@@ -189,8 +189,8 @@ Prefork attributes are used for tuning the Apache HTTPD [prefork MPM](http://htt
 * `node['apache']['prefork']['startservers']` - initial number of server processes to start. Default is 16.
 * `node['apache']['prefork']['minspareservers']` - minimum number of spare server processes. Default 16.
 * `node['apache']['prefork']['maxspareservers']` - maximum number of spare server processes. Default 32.
-* `node['apache']['prefork']['serverlimit']` - upper limit on configurable server processes. Default 400.
-* `node['apache']['prefork']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously
+* `node['apache']['prefork']['serverlimit']` - upper limit on configurable server processes. Default 256.
+* `node['apache']['prefork']['maxrequestworkers']` - Maximum number of connections that will be processed simultaneously. Default 256.
 * `node['apache']['prefork']['maxconnectionsperchild']` - Maximum number of request a child process will handle. Default 10000.
 
 Worker attributes
