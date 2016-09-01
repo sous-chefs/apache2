@@ -32,11 +32,6 @@ platforms:
 #  driver:
 #    box: amazon-linux64-2014.03
 #    box_url: http://images.geekandi.com/amazon-linux/vagrant-amazon-linux64-2014.03-public-virtualbox.box
-#- name: redhat
-- name: scientific-6.4
-  driver:
-    box: lyte-scientific-6-minimal
-    box_url: http://lyte.id.au/vagrant/sl6-64-lyte.box
 - name: opensuse-13.2
 
 suites:
