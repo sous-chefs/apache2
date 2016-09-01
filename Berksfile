@@ -3,9 +3,9 @@ source 'https://supermarket.chef.io'
 metadata
 
 group :integration do
-  cookbook 'apt', '~> 3.0.0'
-  cookbook 'yum', '~> 3.10.0'
-  cookbook 'pacman', '~> 1.1.1'
+  cookbook 'apt'
+  cookbook 'yum'
+  cookbook 'pacman'
   cookbook 'fqdn', :git => 'https://github.com/drpebcak/fqdn-cookbook.git'
 end
 
