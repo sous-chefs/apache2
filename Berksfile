@@ -5,7 +5,6 @@ metadata
 group :integration do
   cookbook 'apt'
   cookbook 'yum'
-  cookbook 'pacman'
   cookbook 'fqdn', :git => 'https://github.com/drpebcak/fqdn-cookbook.git'
 end
 
