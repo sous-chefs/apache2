@@ -6,7 +6,7 @@ require 'json'
 set :path, '/sbin:/usr/local/sbin:$PATH'
 set :backend, :exec
 
-# http://serverspec.org/advanced_tips.html
+# http://serverspec.org/host_inventory.html
 # os[:family]  # RedHat, Ubuntu, Debian and so on
 # os[:release] # OS release version (cleaned up in v2)
 # os[:arch]
@@ -14,12 +14,12 @@ osmapping = {
   'redhat' => {
     :platform_family => 'rhel',
     :platform => 'centos',
-    :platform_version => '7.0'
+    :platform_version => '7.2.1511'
   },
   'fedora' => {
     :platform_family => 'rhel',
     :platform => 'fedora',
-    :platform_version => '20'
+    :platform_version => '24'
   },
   'ubuntu' => {
     :platform_family => 'debian',
@@ -29,12 +29,17 @@ osmapping = {
   'debian' => {
     :platform_family => 'debian',
     :platform => 'debian',
-    :platform_version => '7.6'
+    :platform_version => '7.11'
   },
   'freebsd' => {
     :platform_family => 'freebsd',
     :platform => 'freebsd',
-    :platform_version => '10.0'
+    :platform_version => '10.3'
+  },
+  'opensuse' => {
+    :platform_family => 'suse',
+    :platform => 'opensuse',
+    :platform_version => '13.2'
   }
 }
 
