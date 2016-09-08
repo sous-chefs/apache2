@@ -31,6 +31,14 @@ file "#{app_dir}/index.html" do
   action :create
 end
 
+web_app 'basic_immediate_webapp' do
+  cookbook 'apache2'
+  server_name node['hostname']
+  server_aliases [node['fqdn']]
+  docroot app_dir
+  reload_speed :immediately
+end
+
 web_app 'basic_webapp' do
   cookbook 'apache2'
   server_name node['hostname']

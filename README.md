@@ -557,6 +557,8 @@ combine the template with enabling a site, see `web_app`.
 
 * `name` - Name of the site.
 * `enable` - Default true, which uses `a2ensite` to enable the site. If false, the site will be disabled with `a2dissite`.
+* `reload_speed` - Defaults to `:delayed` and can be set to `:immediately` to
+  reload apache service directly after web_app definition during the chef-run
 
 web\_app
 --------
@@ -603,6 +605,20 @@ the apache httpd directives defining the `VirtualHost` that would serve up "my_a
     web_app "my_app" do
        template 'web_app.conf.erb'
        server_name node['my_app']['hostname']
+    end
+``````
+
+If you need your web_app to be accessible during the chef-run and directly after
+you ran the definition `web_app`, you can set `reload_speed` to `:immediately`
+(which will immediately reload the apache2 service) instead of the default
+`:delayed` (which reloads your apache2 configuration at the end of the
+chef-run).
+
+``````
+    web_app "my_app" do
+       template 'web_app.conf.erb'
+       server_name node['my_app']['hostname']
+       reload_speed :immediately
     end
 ``````
 
