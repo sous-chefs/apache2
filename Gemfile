@@ -23,7 +23,7 @@ end
 group :development do
   gem 'guard', '~> 2.14'
   gem 'guard-rubocop',    '~> 1.2'
-  #gem 'guard-foodcritic', '~> 2.1'
+  # gem 'guard-foodcritic', '~> 2.1'
   gem 'guard-kitchen',    '~> 0.0'
   gem 'guard-rspec',      '~> 4.7.3'
   gem 'rb-fsevent', require: false
