@@ -27,7 +27,11 @@ end
 
 case node['platform_family']
 when 'debian'
-  package 'libapache2-mod-php5'
+  if node['lsb']['release'].to_f >= 16.04
+    package 'libapache2-mod-php'
+  else
+    package 'libapache2-mod-php5'
+  end
 when 'arch'
   package 'php-apache' do
     notifies :run, 'execute[generate-module-list]', :immediately
