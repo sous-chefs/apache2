@@ -277,7 +277,7 @@ describe 'apache2::default' do
         context 'with custom AccessFileName' do
           before(:context) do
             @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
-              node.set['apache']['access_file_name'] = '.customaccess'
+              node.default['apache']['access_file_name'] = '.customaccess'
             end
 
             stub_command("#{property[:apache][:binary]} -t").and_return(false)
