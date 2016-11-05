@@ -5,16 +5,10 @@ This cookbook uses a variety of testing components:
 - Chef Style lints: [Foodcritic](http://www.foodcritic.io/)
 - Ruby Style lints: [Rubocop](https://github.com/bbatsov/rubocop)
 
-You can install the [Chef Development Kit (Chef-DK)](http://downloads.chef.io/chef-dk/) to more easily install the above components.
-
 
 Prerequisites
 -------------
-To develop on this cookbook, you must have a sane Ruby 1.9+ environment. Given the nature of this installation process (and it's variance across multiple operating systems), we will leave this installation process to the user.
-
-You must also have `bundler` installed:
-
-    $ gem install bundler
+You can install the [Chef Development Kit (Chef-DK)](http://downloads.chef.io/chef-dk/) to more easily install the above components.
 
 You must also have Vagrant and VirtualBox installed:
 
@@ -26,23 +20,24 @@ Development
 -----------
 1. Clone the git repository from GitHub:
 
-        $ git clone git@github.com:svanzoest-cookbooks/apache2.git
+   - `git clone git@github.com:svanzoest-cookbooks/apache2.git`
 
 2. Install the dependencies using bundler:
 
-        $ bundle install --path ../vendor
+   - `chef exec bundle install --path ../vendor`
 
 3. Create a branch for your changes:
 
-        $ git checkout -b my_bug_fix
+   - `git checkout -b my_bug_fix`
 
 4. Make any changes
 5. Write tests to support those changes. It is highly recommended you write both unit and integration tests.
 6. Run the tests:
-    - `bundle exec rspec`
-    - `bundle exec foodcritic .`
-    - `bundle exec rubocop`
-    - `bundle exec kitchen test`
+
+    - `chef exec bundle exec rspec`
+    - `chef exec bundle exec foodcritic .`
+    - `chef exec bundle exec rubocop`
+    - `chef exec bundle exec kitchen test`
 
 7. Assuming the tests pass, open a Pull Request on GitHub
 
