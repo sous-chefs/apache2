@@ -12,7 +12,7 @@ describe 'apache2::mod_php5' do
 
         before(:context) do
           @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
-            node.default['apache']['mpm'] = 'prefork'
+            node.normal['apache']['mpm'] = 'prefork'
           end
 
           stub_command("#{property[:apache][:binary]} -t").and_return(true)

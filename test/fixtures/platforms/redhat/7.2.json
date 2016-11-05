@@ -1,5 +1,6 @@
 {
     "apache": {
+        "version": "2.4",
         "package": "httpd",
         "devel_package": "httpd-devel",
         "binary": "/usr/sbin/httpd",
@@ -15,8 +16,6 @@
         "log_dir": "/var/log/httpd",
         "root_group": "root",
         "service_name": "httpd",
-        "service_reload_command": "/sbin/service httpd graceful && sleep 1",
-        "service_restart_command": "/sbin/service httpd restart && sleep 1",
         "default_site_name": "default",
         "default_site_enabled": false,
         "default_modules": [
@@ -33,7 +32,8 @@
             "env",
             "mime",
             "negotiation",
-            "setenvif"
+            "setenvif",
+            "systemd"
         ],
         "mod_auth_openid": {
             "version": "0.8"

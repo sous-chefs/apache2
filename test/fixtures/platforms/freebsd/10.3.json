@@ -1,0 +1,47 @@
+{
+    "apache": {
+        "version": "2.4",
+        "devel_package": "httpd-devel",
+        "binary": "/usr/local/sbin/httpd",
+        "package": "apache24",
+        "mpm": "prefork",
+        "dir": "/usr/local/etc/apache24",
+        "lib_dir": "/usr/local/libexec/apache24",
+        "libexec_dir": "/usr/local/libexec/apache24",
+        "cache_dir": "/var/cache/apache24",
+        "docroot_dir": "/usr/local/www/apache24/data",
+        "cgibin_dir": "/usr/local/www/apache24/cgi-bin",
+        "conf": "/usr/local/etc/apache24/httpd.conf",
+        "perl_pkg": "perl5",
+        "log_dir": "/var/log",
+        "root_group": "wheel",
+        "service_name": "apache24",
+        "default_site_name": "default",
+        "default_site_enabled": false,
+        "default_modules": [
+            "status",
+            "alias",
+            "auth_basic",
+            "authn_file",
+            "authz_core",
+            "authz_groupfile",
+            "authz_host",
+            "authz_user",
+            "autoindex",
+            "dir",
+            "env",
+            "mime",
+            "negotiation",
+            "setenvif"
+        ],
+         "mod_auth_openid": {
+             "version": "0.8"
+         },
+         "mod_ssl": {
+             "pkg_name": "mod_ssl"
+         },
+         "mod_php5": {
+             "so_filename": "libphp5.so"
+         }
+    }
+}

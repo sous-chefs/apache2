@@ -1,21 +1,22 @@
 {
     "apache": {
         "version": "2.4",
-        "package": "httpd24",
-        "devel_package": "httpd24-devel",
-        "binary": "/usr/sbin/httpd",
+        "package": "apache2",
+        "devel_package": "httpd-devel",
+        "binary": "/usr/sbin/httpd2",
         "mpm": "prefork",
-        "dir": "/etc/httpd",
-        "lib_dir": "/usr/lib64/httpd",
-        "libexec_dir": "/usr/lib64/httpd/modules",
-        "cache_dir": "/var/cache/httpd",
-        "cgibin_dir": "/var/www/cgi-bin",
-        "docroot_dir": "/var/www/html",
-        "conf": "/etc/httpd/conf/httpd.conf",
+        "apachectl": "/usr/sbin/apache2ctl",
+        "dir": "/etc/apache2",
+        "lib_dir": "/usr/lib64/apache2",
+        "libexec_dir": "/usr/lib64/apache2",
+        "cache_dir": "/var/cache/apache2",
+        "cgibin_dir": "/srv/www/cgi-bin",
+        "docroot_dir": "/srv/www/htdocs",
+        "conf": "/etc/apache2/httpd.conf",
         "perl_pkg": "perl",
-        "log_dir": "/var/log/httpd",
+        "log_dir": "/var/log/apache2",
         "root_group": "root",
-        "service_name": "httpd",
+        "service_name": "apache2",
         "default_site_name": "default",
         "default_site_enabled": false,
         "default_modules": [
@@ -38,10 +39,10 @@
             "version": "0.8"
         },
         "mod_ssl": {
-            "pkg_name": "mod24_ssl"
+            "pkg_name": "mod_ssl"
         },
         "mod_php5": {
-            "so_filename": "libphp.so"
+            "so_filename": "mod_php5.so"
         }
     }
 }
