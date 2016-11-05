@@ -67,15 +67,15 @@ signalling to them to research your ticket and use case and accounting
 for it.
 
 If you need help writing tests, please ask on the Chef Developer's
-mailing list, or the #chef-hacking IRC channel.
+mailing list, or https://community-slack.chef.io/
 
 ## Cookbook Contribution Do's and Don't's
 
 Please do include tests for your contribution. If you need help, ask
 on the
 [chef-dev mailing list](http://lists.chef.io/sympa/info/chef-dev)
-or the
-[#chef-hacking IRC channel](https://botbot.me/freenode/chef-hacking/).
+or the https://community-slack.chef.io/
+
 Not all platforms that a cookbook supports may be supported by Test
 Kitchen. Please provide evidence of testing your contribution if it
 isn't trivial so we don't have to duplicate effort in testing. Chef
