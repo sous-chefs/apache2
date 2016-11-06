@@ -147,7 +147,7 @@ ErrorLog <%= node['apache']['log_dir'] %>/<%= node['apache']['error_log'] %>
 # Possible values include: debug, info, notice, warn, error, crit,
 # alert, emerg.
 #
-LogLevel warn
+LogLevel <%= node['apache']['log_level'] %>
 
 # COOK-1021: Dummy LoadModule directive to aid module installations
 #LoadModule dummy_module modules/mod_dummy.so

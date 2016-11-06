@@ -99,6 +99,7 @@ describe 'apache2::default' do
             )
             expect(chef_run).to render_file(property[:apache][:conf]).with_content(/AccessFileName[\s]*\.htaccess/)
             expect(chef_run).to render_file(property[:apache][:conf]).with_content(/Files ~ \"\^\\\.ht\"/)
+            expect(chef_run).to render_file(property[:apache][:conf]).with_content(/LogLevel warn/)
           end
 
           subject(:apacheconf) { chef_run.template(property[:apache][:conf]) }
@@ -293,6 +294,27 @@ describe 'apache2::default' do
             )
             expect(chef_run).to render_file(property[:apache][:conf]).with_content(/AccessFileName[\s]*\.customaccess/)
             expect(chef_run).to render_file(property[:apache][:conf]).with_content(/Files ~ \"\^\(\.cu\|\\\.ht\)\"/)
+          end
+        end
+
+        context 'with custom LogLevel' do
+          before(:context) do
+            @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
+              node.set['apache']['log_level'] = 'error'
+            end
+
+            stub_command("#{property[:apache][:binary]} -t").and_return(false)
+            @chef_run.converge(described_recipe)
+          end
+
+          it "creates #{property[:apache][:conf]}" do
+            expect(chef_run).to create_template(property[:apache][:conf]).with(
+              :source => 'apache2.conf.erb',
+              :owner => 'root',
+              :group => property[:apache][:root_group],
+              :mode =>  '0644'
+            )
+            expect(chef_run).to render_file(property[:apache][:conf]).with_content(/LogLevel error/)
           end
         end
 
