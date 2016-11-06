@@ -74,7 +74,8 @@ suites:
   - recipe[apache2_test::mod_status_remote]
 - name: prefork
   includes: [
-    'centos-6.7',
+    'centos-7.2',
+    'debian-8.6',
     'ubuntu-14.04',
     'ubuntu-16.04'
   ]
@@ -90,7 +91,8 @@ suites:
   - recipe[apache2_test::broken_conf]
   - recipe[apache2_test::modules]
   - recipe[apache2_test::mod_cgi]
-  - recipe[apache2_test::mod_fastcgi]
+# not supported by apache 2.4 without source compile with non-maintainer patches
+# - recipe[apache2_test::mod_fastcgi]
   - recipe[apache2_test::mod_perl]
   - recipe[apache2_test::mod_php]
 # - recipe[apache2_test::mod_proxy_ajp]
