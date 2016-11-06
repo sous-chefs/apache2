@@ -1,12 +1,10 @@
 require 'spec_helper'
 
-describe 'apache2::mod_php5' do
+describe 'apache2::mod_php' do
   supported_platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
-        let(:chef_run) do
-          @chef_run
-        end
+        let(:chef_run) { @chef_run  }
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
@@ -44,7 +42,12 @@ describe 'apache2::mod_php5' do
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
         end
-        if %w(debian ubuntu).include?(platform)
+        if platform == 'ubuntu' && version.to_f < 16.04
+          it 'installs package libapache2-mod-php5' do
+            expect(chef_run).to install_package('libapache2-mod-php5')
+            expect(chef_run).to_not install_package('not_libapache2-mod-php5')
+          end
+        elsif platform == 'debian' && version.to_f < 9
           it 'installs package libapache2-mod-php5' do
             expect(chef_run).to install_package('libapache2-mod-php5')
             expect(chef_run).to_not install_package('not_libapache2-mod-php5')
@@ -58,11 +61,11 @@ describe 'apache2::mod_php5' do
           end
         end
 
-        it "deletes #{property[:apache][:dir]}/conf.d/php.conf" do
+        it "deletes [apache.dir]/conf.d/php.conf" do
           expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/php.conf").with(:backup => false)
           expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/php.conf").with(:backup => true)
         end
-        it_should_behave_like 'an apache2 module', 'php5', true, property[:apache][:mod_php5][:so_filename]
+        it_behaves_like 'an apache2 module', property[:apache][:mod_php][:module_name], false, property[:apache][:mod_php][:so_filename]
       end
     end
   end

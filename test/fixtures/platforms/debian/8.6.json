@@ -42,7 +42,7 @@
         },
         "mod_php": {
             "module_name": "php5",
-            "so_filename": "libphp7.0.so"
+            "so_filename": "libphp5.so"
         }
     }
 }

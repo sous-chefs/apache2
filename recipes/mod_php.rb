@@ -27,9 +27,9 @@ end
 
 case node['platform_family'] # rubocop:disable Style/MultilineIfModifier
 when 'debian'
-  if node['platform'] == 'ubuntu' && node['platform_version'].to_f <= 14.04
+  if node['platform'] == 'ubuntu' && node['platform_version'].to_f < 16.04
     package 'libapache2-mod-php5'
-  elsif node['platform'] == 'debian' && node['platform_version'].to_f <= 8
+  elsif node['platform'] == 'debian' && node['platform_version'].to_f < 9
     package 'libapache2-mod-php5'
   else
     package 'libapache2-mod-php'
