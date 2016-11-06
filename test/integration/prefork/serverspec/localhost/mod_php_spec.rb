@@ -15,13 +15,14 @@
 #
 require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
 
-describe 'apache2::mod_php5' do
-  expected_module = 'php5'
+describe 'apache2::mod_php' do
+  expected_module = property[:apache][:mod_php][:module_name]
+  so_filename = property[:apache][:mod_php][:so_filename]
   subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
   it "mods-available/#{expected_module}.load is accurate" do
     expect(available).to be_file
     expect(available).to be_mode 644
-    expect(available.content).to match "LoadModule #{expected_module}_module #{property[:apache][:libexec_dir]}/lib#{expected_module}.so\n"
+    expect(available.content).to match "LoadModule #{expected_module}_module #{property[:apache][:libexec_dir]}/#{so_filename}\n"
   end
 
   subject(:enabled) { file("#{property[:apache][:dir]}/mods-enabled/#{expected_module}.load") }

@@ -7,7 +7,7 @@ provisioner:
   data_path: test/fixtures
 
 platforms:
-- name: centos-7.2.1511
+- name: centos-7.2
   run_list:
   - recipe[yum]
 - name: ubuntu-16.04
@@ -92,7 +92,7 @@ suites:
   - recipe[apache2_test::mod_cgi]
   - recipe[apache2_test::mod_fastcgi]
   - recipe[apache2_test::mod_perl]
-  - recipe[apache2_test::mod_php5]
+  - recipe[apache2_test::mod_php]
 # - recipe[apache2_test::mod_proxy_ajp]
   - recipe[apache2_test::mod_python]
   - recipe[apache2_test::mod_ssl]

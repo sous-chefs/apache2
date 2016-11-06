@@ -30,12 +30,11 @@ when 'debian'
   if node['platform'] == 'ubuntu' && node['platform_version'].to_f <= 14.04
     package 'libapache2-mod-php5'
   else
-    package 'libapache2-mod-php'
-  end
-  if node['platform'] == 'debian' && node['platform_version'].to_f <= 8
-    package 'libapache2-mod-php5'
-  else
-    package 'libapache2-mod-php'
+    if node['platform'] == 'debian' && node['platform_version'].to_f <= 8
+      package 'libapache2-mod-php5'
+    else
+      package 'libapache2-mod-php'
+    end
   end
 when 'arch'
   package 'php-apache' do
@@ -75,12 +74,29 @@ when 'freebsd'
   end
 end unless node['apache']['mod_php']['install_method'] == 'source'
 
+# on debian plaform_family php creates newly named incompatible config
+file "#{node['apache']['dir']}/mods-enabled/php7.0.conf" do
+  action :delete
+  backup false
+end
+
+file "#{node['apache']['dir']}/mods-enabled/php7.0.load" do
+  action :delete
+  backup false
+end
+
 file "#{node['apache']['dir']}/conf.d/php.conf" do
   action :delete
   backup false
 end
 
-apache_module 'php5' do
-  conf true
+template "#{node['apache']['dir']}/mods-available/php.conf" do
+  source "mods/php.conf.erb"
+  mode '0644'
+  notifies :reload, 'service[apache2]', :delayed
+end
+
+apache_module node['apache']['mod_php']['module_name'] do
+  conf false
   filename node['apache']['mod_php']['so_filename']
 end

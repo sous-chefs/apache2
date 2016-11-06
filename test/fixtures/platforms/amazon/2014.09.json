@@ -40,7 +40,8 @@
         "mod_ssl": {
             "pkg_name": "mod24_ssl"
         },
-        "mod_php5": {
+        "mod_php": {
+            "module_name": "php5",
             "so_filename": "libphp.so"
         }
     }

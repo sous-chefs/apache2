@@ -6,7 +6,7 @@ v3.3.0 (unreleased)
 -------------------
 - Added support for Ubuntu 16.04 and Debian 8
   mod_perl: No longer install libapache2-mpm-prefork
-  mod_php: renamed mod_php5 to more generic mod_php making room for php 7 support
+  mod_php: renamed mod_php5 to more generic mod_php; using php 7.0 where available
 
 v3.2.2 (2016-04-13)
 -------------------
