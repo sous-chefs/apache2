@@ -4,7 +4,7 @@ describe 'apache2::mod_php' do
   supported_platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
-        let(:chef_run) { @chef_run  }
+        let(:chef_run) { @chef_run }
 
         property = load_platform_properties(:platform => platform, :platform_version => version)
 
@@ -61,7 +61,7 @@ describe 'apache2::mod_php' do
           end
         end
 
-        it "deletes [apache.dir]/conf.d/php.conf" do
+        it 'deletes [apache.dir]/conf.d/php.conf' do
           expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/php.conf").with(:backup => false)
           expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/php.conf").with(:backup => true)
         end
