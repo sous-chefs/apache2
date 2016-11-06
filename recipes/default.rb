@@ -57,6 +57,8 @@ end
 # perl is needed for the a2* scripts
 package node['apache']['perl_pkg']
 
+package 'perl-Getopt-Long-Descriptive' if platform?('fedora')
+
 %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
   link "/usr/sbin/#{modscript}" do
     action :delete

@@ -124,7 +124,7 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
     end
   default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
-when 'suse', 'opensuse'
+when 'suse', 'opensuse', 'opensuseleap'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] = 'httpd-devel'
