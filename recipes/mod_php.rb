@@ -29,12 +29,10 @@ case node['platform_family'] # rubocop:disable Style/MultilineIfModifier
 when 'debian'
   if node['platform'] == 'ubuntu' && node['platform_version'].to_f <= 14.04
     package 'libapache2-mod-php5'
+  elsif node['platform'] == 'debian' && node['platform_version'].to_f <= 8
+    package 'libapache2-mod-php5'
   else
-    if node['platform'] == 'debian' && node['platform_version'].to_f <= 8
-      package 'libapache2-mod-php5'
-    else
-      package 'libapache2-mod-php'
-    end
+    package 'libapache2-mod-php'
   end
 when 'arch'
   package 'php-apache' do
@@ -91,7 +89,7 @@ file "#{node['apache']['dir']}/conf.d/php.conf" do
 end
 
 template "#{node['apache']['dir']}/mods-available/php.conf" do
-  source "mods/php.conf.erb"
+  source 'mods/php.conf.erb'
   mode '0644'
   notifies :reload, 'service[apache2]', :delayed
 end
