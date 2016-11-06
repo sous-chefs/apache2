@@ -28,10 +28,8 @@ if platform_family?('rhel', 'fedora', 'suse')
     not_if { platform_family?('suse') }
   end
 
-  file "#{node['apache']['dir']}/conf.d/ssl.conf" do
-    action :delete
-    backup false
-  end
+  r = resources(:file => "#{node['apache']['dir']}/conf.d/ssl.conf")
+  r.content "# SSL Conf is under mods-enabled/ssl.conf\n"
 end
 
 template 'ssl_ports.conf' do
