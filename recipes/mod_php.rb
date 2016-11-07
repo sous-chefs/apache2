@@ -72,7 +72,7 @@ when 'freebsd'
   end
 end unless node['apache']['mod_php']['install_method'] == 'source'
 
-case node['platform_family'] # rubocop:disable Style/MultilineIfModifier
+case node['platform_family']
 when 'debian'
   # on debian plaform_family php creates newly named incompatible config
   file "#{node['apache']['dir']}/mods-available/php7.0.conf" do

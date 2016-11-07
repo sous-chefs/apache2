@@ -48,7 +48,7 @@ describe 'apache2::mod_apreq2' do
 
         it "stubs #{property[:apache][:dir]}/conf.d/apreq.conf" do
           expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/apreq.conf")
-           .with(:content => '# conf is under mods-available/apreq.conf - apache2 cookbook\n')
+            .with(:content => '# conf is under mods-available/apreq.conf - apache2 cookbook\n')
         end
         it_should_behave_like 'an apache2 module', 'apreq', false
       end

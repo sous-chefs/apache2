@@ -47,7 +47,7 @@ describe 'apache2::mod_xsendfile' do
 
         it "stubs #{property[:apache][:dir]}/conf.d/xsendfile.conf" do
           expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/xsendfile.conf")
-           .with(:content => '# conf is under mods-available/xsendfile.conf - apache2 cookbook\n')
+            .with(:content => '# conf is under mods-available/xsendfile.conf - apache2 cookbook\n')
         end
         it_should_behave_like 'an apache2 module', 'xsendfile', false
       end

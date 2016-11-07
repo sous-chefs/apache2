@@ -28,7 +28,7 @@ describe 'apache2::mod_ssl' do
           end
           it "stubs #{property[:apache][:dir]}/conf.d/ssl.conf" do
             expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/ssl.conf")
-             .with(:content => '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n')
+              .with(:content => '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n')
           end
         end
 

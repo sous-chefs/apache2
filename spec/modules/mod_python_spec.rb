@@ -47,7 +47,7 @@ describe 'apache2::mod_python' do
 
         it "stubs #{property[:apache][:dir]}/conf.d/python.conf" do
           expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/python.conf")
-           .with(:content => '# conf is under mods-available/python.conf - apache2 cookbook\n')
+            .with(:content => '# conf is under mods-available/python.conf - apache2 cookbook\n')
         end
         it_should_behave_like 'an apache2 module', 'python', false
       end
