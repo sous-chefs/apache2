@@ -300,7 +300,7 @@ describe 'apache2::default' do
         context 'with custom LogLevel' do
           before(:context) do
             @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
-              node.set['apache']['log_level'] = 'error'
+              node.normal['apache']['log_level'] = 'error'
             end
 
             stub_command("#{property[:apache][:binary]} -t").and_return(false)
