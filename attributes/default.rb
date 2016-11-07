@@ -37,6 +37,10 @@ default['apache']['mpm'] =
     else
       'prefork'
     end
+  when 'suse'
+    'prefork'
+  when 'rhel'
+    'prefork'
   else
     'prefork'
   end
