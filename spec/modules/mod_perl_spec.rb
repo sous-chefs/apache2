@@ -55,9 +55,9 @@ describe 'apache2::mod_perl' do
           end
         end
 
-        it "deletes #{property[:apache][:dir]}/conf.d/perl.conf" do
-          expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/perl.conf").with(:backup => false)
-          expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/perl.conf").with(:backup => true)
+        it "stubs #{property[:apache][:dir]}/conf.d/perl.conf" do
+          expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/perl.conf")
+           .with(:content => '# conf is under mods-available/perl.conf - apache2 cookbook\n')
         end
         it_should_behave_like 'an apache2 module', 'perl', false
       end

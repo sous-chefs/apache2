@@ -26,9 +26,9 @@ describe 'apache2::mod_ssl' do
             expect(package).to notify('execute[generate-module-list]').to(:run)
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
-          it "deletes #{property[:apache][:dir]}/conf.d/ssl.conf" do
-            expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/ssl.conf").with(:backup => false)
-            expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/ssl.conf").with(:backup => true)
+          it "stubs #{property[:apache][:dir]}/conf.d/ssl.conf" do
+            expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/ssl.conf")
+             .with(:content => '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n')
           end
         end
 

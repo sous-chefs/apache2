@@ -61,9 +61,11 @@ describe 'apache2::mod_php' do
           end
         end
 
-        it 'deletes [apache.dir]/conf.d/php.conf' do
-          expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/php.conf").with(:backup => false)
-          expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/php.conf").with(:backup => true)
+        if %w(redhat fedora suse opensuse).include?(platform)
+         it 'stubs [apache.dir]/conf.d/php.conf' do
+           expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/php.conf")
+             .with(:content => '# conf is under mods-available/php.conf - apache2 cookbook\n')
+          end
         end
         it_behaves_like 'an apache2 module', property[:apache][:mod_php][:module_name], false, property[:apache][:mod_php][:so_filename]
       end

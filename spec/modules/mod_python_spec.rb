@@ -45,9 +45,9 @@ describe 'apache2::mod_python' do
           end
         end
 
-        it "deletes #{property[:apache][:dir]}/conf.d/python.conf" do
-          expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/python.conf").with(:backup => false)
-          expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/python.conf").with(:backup => true)
+        it "stubs #{property[:apache][:dir]}/conf.d/python.conf" do
+          expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/python.conf")
+           .with(:content => '# conf is under mods-available/python.conf - apache2 cookbook\n')
         end
         it_should_behave_like 'an apache2 module', 'python', false
       end

@@ -46,9 +46,9 @@ describe 'apache2::mod_apreq2' do
           end
         end
 
-        it "deletes #{property[:apache][:dir]}/conf.d/apreq.conf" do
-          expect(chef_run).to delete_file("#{property[:apache][:dir]}/conf.d/apreq.conf").with(:backup => false)
-          expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d/apreq.conf").with(:backup => true)
+        it "stubs #{property[:apache][:dir]}/conf.d/apreq.conf" do
+          expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/apreq.conf")
+           .with(:content => '# conf is under mods-available/apreq.conf - apache2 cookbook\n')
         end
         it_should_behave_like 'an apache2 module', 'apreq', false
       end

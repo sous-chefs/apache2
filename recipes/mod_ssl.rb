@@ -28,8 +28,9 @@ if platform_family?('rhel', 'fedora', 'suse')
     not_if { platform_family?('suse') }
   end
 
-  r = resources(:file => "#{node['apache']['dir']}/conf.d/ssl.conf")
-  r.content "# SSL Conf is under mods-enabled/ssl.conf\n"
+  file "#{node['apache']['dir']}/conf.d/ssl.conf" do
+    content '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n'
+  end
 end
 
 template 'ssl_ports.conf' do

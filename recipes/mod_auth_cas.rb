@@ -51,8 +51,7 @@ else
     end
 
     file "#{node['apache']['dir']}/conf.d/auth_cas.conf" do
-      action :delete
-      backup false
+      content '# conf is under mods-available/auth_cas.conf - apache2 cookbook\n'
     end
   end
 end

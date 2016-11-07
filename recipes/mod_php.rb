@@ -72,20 +72,20 @@ when 'freebsd'
   end
 end unless node['apache']['mod_php']['install_method'] == 'source'
 
-# on debian plaform_family php creates newly named incompatible config
-file "#{node['apache']['dir']}/mods-enabled/php7.0.conf" do
-  action :delete
-  backup false
-end
+case node['platform_family'] # rubocop:disable Style/MultilineIfModifier
+when 'debian'
+  # on debian plaform_family php creates newly named incompatible config
+  file "#{node['apache']['dir']}/mods-available/php7.0.conf" do
+    content '# conf is under mods-available/php.conf - apache2 cookbook\n'
+  end
 
-file "#{node['apache']['dir']}/mods-enabled/php7.0.load" do
-  action :delete
-  backup false
-end
-
-file "#{node['apache']['dir']}/conf.d/php.conf" do
-  action :delete
-  backup false
+  file "#{node['apache']['dir']}/mods-available/php7.0.load" do
+    content '# conf is under mods-available/php.load - apache2 cookbook\n'
+  end
+when 'rhel', 'fedora', 'suse'
+  file "#{node['apache']['dir']}/conf.d/php.conf" do
+    content '# conf is under mods-available/php.conf - apache2 cookbook\n'
+  end
 end
 
 template "#{node['apache']['dir']}/mods-available/php.conf" do

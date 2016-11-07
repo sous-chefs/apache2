@@ -43,8 +43,7 @@ when 'rhel', 'fedora'
 end
 
 file "#{node['apache']['dir']}/conf.d/apreq.conf" do
-  action :delete
-  backup false
+  content '# conf is under mods-available/apreq.conf - apache2 cookbook\n'
 end
 
 apache_module 'apreq'

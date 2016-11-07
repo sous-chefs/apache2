@@ -37,8 +37,7 @@ when 'freebsd'
 end
 
 file "#{node['apache']['dir']}/conf.d/python.conf" do
-  action :delete
-  backup false
+  content '# conf is under mods-available/python.conf - apache2 cookbook\n'
 end
 
 apache_module 'python'

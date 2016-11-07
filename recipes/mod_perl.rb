@@ -52,8 +52,7 @@ when 'freebsd'
 end
 
 file "#{node['apache']['dir']}/conf.d/perl.conf" do
-  action :delete
-  backup false
+  content '# conf is under mods-available/perl.conf - apache2 cookbook\n'
 end
 
 apache_module 'perl'
