@@ -1,6 +1,6 @@
 name 'apache2'
-maintainer 'Sander van Zoest'
-maintainer_email 'sander+cookbooks@vanzoest.com'
+maintainer 'Chef Brigade'
+maintainer_email 'help@chefbrigade.io'
 issues_url 'https://github.com/chef-brigade/apache2/issues' if respond_to?(:issues_url)
 source_url 'https://github.com/chf-brigade/apache2/' if respond_to?(:source_url)
 chef_version '>= 11' if respond_to?(:chef_version)
