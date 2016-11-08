@@ -1,8 +1,8 @@
 name 'apache2'
 maintainer 'Sander van Zoest'
 maintainer_email 'sander+cookbooks@vanzoest.com'
-issues_url 'https://github.com/svanzoest-cookbooks/apache2/issues' if respond_to?(:issues_url)
-source_url 'https://github.com/svanzoest-cookbooks/apache2/' if respond_to?(:source_url)
+issues_url 'https://github.com/chef-brigade/apache2/issues' if respond_to?(:issues_url)
+source_url 'https://github.com/chf-brigade/apache2/' if respond_to?(:source_url)
 chef_version '>= 11' if respond_to?(:chef_version)
 license 'Apache 2.0'
 description 'Installs and configures all aspects of apache2 using Debian style symlinks with helper definitions'

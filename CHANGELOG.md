@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 v3.3.0 (unreleased)
 -------------------
+- Cookbook is now part of the chef-brigade, but still maintained by the same folks
 - Added support for Ubuntu 16.04 and Debian 8
   mod_perl: No longer install libapache2-mpm-prefork
   mod_php: renamed mod_php5 to more generic mod_php; using php 7.0 where available
