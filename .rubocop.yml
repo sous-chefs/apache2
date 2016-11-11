@@ -24,3 +24,5 @@ TrivialAccessors:
   ExactNameMatch: true
 Style/RegexpLiteral:
   Enabled: false
+Style/ExtraSpacing:
+  Enabled: false  

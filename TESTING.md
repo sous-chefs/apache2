@@ -3,7 +3,7 @@ This cookbook uses a variety of testing components:
 - Unit tests: [ChefSpec](http://code.sethvargo.com/chefspec/)
 - Integration tests: [Test Kitchen](http://kitchen.ci/)
 - Chef Style lints: [Foodcritic](http://www.foodcritic.io/)
-- Ruby Style lints: [Rubocop](https://github.com/bbatsov/rubocop)
+- Ruby Style lints: [cookstyle](https://github.com/chef/cookstyle)
 
 
 Prerequisites
