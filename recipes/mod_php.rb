@@ -25,7 +25,7 @@ if node['apache']['mpm'] != 'prefork'
   Chef::Log.warn("Currently the apache2 cookbook is configured to use the '#{node['apache']['mpm']}' MPM")
 end
 
-case node['platform_family'] # rubocop:disable Style/MultilineIfModifier
+case node['platform_family']
 when 'debian'
   if node['platform'] == 'ubuntu' && node['platform_version'].to_f < 16.04
     package 'libapache2-mod-php5'
