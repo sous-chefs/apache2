@@ -38,21 +38,15 @@ default['apache']['mod_ssl']['pkg_name'] = 'mod_ssl'
 
 case node['platform_family']
 when 'debian'
-  case node['platform']
-  when 'ubuntu'
-    if node['apache']['version'] == '2.4'
-      default['apache']['mod_ssl']['pass_phrase_dialog'] = 'exec:/usr/share/apache2/ask-for-passphrase'
-    end
+  if platform?('ubuntu') && node['apache']['version'] == '2.4'
+    default['apache']['mod_ssl']['pass_phrase_dialog'] = 'exec:/usr/share/apache2/ask-for-passphrase'
   end
 when 'freebsd'
   default['apache']['mod_ssl']['session_cache'] = 'shmcb:/var/run/ssl_scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'file:/var/run/ssl_mutex'
 when 'rhel', 'fedora', 'suse'
-  case node['platform']
-  when 'amazon'
-    if node['apache']['version'] == '2.4'
-      default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl'
-    end
+  if platform?('amazon') && node['apache']['version'] == '2.4'
+    default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl'
   end
   default['apache']['mod_ssl']['session_cache'] = 'shmcb:/var/cache/mod_ssl/scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'default'
