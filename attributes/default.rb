@@ -31,7 +31,7 @@ default['apache']['mpm'] =
         'prefork'
       end
     when 'debian'
-      node['platform_version'].to_f >= 7.0 ? 'worker' : 'prefork'
+      node['platform_version'].to_i >= 7 ? 'worker' : 'prefork'
     when 'linuxmint'
       node['platform_version'].to_i >= 17 ? 'event' : 'prefork'
     else
@@ -48,9 +48,9 @@ default['apache']['version'] =
     when 'ubuntu'
       node['platform_version'].to_f >= 13.10 ? '2.4' : '2.2'
     when 'linuxmint'
-      node['platform_version'].to_i >= 16 ? '2.4' : '2.2'
+      node['platform_version'].to_i >= 16 ? '2.4' : '2.2' # this can go away 4/17
     when 'debian', 'raspbian'
-      node['platform_version'].to_f >= 8.0 ? '2.4' : '2.2'
+      node['platform_version'].to_i >= 8 ? '2.4' : '2.2'
     else
       '2.4'
     end
@@ -59,7 +59,7 @@ default['apache']['version'] =
     when 'amazon'
       node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
     else
-      node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
+      node['platform_version'].to_i >= 7 ? '2.4' : '2.2'
     end
   when 'fedora'
     '2.4'
@@ -71,7 +71,7 @@ default['apache']['version'] =
       '2.4'
     end
   when 'freebsd'
-    node['platform_version'].to_f >= 10.0 ? '2.4' : '2.2'
+    node['platform_version'].to_i >= 10 ? '2.4' : '2.2'
   else
     '2.4'
   end
