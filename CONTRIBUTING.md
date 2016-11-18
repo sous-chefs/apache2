@@ -5,7 +5,7 @@ step is the desire to improve the project.
 
 ## Quick-contribute
 
-* Create an issue on the github [issue tracker](https://github.com/chef-brigade/apache2/issues)
+* Create an issue on the github [issue tracker](https://github.com/sous-chefs/apache2/issues)
 * Link to your patch as a rebased git branch or pull request from the ticket
 
 We regularly review contributions and will get back to you if we have

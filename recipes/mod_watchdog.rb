@@ -19,5 +19,5 @@
 
 # http://httpd.apache.org/docs/2.4/mod/mod_watchdog.html
 # To allow a module to use mod_watchdog functionality be loaded before the calling module.
-# see https://github.com/chef-brigade/apache2/issues/224
+# see https://github.com/sous-chefs/apache2/issues/224
 apache_module 'watchdog'

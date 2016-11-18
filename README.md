@@ -1,8 +1,8 @@
 apache2 Cookbook
 ================
 [![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg?style=flat)](https://supermarket.chef.io/cookbooks/apache2)
-[![Build Status](https://travis-ci.org/chef-brigade/apache2.svg?branch=master)](https://travis-ci.org/chef-brigade/apache2)
-[![Dependency Status](http://img.shields.io/gemnasium/chef-brigade/apache2.svg?style=flat)](https://gemnasium.com/chef-brigade/apache2)
+[![Build Status](https://travis-ci.org/sous-chefs/apache2.svg?branch=master)](https://travis-ci.org/sous-chefs/apache2)
+[![Dependency Status](http://img.shields.io/gemnasium/sous-chefs/apache2.svg?style=flat)](https://gemnasium.com/sous-chefs/apache2)
 [![License](https://img.shields.io/badge/license-Apache_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD
@@ -354,7 +354,7 @@ update the ports.conf.
 * `node['apache']['mod_ssl']['cipher_suite']` - sets the SSLCiphersuite value to the specified string. The default is
   considered "sane" but you may need to change it for your local security policy, e.g. if you have PCI-DSS requirements. Additional
   commentary on the
-  [original pull request](https://github.com/chef-brigade/apache2/pull/15#commitcomment-1605406).
+  [original pull request](https://github.com/sous-chefs/apache2/pull/15#commitcomment-1605406).
 * `node['apache']['mod_ssl']['honor_cipher_order']` - Option to prefer the server's cipher preference order. Default 'On'.
 * `node['apache']['mod_ssl']['insecure_renegotiation']` - Option to enable support for insecure renegotiation. Default 'Off'.
 * `node['apache']['mod_ssl']['strict_sni_vhost_check']` - Whether to allow non-SNI clients to access a name-based virtual host. Default 'Off'.
@@ -384,7 +384,7 @@ Definitions
 
 The cookbook provides a few definitions. At some point in the future
 these definitions will be refactored into custom resources see 
-[issue 414](https://github.com/chef-brigade/apache2/issues/414).
+[issue 414](https://github.com/sous-chefs/apache2/issues/414).
 
 apache\_conf
 ------------
@@ -643,7 +643,7 @@ For more information about Definitions and parameters, see the
 Tests
 =====
 
-This cookbook in the [source repository](https://github.com/chef-brigade/apache2/)
+This cookbook in the [source repository](https://github.com/sous-chefs/apache2/)
 contains chefspec, serverspec tests.
 
 Please see the CONTRIBUTING file for information on how to add tests
