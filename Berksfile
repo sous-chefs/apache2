@@ -7,6 +7,7 @@ group :integration do
   cookbook 'yum', '~> 4.1.0'
   cookbook 'zypper', '~> 0.3.0'
   cookbook 'pacman', '~> 1.1.1'
+  cookbook 'sparrow', '~> 0.0.8'
   cookbook 'fqdn', :git => 'https://github.com/drpebcak/fqdn-cookbook.git'
 end
 
