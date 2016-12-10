@@ -108,7 +108,7 @@ environment, you may have multiple roles that use different recipes
 from this cookbook. Adjust any attributes as desired. For example, to
 create a basic role for web servers that provide both HTTP and HTTPS:
 
-``````
+```ruby
     % cat roles/webserver.rb
     name "webserver"
     description "Systems that serve HTTP and HTTPS"
@@ -121,7 +121,7 @@ create a basic role for web servers that provide both HTTP and HTTPS:
         "listen" => ["*:80", "*:443"]
       }
     )
-``````
+```
 
 For examples of using the definitions in your own recipes, see their
 respective sections below.
@@ -405,28 +405,28 @@ This definition should generally be called over `apache_config`.
 
 Place and enable the example conf:
 
-``````
+```ruby
     apache_conf 'example' do
       enable true
     end
-``````
+```
 
 Place and disable (or never enable to begin with) the example conf:
 
-``````
+```ruby
     apache_conf 'example' do
       enable false
     end
-``````
+```
 
 Place the example conf, which has a different path than the default (conf-*):
 
-``````
+```ruby
     apache_conf 'example' do
       conf_path '/random/example/path'
       enable false
     end
-``````
+```
 
 
 apache\_config (internal)
@@ -453,19 +453,19 @@ Enable or disable an Apache config file in
 
 Enable the example config.
 
-``````
+```ruby
     apache_config 'example' do
       enable true
     end
-``````
+```
 
 Disable a module:
 
-``````
+```ruby
     apache_config 'disabled_example' do
       enable false
     end
-``````
+```
 
 See the recipes directory for many more examples of `apache_config`.
 
@@ -492,27 +492,27 @@ the definition is used. See __Examples__.
 
 Enable the ssl module, which also has a configuration template in `templates/default/mods/ssl.conf.erb`.
 
-``````
+```ruby
     apache_module "ssl" do
       conf true
     end
-``````
+```
 
 Enable the php5 module, which has a different filename than the module default:
 
-``````
+```ruby
     apache_module "php5" do
       filename "libphp5.so"
     end
-``````
+```
 
 Disable a module:
 
-``````
+```ruby
     apache_module "disabled_module" do
       enable false
     end
-``````
+```
 
 See the recipes directory for many more examples of `apache_module`.
 
@@ -538,9 +538,9 @@ __apache\_module__.
 
 Create `#{node['apache']['dir']}/mods-available/alias.conf`.
 
-``````
+```ruby
     apache_mod "alias"
-``````
+```
 
 apache\_site
 ------------
@@ -599,12 +599,12 @@ The recommended way to use the `web_app` definition is in a application specific
 The following example would look for a template named 'web_app.conf.erb' in your cookbook containing
 the apache httpd directives defining the `VirtualHost` that would serve up "my_app".
 
-``````
+```ruby
     web_app "my_app" do
        template 'web_app.conf.erb'
        server_name node['my_app']['hostname']
     end
-``````
+```
 
 All parameters are passed into the template. You can use whatever you
 like. The apache2 cookbook comes with a `web_app.conf.erb` template as
@@ -620,14 +620,14 @@ an example. The following parameters are used in the template:
 
 To use the default web_app, for example:
 
-``````
+```ruby
     web_app "my_site" do
       server_name node['hostname']
       server_aliases [node['fqdn'], "my-site.example.com"]
       docroot "/srv/www/my_site"
       cookbook 'apache2'
     end
-``````
+```
 
 The parameters specified will be used as:
 
