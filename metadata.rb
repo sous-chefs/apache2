@@ -1,6 +1,6 @@
 name 'apache2'
-source_url "https://github.com/sous-chefs/apache2" if respond_to?(:source_url)
-issues_url "https://github.com/sous-chefs/apache2/issues" if respond_to?(:issues_url)
+source_url 'https://github.com/sous-chefs/apache2' if respond_to?(:source_url)
+issues_url 'https://github.com/sous-chefs/apache2/issues' if respond_to?(:issues_url)
 maintainer 'Sous Chefs'
 maintainer_email 'help@sous-chefs.org'
 chef_version '>= 11' if respond_to?(:chef_version)
