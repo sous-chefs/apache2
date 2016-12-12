@@ -13,7 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
+
+platform_path = File.expand_path File.join(File.dirname(__FILE__), '..', 'libraries', 'platforms')
+property = apache_info(platform_path)
 
 describe 'apache2::default' do
 
@@ -66,7 +68,7 @@ describe 'apache2::default' do
     end
   end
 
-  it file("#{property[:apache][:dir]}/sites-enabled/000-default.conf") do
+  it "#{property[:apache][:dir]}/sites-enabled/000-default.conf" do
     if property[:apache][:default_site_enabled]
       expect(file("#{property[:apache][:dir]}/sites-enabled/000-default.conf")).to be_linked_to "#{property[:apache][:dir]}/sites-available/default.conf"
     else

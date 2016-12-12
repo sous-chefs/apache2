@@ -13,7 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
+
+platform_path = File.expand_path File.join(File.dirname(__FILE__), '..', 'libraries', 'platforms')
+property = apache_info(platform_path)
 
 property[:apache][:default_modules].each do |expected_module|
   expected_module = 'authz_default' if expected_module == 'authz_core' &&  property[:apache][:version] != '2.4'

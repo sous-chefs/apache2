@@ -11,6 +11,9 @@ driver:
 provisioner:
   data_path: test/fixtures
 
+verifier:
+  name: inspec
+
 platforms:
 - name: centos-7.2
   driver:

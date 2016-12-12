@@ -14,10 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
 
-describe 'apache2::mod_cgi', :if => property[:apache][:mpm] == 'prefork' do
-  expected_module = 'cgi'
+platform_path = File.expand_path File.join(File.dirname(__FILE__), '..', 'libraries', 'platforms')
+property = apache_info(platform_path)
+
+describe 'apache2::mod_cgid', :unless => property[:apache][:mpm] == 'prefork' do
+  expected_module = 'cgid'
   subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
   it "mods-available/#{expected_module}.load is accurate" do
     expect(available).to be_file
