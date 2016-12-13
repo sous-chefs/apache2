@@ -18,7 +18,7 @@
 # read platform information, see https://github.com/chef/inspec/issues/1396
 property = apache_info(File.dirname(__FILE__))
 
-describe 'apache2::mod_cgid', :unless => property[:apache][:mpm] == 'prefork' do
+describe 'apache2::mod_cgid' do
   expected_module = 'cgid'
   subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
   it "mods-available/#{expected_module}.load is accurate" do
@@ -37,4 +37,4 @@ describe 'apache2::mod_cgid', :unless => property[:apache][:mpm] == 'prefork' do
     expect(loaded_modules.exit_status).to eq 0
     expect(loaded_modules.stdout).to match(/#{expected_module}_module/)
   end
-end
+end unless property[:apache][:mpm] == 'prefork'
