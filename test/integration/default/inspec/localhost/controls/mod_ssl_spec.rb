@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-platform_path = File.expand_path File.join(File.dirname(__FILE__), '..', 'libraries', 'platforms')
-property = apache_info(platform_path)
+# read platform information, see https://github.com/chef/inspec/issues/1396
+property = apache_info(File.dirname(__FILE__))
 
 describe 'apache2::mod_ssl' do
 
@@ -36,7 +36,7 @@ describe 'apache2::mod_ssl' do
 
   subject(:enabled) { file("#{property[:apache][:dir]}/mods-enabled/#{expected_module}.load") }
   it "mods-enabled/#{expected_module}.load is a symlink to mods-available/#{expected_module}.load" do
-    expect(enabled).to be_linked_to("../mods-available/#{expected_module}.load")
+    expect(enabled).to be_linked_to("#{property[:apache][:dir]}/mods-available/#{expected_module}.load")
   end
 
   subject(:loaded_modules) { command("APACHE_LOG_DIR=#{property[:apache][:log_dir]} #{property[:apache][:binary]} -M") }

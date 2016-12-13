@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-platform_path = File.expand_path File.join(File.dirname(__FILE__), '..', 'libraries', 'platforms')
-property = apache_info(platform_path)
+# read platform information, see https://github.com/chef/inspec/issues/1396
+property = apache_info(File.dirname(__FILE__))
 
 describe 'apache2::default' do
 
