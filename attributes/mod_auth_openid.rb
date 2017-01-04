@@ -31,7 +31,7 @@ default['apache']['mod_auth_openid']['configure_flags'] =
   when 'freebsd'
     [
       'CPPFLAGS=-I/usr/local/include',
-      'LDFLAGS=-I/usr/local/lib -lsqlite3'
+      'LDFLAGS=-I/usr/local/lib -lsqlite3',
     ]
   else
     []
