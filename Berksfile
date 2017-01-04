@@ -10,4 +10,4 @@ group :integration do
   cookbook 'zypper', '~> 0.3.0'
 end
 
-cookbook 'apache2_test', :path => 'test/fixtures/cookbooks/apache2_test'
+cookbook 'apache2_test', :path => 'test/cookbooks/apache2_test'

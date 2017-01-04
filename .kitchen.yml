@@ -4,7 +4,6 @@ driver:
 
 provisioner:
   name: chef_zero
-  data_path: test/fixtures
 
 verifier:
   name: inspec
