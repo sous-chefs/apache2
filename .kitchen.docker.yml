@@ -8,9 +8,6 @@ driver:
   privileged: true
   use_sudo: false
 
-provisioner:
-  data_path: test/fixtures
-
 verifier:
   name: inspec
 
