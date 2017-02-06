@@ -17,6 +17,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+  package 'mod24_proxy_html' do
+    notifies :run, 'execute[generate-module-list]', :immediately
+  end
+end
 
 if node['apache']['version'] != '2.4' && node['platform_family'] == 'debian'
   package 'libapache2-mod-proxy-html'

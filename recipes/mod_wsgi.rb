@@ -21,7 +21,12 @@ case node['platform_family']
 when 'debian'
   package 'libapache2-mod-wsgi'
 when 'rhel', 'fedora', 'arch'
-  package 'mod_wsgi' do
+  package_name = 'mod_wsgi'
+  if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+    package_name = 'mod24_wsgi'
+  end
+
+  package package_name do
     notifies :run, 'execute[generate-module-list]', :immediately
   end
 end
