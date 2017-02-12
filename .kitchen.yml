@@ -4,7 +4,9 @@ driver:
 
 provisioner:
   name: chef_zero
-  data_path: test/fixtures
+
+verifier:
+  name: inspec
 
 platforms:
 - name: centos-7.2
@@ -80,6 +82,9 @@ suites:
 # - recipe[apache2_test::mod_proxy_ajp]
   - recipe[apache2_test::mod_python]
   - recipe[apache2_test::mod_ssl]
+  verifier:
+    inspec_tests:
+      - test/integration/default/inspec/localhost
 - name: worker
   includes: [
     'centos-7.2',

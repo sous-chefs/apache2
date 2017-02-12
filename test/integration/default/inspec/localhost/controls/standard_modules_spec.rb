@@ -13,7 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
+
+# read platform information, see https://github.com/chef/inspec/issues/1396
+property = apache_info(File.dirname(__FILE__))
 
 property[:apache][:default_modules].each do |expected_module|
   expected_module = 'authz_default' if expected_module == 'authz_core' &&  property[:apache][:version] != '2.4'
@@ -21,13 +23,13 @@ property[:apache][:default_modules].each do |expected_module|
     subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
     it "mods-available/#{expected_module}.load is accurate" do
       expect(available).to be_file
-      expect(available).to be_mode 644
+      expect(available).to be_mode 0644
       expect(available.content).to match "LoadModule #{expected_module}_module #{property[:apache][:libexec_dir]}/mod_#{expected_module}.so\n"
     end
 
     subject(:enabled) { file("#{property[:apache][:dir]}/mods-enabled/#{expected_module}.load") }
     it "mods-enabled/#{expected_module}.load is a symlink to mods-available/#{expected_module}.load" do
-      expect(enabled).to be_linked_to("../mods-available/#{expected_module}.load")
+      expect(enabled).to be_linked_to("#{property[:apache][:dir]}/mods-available/#{expected_module}.load")
     end
 
     subject(:loaded_modules) { command("APACHE_LOG_DIR=#{property[:apache][:log_dir]} #{property[:apache][:binary]} -M") }

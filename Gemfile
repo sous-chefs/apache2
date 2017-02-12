@@ -18,4 +18,5 @@ group :integration do
   gem 'kitchen-ec2', :require => false
   gem 'kitchen-vagrant', '~> 0.20', :require => false
   gem 'test-kitchen', '~> 1.13.2'
+  gem 'kitchen-inspec'
 end

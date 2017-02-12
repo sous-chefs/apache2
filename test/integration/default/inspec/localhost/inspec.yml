@@ -1,0 +1,3 @@
+name: apache2-integration-tests
+title: Integration tests for apache2 cookbook
+summary: This InSpec profile contains integration tests for apache2 cookbook
