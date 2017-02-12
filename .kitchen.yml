@@ -9,25 +9,22 @@ verifier:
   name: inspec
 
 platforms:
-- name: centos-7.2
+- name: centos-7.3
+- name: ubuntu-14.04
   run_list:
-  - recipe[yum]
+  - recipe[apt]
 - name: ubuntu-16.04
   run_list:
   - recipe[apt]
 - name: debian-8.6
   run_list:
   - recipe[apt]
-- name: fedora-24
-  run_list:
-  - recipe[yum::dnf_yum_compat]
+- name: fedora-25
 - name: freebsd-10.3
 - name: amazon
   driver:
     box: mvbcoding/awslinux
 - name: opensuse-13.2
-  run_list:
-  - recipe[zypper]
 
 suites:
 - name: default
@@ -58,7 +55,7 @@ suites:
   - recipe[apache2_test::mod_status_remote]
 - name: prefork
   includes: [
-    'centos-7.2',
+    'centos-7.3',
     'debian-8.6',
     'ubuntu-14.04',
     'ubuntu-16.04'
@@ -87,7 +84,7 @@ suites:
       - test/integration/default/inspec/localhost
 - name: worker
   includes: [
-    'centos-7.2',
+    'centos-7.3',
     'ubuntu-14.04'
   ]
   attributes:
