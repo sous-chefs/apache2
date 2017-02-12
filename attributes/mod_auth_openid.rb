@@ -1,9 +1,9 @@
 #
-# Cookbook Name:: apache2
+# Cookbook:: apache2
 # Attributes:: mod_auth_openid
 #
-# Copyright 2013, Chef Software, Inc.
-# Copyright 2014-2016, Alexander van Zoest
+# Copyright:: 2013, Chef Software, Inc.
+# Copyright:: 2014-2016, Alexander van Zoest
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ default['apache']['mod_auth_openid']['configure_flags'] =
   when 'freebsd'
     [
       'CPPFLAGS=-I/usr/local/include',
-      'LDFLAGS=-I/usr/local/lib -lsqlite3'
+      'LDFLAGS=-I/usr/local/lib -lsqlite3',
     ]
   else
     []

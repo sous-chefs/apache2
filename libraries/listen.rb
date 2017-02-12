@@ -1,9 +1,9 @@
 # encoding: utf-8
 #
-# Cookbook Name:: apache2
+# Cookbook:: apache2
 # Libraries:: listen
 #
-# Copyright 2015, Ontario Systems, LLC
+# Copyright:: 2015, Ontario Systems, LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

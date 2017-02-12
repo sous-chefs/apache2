@@ -1,9 +1,9 @@
 #
-# Cookbook Name:: apache2
+# Cookbook:: apache2
 # Recipe:: default
 #
-# Copyright 2008-2013, Chef Software, Inc.
-# Copyright 2014-2015, Alexander van Zoest
+# Copyright:: 2008-2013, Chef Software, Inc.
+# Copyright:: 2014-2015, Alexander van Zoest
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

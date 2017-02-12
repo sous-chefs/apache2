@@ -8,6 +8,6 @@ def supported_platforms
     'redhat' => ['7.2'],
     'centos' => ['7.2.1511'],
     'freebsd' => ['10.3'],
-    'opensuse' => ['13.2']
+    'opensuse' => ['13.2'],
   }
 end
