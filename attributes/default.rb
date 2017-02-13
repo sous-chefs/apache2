@@ -31,7 +31,7 @@ default['apache']['mpm'] =
         'prefork'
       end
     when 'debian'
-      node['platform_version'].to_f >= 7.0 ? 'worker' : 'prefork'
+      node['platform_version'].to_i >= 7 ? 'worker' : 'prefork'
     when 'linuxmint'
       node['platform_version'].to_i >= 17 ? 'event' : 'prefork'
     else
@@ -52,9 +52,9 @@ default['apache']['version'] =
     when 'ubuntu'
       node['platform_version'].to_f >= 13.10 ? '2.4' : '2.2'
     when 'linuxmint'
-      node['platform_version'].to_i >= 16 ? '2.4' : '2.2'
+      node['platform_version'].to_i >= 16 ? '2.4' : '2.2' # this can go away 4/17
     when 'debian', 'raspbian'
-      node['platform_version'].to_f >= 8.0 ? '2.4' : '2.2'
+      node['platform_version'].to_i >= 8 ? '2.4' : '2.2'
     else
       '2.4'
     end
@@ -63,10 +63,10 @@ default['apache']['version'] =
     when 'amazon'
       node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
     else
-      node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
+      node['platform_version'].to_i >= 7 ? '2.4' : '2.2'
     end
   when 'fedora'
-    node['platform_version'].to_f >= 18 ? '2.4' : '2.2'
+    '2.4'
   when 'suse'
     case node['platform']
     when 'suse'
@@ -75,7 +75,7 @@ default['apache']['version'] =
       '2.4'
     end
   when 'freebsd'
-    node['platform_version'].to_f >= 10.0 ? '2.4' : '2.2'
+    node['platform_version'].to_i >= 10 ? '2.4' : '2.2'
   else
     '2.4'
   end
@@ -84,8 +84,8 @@ default['apache']['root_group'] = 'root'
 default['apache']['default_site_name'] = 'default'
 
 # Where the various parts of apache are
-case node['platform']
-when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
+case node['platform_family']
+when 'rhel', 'fedora'
   if node['platform'] == 'amazon'
     if node['apache']['version'] == '2.4'
       default['apache']['package'] = 'httpd24'
@@ -128,7 +128,7 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
     end
   default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
-when 'suse', 'opensuse', 'opensuseleap'
+when 'suse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] = 'httpd-devel'
@@ -155,7 +155,7 @@ when 'suse', 'opensuse', 'opensuseleap'
     end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
-when 'debian', 'ubuntu'
+when 'debian'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] =
