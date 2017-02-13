@@ -17,13 +17,19 @@
 # limitations under the License.
 #
 
-define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => true, :server_port => 80 do
+define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => true, :server_port => 80, :modules => %w(rewrite deflate headers) do
   application_name = params[:name]
 
   include_recipe 'apache2::default'
-  include_recipe 'apache2::mod_rewrite'
-  include_recipe 'apache2::mod_deflate'
-  include_recipe 'apache2::mod_headers'
+  params[:modules].each do |name|
+    if name.include? '::'
+      include_recipe name
+    elsif name.start_with? 'mod_'
+      include_recipe "apache2::#{name}"
+    else
+      include_recipe "apache2::mod_#{name}"
+    end
+  end
 
   template "#{node['apache']['dir']}/sites-available/#{application_name}.conf" do
     source params[:template]
