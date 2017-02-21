@@ -66,7 +66,7 @@ default['apache']['version'] =
       node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
     end
   when 'fedora'
-    node['platform_version'].to_f >= 18 ? '2.4' : '2.2'
+    '2.4'
   when 'suse'
     case node['platform']
     when 'suse'
@@ -75,8 +75,6 @@ default['apache']['version'] =
       '2.4'
     end
   when 'freebsd'
-    node['platform_version'].to_f >= 10.0 ? '2.4' : '2.2'
-  else
     '2.4'
   end
 
@@ -213,29 +211,16 @@ when 'arch'
   default['apache']['lib_dir']     = '/usr/lib/httpd'
   default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'freebsd'
-  if node['apache']['version'] == '2.4'
-    default['apache']['package']     = 'apache24'
-    default['apache']['dir']         = '/usr/local/etc/apache24'
-    default['apache']['conf_dir']    = '/usr/local/etc/apache24'
-    default['apache']['docroot_dir'] = '/usr/local/www/apache24/data'
-    default['apache']['cgibin_dir']  = '/usr/local/www/apache24/cgi-bin'
-    default['apache']['icondir']     = '/usr/local/www/apache24/icons'
-    default['apache']['cache_dir']   = '/var/cache/apache24'
-    default['apache']['run_dir']     = '/var/run'
-    default['apache']['lock_dir']    = '/var/run'
-    default['apache']['lib_dir']     = '/usr/local/libexec/apache24'
-  else
-    default['apache']['package']     = 'apache22'
-    default['apache']['dir']         = '/usr/local/etc/apache22'
-    default['apache']['conf_dir']    = '/usr/local/etc/apache22'
-    default['apache']['docroot_dir'] = '/usr/local/www/apache22/data'
-    default['apache']['cgibin_dir']  = '/usr/local/www/apache22/cgi-bin'
-    default['apache']['icondir']     = '/usr/local/www/apache22/icons'
-    default['apache']['cache_dir']   = '/var/cache/apache22'
-    default['apache']['run_dir']     = '/var/run'
-    default['apache']['lock_dir']    = '/var/run'
-    default['apache']['lib_dir']     = '/usr/local/libexec/apache22'
-  end
+  default['apache']['package']     = 'apache24'
+  default['apache']['dir']         = '/usr/local/etc/apache24'
+  default['apache']['conf_dir']    = '/usr/local/etc/apache24'
+  default['apache']['docroot_dir'] = '/usr/local/www/apache24/data'
+  default['apache']['cgibin_dir']  = '/usr/local/www/apache24/cgi-bin'
+  default['apache']['icondir']     = '/usr/local/www/apache24/icons'
+  default['apache']['cache_dir']   = '/var/cache/apache24'
+  default['apache']['run_dir']     = '/var/run'
+  default['apache']['lock_dir']    = '/var/run'
+  default['apache']['lib_dir']     = '/usr/local/libexec/apache24'
   default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['perl_pkg']    = 'perl5'
   default['apache']['apachectl']   = '/usr/local/sbin/apachectl'
