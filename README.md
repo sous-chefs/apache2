@@ -72,15 +72,16 @@ performs `pacman -Sy` to keep pacman's package cache updated.
 The following platforms and versions are tested and supported using
 [test-kitchen](http://kitchen.ci/)
 
+* Ubuntu 14.04
 * Ubuntu 16.04
 * Debian 8.6
-* CentOS 7.2
+* CentOS 7.3
+* Fedora 25
 
 The following platform families are supported in the code, and are
 assumed to work based on the successful testing on Ubuntu and CentOS.
 
 * Red Hat (rhel)
-* Fedora
 
 The following platforms are also supported in the code, have been
 tested manually but are not regularly tested under test-kitchen.
@@ -102,7 +103,7 @@ Usage
 =====
 
 Using this cookbook is relatively straightforward. It is recommended to create
-a project or organization specific [wrapper cookbook](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/) 
+a project or organization specific [wrapper cookbook](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/)
 and add the desired recipes to the run list of a node, or create a role. Depending on your
 environment, you may have multiple roles that use different recipes
 from this cookbook. Adjust any attributes as desired. For example, to
@@ -383,7 +384,7 @@ Definitions
 ===========
 
 The cookbook provides a few definitions. At some point in the future
-these definitions will be refactored into custom resources see 
+these definitions will be refactored into custom resources see
 [issue 414](https://github.com/sous-chefs/apache2/issues/414).
 
 apache\_conf
