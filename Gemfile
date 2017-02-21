@@ -13,10 +13,10 @@ group :unit do
 end
 
 group :integration do
-  gem 'kitchen-digitalocean', :require => false
-  gem 'kitchen-docker', :require => false
-  gem 'kitchen-ec2', :require => false
-  gem 'kitchen-vagrant', '~> 0.20', :require => false
+  gem 'kitchen-digitalocean', require: false
+  gem 'kitchen-docker', require: false
+  gem 'kitchen-ec2', require: false
+  gem 'kitchen-vagrant', '~> 0.20', require: false
   gem 'test-kitchen', '~> 1.13.2'
   gem 'kitchen-inspec'
 end

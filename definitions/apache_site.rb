@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-define :apache_site, :enable => true do
+define :apache_site, enable: true do
   include_recipe 'apache2::default'
   conf_name = "#{params[:name]}.conf"
 

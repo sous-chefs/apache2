@@ -11,7 +11,7 @@ describe 'apache2::default' do
   supported_platforms.each do |platform, versions|
     versions.each do |version|
       context "on #{platform.capitalize} #{version}" do
-        property = load_platform_properties(:platform => platform, :platform_version => version)
+        property = load_platform_properties(platform: platform, platform_version: version)
 
         let(:chef_run) do
           @chef_run
@@ -19,7 +19,7 @@ describe 'apache2::default' do
 
         context 'with valid apache configuration' do
           before(:context) do
-            @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
+            @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version)
             stub_command("#{property[:apache][:binary]} -t").and_return(true)
             @chef_run.converge(described_recipe)
           end
@@ -30,29 +30,29 @@ describe 'apache2::default' do
 
           it "creates #{property[:apache][:log_dir]} directory" do
             expect(chef_run).to create_directory(property[:apache][:log_dir]).with(
-              :mode => '0755'
+              mode: '0755'
             )
 
             expect(chef_run).to_not create_directory(property[:apache][:log_dir]).with(
-              :mode => '0777'
+              mode: '0777'
             )
           end
 
           it "deletes #{property[:apache][:dir]}/conf.d" do
-            expect(chef_run).to delete_directory("#{property[:apache][:dir]}/conf.d").with(:recursive => true)
-            expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d").with(:recursive => false)
+            expect(chef_run).to delete_directory("#{property[:apache][:dir]}/conf.d").with(recursive: true)
+            expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d").with(recursive: false)
           end
 
           %w(sites-available sites-enabled mods-available mods-enabled conf-enabled conf-available).each do |dir|
             it "creates #{property[:apache][:dir]}/#{dir} directory" do
               expect(chef_run).to create_directory("#{property[:apache][:dir]}/#{dir}").with(
-                :mode => '0755',
-                :owner => 'root',
-                :group => property[:apache][:root_group]
+                mode: '0755',
+                owner: 'root',
+                group: property[:apache][:root_group]
               )
 
               expect(chef_run).to_not create_directory("#{property[:apache][:dir]}/#{dir}").with(
-                :mode => '0777'
+                mode: '0777'
               )
             end
           end
@@ -70,9 +70,9 @@ describe 'apache2::default' do
           if %w(amazon redhat centos fedora arch suse freebsd).include?(platform)
             it 'creates /usr/local/bin/apache2_module_conf_generate.pl' do
               expect(chef_run).to create_cookbook_file('/usr/local/bin/apache2_module_conf_generate.pl').with(
-                :mode =>  '0755',
-                :owner => 'root',
-                :group => property[:apache][:root_group]
+                mode: '0755',
+                owner: 'root',
+                group: property[:apache][:root_group]
               )
               expect(chef_run).to_not create_cookbook_file('/usr/bin/apache2_module_conf_generate.pl')
             end
@@ -92,10 +92,10 @@ describe 'apache2::default' do
 
           it "creates #{property[:apache][:conf]}" do
             expect(chef_run).to create_template(property[:apache][:conf]).with(
-              :source => 'apache2.conf.erb',
-              :owner => 'root',
-              :group => property[:apache][:root_group],
-              :mode =>  '0644'
+              source: 'apache2.conf.erb',
+              owner: 'root',
+              group: property[:apache][:root_group],
+              mode: '0644'
             )
             expect(chef_run).to render_file(property[:apache][:conf]).with_content(/AccessFileName[\s]*\.htaccess/)
             expect(chef_run).to render_file(property[:apache][:conf]).with_content(/Files ~ \"\^\\\.ht\"/)
@@ -111,10 +111,10 @@ describe 'apache2::default' do
           if %w(debian ubuntu).include?(platform)
             it "creates #{property[:apache][:dir]}/envvars" do
               expect(chef_run).to create_template("#{property[:apache][:dir]}/envvars").with(
-                :source => 'envvars.erb',
-                :owner => 'root',
-                :group => property[:apache][:root_group],
-                :mode =>  '0644'
+                source: 'envvars.erb',
+                owner: 'root',
+                group: property[:apache][:root_group],
+                mode: '0644'
               )
             end
 
@@ -126,10 +126,10 @@ describe 'apache2::default' do
           else
             it "does not create #{property[:apache][:dir]}/envvars" do
               expect(chef_run).to_not create_template("#{property[:apache][:dir]}/envvars").with(
-                :source => 'envvars.erb',
-                :owner => 'root',
-                :group => property[:apache][:root_group],
-                :mode =>  '0644'
+                source: 'envvars.erb',
+                owner: 'root',
+                group: property[:apache][:root_group],
+                mode: '0644'
               )
             end
           end
@@ -141,11 +141,11 @@ describe 'apache2::default' do
 
             it "creates #{property[:apache][:dir]}/conf-available/#{config}.conf" do
               expect(chef_run).to create_template("#{property[:apache][:dir]}/conf-available/#{config}.conf").with(
-                :source => "#{config}.conf.erb",
-                :owner => 'root',
-                :group => property[:apache][:root_group],
-                :mode => '0644',
-                :backup => false
+                source: "#{config}.conf.erb",
+                owner: 'root',
+                group: property[:apache][:root_group],
+                mode: '0644',
+                backup: false
               )
             end
 
@@ -168,10 +168,10 @@ describe 'apache2::default' do
 
           it "creates #{property[:apache][:dir]}/ports.conf" do
             expect(chef_run).to create_template("#{property[:apache][:dir]}/ports.conf").with(
-              :source => 'ports.conf.erb',
-              :owner => 'root',
-              :group => property[:apache][:root_group],
-              :mode =>  '0644'
+              source: 'ports.conf.erb',
+              owner: 'root',
+              group: property[:apache][:root_group],
+              mode: '0644'
             )
           end
 
@@ -188,10 +188,10 @@ describe 'apache2::default' do
           if %w(amazon redhat centos fedora suse opensuse).include?(platform)
             it "creates /etc/sysconfig/#{property[:apache][:package]}" do
               expect(chef_run).to create_template("/etc/sysconfig/#{property[:apache][:package]}").with(
-                :source => 'etc-sysconfig-httpd.erb',
-                :owner => 'root',
-                :group => property[:apache][:root_group],
-                :mode =>  '0644'
+                source: 'etc-sysconfig-httpd.erb',
+                owner: 'root',
+                group: property[:apache][:root_group],
+                mode: '0644'
               )
 
               expect(chef_run).to render_file("/etc/sysconfig/#{property[:apache][:package]}").with_content(
@@ -207,10 +207,10 @@ describe 'apache2::default' do
           else
             it "does not create /etc/sysconfig/#{property[:apache][:package]}" do
               expect(chef_run).to_not create_template("/etc/sysconfig/#{property[:apache][:package]}").with(
-                :source => 'etc-sysconfig-httpd.erb',
-                :owner => 'root',
-                :group => property[:apache][:root_group],
-                :mode =>  '0644'
+                source: 'etc-sysconfig-httpd.erb',
+                owner: 'root',
+                group: property[:apache][:root_group],
+                mode: '0644'
               )
 
               expect(chef_run).to_not render_file("/etc/sysconfig/#{property[:apache][:package]}").with_content(
@@ -234,9 +234,9 @@ describe 'apache2::default' do
           ).each do |path|
             it "creates #{path} directory" do
               expect(chef_run).to create_directory(path).with(
-                :mode => '0755',
-                :owner => 'root',
-                :group => property[:apache][:root_group]
+                mode: '0755',
+                owner: 'root',
+                group: property[:apache][:root_group]
               )
             end
           end
@@ -266,18 +266,18 @@ describe 'apache2::default' do
 
           it 'enables and starts the apache2 service' do
             expect(chef_run).to enable_service('apache2').with(
-              :service_name => property[:apache][:service_name],
-              :restart_command => property[:apache][:service_restart_command],
-              :reload_command => property[:apache][:service_reload_command],
-              :supports => { :start => true, :restart => true, :reload => true, :status => true },
-              :action => [:enable, :start]
+              service_name: property[:apache][:service_name],
+              restart_command: property[:apache][:service_restart_command],
+              reload_command: property[:apache][:service_reload_command],
+              supports: { start: true, restart: true, reload: true, status: true },
+              action: [:enable, :start]
             )
           end
         end
 
         context 'with custom AccessFileName' do
           before(:context) do
-            @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
+            @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
               node.normal['apache']['access_file_name'] = '.customaccess'
             end
 
@@ -287,10 +287,10 @@ describe 'apache2::default' do
 
           it "creates #{property[:apache][:conf]}" do
             expect(chef_run).to create_template(property[:apache][:conf]).with(
-              :source => 'apache2.conf.erb',
-              :owner => 'root',
-              :group => property[:apache][:root_group],
-              :mode =>  '0644'
+              source: 'apache2.conf.erb',
+              owner: 'root',
+              group: property[:apache][:root_group],
+              mode: '0644'
             )
             expect(chef_run).to render_file(property[:apache][:conf]).with_content(/AccessFileName[\s]*\.customaccess/)
             expect(chef_run).to render_file(property[:apache][:conf]).with_content(/Files ~ \"\^\(\.cu\|\\\.ht\)\"/)
@@ -299,7 +299,7 @@ describe 'apache2::default' do
 
         context 'with custom LogLevel' do
           before(:context) do
-            @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
+            @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
               node.normal['apache']['log_level'] = 'error'
             end
 
@@ -309,10 +309,10 @@ describe 'apache2::default' do
 
           it "creates #{property[:apache][:conf]}" do
             expect(chef_run).to create_template(property[:apache][:conf]).with(
-              :source => 'apache2.conf.erb',
-              :owner => 'root',
-              :group => property[:apache][:root_group],
-              :mode =>  '0644'
+              source: 'apache2.conf.erb',
+              owner: 'root',
+              group: property[:apache][:root_group],
+              mode: '0644'
             )
             expect(chef_run).to render_file(property[:apache][:conf]).with_content(/LogLevel error/)
           end
@@ -320,18 +320,18 @@ describe 'apache2::default' do
 
         context 'with invalid apache configuration' do
           before(:context) do
-            @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
+            @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version)
             stub_command("#{property[:apache][:binary]} -t").and_return(false)
             @chef_run.converge(described_recipe)
           end
 
           it 'does not enable/start apache2 service' do
             expect(chef_run).to_not enable_service('apache2').with(
-              :service_name => property[:apache][:service_name],
-              :restart_command => property[:apache][:service_restart_command],
-              :reload_command => property[:apache][:service_reload_command],
-              :supports => { :start => true, :restart => true, :reload => true, :status => true },
-              :action => [:enable, :start]
+              service_name: property[:apache][:service_name],
+              restart_command: property[:apache][:service_restart_command],
+              reload_command: property[:apache][:service_reload_command],
+              supports: { start: true, restart: true, reload: true, status: true },
+              action: [:enable, :start]
             )
           end
         end

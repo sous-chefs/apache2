@@ -6,10 +6,10 @@ describe 'apache2::mod_php' do
       context "on #{platform.capitalize} #{version}" do
         let(:chef_run) { @chef_run }
 
-        property = load_platform_properties(:platform => platform, :platform_version => version)
+        property = load_platform_properties(platform: platform, platform_version: version)
 
         before(:context) do
-          @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
+          @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
             node.normal['apache']['mpm'] = 'prefork'
           end
 
@@ -64,7 +64,7 @@ describe 'apache2::mod_php' do
         if %w(redhat fedora suse opensuse).include?(platform)
           it 'stubs [apache.dir]/conf.d/php.conf' do
             expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/php.conf")
-              .with(:content => '# conf is under mods-available/php.conf - apache2 cookbook\n')
+              .with(content: '# conf is under mods-available/php.conf - apache2 cookbook\n')
           end
         end
         it_behaves_like 'an apache2 module', property[:apache][:mod_php][:module_name], false, property[:apache][:mod_php][:so_filename]

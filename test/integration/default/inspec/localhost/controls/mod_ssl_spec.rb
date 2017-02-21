@@ -18,7 +18,6 @@
 property = apache_info(File.dirname(__FILE__))
 
 describe 'apache2::mod_ssl' do
-
   # it 'installs the mod_ssl package on RHEL distributions' do
   #   skip unless %w(rhel fedora).include?(node['platform_family'])
   #   describe package('mod_ssl') do

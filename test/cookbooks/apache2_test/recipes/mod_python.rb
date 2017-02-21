@@ -20,9 +20,7 @@ if node['apache']['version'] == '2.4' && %w(rhel fedora).include?(node['platform
   Chef::Log.warn('The rhel and fedora platforms do not have a package for mod_python. This cookbook will not attempt to test compatability.')
 else
   include_recipe 'apache2::default'
-  if platform_family?('rhel')
-    include_recipe 'yum-epel'
-  end
+  include_recipe 'yum-epel' if platform_family?('rhel')
   include_recipe 'apache2::mod_python'
 
   directory node['apache_test']['app_dir'] do
@@ -31,7 +29,7 @@ else
   end
 
   file "#{node['apache_test']['app_dir']}/python.py" do
-    content %q{
+    content '
   #!/usr/bin/python
   import sys
   sys.stderr = sys.stdout
@@ -42,7 +40,7 @@ else
   print
   for k in sorted(os.environ):
     print "%s=%s" %(escape(k), escape(os.environ[k]))
-  }.strip
+  '.strip
     mode '0755'
     action :create
   end

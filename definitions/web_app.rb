@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => true, :server_port => 80 do
+define :web_app, template: 'web_app.conf.erb', local: false, enable: true, server_port: 80 do
   application_name = params[:name]
 
   include_recipe 'apache2::default'
@@ -33,8 +33,8 @@ define :web_app, :template => 'web_app.conf.erb', :local => false, :enable => tr
     mode '0644'
     cookbook params[:cookbook] if params[:cookbook]
     variables(
-      :application_name => application_name,
-      :params           => params
+      application_name: application_name,
+      params: params
     )
     if ::File.exist?("#{node['apache']['dir']}/sites-enabled/#{application_name}.conf")
       notifies :reload, 'service[apache2]', :delayed

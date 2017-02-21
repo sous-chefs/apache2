@@ -19,8 +19,8 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, a2filename = nil
   if module_conf == true
     it "creates <apache_dir>/mods-available/#{module_name}.conf" do
       expect(chef_run).to create_template("#{chef_run.node['apache']['dir']}/mods-available/#{module_name}.conf").with(
-        :source => "mods/#{module_name}.conf.erb",
-        :mode => '0644'
+        source: "mods/#{module_name}.conf.erb",
+        mode: '0644'
       )
     end
 
@@ -33,8 +33,8 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, a2filename = nil
 
   it "creates <apache_dir>/mods-available/#{module_name}.load" do
     expect(chef_run).to create_file("#{chef_run.node['apache']['dir']}/mods-available/#{module_name}.load").with(
-      :content => "LoadModule #{module_name}_module #{chef_run.node['apache']['libexec_dir']}/#{module_filename}\n",
-      :mode => '0644'
+      content: "LoadModule #{module_name}_module #{chef_run.node['apache']['libexec_dir']}/#{module_filename}\n",
+      mode: '0644'
     )
   end
 
@@ -45,8 +45,8 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, a2filename = nil
       allow(::File).to receive(:symlink?).with("#{chef_run.node['apache']['dir']}/mods-enabled/#{module_name}.load").and_return(false)
       # (::File.exists?("#{chef_run.node[:apache][:dir]}/mods-available/#{params[:name]}.conf") ? ::File.symlink?("#{node[:apache][:dir]}/mods-enabled/#{params[:name]}.conf") : true)
       # allow(::File).to receive(:exists?).with("#{chef_run.node[:apache][:dir]}/mods-available/#{module_name}.conf").and_return(false)
-      expect(chef_run).to run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2enmod #{module_name}")
-      expect(chef_run).to_not run_execute("a2enmod #{module_name}").with(:command => "/usr/sbin/a2dismod #{module_name}")
+      expect(chef_run).to run_execute("a2enmod #{module_name}").with(command: "/usr/sbin/a2enmod #{module_name}")
+      expect(chef_run).to_not run_execute("a2enmod #{module_name}").with(command: "/usr/sbin/a2dismod #{module_name}")
     end
 
     let(:execute) { chef_run.execute("a2enmod #{module_name}") }
@@ -62,8 +62,8 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, a2filename = nil
   else
     it "runs a2dismod #{module_name}" do
       allow(::File).to receive(:symlink?).with("#{chef_run.node['apache']['dir']}/mods-enabled/#{module_name}.load").and_return(true)
-      expect(chef_run).to run_execute("a2dismod #{module_name}").with(:command => "/usr/sbin/a2dismod #{module_name}")
-      expect(chef_run).to_not run_execute("a2dismod #{module_name}").with(:command => "/usr/sbin/a2enmod #{module_name}")
+      expect(chef_run).to run_execute("a2dismod #{module_name}").with(command: "/usr/sbin/a2dismod #{module_name}")
+      expect(chef_run).to_not run_execute("a2dismod #{module_name}").with(command: "/usr/sbin/a2enmod #{module_name}")
     end
     let(:execute) { chef_run.execute("a2dismod #{module_name}") }
     it "notification is triggered by a2dismod #{module_name} to reload/restart service[apache2]" do

@@ -8,10 +8,10 @@ describe 'apache2::mod_apreq2' do
           @chef_run
         end
 
-        property = load_platform_properties(:platform => platform, :platform_version => version)
+        property = load_platform_properties(platform: platform, platform_version: version)
 
         before(:context) do
-          @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
+          @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version)
           stub_command("test -f #{property[:apache][:libexec_dir]}/mod_apreq2.so").and_return(true)
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
           @chef_run.converge(described_recipe)
@@ -48,7 +48,7 @@ describe 'apache2::mod_apreq2' do
 
         it "stubs #{property[:apache][:dir]}/conf.d/apreq.conf" do
           expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/apreq.conf")
-            .with(:content => '# conf is under mods-available/apreq.conf - apache2 cookbook\n')
+            .with(content: '# conf is under mods-available/apreq.conf - apache2 cookbook\n')
         end
         it_should_behave_like 'an apache2 module', 'apreq', false
       end

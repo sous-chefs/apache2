@@ -8,10 +8,10 @@ describe 'apache2::mod_xsendfile' do
           @chef_run
         end
 
-        property = load_platform_properties(:platform => platform, :platform_version => version)
+        property = load_platform_properties(platform: platform, platform_version: version)
 
         before(:context) do
-          @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
+          @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version)
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
           @chef_run.converge(described_recipe)
         end
@@ -47,7 +47,7 @@ describe 'apache2::mod_xsendfile' do
 
         it "stubs #{property[:apache][:dir]}/conf.d/xsendfile.conf" do
           expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/xsendfile.conf")
-            .with(:content => '# conf is under mods-available/xsendfile.conf - apache2 cookbook\n')
+            .with(content: '# conf is under mods-available/xsendfile.conf - apache2 cookbook\n')
         end
         it_should_behave_like 'an apache2 module', 'xsendfile', false
       end

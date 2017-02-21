@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-define :apache_module, :enable => true, :conf => false, :restart => false do
+define :apache_module, enable: true, conf: false, restart: false do
   include_recipe 'apache2::default'
 
   params[:filename]    = params[:filename] || "mod_#{params[:name]}.so"

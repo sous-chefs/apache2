@@ -19,9 +19,7 @@
 
 include_recipe 'apache2::default'
 
-if platform_family?('rhel')
-  include_recipe 'yum-epel'
-end
+include_recipe 'yum-epel' if platform_family?('rhel')
 
 if platform_family?('freebsd')
   Chef::Log.warn('The freebsd platform do not have a working package for mod_perl.')

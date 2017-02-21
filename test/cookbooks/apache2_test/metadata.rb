@@ -1,4 +1,4 @@
-name		 'apache2_test'
+name 'apache2_test'
 maintainer       'Andrew Crump'
 maintainer_email 'andrew@kotirisoftware.com'
 license          'Apache 2.0'
@@ -31,6 +31,6 @@ recipe           'apache2_test::mod_python', 'Test example for hosting a Python 
 recipe           'apache2_test::mod_ssl', 'Test example for SSL'
 recipe           'apache2_test::mod_status_remote', 'Test example for viewing server status'
 
-%w{centos ubuntu}.each do |os|
+%w(centos ubuntu).each do |os|
   supports os
 end

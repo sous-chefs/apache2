@@ -44,10 +44,10 @@ describe 'apache2::mod_fastcgi' do
           @chef_run
         end
 
-        property = load_platform_properties(:platform => platform, :platform_version => version)
+        property = load_platform_properties(platform: platform, platform_version: version)
 
         before(:context) do
-          @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
+          @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version)
           stub_command("test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf").and_return(false)
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
           @chef_run.converge(described_recipe)
@@ -70,10 +70,10 @@ describe 'apache2::mod_fastcgi' do
             @chef_run
           end
 
-          property = load_platform_properties(:platform => platform, :platform_version => version)
+          property = load_platform_properties(platform: platform, platform_version: version)
 
           before(:context) do
-            @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version) do |node|
+            @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version) do |node|
               node.normal['apache']['mod_fastcgi']['install_method'] = 'source'
             end
             stub_command("test -f #{property[:apache][:dir]}/mods-available/fastcgi.conf").and_return(false)
