@@ -39,13 +39,13 @@ template ldif_path do
 end
 
 bash 'load-directory-entries' do
-  code %Q{
+  code %(
     ldapsearch -x -D 'cn=admin,#{node['openldap']['basedn']}' -w '#{node['openldap']['rootpw_plain']}' -b '#{node['openldap']['basedn']}'
     if [ $? -ne 0 ]
     then
       ldapadd -x -D 'cn=admin,#{node['openldap']['basedn']}' -w '#{node['openldap']['rootpw_plain']}' -f #{ldif_path}
     fi
-  }
+  )
   action :run
 end
 

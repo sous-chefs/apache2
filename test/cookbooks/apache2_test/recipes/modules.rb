@@ -22,7 +22,7 @@ include_recipe 'apache2::default'
 
 # Duplicates the list in the modules_test minitest, which is
 # distasteful duplication.
-%w{
+%w(
   auth_digest
   dav_fs
   deflate
@@ -34,7 +34,7 @@ include_recipe 'apache2::default'
   proxy_http
   rewrite
   include
-}.each do |a2mod|
+).each do |a2mod|
   if a2mod == 'proxy_balancer' && node['platform_family'] == 'freebsd'
     Chef::Log.warn('The freebsd platform do not have mod_slotmem to enable mod_proxy_balancer.')
   else

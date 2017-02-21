@@ -25,11 +25,11 @@ directory node['apache_test']['cgi_dir'] do
 end
 
 file "#{node['apache_test']['cgi_dir']}/env" do
-  content %q{
+  content %q(
 #!/bin/bash
 echo -e "Content-type: text/plain\n"
 /usr/bin/env
-}.strip
+).strip
   mode '0755'
   action :create
 end

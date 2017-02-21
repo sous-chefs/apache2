@@ -31,15 +31,15 @@ package 'apache2-utils' if platform_family?('debian', 'suse') && node['apache'][
 script 'add-credentials' do
   case node['platform_family']
   when 'suse'
-    code %Q{
+    code %(
       htpasswd2 -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
       htpasswd2 -b #{secure_dir}/.htpasswd meatballs secret
-    }
+    )
   else
-    code %Q{
+    code %(
       htpasswd -b -c #{secure_dir}/.htpasswd #{node['apache_test']['auth_username']} #{node['apache_test']['auth_password']}
       htpasswd -b #{secure_dir}/.htpasswd meatballs secret
-    }
+    )
   end
   interpreter node['platform_family'] == 'freebsd' ? 'csh' : 'bash'
   action :run

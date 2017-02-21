@@ -8,10 +8,10 @@ describe 'apache2::mod_ssl' do
           @chef_run
         end
 
-        property = load_platform_properties(:platform => platform, :platform_version => version)
+        property = load_platform_properties(platform: platform, platform_version: version)
 
         before(:context) do
-          @chef_run = ChefSpec::SoloRunner.new(:platform => platform, :version => version)
+          @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version)
           stub_command("#{property[:apache][:binary]} -t").and_return(true)
           @chef_run.converge(described_recipe)
         end
@@ -28,15 +28,15 @@ describe 'apache2::mod_ssl' do
           end
           it "stubs #{property[:apache][:dir]}/conf.d/ssl.conf" do
             expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/ssl.conf")
-              .with(:content => '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n')
+              .with(content: '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n')
           end
         end
 
         it 'creates /etc/apache2/ports.conf' do
           expect(chef_run).to create_template('ssl_ports.conf').with(
-            :path => "#{property[:apache][:dir]}/ports.conf",
-            :source => 'ports.conf.erb',
-            :mode => '0644'
+            path: "#{property[:apache][:dir]}/ports.conf",
+            source: 'ports.conf.erb',
+            mode: '0644'
           )
         end
 

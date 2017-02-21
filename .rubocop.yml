@@ -1,26 +1,14 @@
-AllCops:
-  Exclude:
-    - vendor/**/*
-    - ruby/**/*
-    - test/**/*
-    - files/**/*
-    - .kitchen/**/*
+# rubocop todo
 
-AlignParameters:
-  Enabled: false
-Encoding:
-  Enabled: false
-UselessAssignment:
-  Enabled: false
-LineLength:
-  Max: 300
-MethodLength:
-  Max: 11
-HashSyntax:
-  Enabled: false
-IfUnlessModifier:
-  Enabled: false
-TrivialAccessors:
-  ExactNameMatch: true
+Lint/UselessAssignment:
+  Exclude:
+    - 'spec/support/shared_examples_for_apache_module.rb'
+    - 'spec/support/supported_platforms.rb'
+
+Style/FormatString:
+  Exclude:
+    - 'test/integration/default/inspec/localhost/libraries/apache_info.rb'
+
 Style/RegexpLiteral:
-  Enabled: false
+  Exclude:
+    - 'test/integration/default/inspec/localhost/controls/mod_include_spec.rb'
