@@ -3,7 +3,7 @@
   IPCConnectTimeout 20
 </IfModule>
 
-<% if %w[rhel fedora].include?(node['platform_family']) -%>
+<% if (node['platform_family'] == 'rhel') && (node['platform_version'].to_i == 6) -%>
 # Sane place to put sockets and shared memory file
 SocketPath run/mod_fcgid
 SharememPath run/mod_fcgid/fcgid_shm
