@@ -28,8 +28,17 @@ elsif platform_family?('rhel', 'fedora')
     content '# conf is under mods-available/fcgid.conf - apache2 cookbook\n'
   end
 
-  if ((node['platform_family'] == 'rhel') && (node['platform_version'].to_i == 6)) ||
-      ((node['platform_family'] == 'fedora') && (node['platform_version'].to_i < 20))
+  # CentOS 7 (and recent Fedoras) have Apache 2.4, where FCGI socket path
+  # and shared memory path is managed adequately without further involvment
+  # neccessary (subdirectory is created under /var/run/httpd).
+  #
+  # However, when the path is specified manually, that subdirectory is NOT
+  # created automatically if it doesn't already exist and Apache fails to
+  # start. Since in recent RHEL systems /var/run is on tmpfs, end result is
+  # that chef-created subdirectory disappears on shutdown, and Apache fails
+  # to start after server reboot. Best to leave out these two settings
+  # unset then.
+  if (node['platform_family'] == 'rhel') && (node['platform_version'].to_i == 6)
     directory '/var/run/httpd/mod_fcgid' do
       owner node['apache']['user']
       group node['apache']['group']
