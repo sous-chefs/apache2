@@ -18,6 +18,7 @@ namespace :style do
     desc 'Run Chef style checks'
     FoodCritic::Rake::LintTask.new(:chef) do |t|
       t.options = {
+        include_rules: 'foodcritic/sc',
         fail_tags: ['any'],
         progress: true,
       }
