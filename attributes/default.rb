@@ -41,6 +41,8 @@ default['apache']['mpm'] =
     'prefork'
   when 'rhel'
     'prefork'
+  when 'amazon'
+    'prefork'
   else
     'prefork'
   end
@@ -58,13 +60,10 @@ default['apache']['version'] =
     else
       '2.4'
     end
+  when 'amazon'
+    node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
   when 'rhel'
-    case node['platform']
-    when 'amazon'
-      node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
-    else
-      node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
-    end
+    node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
   when 'fedora'
     '2.4'
   when 'suse'
@@ -337,15 +336,15 @@ default['apache']['default_modules'] = %w(
 )
 
 %w(log_config logio).each do |log_mod|
-  default['apache']['default_modules'] << log_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
+  default['apache']['default_modules'] << log_mod if %w(rhel amazon fedora suse arch freebsd).include?(node['platform_family'])
 end
 
 if node['apache']['version'] == '2.4'
   %w(unixd).each do |unix_mod|
-    default['apache']['default_modules'] << unix_mod if %w(rhel fedora suse arch freebsd).include?(node['platform_family'])
+    default['apache']['default_modules'] << unix_mod if %w(rhel amazon fedora suse arch freebsd).include?(node['platform_family'])
   end
 
   unless node['platform'] == 'amazon'
-    default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
+    default['apache']['default_modules'] << 'systemd' if %w(rhel fedora amazon).include?(node['platform_family'])
   end
 end

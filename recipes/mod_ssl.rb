@@ -22,7 +22,7 @@ end
 
 include_recipe 'apache2::default'
 
-if platform_family?('rhel', 'fedora', 'suse')
+if platform_family?('rhel', 'fedora', 'suse', 'amazon')
   package node['apache']['mod_ssl']['pkg_name'] do
     notifies :run, 'execute[generate-module-list]', :immediately
     not_if { platform_family?('suse') }

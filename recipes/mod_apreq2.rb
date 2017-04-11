@@ -28,7 +28,7 @@ when 'suse'
   package 'apache2-mod_apreq2' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
   package 'libapreq2' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end

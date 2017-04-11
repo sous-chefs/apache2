@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-if platform_family?('rhel', 'fedora', 'suse', 'arch', 'freebsd')
+if platform_family?('rhel', 'fedora', 'suse', 'arch', 'freebsd', 'amazon')
   apache_module 'logio'
 else
   include_recipe 'apache2::default'

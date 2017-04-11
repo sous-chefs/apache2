@@ -20,7 +20,7 @@
 case node['platform_family']
 when 'debian'
   package 'libapache2-mod-wsgi'
-when 'rhel', 'fedora', 'arch'
+when 'rhel', 'fedora', 'arch', 'amazon'
   package 'mod_wsgi' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end

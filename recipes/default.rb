@@ -144,7 +144,7 @@ template "/etc/sysconfig/#{node['apache']['package']}" do
   group node['apache']['root_group']
   mode '0644'
   notifies :restart, 'service[apache2]', :delayed
-  only_if  { platform_family?('rhel', 'fedora', 'suse') }
+  only_if  { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
 end
 
 template "#{node['apache']['dir']}/envvars" do
@@ -157,7 +157,7 @@ template "#{node['apache']['dir']}/envvars" do
 end
 
 template 'apache2.conf' do
-  if platform_family?('rhel', 'fedora', 'arch', 'freebsd')
+  if platform_family?('rhel', 'amazon', 'fedora', 'arch', 'freebsd')
     path "#{node['apache']['conf_dir']}/httpd.conf"
   elsif platform_family?('debian')
     path "#{node['apache']['conf_dir']}/apache2.conf"

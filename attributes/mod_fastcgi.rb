@@ -24,6 +24,8 @@ default['apache']['mod_fastcgi']['package'] =
   case node['platform_family']
   when 'debian'
     'libapache2-mod-fastcgi'
+  when 'amazon'
+    'mod_fastcgi'
   when 'rhel'
     'mod_fastcgi'
   when 'freebsd'

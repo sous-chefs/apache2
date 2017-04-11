@@ -19,7 +19,7 @@
 
 if platform_family?('debian')
   package 'libapache2-mod-fcgid'
-elsif platform_family?('rhel', 'fedora')
+elsif platform_family?('rhel', 'fedora', 'amazon')
   package 'mod_fcgid' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end

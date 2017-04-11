@@ -36,7 +36,7 @@ when 'suse'
   end
 
   package 'perl-Apache2-Request'
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
   package 'mod_perl' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end

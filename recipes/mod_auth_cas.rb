@@ -45,7 +45,7 @@ else
   when 'debian'
     package 'libapache2-mod-auth-cas'
 
-  when 'rhel', 'fedora'
+  when 'rhel', 'fedora', 'amazon'
     yum_package 'mod_auth_cas' do
       notifies :run, 'execute[generate-module-list]', :immediately
     end

@@ -59,7 +59,7 @@ NameVirtualHost *:<%= node['apache']['default_site_port'] %>
     <% end -%>
   </Directory>
 
-  <% if %w{ rhel fedora }.include?(node['platform_family']) -%>
+  <% if %w{ rhel fedora amazon }.include?(node['platform_family']) -%>
   #
   # This configuration file enables the default "Welcome"
   # page if there is no default index page present for
