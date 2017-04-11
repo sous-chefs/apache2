@@ -4,10 +4,32 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 v3.3.0 (unreleased)
 -------------------
+
+- [GH-474] Update Berksfile to allow fetching of newer
+- [GH-473] Update copyright header format
+- [GH-472] foodcritic: add sous-chefs rules
+- add CODE_OF_CONDUCT
+- [GH-471] FCGI paths should not be messed with on RHEL/CenOS 7. CentOS 7 (and recent Fedoras) have Apache 2.4, where FCGI socket path and shared memory path is managed adequately without further involvment neccessary (subdirectory is created under /var/run/httpd).
+- [GH-470] Remove support for EOL Fedora < 18 / FreeBSD 9
+- [GH-465] Testing updates
+- [GH-469] Use the default cookbook style rules
+- [GH-460] Serverspec to InSpec migration
+- [GH-461] Update comment header format & other cookstyle fixes
+- [GH-454] Test in Travis with Chef-DK and a Rakefile
+- [GH-455] openSUSE Leap has it's own platform name
+- [GH-279] mod_ssl recipe no longer removes yum installed ssl.conf
+- [GH-427] Add option to configure custom log level
+- [GH-450] Ensure the lock_dir is owned by www-data for Apache 2.2 and 2.4 on Debian/Ubuntu
+- Remove mod_auth_openid tests, as it is not part of the ASF release and plan to drop support for it and right now it is failing our tests
+- [GH-440] Update default values in `apache.prefork` section of README
+- [GH-443] fixed typo in copyright year
+- Test on the latest chef with chef-zero
+- Update supported platforms to Ubuntu 16.04, Debian 8.4, Centos 7.2; deprecating Ubuntu 12.04
+- [GH-422] Fix uniq for nil:NilClass error introduced in 3.2.2
+- [GH-423] allow for apache 2.4 usage on rhel < 7.0
 - Cookbook is now part of the sous-chefs, but still maintained by the same folks
-- Added support for Ubuntu 16.04 and Debian 8
-  mod_perl: No longer install libapache2-mpm-prefork
-  mod_php: renamed mod_php5 to more generic mod_php; using php 7.0 where available
+- mod_perl: No longer install libapache2-mpm-prefork
+- mod_php: renamed mod_php5 to more generic mod_php; using php 7.0 where available
 
 v3.2.2 (2016-04-13)
 -------------------
