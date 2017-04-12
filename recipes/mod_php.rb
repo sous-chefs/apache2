@@ -85,6 +85,7 @@ when 'debian'
 when 'rhel', 'fedora', 'suse', 'amazon'
   file "#{node['apache']['dir']}/conf.d/php.conf" do
     content '# conf is under mods-available/php.conf - apache2 cookbook\n'
+    only_if { ::Dir.exist?("#{node['apache']['dir']}/conf.d") }
   end
 end
 

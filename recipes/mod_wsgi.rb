@@ -28,6 +28,7 @@ end
 
 file "#{node['apache']['dir']}/conf.d/wsgi.conf" do
   content '# conf is under mods-available/wsgi.conf - apache2 cookbook\n'
+  only_if { ::Dir.exist?("#{node['apache']['dir']}/conf.d") }
 end
 
 apache_module 'wsgi'

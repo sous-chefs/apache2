@@ -26,6 +26,7 @@ elsif platform_family?('rhel', 'fedora', 'amazon')
 
   file "#{node['apache']['dir']}/conf.d/fcgid.conf" do
     content '# conf is under mods-available/fcgid.conf - apache2 cookbook\n'
+    only_if { ::Dir.exist?("#{node['apache']['dir']}/conf.d") }
   end
 
   # CentOS 7 (and recent Fedoras) have Apache 2.4, where FCGI socket path

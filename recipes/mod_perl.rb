@@ -53,6 +53,7 @@ end
 
 file "#{node['apache']['dir']}/conf.d/perl.conf" do
   content '# conf is under mods-available/perl.conf - apache2 cookbook\n'
+  only_if { ::Dir.exist?("#{node['apache']['dir']}/conf.d") }
 end
 
 apache_module 'perl'

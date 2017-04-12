@@ -44,11 +44,6 @@ end
   end
 end
 
-directory "#{node['apache']['dir']}/conf.d" do
-  action :delete
-  recursive true
-end
-
 directory node['apache']['log_dir'] do
   mode '0755'
   recursive true
