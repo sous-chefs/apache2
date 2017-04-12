@@ -11,9 +11,12 @@ describe 'apache2::mod_xsendfile' do
         property = load_platform_properties(platform: platform, platform_version: version)
 
         before(:context) do
-          @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version)
-          stub_command("#{property[:apache][:binary]} -t").and_return(true)
-          @chef_run.converge(described_recipe)
+          RSpec::Mocks.with_temporary_scope do
+            @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version)
+            stub_command("#{property[:apache][:binary]} -t").and_return(true)
+            allow(Dir).to receive(:exist?).with("#{property[:apache][:dir]}/conf.d").and_return(true)
+            @chef_run.converge(described_recipe)
+          end
         end
 
         if %w(amazon redhat centos fedora arch).include?(platform)
