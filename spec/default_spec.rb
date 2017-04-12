@@ -38,11 +38,6 @@ describe 'apache2::default' do
             )
           end
 
-          it "deletes #{property[:apache][:dir]}/conf.d" do
-            expect(chef_run).to delete_directory("#{property[:apache][:dir]}/conf.d").with(recursive: true)
-            expect(chef_run).to_not delete_file("#{property[:apache][:dir]}/conf.d").with(recursive: false)
-          end
-
           %w(sites-available sites-enabled mods-available mods-enabled conf-enabled conf-available).each do |dir|
             it "creates #{property[:apache][:dir]}/#{dir} directory" do
               expect(chef_run).to create_directory("#{property[:apache][:dir]}/#{dir}").with(
