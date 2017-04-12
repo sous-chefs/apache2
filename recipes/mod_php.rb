@@ -38,7 +38,7 @@ when 'arch'
   package 'php-apache' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end
-when 'rhel'
+when 'rhel', 'amazon'
   package 'which'
   package 'php package' do
     if node['platform_version'].to_f < 6.0 && node['platform'] != 'amazon'
@@ -82,7 +82,7 @@ when 'debian'
   file "#{node['apache']['dir']}/mods-available/php7.0.load" do
     content '# conf is under mods-available/php.load - apache2 cookbook\n'
   end
-when 'rhel', 'fedora', 'suse'
+when 'rhel', 'fedora', 'suse', 'amazon'
   file "#{node['apache']['dir']}/conf.d/php.conf" do
     content '# conf is under mods-available/php.conf - apache2 cookbook\n'
   end

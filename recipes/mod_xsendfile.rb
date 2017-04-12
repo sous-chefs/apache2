@@ -24,7 +24,7 @@ when 'suse'
   end
 when 'debian'
   package 'libapache2-mod-xsendfile'
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
   package 'mod_xsendfile' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end

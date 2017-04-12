@@ -20,7 +20,7 @@
 openid_dev_pkgs = value_for_platform_family(
   'debian'        => %W(automake make g++ #{node['apache']['devel_package']} libopkele-dev libopkele3 libtool),
   'suse'          => %W(automake make g++ #{node['apache']['devel_package']} libopkele-dev libopkele3 libtool),
-  %w(rhel fedora) => %W(gcc-c++ #{node['apache']['devel_package']} curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make libtool),
+  %w(rhel fedora amazon) => %W(gcc-c++ #{node['apache']['devel_package']} curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make libtool),
   'arch'          => %w(libopkele),
   'freebsd'       => %w(libopkele pcre sqlite3)
 )
@@ -44,7 +44,7 @@ else
 end
 
 case node['platform_family']
-when 'rhel', 'fedora'
+when 'rhel', 'fedora', 'amazon'
   remote_file "#{Chef::Config['file_cache_path']}/libopkele-2.0.4.tar.gz" do
     source 'http://kin.klever.net/dist/libopkele-2.0.4.tar.gz'
     mode '0644'
