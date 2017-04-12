@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 v3.3.0 (unreleased)
 -------------------
 
+- [GH-478] Added support for the amazon platform_family, outside of rhel
 - [GH-474] Update Berksfile to allow fetching of newer
 - [GH-473] Update copyright header format
 - [GH-472] foodcritic: add sous-chefs rules
