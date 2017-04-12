@@ -18,7 +18,7 @@ v3.3.0 (unreleased)
 - [GH-461] Update comment header format & other cookstyle fixes
 - [GH-454] Test in Travis with Chef-DK and a Rakefile
 - [GH-455] openSUSE Leap has it's own platform name
-- [GH-279] mod_ssl recipe no longer removes yum installed ssl.conf
+- [GH-279] leave stubs for rhel family `conf.d` files to avoid conflicts on package upgrade; no longer remove `conf.d`, just don't use it
 - [GH-427] Add option to configure custom log level
 - [GH-450] Ensure the lock_dir is owned by www-data for Apache 2.2 and 2.4 on Debian/Ubuntu
 - Remove mod_auth_openid tests, as it is not part of the ASF release and plan to drop support for it and right now it is failing our tests
