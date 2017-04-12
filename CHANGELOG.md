@@ -2,7 +2,7 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
-v3.3.0 (unreleased)
+v3.3.0 (2017-04-11)
 -------------------
 
 - [GH-478] Added support for the amazon platform_family, outside of rhel
