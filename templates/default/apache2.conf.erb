@@ -175,11 +175,9 @@ Include <%= node['apache']['dir'] %>/ports.conf
 # The following directives define some format nicknames for use with
 # a CustomLog directive (see below).
 #
-LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
-LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
-LogFormat "%h %l %u %t \"%r\" %>s %b" common
-LogFormat "%{Referer}i -> %U" referer
-LogFormat "%{User-agent}i" agent
+<% node['apache']['logformat'].each do |log_alias, log_format| %>
+LogFormat <%= log_format %> <%= log_alias %>
+<% end %>
 #
 <% if node['apache']['version'] == '2.2' -%>
 # Customizable error responses come in three flavors:
