@@ -283,6 +283,9 @@ default['apache']['access_file_name'] = '.htaccess'
 default['apache']['default_release'] = nil
 default['apache']['log_level'] = 'warn'
 
+default['apache']['directives'] = []
+default['apache']['directives_options'] = {}
+
 # Security
 default['apache']['servertokens']    = 'Prod'
 default['apache']['serversignature'] = 'On'
