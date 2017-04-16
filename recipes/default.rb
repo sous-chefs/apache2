@@ -50,7 +50,7 @@ directory node['apache']['log_dir'] do
 end
 
 # perl is needed for the a2* scripts
-package node['apache']['perl_pkg']
+package node['apache']['perl_pkg'] unless node['apache']['perl_pkg'].nil?
 
 package 'perl-Getopt-Long-Descriptive' if platform?('fedora')
 
