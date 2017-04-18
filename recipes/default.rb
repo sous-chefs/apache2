@@ -210,6 +210,10 @@ service 'apache2' do
     end
   when 'debian'
     provider Chef::Provider::Service::Debian
+  when 'ubuntu'
+    if node["platform_version"].to_f >= 14.04
+      provider Chef::Provider::Service::Upstart
+    end
   when 'arch'
     service_name apache_service_name
   end
