@@ -133,7 +133,7 @@ directory node['apache']['lock_dir'] do
 end
 
 # Set the preferred execution binary - prefork or worker
-template "/etc/sysconfig/#{node['apache']['ervice_name']}" do
+template "/etc/sysconfig/#{node['apache']['service_name']}" do
   source 'etc-sysconfig-httpd.erb'
   owner 'root'
   group node['apache']['root_group']
