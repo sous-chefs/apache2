@@ -181,34 +181,34 @@ describe 'apache2::default' do
           end
 
           if %w(amazon redhat centos fedora suse opensuse).include?(platform)
-            it "creates /etc/sysconfig/#{property[:apache][:package]}" do
-              expect(chef_run).to create_template("/etc/sysconfig/#{property[:apache][:package]}").with(
+            it "creates /etc/sysconfig/#{property[:apache][:service_name]}" do
+              expect(chef_run).to create_template("/etc/sysconfig/#{property[:apache][:service_name]}").with(
                 source: 'etc-sysconfig-httpd.erb',
                 owner: 'root',
                 group: property[:apache][:root_group],
                 mode: '0644'
               )
 
-              expect(chef_run).to render_file("/etc/sysconfig/#{property[:apache][:package]}").with_content(
+              expect(chef_run).to render_file("/etc/sysconfig/#{property[:apache][:service_name]}").with_content(
                 /HTTPD=#{property[:apache][:binary]}/
               )
             end
 
-            subject(:sysconfig) { chef_run.template("/etc/sysconfig/#{property[:apache][:package]}") }
-            it "notification is triggered by /etc/sysconfig/#{property[:apache][:package]} template to restart service[apache2]" do
+            subject(:sysconfig) { chef_run.template("/etc/sysconfig/#{property[:apache][:service_name]}") }
+            it "notification is triggered by /etc/sysconfig/#{property[:apache][:service_name]} template to restart service[apache2]" do
               expect(sysconfig).to notify('service[apache2]').to(:restart).delayed
               expect(sysconfig).to_not notify('service[apache2]').to(:restart).immediately
             end
           else
-            it "does not create /etc/sysconfig/#{property[:apache][:package]}" do
-              expect(chef_run).to_not create_template("/etc/sysconfig/#{property[:apache][:package]}").with(
+            it "does not create /etc/sysconfig/#{property[:apache][:service_name]}" do
+              expect(chef_run).to_not create_template("/etc/sysconfig/#{property[:apache][:service_name]}").with(
                 source: 'etc-sysconfig-httpd.erb',
                 owner: 'root',
                 group: property[:apache][:root_group],
                 mode: '0644'
               )
 
-              expect(chef_run).to_not render_file("/etc/sysconfig/#{property[:apache][:package]}").with_content(
+              expect(chef_run).to_not render_file("/etc/sysconfig/#{property[:apache][:service_name]}").with_content(
                 /#HTTPD_LANG=C/
               )
             end
