@@ -291,6 +291,9 @@ default['apache']['traceenable']     = 'Off'
 # mod_status Allow list, space seprated list of allowed entries.
 default['apache']['status_allow_list'] = '127.0.0.1 ::1'
 
+# URL used by apache2ctl status
+default['apache']['status_url'] = 'http://localhost:80/server-status'
+
 # mod_status ExtendedStatus, set to 'true' to enable
 default['apache']['ext_status'] = false
 
