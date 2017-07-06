@@ -1,35 +1,66 @@
 driver:
-   name: vagrant
+  name: dokken
+  privileged: true # because Docker and SystemD/Upstart
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+
+transport:
+  name: dokken
 
 provisioner:
-  name: chef_zero
-  require_chef_omnibus: <%= ENV['CHEF_VERSION'] || 'latest' %>
-
-verifier:
-  name: inspec
+  name: dokken
 
 platforms:
   - name: amazonlinux
-    driver_config:
-      box: mvbcoding/awslinux
-  - name: centos-7.3
-  - name: debian-8.6
-    run_list:
-    - recipe[apt::default]
-  - name: fedora-25
-  - name: freebsd-10.3
-  - name: opensuse-13.2
+    driver:
+      image: amazonlinux:latest
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN yum -y install lsof which initscripts net-tools sudo wget
+  - name: centos-7
+    driver:
+      image: centos:7
+      platform: rhel
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
+  - name: debian-7
+    driver:
+      image: debian:7
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
+  - name: debian-8
+    driver:
+      image: debian:8
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
+  - name: opensuse-leap
+    driver:
+      image: opensuse:leap
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools wget
   - name: ubuntu-14.04
-    run_list:
-    - recipe[apt::default]
+    driver:
+      image: ubuntu-upstart:14.04
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
   - name: ubuntu-16.04
-    run_list:
-    - recipe[apt::default]
+    driver:
+      image: ubuntu:16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
 
 suites:
   - name: default
     run_list:
-    - recipe[fqdn]
     - recipe[apache2_test::setup]
     - recipe[apache2_test::default]
     - recipe[apache2_test::basic_web_app]
@@ -50,69 +81,54 @@ suites:
   # - recipe[apache2_test::mod_dav_svn]
     - recipe[apache2_test::mod_expires]
     - recipe[apache2_test::mod_status_remote]
-    attributes:
-      machine_fqdn: working.computers.biz
-      machine_fqdn_as_hostname: true
 
   - name: prefork
     run_list:
-    - recipe[fqdn]
     - recipe[apache2_test::setup]
     - recipe[apache2_test::default]
     - recipe[apache2_test::broken_conf]
     - recipe[apache2_test::modules]
     - recipe[apache2_test::mod_cgi]
-  # not supported by apache 2.4 without source compile with non-maintainer patches
-  # - recipe[apache2_test::mod_fastcgi]
+  #  - recipe[apache2_test::mod_fastcgi]
     - recipe[apache2_test::mod_perl]
     - recipe[apache2_test::mod_php]
   # - recipe[apache2_test::mod_proxy_ajp]
     - recipe[apache2_test::mod_python]
     - recipe[apache2_test::mod_ssl]
     attributes:
-      machine_fqdn: working.computers.biz
-      machine_fqdn_as_hostname: true
       apache:
         mpm: prefork
     verifier:
       inspec_tests:
         - test/integration/default/inspec/localhost
     includes: [
-      'centos-7.3',
-      'debian-8.6',
+      'centos-7',
       'ubuntu-14.04',
       'ubuntu-16.04'
     ]
 
   - name: worker
     run_list:
-    - recipe[fqdn]
     - recipe[apache2_test::setup]
     - recipe[apache2_test::default]
     - recipe[apache2_test::basic_web_app]
     - recipe[apache2_test::broken_conf]
     - recipe[apache2_test::modules]
     attributes:
-      machine_fqdn: working.computers.biz
-      machine_fqdn_as_hostname: true
       apache:
         mpm: worker
     includes: [
-      'centos-7.3',
-      'ubuntu-14.04'
+      'centos-7'
     ]
 
   - name: event
     run_list:
-    - recipe[fqdn]
     - recipe[apache2_test::setup]
     - recipe[apache2_test::default]
     - recipe[apache2_test::basic_web_app]
     - recipe[apache2_test::broken_conf]
     - recipe[apache2_test::modules]
     attributes:
-      machine_fqdn: working.computers.biz
-      machine_fqdn_as_hostname: true
       apache:
         mpm: event
     includes: [
