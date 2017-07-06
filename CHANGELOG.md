@@ -2,6 +2,11 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+Unreleased
+----------
+
+- [GH-489] Fix OpenSuse service guard
+
 v3.3.0 (2017-04-11)
 -------------------
 
