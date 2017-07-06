@@ -1,14 +1,2 @@
-# rubocop todo
-
-Lint/UselessAssignment:
-  Exclude:
-    - 'spec/support/shared_examples_for_apache_module.rb'
-    - 'spec/support/supported_platforms.rb'
-
-Style/FormatString:
-  Exclude:
-    - 'test/integration/default/inspec/localhost/libraries/apache_info.rb'
-
-Style/RegexpLiteral:
-  Exclude:
-    - 'test/integration/default/inspec/localhost/controls/mod_include_spec.rb'
+# Cookstyle todo
+inherit_from: .rubocop_todo.yml

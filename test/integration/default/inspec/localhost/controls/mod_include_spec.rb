@@ -40,7 +40,7 @@ describe 'apache2::mod_include' do
   subject(:configfile) { file("#{property[:apache][:dir]}/mods-enabled/#{expected_module}.conf") }
   it "mods-enabled/#{expected_module}.conf adds .shtml handlers" do
     expect(configfile).to be_file
-    expect(configfile.content).to match(/AddType text\/html .shtml/)
+    expect(configfile.content).to match(%r{AddType text/html .shtml})
     expect(configfile.content).to match(/AddOutputFilter INCLUDES .shtml/)
   end
 end
