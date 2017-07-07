@@ -16,5 +16,3 @@ RSpec.configure do |config|
   # Specify the path to a local JSON file with Ohai data (default: nil)
   # config.path = 'ohai.json'
 end
-
-at_exit { ChefSpec::Coverage.report! }
