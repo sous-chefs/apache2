@@ -9,6 +9,11 @@ transport:
 provisioner:
   name: dokken
 
+verifier:
+  name: inspec
+  inspec_tests:
+    - test/integration/default
+
 platforms:
   - name: amazonlinux
     driver:
@@ -98,9 +103,6 @@ suites:
     attributes:
       apache:
         mpm: prefork
-    verifier:
-      inspec_tests:
-        - test/integration/default/inspec/localhost
     includes: [
       'centos-7',
       'ubuntu-14.04',

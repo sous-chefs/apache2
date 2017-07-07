@@ -7,6 +7,8 @@ provisioner:
 
 verifier:
   name: inspec
+  inspec_tests:
+    - test/integration/default
 
 platforms:
   - name: amazonlinux
@@ -78,9 +80,6 @@ suites:
       machine_fqdn_as_hostname: true
       apache:
         mpm: prefork
-    verifier:
-      inspec_tests:
-        - test/integration/default/inspec/localhost
     includes: [
       'centos-7.3',
       'debian-8.8',

@@ -1,6 +1,6 @@
 
 def supported_platforms
-  platforms = {
+  {
     'amazon' => ['2016.09', '2017.03'],
     'ubuntu' => ['14.04', '16.04'],
     'debian' => ['8.8'],
