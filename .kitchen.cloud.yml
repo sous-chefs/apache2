@@ -22,15 +22,6 @@ verifier:
   name: inspec
 
 platforms:
-- name: centos-5.8
-  driver_plugin: digitalocean
-  driver_config:
-    image_id: 1601
-    flavor_id: 63
-    region_id: 4
-    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
-    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
-
 - name: centos-6.5
   driver_plugin: digitalocean
   driver_config:
@@ -92,17 +83,6 @@ platforms:
     username: <%= ENV['GCE_USERNAME'] %>
     public_key_path: <%= ENV['GCE_PUBLIC_KEY_PATH'] %>
     ssh_key: <%= ENV['GCE_SSH_KEY_PATH'] %>
-  run_list:
-  - recipe[apt]
-
-- name: ubuntu-12.04
-  driver_plugin: digitalocean
-  driver_config:
-    image_id: 3101045
-    flavor_id: 63
-    region_id: 4
-    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
-    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
   run_list:
   - recipe[apt]
 
@@ -172,13 +152,11 @@ suites:
       - recipe[apache2_test::mod_ssl]
       - recipe[apache2_test::mod_status_remote]
     includes: [
-      'centos-5.8',
       'redhat-6.5',
       'centos-6.5',
       'amazon-2014.03',
       'fedora-19',
       'debian-7.0',
-      'ubuntu-12.04',
       'ubuntu-14.04',
       'smartos-13.4.0',
       'omnios-151006',
