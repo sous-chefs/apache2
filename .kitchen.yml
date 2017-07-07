@@ -7,8 +7,6 @@ provisioner:
 
 verifier:
   name: inspec
-  inspec_tests:
-    - test/integration/default
 
 platforms:
   - name: amazonlinux
@@ -75,6 +73,9 @@ suites:
   # - recipe[apache2_test::mod_proxy_ajp]
     - recipe[apache2_test::mod_python]
     - recipe[apache2_test::mod_ssl]
+    verifier:
+      inspec_tests:
+        - test/integration/default
     attributes:
       machine_fqdn: working.computers.biz
       machine_fqdn_as_hostname: true
@@ -118,6 +119,9 @@ suites:
       machine_fqdn_as_hostname: true
       apache:
         mpm: event
+    verifier:
+      inspec_tests:
+        - test/integration/default
     includes: [
       'ubuntu-16.04'
       ]

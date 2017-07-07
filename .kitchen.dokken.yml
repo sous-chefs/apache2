@@ -11,8 +11,6 @@ provisioner:
 
 verifier:
   name: inspec
-  inspec_tests:
-    - test/integration/default
 
 platforms:
   - name: amazonlinux
@@ -103,6 +101,9 @@ suites:
     attributes:
       apache:
         mpm: prefork
+    verifier:
+      inspec_tests:
+        - test/integration/default
     includes: [
       'centos-7',
       'ubuntu-14.04',
@@ -119,6 +120,9 @@ suites:
     attributes:
       apache:
         mpm: worker
+    verifier:
+      inspec_tests:
+        - test/integration/default
     includes: [
       'centos-7'
       ]
@@ -133,6 +137,9 @@ suites:
     attributes:
       apache:
         mpm: event
+    verifier:
+      inspec_tests:
+        - test/integration/default
     includes: [
       'ubuntu-16.04'
       ]
