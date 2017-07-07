@@ -86,7 +86,7 @@ suites:
       'debian-8.8',
       'ubuntu-14.04',
       'ubuntu-16.04'
-    ]
+      ]
 
   - name: worker
     run_list:
@@ -104,7 +104,7 @@ suites:
     includes: [
       'centos-7.3',
       'ubuntu-14.04'
-    ]
+      ]
 
   - name: event
     run_list:
@@ -121,4 +121,4 @@ suites:
         mpm: event
     includes: [
       'ubuntu-16.04'
-    ]
+      ]
