@@ -15,7 +15,7 @@
 #
 
 # read platform information
-property = JSON.parse(inspec.profile.file("platforms/#{inspec.os.name}/#{inspec.os.release}.json"), symbolize_names: true)
+property = JSON.parse(inspec.profile.file("#{inspec.os.name}_#{inspec.os.release}.json"), symbolize_names: true)
 
 describe 'apache2::default' do
   it "package #{property[:apache][:package]} is installed" do

@@ -15,7 +15,7 @@
 #
 
 # read platform information
-property = JSON.parse(inspec.profile.file("platforms/#{inspec.os.name}/#{inspec.os.release}.json"), symbolize_names: true)
+property = JSON.parse(inspec.profile.file("#{inspec.os.name}_#{inspec.os.release}.json"), symbolize_names: true)
 
 property[:apache][:default_modules].each do |expected_module|
   expected_module = 'authz_default' if expected_module == 'authz_core' && property[:apache][:version] != '2.4'

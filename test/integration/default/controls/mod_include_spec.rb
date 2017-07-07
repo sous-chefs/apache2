@@ -15,7 +15,7 @@
 #
 
 # read platform information
-property = JSON.parse(inspec.profile.file("platforms/#{inspec.os.name}/#{inspec.os.release}.json"), symbolize_names: true)
+property = JSON.parse(inspec.profile.file("#{inspec.os.name}_#{inspec.os.release}.json"), symbolize_names: true)
 
 describe 'apache2::mod_include' do
   expected_module = 'include'

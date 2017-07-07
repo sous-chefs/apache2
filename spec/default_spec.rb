@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-# examples at https://github.com/sethvargo/chefspec/tree/master/examples
-
 describe 'apache2::default' do
   before do
     allow(::File).to receive(:symlink?).and_return(false)
