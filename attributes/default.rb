@@ -2,7 +2,7 @@
 # Cookbook:: apache2
 # Attributes:: default
 #
-# Copyright:: 2008-2013, Chef Software, Inc.
+# Copyright:: 2008-2017, Chef Software, Inc.
 # Copyright:: 2014, Viverae, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
