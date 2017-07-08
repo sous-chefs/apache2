@@ -38,11 +38,8 @@ default['apache']['mod_ssl']['pkg_name'] = 'mod_ssl'
 
 case node['platform_family']
 when 'debian'
-  case node['platform']
-  when 'ubuntu'
-    if node['apache']['version'] == '2.4'
-      default['apache']['mod_ssl']['pass_phrase_dialog'] = 'exec:/usr/share/apache2/ask-for-passphrase'
-    end
+  if platform?('ubuntu')
+    default['apache']['mod_ssl']['pass_phrase_dialog'] = 'exec:/usr/share/apache2/ask-for-passphrase'
   end
 when 'freebsd'
   default['apache']['mod_ssl']['session_cache'] = 'shmcb:/var/run/ssl_scache(512000)'
