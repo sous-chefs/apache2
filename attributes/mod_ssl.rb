@@ -47,13 +47,9 @@ when 'debian'
 when 'freebsd'
   default['apache']['mod_ssl']['session_cache'] = 'shmcb:/var/run/ssl_scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'file:/var/run/ssl_mutex'
-when 'amazon'
-  if node['apache']['version'] == '2.4'
-    default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl'
-  end
 when 'rhel', 'fedora', 'suse', 'amazon'
   case node['platform']
-  when 'amazon' # This is for chef 12 compatibility
+  when 'amazon'
     if node['apache']['version'] == '2.4'
       default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl'
     end
