@@ -1,0 +1,160 @@
+driver:
+  name: dokken
+  privileged: true # because Docker and SystemD/Upstart
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+  deprecations_as_errors: true
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: amazonlinux
+    driver:
+      image: amazonlinux:latest
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN yum -y install lsof which initscripts net-tools sudo wget
+  - name: centos-7
+    driver:
+      image: centos:7
+      platform: rhel
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
+  - name: debian-7
+    driver:
+      image: debian:7
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
+        - RUN rm -rf /sbin/initctl
+  - name: debian-8
+    driver:
+      image: debian:8
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
+  - name: debian-9
+    driver:
+      image: debian:9
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y systemd apt-transport-https lsb-release procps net-tools wget
+  - name: fedora-latest
+    driver:
+      image: fedora:latest
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN dnf -y install which systemd-sysv initscripts wget net-tools
+  - name: opensuse-leap
+    driver:
+      image: opensuse:leap
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools wget
+  - name: ubuntu-14.04
+    driver:
+      image: ubuntu-upstart:14.04
+      pid_one_command: /sbin/init
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
+  - name: ubuntu-16.04
+    driver:
+      image: ubuntu:16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
+
+suites:
+  - name: default
+    run_list:
+    - recipe[apache2_test::setup]
+    - recipe[apache2_test::default]
+    - recipe[apache2_test::basic_web_app]
+    - recipe[apache2_test::broken_conf]
+    - recipe[apache2_test::modules]
+    - recipe[apache2_test::mod_ssl]
+    - recipe[apache2_test::mod_auth_basic]
+    - recipe[apache2_test::mod_auth_digest]
+  # - recipe[apache2_test::mod_auth_openid]
+  # - recipe[apache2_test::mod_authnz_ldap]
+    - recipe[apache2_test::mod_authz_groupfile]
+    - recipe[apache2_test::mod_authz_listed_host]
+    - recipe[apache2_test::mod_authz_unlisted_host]
+    - recipe[apache2_test::mod_authz_user]
+    - recipe[apache2_test::mod_cgi]
+  # not supported by apache 2.4 without source compile with non-maintainer patches
+  # - recipe[apache2_test::mod_fastcgi]
+  # - recipe[apache2_test::mod_dav_svn]
+    - recipe[apache2_test::mod_expires]
+    - recipe[apache2_test::mod_status_remote]
+
+  - name: prefork
+    run_list:
+    - recipe[apache2_test::setup]
+    - recipe[apache2_test::default]
+    - recipe[apache2_test::broken_conf]
+    - recipe[apache2_test::modules]
+    - recipe[apache2_test::mod_cgi]
+  #  - recipe[apache2_test::mod_fastcgi]
+    - recipe[apache2_test::mod_perl]
+    - recipe[apache2_test::mod_php]
+  # - recipe[apache2_test::mod_proxy_ajp]
+    - recipe[apache2_test::mod_python]
+    - recipe[apache2_test::mod_ssl]
+    attributes:
+      apache:
+        mpm: prefork
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    includes: [
+      'centos-7',
+      'ubuntu-14.04',
+      'ubuntu-16.04'
+      ]
+
+  - name: worker
+    run_list:
+    - recipe[apache2_test::setup]
+    - recipe[apache2_test::default]
+    - recipe[apache2_test::basic_web_app]
+    - recipe[apache2_test::broken_conf]
+    - recipe[apache2_test::modules]
+    attributes:
+      apache:
+        mpm: worker
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    includes: [
+      'centos-7'
+      ]
+
+  - name: event
+    run_list:
+    - recipe[apache2_test::setup]
+    - recipe[apache2_test::default]
+    - recipe[apache2_test::basic_web_app]
+    - recipe[apache2_test::broken_conf]
+    - recipe[apache2_test::modules]
+    attributes:
+      apache:
+        mpm: event
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    includes: [
+      'ubuntu-16.04'
+      ]

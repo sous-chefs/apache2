@@ -5,21 +5,20 @@ This file is used to list changes made in each version of the apache2 cookbook.
 ## v3.3.1 (2017-07-06)
 
 - [GH-489] Fix OpenSuse service guard
--
 
 ## v3.3.0 (2017-04-11)
 
-- [GH-478] Added support for the amazon platform_family, outside of rhel
+- [GH-478] Added support for the amazon platform_family, outside of RHEL
 - [GH-474] Update Berksfile to allow fetching of newer
 - [GH-473] Update copyright header format
 - [GH-472] foodcritic: add sous-chefs rules
 - add CODE_OF_CONDUCT
-- [GH-471] FCGI paths should not be messed with on RHEL/CenOS 7\. CentOS 7 (and recent Fedoras) have Apache 2.4, where FCGI socket path and shared memory path is managed adequately without further involvment neccessary (subdirectory is created under /var/run/httpd).
+- [GH-471] FCGI paths should not be messed with on RHEL/CentOS 7\. CentOS 7 (and recent Fedoras) have Apache 2.4, where FCGI socket path and shared memory path is managed adequately without further involvement necessary (subdirectory is created under /var/run/httpd).
 - [GH-470] Remove support for EOL Fedora < 18 / FreeBSD 9
 - [GH-465] Testing updates
 - [GH-469] Use the default cookbook style rules
-- [GH-460] Serverspec to InSpec migration
-- [GH-461] Update comment header format & other cookstyle fixes
+- [GH-460] ServerSpec to InSpec migration
+- [GH-461] Update comment header format & other Cookstyle fixes
 - [GH-454] Test in Travis with Chef-DK and a Rakefile
 - [GH-455] openSUSE Leap has it's own platform name
 - [GH-279] leave stubs for rhel family `conf.d` files to avoid conflicts on package upgrade; no longer remove `conf.d`, just don't use it
@@ -29,9 +28,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - [GH-440] Update default values in `apache.prefork` section of README
 - [GH-443] fixed typo in copyright year
 - Test on the latest chef with chef-zero
-- Update supported platforms to Ubuntu 16.04, Debian 8.4, Centos 7.2; deprecating Ubuntu 12.04
+- Update supported platforms to Ubuntu 16.04, Debian 8.4, CentOS 7.2; deprecating Ubuntu 12.04
 - [GH-422] Fix uniq for nil:NilClass error introduced in 3.2.2
-- [GH-423] allow for apache 2.4 usage on rhel < 7.0
+- [GH-423] allow for apache 2.4 usage on RHEL < 7.0
 - Cookbook is now part of the sous-chefs, but still maintained by the same folks
 - mod_perl: No longer install libapache2-mpm-prefork
 - mod_php: renamed mod_php5 to more generic mod_php; using php 7.0 where available
@@ -47,7 +46,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## v3.2.0 (2016-03-26)
 
-- [GH-378] Deprecates `apache.listen_addresses` and `apache.listen_ports` infavor of [GH-409]
+- [GH-378] Deprecates `apache.listen_addresses` and `apache.listen_ports` in favor of [GH-409]
 - [GH-409] `apache.listen` now accepts an array of `addr:port` strings
 - [GH-358] FreeBSD: Update 10.1 support; Adds php 5.6 in collaboration with chef-cookbooks/php#119
 - [GH-394] Have `apache.prefork.serverlimit` set ServerLimit directive on 2.4

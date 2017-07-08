@@ -10,7 +10,6 @@ RSpec.shared_examples 'an apache2 module' do |a2module, a2conf, a2filename = nil
   module_name = a2module
   module_enable = true
   module_conf = a2conf
-  module_identifier = "#{module_name}_module"
   module_filename = "mod_#{module_name}.so"
   module_filename = a2filename if a2filename
 

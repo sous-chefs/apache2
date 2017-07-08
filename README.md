@@ -50,7 +50,7 @@ contains a `permissive` recipe that can be used to set SELinux to
 by the user to address SELinux permissions.
 
 
-To deal with firewalls  Chef Software does provide an [iptables](https://supermarket.chef.io/cookbooks/iptables) and [ufw](https://supermarket.chef.io/cookbooks/ufw) cookbook but is migrating from the approach used there to a more robust solution
+To deal with firewalls Chef Software does provide an [iptables](https://supermarket.chef.io/cookbooks/iptables) and [ufw](https://supermarket.chef.io/cookbooks/ufw) cookbook but is migrating from the approach used there to a more robust solution
 utilizing the general [firewall](https://supermarket.chef.io/cookbooks/firewall) cookbook to setup rules.
 See those cookbooks' READMEs for documentation.
 
@@ -68,27 +68,25 @@ performs `pacman -Sy` to keep pacman's package cache updated.
 
 ## Platforms:
 
-The following platforms and versions are tested and supported using
-[test-kitchen](http://kitchen.ci/)
+The following platforms and versions are tested and supported using [test-kitchen](http://kitchen.ci/)
 
-* Ubuntu 14.04
-* Ubuntu 16.04
-* Debian 8.6
-* CentOS 7.3
-* Fedora 25
+- Amazon Linux
+- Ubuntu 14.04 / 16.04
+- Debian 8
+- CentOS 7
+- Fedora
+- OpenSUSE Leap
 
-The following platform families are supported in the code, and are
-assumed to work based on the successful testing on Ubuntu and CentOS.
+The following platform families are supported in the code, and are assumed to work based on the successful testing on Ubuntu and CentOS.
 
-* Red Hat (rhel)
+- RHEL
+- Debian
 
-The following platforms are also supported in the code, have been
-tested manually but are not regularly tested under test-kitchen.
+The following platforms are also supported in the code, have been tested manually but are not regularly tested under test-kitchen.
 
-* Amazon Linux
-* SUSE/OpenSUSE
-* ArchLinux
-* FreeBSD
+- SLES
+- ArchLinux
+- FreeBSD
 
 ### Notes for RHEL Family:
 

@@ -20,22 +20,12 @@
 include_recipe 'apache2::default'
 include_recipe 'apache2::mod_proxy'
 include_recipe 'apache2::mod_proxy_ajp'
-
-if platform_family?('rhel') && node['platform_version'].to_f < 6.0
-  # include jpackage
-  include_recipe 'jpackage::default'
-end
-
 include_recipe 'tomcat::default'
 
 if platform?('debian', 'ubuntu')
-  package 'tomcat6-examples' do
-    action :install
-  end
+  package 'tomcat6-examples'
 else
-  package 'tomcat6-webapps' do
-    action :install
-  end
+  package 'tomcat6-webapps'
 end
 
 web_app 'java_env' do

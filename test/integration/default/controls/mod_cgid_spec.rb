@@ -1,5 +1,6 @@
 #
 # Copyright:: (c) 2014 OneHealth Solutions, Inc.
+# Copyright:: (c) 2014 Viverae, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,18 +15,11 @@
 # limitations under the License.
 #
 
-# read platform information, see https://github.com/chef/inspec/issues/1396
-property = apache_info(File.dirname(__FILE__))
+# read platform information
+property = JSON.parse(inspec.profile.file("#{inspec.os.name}_#{inspec.os.release}.json"), symbolize_names: true)
 
-describe 'apache2::mod_ssl' do
-  # it 'installs the mod_ssl package on RHEL distributions' do
-  #   skip unless %w(rhel fedora).include?(node['platform_family'])
-  #   describe package('mod_ssl') do
-  #     it { should be_installed }
-  #   end
-  # end
-
-  expected_module = 'ssl'
+describe 'apache2::mod_cgid' do
+  expected_module = 'cgid'
   subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
   it "mods-available/#{expected_module}.load is accurate" do
     expect(available).to be_file
@@ -43,15 +37,4 @@ describe 'apache2::mod_ssl' do
     expect(loaded_modules.exit_status).to eq 0
     expect(loaded_modules.stdout).to match(/#{expected_module}_module/)
   end
-
-  subject(:portsconf) { file("#{property[:apache][:dir]}/ports.conf").content }
-  it 'ports.conf specifies listening on port 443' do
-    expect(portsconf).to match(/^Listen .*[: ]443$/)
-  end
-
-  subject(:configfile) { file("#{property[:apache][:dir]}/mods-enabled/#{expected_module}.conf") }
-  it "mods-enabled/#{expected_module}.conf adds SSL directives" do
-    expect(configfile).to be_file
-    # expect(configfile).to contain(/SSLCipherSuite #{Regexp.escape(property[:apache][:mod_ssl][:cipher_suite])}$/)
-  end
-end
+end unless property[:apache][:mpm] == 'prefork'

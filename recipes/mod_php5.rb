@@ -2,7 +2,7 @@
 # Cookbook:: apache2
 # Recipe:: mod_php5
 #
-# Copyright:: 2008-2013, Chef Software, Inc.
+# Copyright:: 2008-2017, Chef Software, Inc.
 # Copyright:: 2014, OneHealth Solutions, Inc.
 # Copyright:: 2014, Viverae, Inc.
 #
