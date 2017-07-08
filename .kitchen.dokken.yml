@@ -42,6 +42,13 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
         - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
+  - name: debian-9
+    driver:
+      image: debian:9
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+        - RUN /usr/bin/apt-get install -y systemd apt-transport-https lsb-release procps net-tools wget
   - name: opensuse-leap
     driver:
       image: opensuse:leap
