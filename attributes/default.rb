@@ -92,12 +92,7 @@ when 'rhel', 'fedora', 'amazon'
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
-  default['apache']['pid_file'] =
-    if node['platform_version'].to_f >= 6
-      '/var/run/httpd/httpd.pid'
-    else
-      '/var/run/httpd.pid'
-    end
+  default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
   default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'suse'
