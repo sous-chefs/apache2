@@ -32,10 +32,6 @@ default['apache']['version'] =
   case node['platform_family']
   when 'debian'
     case node['platform']
-    when 'ubuntu'
-      node['platform_version'].to_f >= 13.10 ? '2.4' : '2.2'
-    when 'linuxmint'
-      node['platform_version'].to_i >= 16 ? '2.4' : '2.2'
     when 'debian', 'raspbian'
       node['platform_version'].to_f >= 8.0 ? '2.4' : '2.2'
     else
