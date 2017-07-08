@@ -41,21 +41,14 @@ default['apache']['version'] =
     node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
   when 'rhel'
     case node['platform']
-    when 'amazon'
+    when 'amazon' # This is for chef 12 compatibility
       node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
     else
       node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
     end
-  when 'fedora'
-    '2.4'
   when 'suse'
-    case node['platform']
-    when 'suse'
-      node['platform_version'].to_f >= 12.1 ? '2.4' : '2.2'
-    else
-      '2.4'
-    end
-  when 'freebsd'
+    node['platform_version'].to_f >= 12.1 ? '2.4' : '2.2'
+  else
     '2.4'
   end
 
