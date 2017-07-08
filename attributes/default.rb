@@ -63,8 +63,8 @@ default['apache']['root_group'] = 'root'
 default['apache']['default_site_name'] = 'default'
 
 # Where the various parts of apache are
-case node['platform']
-when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
+case node['platform_family']
+when 'rhel', 'fedora', 'amazon'
   if node['platform'] == 'amazon'
     if node['apache']['version'] == '2.4'
       default['apache']['package'] = 'httpd24'
@@ -107,7 +107,7 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
     end
   default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
-when 'suse', 'opensuse', 'opensuseleap'
+when 'suse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] = 'httpd-devel'
@@ -134,7 +134,7 @@ when 'suse', 'opensuse', 'opensuseleap'
     end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
-when 'debian', 'ubuntu'
+when 'debian'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] =
@@ -329,7 +329,7 @@ if node['apache']['version'] == '2.4'
     default['apache']['default_modules'] << unix_mod if %w(rhel amazon fedora suse arch freebsd).include?(node['platform_family'])
   end
 
-  unless node['platform'] == 'amazon'
-    default['apache']['default_modules'] << 'systemd' if %w(rhel fedora amazon).include?(node['platform_family'])
+  unless node['platform'] == 'amazon' # This is for chef 12 compatibility
+    default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
   end
 end
