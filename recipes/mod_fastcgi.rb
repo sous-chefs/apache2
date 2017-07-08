@@ -23,8 +23,10 @@ else
   if platform_family?('debian')
     package 'build-essential'
     package node['apache']['devel_package']
-  elsif platform_family?('rhel', 'amazon')
+  elsif platform_family?('rhel', 'fedora', 'amazon')
     package %W(gcc make libtool #{node['apache']['devel_package']} apr-devel apr)
+  else
+    Chef::Log.warn("mod_fastcgi cannot be installed from source on the #{node['platform']} platform")
   end
 
   src_filepath = "#{Chef::Config['file_cache_path']}/fastcgi.tar.gz"
