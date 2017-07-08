@@ -176,6 +176,7 @@ values are noted.
 * `node['apache']['log_level']` - Value for LogLevel directive. Default is 'warn'.
 * `node['apache']['default_modules']` - Array of module names. Can take "mod_FOO" or "FOO" as names, where FOO is the apache module, e.g. "`mod_status`" or "`status`".
 * `node['apache']['mpm']` - With apache.version 2.4, specifies what Multi-Processing Module to enable. Defaults to platform default, otherwise it is "prefork"
+* `node['apache']['mpm_support']` - Array of supported MPM modules to install. Default is prefork, worker and event.
 
 The modules listed in `default_modules` will be included as recipes in `recipe[apache::default]`.
 
