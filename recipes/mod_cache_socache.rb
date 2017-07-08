@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
+include_recipe 'apache2::mod_cache'
+
 apache_module 'cache_socache'
