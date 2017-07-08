@@ -84,7 +84,6 @@ unless platform_family?('debian')
 end
 
 if platform_family?('freebsd')
-
   directory "#{node['apache']['dir']}/Includes" do
     action :delete
     recursive true
@@ -97,7 +96,6 @@ if platform_family?('freebsd')
 end
 
 if platform_family?('suse')
-
   directory "#{node['apache']['dir']}/vhosts.d" do
     action :delete
     recursive true
@@ -210,8 +208,6 @@ service 'apache2' do
     end
   when 'debian'
     provider Chef::Provider::Service::Debian
-  when 'arch'
-    service_name apache_service_name
   end
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
