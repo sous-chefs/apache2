@@ -38,24 +38,7 @@ when 'arch'
   package 'php-apache' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end
-when 'rhel', 'amazon'
-  package 'which'
-  package 'php package' do
-    if node['platform_version'].to_f < 6.0 && node['platform'] != 'amazon'
-      package_name 'php53'
-    else
-      package_name 'php'
-    end
-    notifies :run, 'execute[generate-module-list]', :immediately
-    not_if 'which php'
-  end
-when 'fedora'
-  package 'which'
-  package 'php' do
-    notifies :run, 'execute[generate-module-list]', :immediately
-    not_if 'which php'
-  end
-when 'suse'
+when 'rhel', 'amazon', 'fedora', 'suse'
   package 'which'
   package 'php' do
     notifies :run, 'execute[generate-module-list]', :immediately
