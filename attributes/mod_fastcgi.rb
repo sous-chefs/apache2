@@ -29,11 +29,7 @@ default['apache']['mod_fastcgi']['package'] =
   when 'rhel'
     'mod_fastcgi'
   when 'freebsd'
-    if node['apache']['version'] == '2.4'
-      'ap24-mod_fastcgi'
-    else
-      'ap22-mod_fastcgi'
-    end
+    'ap24-mod_fastcgi'
   else
     'mod_fastcgi'
   end

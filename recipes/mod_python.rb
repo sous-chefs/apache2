@@ -29,11 +29,7 @@ when 'rhel', 'fedora', 'amazon'
     notifies :run, 'execute[generate-module-list]', :immediately
   end
 when 'freebsd'
-  if node['apache']['version'] == '2.4'
-    package 'ap24-mod_python35'
-  else
-    package 'ap22-mod_python35'
-  end
+  package 'ap24-mod_python35'
 end
 
 file "#{node['apache']['dir']}/conf.d/python.conf" do
