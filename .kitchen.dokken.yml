@@ -8,6 +8,7 @@ transport:
 
 provisioner:
   name: dokken
+  deprecations_as_errors: true
 
 verifier:
   name: inspec
@@ -33,6 +34,7 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
         - RUN /usr/bin/apt-get install -y apt-transport-https lsb-release procps net-tools wget
+        - RUN rm -rf /sbin/initctl
   - name: debian-8
     driver:
       image: debian:8
