@@ -51,9 +51,9 @@ when 'amazon'
   if node['apache']['version'] == '2.4'
     default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl'
   end
-when 'rhel', 'fedora', 'suse'
+when 'rhel', 'fedora', 'suse', 'amazon'
   case node['platform']
-  when 'amazon'
+  when 'amazon' # This is for chef 12 compatibility
     if node['apache']['version'] == '2.4'
       default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl'
     end
