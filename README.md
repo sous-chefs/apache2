@@ -79,7 +79,8 @@ The following platforms and versions are tested and supported using [test-kitche
 
 The following platform families are supported in the code, and are assumed to work based on the successful testing on Ubuntu and CentOS.
 
-- RedHat (rhel)
+- RHEL
+- Debian
 
 The following platforms are also supported in the code, have been tested manually but are not regularly tested under test-kitchen.
 
