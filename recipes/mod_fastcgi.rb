@@ -43,7 +43,7 @@ else
             end
   include_recipe 'apache2::default'
   bash 'compile fastcgi source' do
-    notifies :run, 'execute[generate-module-list]', :immediately if platform_family?('rhel', 'amazon')
+    notifies :run, 'execute[generate-module-list]', :immediately if platform_family?('rhel', 'fedora', 'amazon')
     not_if "test -f #{node['apache']['dir']}/mods-available/fastcgi.conf"
     cwd ::File.dirname(src_filepath)
     code <<-EOH
