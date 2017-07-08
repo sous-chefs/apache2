@@ -37,12 +37,10 @@ default['apache']['version'] =
     else
       '2.4'
     end
-  when 'amazon'
-    node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
   when 'rhel'
     case node['platform']
     when 'amazon' # This is for chef 12 compatibility
-      node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
+      '2.4'
     else
       node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
     end
@@ -59,13 +57,8 @@ default['apache']['default_site_name'] = 'default'
 case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
   if node['platform'] == 'amazon'
-    if node['apache']['version'] == '2.4'
-      default['apache']['package'] = 'httpd24'
-      default['apache']['devel_package'] = 'httpd24-devel'
-    else
-      default['apache']['package'] = 'httpd22'
-      default['apache']['devel_package'] = 'httpd22-devel'
-    end
+    default['apache']['package'] = 'httpd24'
+    default['apache']['devel_package'] = 'httpd24-devel'
   else
     default['apache']['package'] = 'httpd'
     default['apache']['devel_package'] = 'httpd-devel'

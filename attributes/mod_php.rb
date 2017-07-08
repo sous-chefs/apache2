@@ -29,6 +29,6 @@ if node['platform'] == 'debian' && node['platform_version'].to_f >= 9
   default['apache']['mod_php']['module_name'] = 'php7'
   default['apache']['mod_php']['so_filename'] = 'libphp7.0.so'
 end
-if node['platform'] == 'amazon' && node['apache']['version'] == '2.4'
+if node['platform'] == 'amazon'
   default['apache']['mod_php']['so_filename'] = 'libphp.so'
 end

@@ -41,7 +41,7 @@ On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also n
 
 The following platforms and versions are tested and supported using [test-kitchen](http://kitchen.ci/)
 
-- Amazon Linux
+- Amazon Linux 2013.09+
 - Ubuntu 14.04 / 16.04
 - Debian 8
 - CentOS 7

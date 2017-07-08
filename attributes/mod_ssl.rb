@@ -45,9 +45,7 @@ when 'freebsd'
   default['apache']['mod_ssl']['session_cache'] = 'shmcb:/var/run/ssl_scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'file:/var/run/ssl_mutex'
 when 'rhel', 'fedora', 'suse', 'amazon'
-  if platform('amazon') && node['apache']['version'] == '2.4'
-    default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl'
-  end
+  default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl' if platform?('amazon')
   default['apache']['mod_ssl']['session_cache'] = 'shmcb:/var/cache/mod_ssl/scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'default'
 end
