@@ -1,3 +1,5 @@
+apt_update 'update'
+
 case node['platform_family']
 when 'debian'
   %w(libxml2 libxml2-dev libxslt1-dev).each do |pkg|

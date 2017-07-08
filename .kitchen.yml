@@ -13,22 +13,15 @@ platforms:
     driver_config:
       box: mvbcoding/awslinux
   - name: centos-7.3
+  - name: debian-7.11
   - name: debian-8.8
-    run_list:
-    - recipe[apt::default]
   - name: debian-9.0
-    run_list:
-    - recipe[apt::default]
   - name: fedora-25
   - name: freebsd-10.3
   - name: freebsd-11.0
   - name: opensuse-42.2
   - name: ubuntu-14.04
-    run_list:
-    - recipe[apt::default]
   - name: ubuntu-16.04
-    run_list:
-    - recipe[apt::default]
 
 suites:
   - name: default

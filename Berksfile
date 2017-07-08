@@ -3,7 +3,6 @@ source 'https://supermarket.chef.io'
 metadata
 
 group :integration do
-  cookbook 'apt'
   cookbook 'fqdn', git: 'https://github.com/drpebcak/fqdn-cookbook.git'
   cookbook 'pacman'
   cookbook 'yum'
