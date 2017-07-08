@@ -29,8 +29,7 @@ make_cmd = value_for_platform_family(
   'default' => 'make'
 )
 
-case node['platform_family']
-when 'arch'
+if platform?('arch')
   package 'tidyhtml'
 
   pacman_aur openid_dev_pkgs.first do
@@ -40,8 +39,7 @@ else
   package openid_dev_pkgs
 end
 
-case node['platform_family']
-when 'rhel', 'fedora', 'amazon'
+if platform_family?('rhel','fedora','amazon')
   remote_file "#{Chef::Config['file_cache_path']}/libopkele-2.0.4.tar.gz" do
     source 'http://kin.klever.net/dist/libopkele-2.0.4.tar.gz'
     mode '0644'
