@@ -72,7 +72,7 @@ The following platforms and versions are tested and supported using [test-kitche
 
 - Amazon Linux
 - Ubuntu 14.04 / 16.04
-- Debian 7/8
+- Debian 8
 - CentOS 7
 - Fedora
 - OpenSUSE Leap
