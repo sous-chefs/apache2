@@ -38,9 +38,7 @@ when 'arch'
     action [:build, :install]
   end
 else
-  openid_dev_pkgs.each do |pkg|
-    package pkg
-  end
+  package openid_dev_pkgs
 end
 
 case node['platform_family']

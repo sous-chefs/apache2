@@ -45,9 +45,8 @@ when 'rhel', 'amazon', 'fedora', 'suse'
     not_if 'which php'
   end
 when 'freebsd'
-  %w(php56 libxml2).each do |pkg|
-    package pkg
-  end
+  package %w(php56 libxml2)
+  
   %w(mod_php56).each do |pkg|
     package pkg do
       options '-I'

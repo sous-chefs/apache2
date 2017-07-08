@@ -24,11 +24,7 @@ else
     package 'build-essential'
     package node['apache']['devel_package']
   elsif platform_family?('rhel', 'amazon')
-    %W(gcc make libtool #{node['apache']['devel_package']} apr-devel apr).each do |package|
-      package package do
-        action :upgrade
-      end
-    end
+    package %W(gcc make libtool #{node['apache']['devel_package']} apr-devel apr)
   end
 
   src_filepath = "#{Chef::Config['file_cache_path']}/fastcgi.tar.gz"
