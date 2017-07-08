@@ -50,7 +50,7 @@ contains a `permissive` recipe that can be used to set SELinux to
 by the user to address SELinux permissions.
 
 
-To deal with firewalls  Chef Software does provide an [iptables](https://supermarket.chef.io/cookbooks/iptables) and [ufw](https://supermarket.chef.io/cookbooks/ufw) cookbook but is migrating from the approach used there to a more robust solution
+To deal with firewalls Chef Software does provide an [iptables](https://supermarket.chef.io/cookbooks/iptables) and [ufw](https://supermarket.chef.io/cookbooks/ufw) cookbook but is migrating from the approach used there to a more robust solution
 utilizing the general [firewall](https://supermarket.chef.io/cookbooks/firewall) cookbook to setup rules.
 See those cookbooks' READMEs for documentation.
 

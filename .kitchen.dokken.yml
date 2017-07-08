@@ -49,6 +49,12 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
         - RUN /usr/bin/apt-get install -y systemd apt-transport-https lsb-release procps net-tools wget
+  - name: fedora-latest
+    driver:
+      image: fedora:latest
+      pid_one_command: /usr/lib/systemd/systemd
+      intermediate_instructions:
+        - RUN dnf -y install which systemd-sysv initscripts wget net-tools
   - name: opensuse-leap
     driver:
       image: opensuse:leap
