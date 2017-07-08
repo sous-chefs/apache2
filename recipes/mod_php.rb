@@ -46,7 +46,7 @@ when 'rhel', 'amazon', 'fedora', 'suse'
   end
 when 'freebsd'
   package %w(php56 libxml2)
-  
+
   %w(mod_php56).each do |pkg|
     package pkg do
       options '-I'
