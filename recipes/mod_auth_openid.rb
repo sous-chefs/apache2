@@ -39,7 +39,7 @@ else
   package openid_dev_pkgs
 end
 
-if platform_family?('rhel','fedora','amazon')
+if platform_family?('rhel', 'fedora', 'amazon')
   remote_file "#{Chef::Config['file_cache_path']}/libopkele-2.0.4.tar.gz" do
     source 'http://kin.klever.net/dist/libopkele-2.0.4.tar.gz'
     mode '0644'

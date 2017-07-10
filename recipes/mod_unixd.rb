@@ -26,5 +26,5 @@ if node['apache']['version'] == '2.4'
     apache_module 'unixd'
   end
 else
-  Chef::Log.info("Ignoring apache2::mod_unixd. Not available until apache 2.4")
+  Chef::Log.info('Ignoring apache2::mod_unixd. Not available until apache 2.4')
 end
