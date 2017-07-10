@@ -2,6 +2,32 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## v4.0.0 (2017-07-10)
+
+### Breaking changes
+
+- This cookbook now requires Chef 12.1 or later
+- Support for Apache 2.2 on FreeBSD has been removed
+- Support for Amazon Linux < 2013.09 has been removed
+- Support for end of life releases of Fedora (< 24), CentOS (5), Debian (6), Linux Mint (17), and Ubuntu (12.04) have been removed
+- Removed the deprecated recipes for mod_authz_default and mod_php5
+
+### Other changes
+
+- Switched many package resources to Chef 12+ multipackage style to speed up Chef converges and reduce log clutter
+- mod_cache is now enabled when using mod_cache_disk and mod_cache_socache
+- The mod_cloudflare recipe now sets up the Apt repo with https
+- Improved support for Amazon Linux on Chef 13 and added Test Kitchen amazon testing
+- Improved support for Debian and RHEL derivative platforms
+- Improved Fedora support in multiple modules
+- Improved error logging for unsupported platforms in the mod_negotiation and mod_unixd recipes
+- Switched from Rake for testing to Delivery local mode
+- Setup integration testing with kitchen-dokken for core platforms in Travis so that every PR is now fully tested
+- Removed the EC2 and Docker kitchen files now that we have kitchen-dokken setup
+- Removed apt, pacman, yum, and zypper from the Berksfile as they're no longer needed for testing
+- Removed testing dependencies from the Gemfile as we're testing using ChefDK
+- Added integration testing for new Debian releases
+
 ## v3.3.1 (2017-07-06)
 
 - [GH-489] Fix OpenSuse service guard
