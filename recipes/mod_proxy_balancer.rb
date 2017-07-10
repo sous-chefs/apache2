@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-if !platform_family?('freebsd') && node['apache']['version'] == '2.4'
+if !platform_family?('freebsd')
   include_recipe 'apache2::mod_slotmem_shm'
 end
 

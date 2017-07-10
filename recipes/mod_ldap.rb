@@ -17,9 +17,7 @@
 # limitations under the License.
 #
 
-if platform_family?('rhel', 'fedora', 'amazon') && node['apache']['version'] == '2.4'
-  package 'mod_ldap'
-end
+package 'mod_ldap'
 
 apache_module 'ldap' do
   conf true

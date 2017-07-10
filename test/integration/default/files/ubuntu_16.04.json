@@ -1,6 +1,5 @@
 {
     "apache": {
-        "version": "2.4",
         "devel_package": "apache2-dev",
         "package": "apache2",
         "binary": "/usr/sbin/apache2",

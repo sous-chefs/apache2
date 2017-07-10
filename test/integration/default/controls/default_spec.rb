@@ -115,14 +115,8 @@ describe 'apache2::default' do
     expect(config.content).to include 'AccessFileName .htaccess'
     expect(config.content).to include 'Files ~ "^\.ht"'
     expect(config.content).to include 'LogLevel warn'
-    if property[:apache][:version] == '2.4'
       expect(config.content).to include "IncludeOptional #{property[:apache][:dir]}/conf-enabled/*.conf"
       expect(config.content).to_not include "Include #{property[:apache][:dir]}/conf.d/*.conf"
-    else
-      expect(config.content).to include "Include #{property[:apache][:dir]}/conf-enabled/*.conf"
-      expect(config.content).to_not include "Include #{property[:apache][:dir]}/conf.d/*.conf"
-      expect(config.content).to_not include "IncludeOptional #{property[:apache][:dir]}/conf-enabled/*.conf"
-    end
   end
 
   # let(:pre_command) { "source #{property[:apache][:dir]}/envvars" }
