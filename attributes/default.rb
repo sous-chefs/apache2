@@ -19,30 +19,11 @@
 #
 
 default['apache']['mpm'] =
-  case node['platform_family']
+  case node['platform']
+  when 'ubuntu', 'linuxmint'
+    'event'
   when 'debian'
-    case node['platform']
-    when 'ubuntu'
-      if node['platform_version'].to_f >= 14.04
-        'event'
-      elsif node['platform_version'].to_f >= 12.04
-        'worker'
-      else
-        'prefork'
-      end
-    when 'debian'
-      node['platform_version'].to_f >= 7.0 ? 'worker' : 'prefork'
-    when 'linuxmint'
-      node['platform_version'].to_i >= 17 ? 'event' : 'prefork'
-    else
-      'prefork'
-    end
-  when 'suse'
-    'prefork'
-  when 'rhel'
-    'prefork'
-  when 'amazon'
-    'prefork'
+    'worker'
   else
     'prefork'
   end
@@ -51,34 +32,21 @@ default['apache']['version'] =
   case node['platform_family']
   when 'debian'
     case node['platform']
-    when 'ubuntu'
-      node['platform_version'].to_f >= 13.10 ? '2.4' : '2.2'
-    when 'linuxmint'
-      node['platform_version'].to_i >= 16 ? '2.4' : '2.2'
     when 'debian', 'raspbian'
       node['platform_version'].to_f >= 8.0 ? '2.4' : '2.2'
     else
       '2.4'
     end
-  when 'amazon'
-    node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
   when 'rhel'
     case node['platform']
-    when 'amazon'
-      node['platform_version'].to_f >= 2013.09 ? '2.4' : '2.2'
+    when 'amazon' # This is for chef 12 compatibility
+      '2.4'
     else
       node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
     end
-  when 'fedora'
-    '2.4'
   when 'suse'
-    case node['platform']
-    when 'suse'
-      node['platform_version'].to_f >= 12.1 ? '2.4' : '2.2'
-    else
-      '2.4'
-    end
-  when 'freebsd'
+    node['platform_version'].to_f >= 12.1 ? '2.4' : '2.2'
+  else
     '2.4'
   end
 
@@ -86,16 +54,11 @@ default['apache']['root_group'] = 'root'
 default['apache']['default_site_name'] = 'default'
 
 # Where the various parts of apache are
-case node['platform']
-when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
+case node['platform_family']
+when 'rhel', 'fedora', 'amazon'
   if node['platform'] == 'amazon'
-    if node['apache']['version'] == '2.4'
-      default['apache']['package'] = 'httpd24'
-      default['apache']['devel_package'] = 'httpd24-devel'
-    else
-      default['apache']['package'] = 'httpd22'
-      default['apache']['devel_package'] = 'httpd22-devel'
-    end
+    default['apache']['package'] = 'httpd24'
+    default['apache']['devel_package'] = 'httpd24-devel'
   else
     default['apache']['package'] = 'httpd'
     default['apache']['devel_package'] = 'httpd-devel'
@@ -122,15 +85,10 @@ when 'redhat', 'centos', 'scientific', 'fedora', 'amazon', 'oracle'
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
-  default['apache']['pid_file'] =
-    if node['platform_version'].to_f >= 6
-      '/var/run/httpd/httpd.pid'
-    else
-      '/var/run/httpd.pid'
-    end
+  default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
   default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
-when 'suse', 'opensuse', 'opensuseleap'
+when 'suse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] = 'httpd-devel'
@@ -157,7 +115,7 @@ when 'suse', 'opensuse', 'opensuseleap'
     end
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
-when 'debian', 'ubuntu'
+when 'debian'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] =
@@ -352,7 +310,7 @@ if node['apache']['version'] == '2.4'
     default['apache']['default_modules'] << unix_mod if %w(rhel amazon fedora suse arch freebsd).include?(node['platform_family'])
   end
 
-  unless node['platform'] == 'amazon'
-    default['apache']['default_modules'] << 'systemd' if %w(rhel fedora amazon).include?(node['platform_family'])
+  unless node['platform'] == 'amazon' # This is for chef 12 compatibility
+    default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
   end
 end

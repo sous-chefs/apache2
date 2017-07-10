@@ -21,14 +21,11 @@ describe 'apache2::mod_php' do
         end
 
         if %w(amazon redhat centos fedora arch).include?(platform)
-          pkg = 'php'
-          pkg = 'php53' if version.to_f < 6.0
-          it "installs package #{pkg}" do
-            expect(chef_run).to install_package(pkg)
-            expect(chef_run).to_not install_package("not_#{pkg}")
+          it 'installs package php' do
+            expect(chef_run).to install_package('php')
           end
-          let(:package) { chef_run.package(pkg) }
-          it "triggers a notification by #{pkg} package install to execute[generate-module-list]" do
+          let(:package) { chef_run.package('php') }
+          it 'triggers a notification by php package install to execute[generate-module-list]' do
             expect(package).to notify('execute[generate-module-list]').to(:run)
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
@@ -56,10 +53,12 @@ describe 'apache2::mod_php' do
           end
         end
         if %w(freebsd).include?(platform)
-          %w(php56 mod_php56 libxml2).each do |apkg|
-            it "installs package #{apkg}" do
-              expect(chef_run).to install_package(apkg)
-            end
+          it 'installs php / xml packages' do
+            expect(chef_run).to install_package(%w(php56 libxml2))
+          end
+
+          it 'installs mod_php package' do
+            expect(chef_run).to install_package('mod_php56')
           end
         end
 

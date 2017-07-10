@@ -24,16 +24,8 @@ default['apache']['mod_fastcgi']['package'] =
   case node['platform_family']
   when 'debian'
     'libapache2-mod-fastcgi'
-  when 'amazon'
-    'mod_fastcgi'
-  when 'rhel'
-    'mod_fastcgi'
   when 'freebsd'
-    if node['apache']['version'] == '2.4'
-      'ap24-mod_fastcgi'
-    else
-      'ap22-mod_fastcgi'
-    end
-  else
+    'ap24-mod_fastcgi'
+  else # rhel / amazon / fedora
     'mod_fastcgi'
   end

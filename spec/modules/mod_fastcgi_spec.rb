@@ -3,9 +3,8 @@ require 'spec_helper'
 describe 'apache2::mod_fastcgi' do
   shared_examples 'rhel installs compilation tools' do
     it 'installs compilation tools' do
-      %w(gcc make libtool httpd-devel apr-devel apr).each do |package|
-        expect(chef_run).to upgrade_package(package)
-      end
+      package = %w(gcc make libtool httpd-devel apr-devel apr)
+      expect(chef_run).to install_package(package)
     end
   end
   shared_examples 'debian installs compilation tools' do
@@ -21,9 +20,8 @@ describe 'apache2::mod_fastcgi' do
   end
   shared_examples "rhel doesn't install compilation tools" do
     it "doesn't install compilation tools" do
-      %w(gcc make libtool httpd-devel apr-devel apr).each do |package|
-        expect(chef_run).to_not upgrade_package(package)
-      end
+      package = %w(gcc make libtool httpd-devel apr-devel apr)
+      expect(chef_run).not_to install_package(package)
     end
   end
   shared_examples 'compiles mod_fastcgi from source' do

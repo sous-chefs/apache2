@@ -23,12 +23,10 @@ else
   if platform_family?('debian')
     package 'build-essential'
     package node['apache']['devel_package']
-  elsif platform_family?('rhel', 'amazon')
-    %W(gcc make libtool #{node['apache']['devel_package']} apr-devel apr).each do |package|
-      package package do
-        action :upgrade
-      end
-    end
+  elsif platform_family?('rhel', 'fedora', 'amazon')
+    package %W(gcc make libtool #{node['apache']['devel_package']} apr-devel apr)
+  else
+    Chef::Log.warn("mod_fastcgi cannot be installed from source on the #{node['platform']} platform")
   end
 
   src_filepath = "#{Chef::Config['file_cache_path']}/fastcgi.tar.gz"
@@ -45,7 +43,7 @@ else
             end
   include_recipe 'apache2::default'
   bash 'compile fastcgi source' do
-    notifies :run, 'execute[generate-module-list]', :immediately if platform_family?('rhel', 'amazon')
+    notifies :run, 'execute[generate-module-list]', :immediately if platform_family?('rhel', 'fedora', 'amazon')
     not_if "test -f #{node['apache']['dir']}/mods-available/fastcgi.conf"
     cwd ::File.dirname(src_filepath)
     code <<-EOH

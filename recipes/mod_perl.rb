@@ -21,9 +21,8 @@
 
 case node['platform_family']
 when 'debian'
-  %w(libapache2-mod-perl2 libapache2-request-perl).each do |pkg|
-    package pkg
-  end
+  package %w(libapache2-mod-perl2 libapache2-request-perl)
+
   if node['platform'] == 'ubuntu' && node['platform_version'].to_f <= 14.04
     package 'apache2-mpm-prefork'
   end
@@ -43,12 +42,7 @@ when 'rhel', 'fedora', 'amazon'
 
   package 'perl-libapreq2'
 when 'freebsd'
-  if node['apache']['version'] == '2.4'
-    package 'ap24-mod_perl2'
-  else
-    package 'ap22-mod_perl2'
-  end
-  package 'p5-libapreq2'
+  package %w( ap24-mod_perl2 p5-libapreq2)
 end
 
 file "#{node['apache']['dir']}/conf.d/perl.conf" do

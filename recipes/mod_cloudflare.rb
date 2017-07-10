@@ -18,10 +18,10 @@
 #
 
 apt_repository 'cloudflare' do
-  uri 'http://pkg.cloudflare.com'
+  uri 'https://pkg.cloudflare.com'
   distribution node['lsb']['codename']
   components ['main']
-  key 'http://pkg.cloudflare.com/pubkey.gpg'
+  key 'https://pkg.cloudflare.com/pubkey.gpg'
   action :add
 end
 

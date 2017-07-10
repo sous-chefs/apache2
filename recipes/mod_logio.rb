@@ -20,5 +20,5 @@
 if platform_family?('rhel', 'fedora', 'suse', 'arch', 'freebsd', 'amazon')
   apache_module 'logio'
 else
-  include_recipe 'apache2::default'
+  Chef::Log.warn("mod_logio cannot be installed on the #{node['platform']} platform")
 end
