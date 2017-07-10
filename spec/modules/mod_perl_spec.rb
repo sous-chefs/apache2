@@ -50,11 +50,8 @@ describe 'apache2::mod_perl' do
           end
         end
         if %w(debian ubuntu).include?(platform)
-          %w(libapache2-mod-perl2 libapache2-request-perl).each do |pkg|
-            it "installs package #{pkg}" do
-              expect(chef_run).to install_package(pkg)
-              expect(chef_run).to_not install_package("not_#{pkg}")
-            end
+          it 'installs packages' do
+            expect(chef_run).to install_package(%w(libapache2-mod-perl2 libapache2-request-perl))
           end
         end
 
