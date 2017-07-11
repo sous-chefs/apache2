@@ -17,11 +17,20 @@
 # limitations under the License.
 #
 
-# apache_module('mpm_itk') { enable false }
-apache_module('mpm_event') { enable false }
-apache_module('mpm_worker') { enable false }
+# OpenSuse distributes packages with workers compiled into the httpd bin
+if platform_family?('suse')
+  package %w(apache2-event apache2-worker) do
+    action :remove
+  end
 
-apache_module 'mpm_prefork' do
-  conf true
-  restart true
+  package 'apache2-prefork'
+else
+  # apache_module('mpm_itk') { enable false }
+  apache_module('mpm_event') { enable false }
+  apache_module('mpm_worker') { enable false }
+
+  apache_module 'mpm_prefork' do
+    conf true
+    restart true
+  end
 end

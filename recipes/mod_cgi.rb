@@ -19,6 +19,11 @@
 #
 
 if node['apache']['mpm'] == 'prefork'
+  link '/usr/lib64/apache2/mod_cgi.so' do
+    to '/usr/lib64/apache2-prefork/mod_cgi.so'
+    only_if { node['platform_family'] == 'suse' }
+  end
+
   apache_module 'cgi'
 else
   Chef::Log.warn "apache::mod_cgi. Your MPM #{node['apache']['mpm']} seems to be threaded. Selecting cgid instead of cgi."
