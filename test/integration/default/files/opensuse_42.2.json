@@ -1,6 +1,5 @@
 {
     "apache": {
-        "version": "2.4",
         "package": "apache2",
         "devel_package": "httpd-devel",
         "binary": "/usr/sbin/httpd",

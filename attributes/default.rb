@@ -28,28 +28,6 @@ default['apache']['mpm'] =
     'prefork'
   end
 
-default['apache']['version'] =
-  case node['platform_family']
-  when 'debian'
-    case node['platform']
-    when 'debian', 'raspbian'
-      node['platform_version'].to_f >= 8.0 ? '2.4' : '2.2'
-    else
-      '2.4'
-    end
-  when 'rhel'
-    case node['platform']
-    when 'amazon' # This is for chef 12 compatibility
-      '2.4'
-    else
-      node['platform_version'].to_f >= 7.0 ? '2.4' : '2.2'
-    end
-  when 'suse'
-    node['platform_version'].to_f >= 12.1 ? '2.4' : '2.2'
-  else
-    '2.4'
-  end
-
 default['apache']['root_group'] = 'root'
 default['apache']['default_site_name'] = 'default'
 
@@ -76,12 +54,7 @@ when 'rhel', 'fedora', 'amazon'
   default['apache']['conf_dir']    = '/etc/httpd/conf'
   default['apache']['docroot_dir'] = '/var/www/html'
   default['apache']['cgibin_dir']  = '/var/www/cgi-bin'
-  default['apache']['icondir'] =
-    if node['apache']['version'] == '2.4'
-      '/usr/share/httpd/icons'
-    else
-      '/var/www/icons'
-    end
+  default['apache']['icondir']     = '/usr/share/httpd/icons'
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
@@ -107,12 +80,7 @@ when 'suse'
   default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
-  default['apache']['pid_file']    =
-    if node['platform_version'].to_f > 11.4
-      '/var/run/httpd.pid'
-    else
-      '/var/run/httpd2.pid'
-    end
+  default['apache']['pid_file']    = '/var/run/httpd2.pid'
   default['apache']['lib_dir']     = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/apache2' : '/usr/lib64/apache2'
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
 when 'debian'
@@ -138,14 +106,8 @@ when 'debian'
   default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = '/var/run/apache2'
   default['apache']['lock_dir']    = '/var/lock/apache2'
-  # this should use COOK-3917 to educate the initscript of the pid location
-  if node['apache']['version'] == '2.4'
-    default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
-    default['apache']['docroot_dir'] = '/var/www/html'
-  else
-    default['apache']['pid_file']    = '/var/run/apache2.pid'
-    default['apache']['docroot_dir'] = '/var/www'
-  end
+  default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
+  default['apache']['docroot_dir'] = '/var/www/html'
   default['apache']['lib_dir']       = '/usr/lib/apache2'
   default['apache']['build_dir']     = '/usr/share/apache2'
   default['apache']['libexec_dir']   = "#{node['apache']['lib_dir']}/modules"
@@ -301,16 +263,10 @@ default['apache']['default_modules'] = %w(
   authz_host authz_user autoindex deflate dir env mime negotiation setenvif
 )
 
-%w(log_config logio).each do |log_mod|
+%w(log_config logio unixd).each do |log_mod|
   default['apache']['default_modules'] << log_mod if %w(rhel amazon fedora suse arch freebsd).include?(node['platform_family'])
 end
 
-if node['apache']['version'] == '2.4'
-  %w(unixd).each do |unix_mod|
-    default['apache']['default_modules'] << unix_mod if %w(rhel amazon fedora suse arch freebsd).include?(node['platform_family'])
-  end
-
-  unless node['platform'] == 'amazon' # This is for chef 12 compatibility
-    default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
-  end
+unless node['platform'] == 'amazon' # This is for chef 12 compatibility
+  default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
 end

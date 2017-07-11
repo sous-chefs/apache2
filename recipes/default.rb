@@ -176,12 +176,10 @@ apache_conf 'ports' do
   conf_path node['apache']['dir']
 end
 
-if node['apache']['version'] == '2.4'
-  if node['apache']['mpm_support'].include?(node['apache']['mpm'])
-    include_recipe "apache2::mpm_#{node['apache']['mpm']}"
-  else
-    Chef::Log.warn("apache2: #{node['apache']['mpm']} module is not supported and must be handled separately!")
-  end
+if node['apache']['mpm_support'].include?(node['apache']['mpm'])
+  include_recipe "apache2::mpm_#{node['apache']['mpm']}"
+else
+  Chef::Log.warn("apache2: #{node['apache']['mpm']} module is not supported and must be handled separately!")
 end
 
 node['apache']['default_modules'].each do |mod|
@@ -200,15 +198,6 @@ apache_service_name = node['apache']['service_name']
 
 service 'apache2' do
   service_name apache_service_name
-  case node['platform_family']
-  when 'rhel'
-    if node['platform_version'].to_f < 7.0 && node['apache']['version'] != '2.4'
-      restart_command "/sbin/service #{apache_service_name} restart && sleep 1"
-      reload_command "/sbin/service #{apache_service_name} graceful && sleep 1"
-    end
-  when 'debian'
-    provider Chef::Provider::Service::Debian
-  end
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
   only_if "#{node['apache']['binary']} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: 10

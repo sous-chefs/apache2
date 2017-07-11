@@ -45,6 +45,4 @@ apache_module 'ssl' do
   conf true
 end
 
-if node['apache']['version'] == '2.4'
-  include_recipe 'apache2::mod_socache_shmcb'
-end
+include_recipe 'apache2::mod_socache_shmcb'

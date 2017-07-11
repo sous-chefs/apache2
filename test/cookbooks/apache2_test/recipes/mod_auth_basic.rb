@@ -24,7 +24,7 @@ directory "#{node['apache_test']['root_dir']}/secure" do
   action :create
 end
 
-package 'apache2-utils' if platform_family?('debian', 'suse') && node['apache']['version'] == '2.4'
+package 'apache2-utils' if platform_family?('debian', 'suse')
 
 execute 'add-credentials' do
   case node['platform_family']
