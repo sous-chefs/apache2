@@ -266,6 +266,7 @@ default['apache']['default_modules'] = %w(
 %w(log_config logio unixd).each do |log_mod|
   default['apache']['default_modules'] << log_mod if %w(rhel amazon fedora suse arch freebsd).include?(node['platform_family'])
 end
+default['apache']['default_modules'].delete('unixd') if node['platform_family'] == 'suse'
 
 unless node['platform'] == 'amazon' # This is for chef 12 compatibility
   default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
