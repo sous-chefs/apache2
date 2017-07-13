@@ -2,6 +2,16 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## v5.0.0 (2017-07-13)
+
+### Breaking changes
+
+- Support for Apache 2.2 has been fully removed so we can focus on providing a solid experience for Apache 2.4 and above. This removes support for RHEL 6, SLES 11, and Debian 7
+
+### Other changes
+
+- Fixed openSUSE support in multiple places and added integration testing for openSUSE in Travis
+
 ## v4.0.0 (2017-07-10)
 
 ### Breaking changes
@@ -158,10 +168,15 @@ Major version update because of SSL Improvements and new platform MPM and Versio
   - `apache.mod_ssl.directives`
 
 - [GH-278] Improved chefspec tests execution time
+
 - [GH-277] Optimize files watching for Guard on Win32 platform
+
 - [GH-270] Don't attempt start until after configuration is written
+
 - [GH-268] Now uses chefspec 4.1
+
 - [GH-267] Use Supermarket as the Berkshelf 3 source
+
 - [GH-266] Rubocop based ruby style/syntax improvements
 - [GH-264] mod_ssl: Add new attribute for to be ready to any custom directive
 - [GH-249] Don't prepend Apache log path when requesting error logging to syslog
