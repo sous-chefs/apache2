@@ -43,21 +43,10 @@ The following platforms and versions are tested and supported using [test-kitche
 
 - Amazon Linux 2013.09+
 - Ubuntu 14.04 / 16.04
-- Debian 8
+- Debian 8/9
 - CentOS 7
 - Fedora
 - OpenSUSE Leap
-
-The following platform families are supported in the code, and are assumed to work based on the successful testing on Ubuntu and CentOS.
-
-- RHEL
-- Debian
-
-The following platforms are also supported in the code, have been tested manually but are not regularly tested under test-kitchen.
-
-- SLES
-- ArchLinux
-- FreeBSD
 
 ### Notes for RHEL Family:
 
