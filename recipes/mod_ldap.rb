@@ -16,8 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-package 'mod_ldap'
+if platform_family?('rhel', 'fedora', 'amazon')
+  package 'mod_ldap'
+end
 
 apache_module 'ldap' do
   conf true
