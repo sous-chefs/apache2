@@ -1,0 +1,7 @@
+<IfModule mod_status.c>
+  <Location /server-status>
+    SetHandler server-status
+    Require local
+    Require ip <%= node['apache_test']['remote_host_ip'] %>
+  </Location>
+</IfModule>

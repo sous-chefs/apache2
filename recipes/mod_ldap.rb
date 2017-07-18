@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: apache2
-# Recipe:: ldap
+# Cookbook:: apache2
+# Recipe:: mod_ldap
 #
-# Copyright 2008-2013, Opscode, Inc.
+# Copyright:: 2008-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,4 +17,8 @@
 # limitations under the License.
 #
 
-apache_module 'ldap'
+package 'mod_ldap'
+
+apache_module 'ldap' do
+  conf true
+end

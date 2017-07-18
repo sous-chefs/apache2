@@ -1,10 +1,10 @@
 #
-# Cookbook Name:: apache2
-# Recipe:: perl
+# Cookbook:: apache2
+# Recipe:: mod_perl
 #
 # adapted from the mod_python recipe by Jeremy Bingham
 #
-# Copyright 2008-2013, Opscode, Inc.
+# Copyright:: 2008-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,20 +21,33 @@
 
 case node['platform_family']
 when 'debian'
-  %w[libapache2-mod-perl2 libapache2-request-perl apache2-mpm-prefork].each do |pkg|
-    package pkg
+  package %w(libapache2-mod-perl2 libapache2-request-perl)
+
+  if node['platform'] == 'ubuntu' && node['platform_version'].to_f <= 14.04
+    package 'apache2-mpm-prefork'
   end
-when 'rhel', 'fedora'
+  if node['platform'] == 'debian' && node['platform_version'].to_f <= 8
+    package 'apache2-mpm-prefork'
+  end
+when 'suse'
+  package 'apache2-mod_perl' do
+    notifies :run, 'execute[generate-module-list]', :immediately
+  end
+
+  package 'perl-Apache2-Request'
+when 'rhel', 'fedora', 'amazon'
   package 'mod_perl' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end
 
   package 'perl-libapreq2'
+when 'freebsd'
+  package %w( ap24-mod_perl2 p5-libapreq2)
 end
 
 file "#{node['apache']['dir']}/conf.d/perl.conf" do
-  action :delete
-  backup false
+  content '# conf is under mods-available/perl.conf - apache2 cookbook\n'
+  only_if { ::Dir.exist?("#{node['apache']['dir']}/conf.d") }
 end
 
 apache_module 'perl'

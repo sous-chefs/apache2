@@ -7,8 +7,7 @@
   #
   <Location /server-info>
     SetHandler server-info
-    Order deny,allow
-    Deny from all
-    Allow from <%= node['apache']['info_allow_list'] %>
+    Require local
+    Require ip <%= node['apache']['info_allow_list'] %>
   </Location>
 </IfModule>

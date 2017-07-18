@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: apache2
-# Recipe:: dav_svn
+# Cookbook:: apache2
+# Recipe:: mod_dav_svn
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright:: 2008-2009, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ include_recipe 'apache2::mod_dav'
 
 package 'libapache2-svn' do
   case node['platform_family']
-  when 'rhel', 'fedora', 'suse'
+  when 'rhel', 'fedora', 'suse', 'amazon'
     package_name 'mod_dav_svn'
   else
     package_name 'libapache2-svn'
@@ -29,7 +29,7 @@ package 'libapache2-svn' do
 end
 
 case node['platform_family']
-when 'rhel', 'fedora', 'suse'
+when 'rhel', 'fedora', 'suse', 'amazon'
   file "#{node['apache']['dir']}/conf.d/subversion.conf" do
     action :delete
     backup false

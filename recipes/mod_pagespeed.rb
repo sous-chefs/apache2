@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: apache2
-# Recipe:: default
+# Cookbook:: apache2
+# Recipe:: mod_pagespeed
 #
-# Copyright 2013, ZOZI
+# Copyright:: 2013, ZOZI
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,5 +33,5 @@ if platform_family?('debian')
     conf true
   end
 else
-  Chef::Log.warm "apache::mod_pagespeed does not support #{node["platform_family"]} yet, and is not being installed"
+  Chef::Log.warn "apache::mod_pagespeed does not support #{node['platform_family']} yet, and is not being installed"
 end

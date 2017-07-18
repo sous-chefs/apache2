@@ -1,0 +1,55 @@
+require 'spec_helper'
+
+describe 'apache2::mod_ssl' do
+  supported_platforms.each do |platform, versions|
+    versions.each do |version|
+      context "on #{platform.capitalize} #{version}" do
+        let(:chef_run) do
+          @chef_run
+        end
+
+        property = load_platform_properties(platform: platform, platform_version: version)
+
+        before(:context) do
+          RSpec::Mocks.with_temporary_scope do
+            @chef_run = ChefSpec::SoloRunner.new(platform: platform, version: version)
+            stub_command("#{property[:apache][:binary]} -t").and_return(true)
+            allow(Dir).to receive(:exist?).with("#{property[:apache][:dir]}/conf.d").and_return(true)
+            @chef_run.converge(described_recipe)
+          end
+        end
+
+        if %w(amazon redhat centos fedora arch suse).include?(platform)
+          it "installs package #{property[:apache][:mod_ssl][:pkg_name]}" do
+            expect(chef_run).to install_package(property[:apache][:mod_ssl][:pkg_name])
+            expect(chef_run).to_not install_package('not_mod_ssl')
+          end
+          let(:package) { chef_run.package(property[:apache][:mod_ssl][:pkg_name]) }
+          it "triggers a notification by #{property[:apache][:mod_ssl][:pkg_name]} package install to execute[generate-module-list]" do
+            expect(package).to notify('execute[generate-module-list]').to(:run)
+            expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
+          end
+          it "stubs #{property[:apache][:dir]}/conf.d/ssl.conf" do
+            expect(chef_run).to create_file("#{property[:apache][:dir]}/conf.d/ssl.conf")
+              .with(content: '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n')
+          end
+        end
+
+        it 'creates /etc/apache2/ports.conf' do
+          expect(chef_run).to create_template('ssl_ports.conf').with(
+            path: "#{property[:apache][:dir]}/ports.conf",
+            source: 'ports.conf.erb',
+            mode: '0644'
+          )
+        end
+
+        let(:template) { chef_run.template('ssl_ports.conf') }
+        it 'triggers a notification by ssl_ports.conf template to restart service[apache2]' do
+          expect(template).to notify('service[apache2]').to(:restart)
+          expect(template).to_not notify('service[apache2]').to(:stop)
+        end
+        it_should_behave_like 'an apache2 module', 'ssl', true
+      end
+    end
+  end
+end

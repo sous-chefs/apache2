@@ -6,9 +6,7 @@
 
   <Proxy *>
     AddDefaultCharset off
-    Order <%= node['apache']['proxy']['order'] %>
-    Deny from <%= node['apache']['proxy']['deny_from'] %>
-    Allow from <%= node['apache']['proxy']['allow_from'] %>
+    Require <%= node['apache']['proxy']['require'] %>
   </Proxy>
 
   # Enable/disable the handling of HTTP/1.1 "Via:" headers.

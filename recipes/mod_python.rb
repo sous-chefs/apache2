@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: apache2
-# Recipe:: python
+# Cookbook:: apache2
+# Recipe:: mod_python
 #
-# Copyright 2008-2013, Opscode, Inc.
+# Copyright:: 2008-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,15 +20,21 @@
 case node['platform_family']
 when 'debian'
   package 'libapache2-mod-python'
-when 'rhel', 'fedora'
+when 'suse'
+  package 'apache2-mod_python' do
+    notifies :run, 'execute[generate-module-list]', :immediately
+  end
+when 'rhel', 'fedora', 'amazon'
   package 'mod_python' do
     notifies :run, 'execute[generate-module-list]', :immediately
   end
+when 'freebsd'
+  package 'ap24-mod_python35'
 end
 
 file "#{node['apache']['dir']}/conf.d/python.conf" do
-  action :delete
-  backup false
+  content '# conf is under mods-available/python.conf - apache2 cookbook\n'
+  only_if { ::Dir.exist?("#{node['apache']['dir']}/conf.d") }
 end
 
 apache_module 'python'

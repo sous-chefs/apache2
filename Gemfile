@@ -1,23 +1,9 @@
-# source "https://rubygems.org"
-
-# gem 'cucumber', '~> 1.2.0'
-# gem 'httparty', '~> 0.8.3'
-# gem 'minitest', '~> 3.0.0'
-# gem 'nokogiri', '~> 1.5.0'
-
-# group :kitchen  do
-#   gem 'test-kitchen', '< 1.0'
-# end
-
+# This gemfile provides additional gems for testing and releasing this cookbook
+# It is meant to be installed on top of ChefDK which provides the majority
+# of the necessary gems for testing this cookbook
+#
+# Run 'chef exec bundle install' to install these dependencies
 
 source 'https://rubygems.org'
 
-gem 'berkshelf',  '~> 2.0'
-gem 'chefspec',   '~> 3.0'
-gem 'foodcritic', '~> 3.0'
-gem 'rubocop'
-
-group :integration do
-  gem 'test-kitchen',    '~> 1.0'
-  gem 'kitchen-vagrant', '~> 0.11'
-end
+gem 'stove'

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: apache2
-# Recipe:: dav_fs
+# Cookbook:: apache2
+# Recipe:: mod_dav_fs
 #
-# Copyright 2011-2013, Atriso
+# Copyright:: 2011-2013, Atriso
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,4 +18,6 @@
 #
 
 include_recipe 'apache2::mod_dav'
-apache_module 'dav_fs'
+apache_module 'dav_fs' do
+  conf true
+end

@@ -17,7 +17,6 @@
   <Directory "<%= node['apache']['icondir'] %>">
     Options Indexes MultiViews
     AllowOverride None
-    Order allow,deny
-    Allow from all
+    Require all granted
   </Directory>
 </IfModule>
