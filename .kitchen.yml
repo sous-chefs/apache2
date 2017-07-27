@@ -46,6 +46,7 @@ suites:
   # - recipe[apache2_test::mod_fastcgi]
   # - recipe[apache2_test::mod_dav_svn]
     - recipe[apache2_test::mod_expires]
+    - recipe[apache2_test::mod_jk]
     - recipe[apache2_test::mod_status_remote]
     attributes:
       machine_fqdn: working.computers.biz

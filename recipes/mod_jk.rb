@@ -18,13 +18,64 @@
 # limitations under the License.
 #
 
-package 'libapache2-mod-jk' do
-  case node['platform_family']
-  when 'rhel', 'fedora', 'suse', 'amazon'
-    package_name 'mod_jk'
-  else
-    package_name 'libapache2-mod-jk'
+if platform_family?('rhel', 'amazon', 'fedora', 'centos')
+  package %W(gcc gcc-c++ #{node['apache']['devel_package']} apr apr-devel apr-util apr-util-devel make autoconf libtool)
+
+  version = node['apache']['mod_jk']['version']
+  configure_flags = node['apache']['mod_jk']['configure_flags']
+
+  remote_file "#{Chef::Config[:file_cache_path]}/tomcat-connectors-#{version}-src.tar.gz" do
+    source node['apache']['mod_jk']['source_url']
+    checksum node['apache']['mod_jk']['checksum']
+    mode '0644'
+    action :create_if_missing
   end
+
+  bash "untar mod_jk" do
+    cwd Chef::Config[:file_cache_path]
+    code <<-EOH
+      tar -zxf tomcat-connectors-#{version}-src.tar.gz
+    EOH
+    creates "#{Chef::Config['file_cache_path']}/tomcat-connectors-#{version}-src/native/common/jk_connect.h"
+  end
+
+  bash "compile mod_jk" do
+    cwd "#{Chef::Config[:file_cache_path]}/tomcat-connectors-#{version}-src/native"
+    environment 'PKG_CONFIG_PATH' => node['apache']['mod_jk']['pkg_dir']
+    code <<-EOH
+    ./configure --with-apxs=/usr/bin/apxs
+    make
+    EOH
+    creates "#{Chef::Config['file_cache_path']}/tomcat-connectors-#{version}-src/native/apache-2.0/.libs/mod_jk.so"
+    notifies :run, 'bash[install-mod_jk]', :immediately
+    not_if "test -f #{Chef::Config['file_cache_path']}/tomcat-connectors-#{version}-src/native/apache-2.0/.libs/mod_jk.so"
+  end
+
+  bash 'install-mod_jk' do
+    user 'root'
+    cwd "#{Chef::Config['file_cache_path']}/tomcat-connectors-#{version}-src/native"
+    environment 'PKG_CONFIG_PATH' => node['apache']['mod_jk']['pkg_dir']
+    code <<-EOH
+    make install
+    EOH
+    creates "#{node['apache']['libexec_dir']}/mod_jk.so"
+    notifies :restart, 'service[apache2]'
+    not_if "test -f #{node['apache']['libexec_dir']}/mod_jk.so"
+  end
+
+  template "#{node['apache']['dir']}/mods-available/jk.load" do
+    source 'mods/jk.load.erb'
+    owner 'root'
+    group node['apache']['root_group']
+    mode '0644'
+  end
+
+  apache_module 'jk' do
+    conf true
+  end
+
+else
+  package 'libapache2-mod-jk'
 end
 
 apache_module 'jk'

@@ -1,0 +1,7 @@
+<IfModule mod_jk.c>
+   JkWorkersFile <%= node['apache']['conf_dir'] %>/workers.properties
+   JkShmFile     <%= node['apache']['log_dir'] %>/mod_jk.shm
+   JkLogFile     <%= node['apache']['log_dir'] %>/mod_jk.log
+   JkLogLevel    warn
+   JkLogStampFormat "[%a %b %d %H:%M:%S %Y] "
+</IfModule>
