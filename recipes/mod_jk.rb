@@ -76,6 +76,5 @@ if platform_family?('rhel', 'amazon', 'fedora', 'centos')
 
 else
   package 'libapache2-mod-jk'
+  apache_module 'jk'
 end
-
-apache_module 'jk'
