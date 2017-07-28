@@ -47,11 +47,11 @@ if platform_family?('rhel', 'amazon', 'fedora', 'centos')
     make
     EOH
     creates "#{Chef::Config['file_cache_path']}/tomcat-connectors-#{version}-src/native/apache-2.0/.libs/mod_jk.so"
-    notifies :run, 'bash[install-mod_jk]', :immediately
+    notifies :run, 'bash[install mod_jk]', :immediately
     not_if "test -f #{Chef::Config['file_cache_path']}/tomcat-connectors-#{version}-src/native/apache-2.0/.libs/mod_jk.so"
   end
 
-  bash 'install-mod_jk' do
+  bash 'install mod_jk' do
     user 'root'
     cwd "#{Chef::Config['file_cache_path']}/tomcat-connectors-#{version}-src/native"
     environment 'PKG_CONFIG_PATH' => node['apache']['mod_jk']['pkg_dir']
