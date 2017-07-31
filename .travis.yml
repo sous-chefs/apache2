@@ -23,7 +23,7 @@ env:
   - INSTANCE=default-centos-7
   - INSTANCE=default-debian-8
   - INSTANCE=default-debian-9
-  - INSTANCE=default-fedora-25
+  - INSTANCE=default-fedora-latest
   - INSTANCE=default-opensuse-leap
   - INSTANCE=default-ubuntu-1404
   - INSTANCE=default-ubuntu-1604
