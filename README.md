@@ -218,11 +218,9 @@ Note: In Ubuntu 14.04, the `libapache2-mod-fastcgi` module is not available by d
 
 Installs the fcgi package and enables the module. Requires EPEL on RHEL family.
 
-## mod_php5
+## mod_php
 
-Simply installs the appropriate package on Debian, Ubuntu and ArchLinux.
-
-On Red Hat family distributions including Fedora, the php.conf that comes with the package is removed. On RHEL platforms less than v6, the `php53` package is used.
+Simply installs the appropriate package and enables the module
 
 - `node['apache']['mod_php5']['install_method']` - default `package` can be overridden to avoid package installs.
 
