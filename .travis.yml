@@ -19,7 +19,7 @@ services: docker
 
 env:
   matrix:
-  - INSTANCE=default-amazonlinux
+    #  - INSTANCE=default-amazonlinux # package repo times out when run in GCE with travis
   - INSTANCE=default-centos-7
   - INSTANCE=default-debian-8
   - INSTANCE=default-debian-9
