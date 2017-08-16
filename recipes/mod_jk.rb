@@ -31,7 +31,7 @@ if platform_family?('rhel', 'amazon', 'fedora', 'centos')
     action :create_if_missing
   end
 
-  bash "untar mod_jk" do
+  bash 'untar mod_jk' do
     cwd Chef::Config[:file_cache_path]
     code <<-EOH
       tar -zxf tomcat-connectors-#{version}-src.tar.gz
@@ -39,11 +39,11 @@ if platform_family?('rhel', 'amazon', 'fedora', 'centos')
     creates "#{Chef::Config['file_cache_path']}/tomcat-connectors-#{version}-src/native/common/jk_connect.h"
   end
 
-  bash "compile mod_jk" do
+  bash 'compile mod_jk' do
     cwd "#{Chef::Config[:file_cache_path]}/tomcat-connectors-#{version}-src/native"
     environment 'PKG_CONFIG_PATH' => node['apache']['mod_jk']['pkg_dir']
     code <<-EOH
-    ./configure --with-apxs=/usr/bin/apxs
+    ./configure #{configure_flags.join(' ')}
     make
     EOH
     creates "#{Chef::Config['file_cache_path']}/tomcat-connectors-#{version}-src/native/apache-2.0/.libs/mod_jk.so"

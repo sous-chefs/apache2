@@ -55,12 +55,12 @@ describe 'apache2::mod_jk' do
         end
 
         if %w(redhat centos amazon fedora).include?(platform)
-          it_should_behave_like "installs compilation tools", property[:apache][:devel_package]
-          it_should_behave_like "installs mod_jk from source"
+          it_should_behave_like 'installs compilation tools', property[:apache][:devel_package]
+          it_should_behave_like 'installs mod_jk from source'
         else
           it_should_behave_like "doesn't installs compilation tools", property[:apache][:devel_package]
           it_should_behave_like "doesn't compile mod_jk from source"
-          it_should_behave_like "installs mod_jk from package"
+          it_should_behave_like 'installs mod_jk from package'
         end
 
         it_should_behave_like 'an apache2 module', 'jk', false

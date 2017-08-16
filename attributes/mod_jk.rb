@@ -19,11 +19,11 @@
 #
 
 # mod_jk
-default['apache']['mod_jk']['version']    = '1.2.42'
+default['apache']['mod_jk']['version'] = '1.2.42'
 default['apache']['mod_jk']['source_url'] = "http://www-us.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-#{node['apache']['mod_jk']['version']}-src.tar.gz"
-default['apache']['mod_jk']['checksum']  = 'ea119f234c716649d4e7d4abd428852185b6b23a9205655e45554b88f01f3e31'
+default['apache']['mod_jk']['checksum'] = 'ea119f234c716649d4e7d4abd428852185b6b23a9205655e45554b88f01f3e31'
 
 default['apache']['mod_jk']['pkg_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/pkgconfig' : '/usr/lib64/pkgconfig'
 default['apache']['mod_jk']['configure_flags'] = [
-  '--with-apxs=/usr/bin/apxs'
+  '--with-apxs=/usr/bin/apxs',
 ]
