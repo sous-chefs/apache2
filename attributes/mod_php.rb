@@ -1,6 +1,6 @@
 #
 # Cookbook:: apache2
-# Attributes:: mod_php5
+# Attributes:: mod_php
 #
 # Copyright:: 2014, Viverae, Inc.
 #

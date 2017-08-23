@@ -1,6 +1,6 @@
 #
 # Cookbook:: apache2
-# Recipe:: mod_php5
+# Recipe:: mod_php
 #
 # Copyright:: 2008-2017, Chef Software, Inc.
 # Copyright:: 2014, OneHealth Solutions, Inc.
