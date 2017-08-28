@@ -222,7 +222,7 @@ Installs the fcgi package and enables the module. Requires EPEL on RHEL family.
 
 Simply installs the appropriate package and enables the module
 
-- `node['apache']['mod_php5']['install_method']` - default `package` can be overridden to avoid package installs.
+- `node['apache']['mod_php']['install_method']` - default `package` can be overridden to avoid package installs.
 
 ## mod_ssl
 

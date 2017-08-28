@@ -1,6 +1,6 @@
 #
 # Cookbook:: apache2_test
-# Recipe:: mod_php5
+# Recipe:: mod_php
 #
 # Copyright:: 2012, Chef Software, Inc.
 #

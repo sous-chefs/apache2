@@ -25,7 +25,7 @@ recipe           'apache2_test::mod_expires', 'Test example for setting cache ex
 recipe           'apache2_test::mod_dav_svn', 'Test example for Subversion repository hosting'
 recipe           'apache2_test::mod_perl', 'Test example for hosting a Perl application'
 recipe           'apache2_test::mod_proxy_ajp', 'Test example for proxying requests to a Java application'
-recipe           'apache2_test::mod_php5', 'Test example for hosting a PHP application'
+recipe           'apache2_test::mod_php', 'Test example for hosting a PHP application'
 recipe           'apache2_test::mod_python', 'Test example for hosting a Python application'
 recipe           'apache2_test::mod_ssl', 'Test example for SSL'
 recipe           'apache2_test::mod_status_remote', 'Test example for viewing server status'
