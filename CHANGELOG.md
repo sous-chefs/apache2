@@ -2,6 +2,14 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## v5.0.1 (2017-09-01)
+
+- Test using dokken-images in kitchen-dokken
+- Fix readme section for mod_php
+- Replace the existing testing.md contents with a link to the Chef testing docs
+- Fix mod_ldap failing on non-RHEL platforms
+- Fix mod_dav_svn to install the correct packages on Debian 8/9
+
 ## v5.0.0 (2017-07-13)
 
 ### Breaking changes
