@@ -24,7 +24,11 @@ package 'libapache2-svn' do
   when 'rhel', 'fedora', 'suse', 'amazon'
     package_name 'mod_dav_svn'
   else
-    package_name 'libapache2-svn'
+    if platform?('debian') && node['platform_version'].to_i >= 8
+      package_name 'libapache2-mod-svn'
+    else
+      package_name 'libapache2-svn'
+    end
   end
 end
 
