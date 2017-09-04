@@ -3,6 +3,7 @@
 #
 # Based on the Ubuntu apache2.conf
 
+ServerName "<%= node['apache']['server_name'] || node.name %>"
 ServerRoot "<%= node['apache']['dir'] %>"
 
 #
