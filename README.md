@@ -465,6 +465,10 @@ This definition should generally be called over `apache_config`.
 * `enable` - Default true, which uses `a2enconf` to enable the config. If false, the config will be disabled with `a2disconf`.
 * `conf_path` - path to put the config in if you need to override the default `conf-available`.
 
+Additional parameters can be defined when the definition is called in a recipe, see **Examples**.
+
+All parameters are passed to the template in the @params dict
+
 ### Examples:
 
 Place and enable the example conf:

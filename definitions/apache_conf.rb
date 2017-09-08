@@ -35,6 +35,9 @@ define :apache_conf, :enable => true do
     backup false
     mode '0644'
     notifies :reload, 'service[apache2]', :delayed
+    variables(
+      :params => params
+    )
   end
 
   if params[:enable]
