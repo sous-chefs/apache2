@@ -233,11 +233,12 @@ LogFormat "%{User-agent}i" agent
 #    ErrorDocument 503 /error/HTTP_SERVICE_UNAVAILABLE.html.var
 #    ErrorDocument 506 /error/HTTP_VARIANT_ALSO_VARIES.html.var
 
+ServerSignature Off
+ServerTokens Prod
+
 <IfModule mod_headers.c>
       Header unset ETag
       Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
-      Header set Pragma "no-cache"
-      Header set Note "CACHING IS DISABLED ON LOCALHOST"
       Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
       header always set x-xss-protection "1; mode=block"
 </IfModule>
