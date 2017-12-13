@@ -240,7 +240,7 @@ ServerTokens Prod
       Header unset ETag
       Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
       Header set Expires "Wed, 11 Jan 1982 00:00:00 GMT"
-      header always set x-xss-protection "1; mode=block"
+      Header set X-XSS-Protection "1; mode=block"
 </IfModule>
 
 # Include generic snippets of statements
