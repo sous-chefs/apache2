@@ -62,7 +62,7 @@ when 'rhel', 'fedora', 'amazon'
   default['apache']['lib_dir'] = node['kernel']['machine'] =~ /^i[36]86$/ ? '/usr/lib/httpd' : '/usr/lib64/httpd'
   default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'suse'
-  default['apache']['package']     = 'apache2'
+  default['apache']['service_name'] = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['apachectl']   = '/usr/sbin/apache2ctl'

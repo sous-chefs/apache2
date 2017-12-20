@@ -6,7 +6,7 @@ def supported_platforms
     'debian' => ['8.9'],
     'fedora' => %w(26),
     'redhat' => ['7.2'],
-    'centos' => ['7.3.1611'],
+    'centos' => ['7.4.1708'],
     'freebsd' => ['10.3'],
     'opensuse' => ['42.3'],
   }

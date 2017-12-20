@@ -22,8 +22,9 @@ describe 'apache2::default' do
             @chef_run.converge(described_recipe)
           end
 
-          it "installs package #{property[:apache][:package]}" do
-            expect(chef_run).to install_package(property[:apache][:package])
+          it "installs package apache2" do
+            package = platform == 'opensuse' ? "apache2-#{property[:apache][:mpm]}" : property[:apache][:package]
+            expect(chef_run).to install_package(package)
           end
 
           it "creates #{property[:apache][:log_dir]} directory" do

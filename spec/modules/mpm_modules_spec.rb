@@ -12,14 +12,18 @@ mpm_modules.each do |mpm|
           let(:chef_run) do
             ChefSpec::SoloRunner.new(platform: platform, version: version) do
               stub_command("#{property[:apache][:binary]} -t").and_return(true)
-            end.converge(described_recipe)
+            end.converge('apache2::default', described_recipe)
           end
 
           # separate test for opensuse as it distributes packages with workers compiled into the httpd bin
           if platform == 'opensuse'
-            it "uninstalls #{(mpm_modules - [mpm]).map { |m| "apache2-#{m}" }.join ' and '} packages and installs apache2-#{mpm} package" do
-              expect(chef_run).to remove_package((mpm_modules - [mpm]).map { |m| "apache2-#{m}" })
-              expect(chef_run).to install_package("apache2-#{mpm}")
+            it "uninstalls #{(mpm_modules - [mpm]).map { |m| "apache2-#{m}" }.join ' and '} packages" do
+              (mpm_modules - [mpm]).map { |m| "apache2-#{m}" }.each do |pkg|
+                expect(chef_run).to remove_rpm_package(pkg)
+                expect(chef_run.rpm_package(pkg)).to notify('service[apache2]').to(:restart)
+              end
+              expect(chef_run).to create_link('/usr/sbin/httpd').with(to: "/usr/sbin/httpd-#{mpm}")
+              expect(chef_run.link('/usr/sbin/httpd')).to notify('service[apache2]').to(:restart)
             end
           else
             it_should_behave_like 'an apache2 module', "mpm_#{mpm}", true, nil, true

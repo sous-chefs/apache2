@@ -19,11 +19,17 @@
 
 # OpenSuse distributes packages with workers compiled into the httpd bin
 if platform_family?('suse')
-  package %w(apache2-prefork apache2-worker) do
-    action :remove
+  %w(apache2-prefork apache2-worker).each do |pkg|
+    rpm_package pkg do
+      action :remove
+      notifies :restart, 'service[apache2]', :delayed
+    end
   end
 
-  package 'apache2-event'
+  link '/usr/sbin/httpd' do
+    to '/usr/sbin/httpd-event'
+    notifies :restart, 'service[apache2]', :delayed
+  end
 else
   # apache_module('mpm_itk') { enable false }
   apache_module('mpm_prefork') { enable false }

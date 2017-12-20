@@ -1,6 +1,5 @@
 {
     "apache": {
-        "package": "apache2",
         "devel_package": "httpd-devel",
         "binary": "/usr/sbin/httpd",
         "mpm": "prefork",

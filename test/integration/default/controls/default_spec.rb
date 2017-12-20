@@ -18,8 +18,9 @@
 property = JSON.parse(inspec.profile.file("#{inspec.os.name}_#{inspec.os.release}.json"), symbolize_names: true)
 
 describe 'apache2::default' do
-  it "package #{property[:apache][:package]} is installed" do
-    expect(package(property[:apache][:package])).to be_installed
+  it "package apache2 is installed" do
+    pkg = inspec.os[:family] == 'suse' ? "apache2-#{property[:apache][:mpm]}" : property[:apache][:package]
+    expect(package(pkg)).to be_installed
   end
 
   it "service #{property[:apache][:service_name]} is enabled and running" do

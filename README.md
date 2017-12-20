@@ -81,7 +81,7 @@ This cookbook uses many attributes, broken up into a few different kinds.
 
 In order to support the broadest number of platforms, several attributes are determined based on the node's platform. See the attributes/default.rb file for default values in the case statement at the top of the file.
 
-- `node['apache']['package']` - Package name for Apache2
+- `node['apache']['package']` - Package name for Apache2, ignored on (open)suse
 - `node['apache']['perl_pkg']` - Package name for Perl
 - `node['apache']['dir']` - Location for the Apache configuration
 - `node['apache']['log_dir']` - Location for Apache logs
