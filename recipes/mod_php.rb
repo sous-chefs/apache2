@@ -71,7 +71,7 @@ when 'rhel', 'fedora', 'suse', 'amazon'
   end
 end
 
-template "#{node['apache']['dir']}/mods-available/php.conf" do
+template "#{node['apache']['dir']}/mods-available/#{node['apache']['mod_php']['module_name']}.conf" do
   source 'mods/php.conf.erb'
   mode '0644'
   notifies :reload, 'service[apache2]', :delayed
