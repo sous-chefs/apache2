@@ -200,5 +200,5 @@ service 'apache2' do
   service_name apache_service_name
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
-  only_if "#{node['apache']['binary']} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: 10
+  only_if "[ -e #{node['apache']['binary']} ] && #{node['apache']['binary']} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: 10
 end
