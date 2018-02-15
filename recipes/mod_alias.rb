@@ -18,5 +18,5 @@
 #
 
 apache_module 'alias' do
-  conf true
+  conf false
 end
