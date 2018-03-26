@@ -18,7 +18,7 @@
 #
 
 include_recipe 'apache2::default'
-include_recipe 'apache2::mod_auth_digest'
+apache_module 'auth_digest'
 
 directory "#{node['apache_test']['root_dir']}/secure" do
   action :create

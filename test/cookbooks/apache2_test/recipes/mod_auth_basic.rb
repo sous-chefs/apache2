@@ -18,7 +18,7 @@
 #
 
 include_recipe 'apache2::default'
-include_recipe 'apache2::mod_auth_basic'
+apache_module 'auth_basic'
 
 directory "#{node['apache_test']['root_dir']}/secure" do
   action :create

@@ -18,7 +18,7 @@
 #
 
 include_recipe 'apache2::default'
-include_recipe 'apache2::mod_expires'
+apache_module 'mod_expires'
 
 directory "#{node['apache_test']['root_dir']}/cachetest" do
   action :create

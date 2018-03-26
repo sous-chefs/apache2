@@ -49,7 +49,9 @@ file "#{secure_dir}/.htgroups" do
   content "#{group_name}:#{node['apache_test']['auth_username']}"
 end
 
-include_recipe 'apache2::mod_authz_groupfile'
+apache_module 'authz_groupfile'
+
+
 web_app 'secure' do
   template 'authz_groupfile.conf.erb'
   secure_dir secure_dir

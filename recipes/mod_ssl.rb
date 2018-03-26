@@ -45,4 +45,4 @@ apache_module 'ssl' do
   conf true
 end
 
-include_recipe 'apache2::mod_socache_shmcb'
+apache_module 'socache_shmcb'
