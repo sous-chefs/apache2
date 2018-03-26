@@ -24,7 +24,7 @@ package 'which' do
   only_if { platform_family?('rhel', 'fedora', 'amazon') }
 end
 
-include_recipe 'apache2::mod_php5'
+include_recipe 'apache2::mod_php'
 
 directory node['apache_test']['app_dir'] do
   recursive true

@@ -21,7 +21,7 @@ define :web_app, template: 'web_app.conf.erb', local: false, enable: true, serve
   application_name = params[:name]
 
   include_recipe 'apache2::default'
-  include_recipe 'apache2::mod_rewrite'
+  apache_module 'rewrite'
   include_recipe 'apache2::mod_deflate'
   include_recipe 'apache2::mod_headers'
 

@@ -256,18 +256,3 @@ default['apache']['proxy']['require']    = 'all denied'
 default['apache']['proxy']['order']      = 'deny,allow'
 default['apache']['proxy']['deny_from']  = 'all'
 default['apache']['proxy']['allow_from'] = 'none'
-
-# Default modules to enable via include_recipe
-default['apache']['default_modules'] = %w(
-  status alias auth_basic authn_core authn_file authz_core authz_groupfile
-  authz_host authz_user autoindex deflate dir env mime negotiation setenvif
-)
-
-%w(log_config logio unixd).each do |log_mod|
-  default['apache']['default_modules'] << log_mod if %w(rhel amazon fedora suse arch freebsd).include?(node['platform_family'])
-end
-default['apache']['default_modules'].delete('unixd') if node['platform_family'] == 'suse'
-
-unless node['platform'] == 'amazon' # This is for chef 12 compatibility
-  default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
-end

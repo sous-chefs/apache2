@@ -43,7 +43,7 @@ script 'add-credentials' do
   action :run
 end
 
-include_recipe 'apache2::mod_authz_user'
+apache_module 'authz_user'
 
 web_app 'secure' do
   template 'authz_user.conf.erb'

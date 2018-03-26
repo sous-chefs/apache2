@@ -18,7 +18,7 @@
 #
 
 include_recipe 'apache2::default'
-include_recipe 'apache2::mod_authz_host'
+apache_module 'authz_host'
 
 directory "#{node['apache_test']['root_dir']}/secure" do
   action :create

@@ -18,8 +18,7 @@
 # limitations under the License.
 #
 
-package 'apache2' do # ~FC009 only available in apt_package. See #388
-  package_name node['apache']['package']
+package node['apache']['package'] do
   default_release node['apache']['default_release'] unless node['apache']['default_release'].nil?
 end
 
@@ -182,9 +181,37 @@ else
   Chef::Log.warn("apache2: #{node['apache']['mpm']} module is not supported and must be handled separately!")
 end
 
-node['apache']['default_modules'].each do |mod|
-  module_recipe_name = mod =~ /^mod_/ ? mod : "mod_#{mod}"
-  include_recipe "apache2::#{module_recipe_name}"
+include_recipe 'apache2::mod_status'
+include_recipe 'apache2::mod_alias'
+apache_module 'autoindex'
+include_recipe 'apache2::mod_deflate'
+include_recipe 'apache2::mod_dir'
+include_recipe 'apache2::mod_mime'
+include_recipe 'apache2::mod_negotiation'
+apache_module 'auth_basic'
+apache_module 'authn_core'
+apache_module 'authn_file'
+apache_module 'authn_file'
+apache_module 'authz_core'
+apache_module 'authz_groupfile'
+apache_module 'authz_host'
+apache_module 'authz_user'
+apache_module 'env'
+apache_module 'setenvif'
+
+case node['platform_family']
+when 'rhel', 'amazon', 'fedora'
+  include_recipe 'apache2::mod_log_config'
+  include_recipe 'apache2::mod_logio'
+  apache_module 'unixd'
+  apache_module 'systemd'
+when 'arch' ,'freebsd'
+  include_recipe 'apache2::mod_log_config'
+  include_recipe 'apache2::mod_logio'
+  apache_module 'unixd'
+when 'suse'
+  include_recipe 'apache2::mod_log_config'
+  include_recipe 'apache2::mod_logio'
 end
 
 if node['apache']['default_site_enabled']

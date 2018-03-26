@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::mod_dav'
+apache_module 'dav'
 
 package 'libapache2-svn' do
   case node['platform_family']
