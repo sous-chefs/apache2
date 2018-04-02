@@ -214,6 +214,7 @@ default['apache']['default_site_enabled'] = false
 default['apache']['default_site_port']    = '80'
 default['apache']['access_file_name'] = '.htaccess'
 default['apache']['default_release'] = nil
+default['apache']['version'] = nil
 default['apache']['log_level'] = 'warn'
 
 # Security
