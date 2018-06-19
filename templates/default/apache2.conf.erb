@@ -40,10 +40,10 @@ MaxKeepAliveRequests <%= node['apache']['keepaliverequests'] %>
 #
 KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
 
-#<IfModule unixd_module>
-User <%= node['apache']['user'] %>
-Group <%= node['apache']['group'] %>
-#</IfModule>
+<IfModule unixd_module>
+  User <%= node['apache']['user'] %>
+  Group <%= node['apache']['group'] %>
+</IfModule>
 
 # Sets the default security model of the Apache2 HTTPD server. It does
 # not allow access to the root filesystem outside of /usr/share and <%= node['apache']['docroot_dir'] %>.
@@ -66,6 +66,8 @@ Group <%= node['apache']['group'] %>
         AllowOverride None
         Require all granted
 </Directory>
+
+DocumentRoot <%= node['apache']['docroot_dir'] %>
 
 <Directory <%= node['apache']['docroot_dir'] %>>
         Options Indexes FollowSymLinks
