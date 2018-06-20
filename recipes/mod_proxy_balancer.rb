@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::mod_slotmem_shm' unless platform_family?('freebsd')
+include_recipe '::mod_slotmem_shm' unless platform_family?('freebsd')
 
 apache_module 'proxy_balancer' do
   conf true

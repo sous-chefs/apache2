@@ -18,7 +18,7 @@
 #
 
 define :apache_site, enable: true do
-  include_recipe 'apache2::default'
+  include_recipe '::default'
   conf_name = "#{params[:name]}.conf"
 
   if params[:enable]

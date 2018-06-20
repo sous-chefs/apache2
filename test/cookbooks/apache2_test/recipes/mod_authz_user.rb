@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'apache2::default'
+include_recipe '::default'
 
 secure_dir = "#{node['apache_test']['root_dir']}/secure"
 
@@ -43,7 +43,7 @@ script 'add-credentials' do
   action :run
 end
 
-include_recipe 'apache2::mod_authz_user'
+include_recipe '::mod_authz_user'
 
 web_app 'secure' do
   template 'authz_user.conf.erb'

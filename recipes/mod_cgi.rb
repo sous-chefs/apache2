@@ -28,5 +28,5 @@ if node['apache']['mpm'] == 'prefork'
 else
   Chef::Log.warn "apache::mod_cgi. Your MPM #{node['apache']['mpm']} seems to be threaded. Selecting cgid instead of cgi."
 
-  include_recipe 'apache2::mod_cgid'
+  include_recipe '::mod_cgid'
 end

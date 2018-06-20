@@ -49,9 +49,9 @@ bash 'load-directory-entries' do
   action :run
 end
 
-include_recipe 'apache2::default'
-include_recipe 'apache2::mod_ldap'
-include_recipe 'apache2::mod_authnz_ldap'
+include_recipe '::default'
+include_recipe '::mod_ldap'
+include_recipe '::mod_authnz_ldap'
 
 directory "#{node['apache_test']['root_dir']}/secure" do
   action :create

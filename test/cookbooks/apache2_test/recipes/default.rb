@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::default'
+include_recipe '::default'

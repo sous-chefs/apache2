@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::default'
+include_recipe '::default'
 
 if node['apache']['mod_auth_cas']['from_source']
   package node['apache']['devel_package']

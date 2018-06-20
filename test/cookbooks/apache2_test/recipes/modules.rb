@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::default'
+include_recipe '::default'
 
 # Duplicates the list in the modules_test minitest, which is
 # distasteful duplication.
@@ -38,6 +38,6 @@ include_recipe 'apache2::default'
   if a2mod == 'proxy_balancer' && node['platform_family'] == 'freebsd'
     Chef::Log.warn('The freebsd platform do not have mod_slotmem to enable mod_proxy_balancer.')
   else
-    include_recipe "apache2::mod_#{a2mod}"
+    include_recipe "::mod_#{a2mod}"
   end
 end
