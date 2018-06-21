@@ -37,7 +37,7 @@ define :web_app, template: 'web_app.conf.erb', local: false, enable: true, serve
       params: params
     )
     if ::File.exist?("#{node['apache']['dir']}/sites-enabled/#{application_name}.conf")
-      notifies :reload, 'service[apache2]', :delayed
+      notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
     end
   end
 

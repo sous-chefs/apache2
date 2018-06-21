@@ -26,5 +26,5 @@ apt_repository 'cloudflare' do
 end
 
 package 'libapache2-mod-cloudflare' do
-  notifies :restart, 'service[apache2]'
+  notifies :restart, "service[#{node['apache']['service_name']}]"
 end

@@ -37,7 +37,7 @@ template 'ssl_ports.conf' do
   path "#{node['apache']['dir']}/ports.conf"
   source 'ports.conf.erb'
   mode '0644'
-  notifies :restart, 'service[apache2]', :delayed
+  notifies :restart, "service[#{node['apache']['service_name']}]", :delayed
 end
 
 apache_module 'ssl' do

@@ -24,7 +24,7 @@ define :apache_site, enable: true do
   if params[:enable]
     execute "a2ensite #{conf_name}" do
       command "/usr/sbin/a2ensite #{conf_name}"
-      notifies :reload, 'service[apache2]', :delayed
+      notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{conf_name}") ||
           ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{conf_name}")
@@ -34,7 +34,7 @@ define :apache_site, enable: true do
   else
     execute "a2dissite #{conf_name}" do
       command "/usr/sbin/a2dissite #{conf_name}"
-      notifies :reload, 'service[apache2]', :delayed
+      notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
       only_if do
         ::File.symlink?("#{node['apache']['dir']}/sites-enabled/#{conf_name}") ||
           ::File.symlink?("#{node['apache']['dir']}/sites-enabled/000-#{conf_name}")
