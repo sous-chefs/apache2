@@ -194,10 +194,10 @@ if node['apache']['default_site_enabled']
   end
 end
 
-apache_service_name = node['apache']['service_name']
+apache_service_name = "#{node['apache']['service_name']}"
 
-service 'apache2' do
-  service_name apache_service_name
+service "#{node['apache']['service_name']}" do
+  service_name "#{node['apache']['service_name']}"
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
   only_if "#{node['apache']['binary']} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: 10
