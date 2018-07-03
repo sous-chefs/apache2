@@ -47,7 +47,7 @@ default['apache']['default_site_name'] = 'default'
 # Where the various parts of apache are
 case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
-  if node['platform'] == 'amazon'
+  if node['platform'] == 'amazon' && node['platform_version'] == 1
     default['apache']['package'] = 'httpd24'
     default['apache']['devel_package'] = 'httpd24-devel'
   else
