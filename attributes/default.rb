@@ -47,7 +47,7 @@ default['apache']['default_site_name'] = 'default'
 # Where the various parts of apache are
 case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
-  if node['platform'] == 'amazon'
+  if node['platform'] == 'amazon' && node['platform_version'] == 1
     default['apache']['package'] = 'httpd24'
     default['apache']['devel_package'] = 'httpd24-devel'
   else
@@ -281,6 +281,6 @@ default['apache']['default_modules'] = %w(
 end
 default['apache']['default_modules'].delete('unixd') if node['platform_family'] == 'suse'
 
-unless node['platform'] == 'amazon' # This is for chef 12 compatibility
-  default['apache']['default_modules'] << 'systemd' if %w(rhel fedora).include?(node['platform_family'])
+if node['init_package'] == 'systemd'
+  default['apache']['default_modules'] << 'systemd' if %w(rhel amazon fedora).include?(node['platform_family'])
 end
