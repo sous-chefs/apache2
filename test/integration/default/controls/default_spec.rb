@@ -124,5 +124,4 @@ control 'package-installed' do
       expect(command("APACHE_LOG_DIR=#{property[:apache][:log_dir]} #{property[:apache][:binary]} -t").exit_status).to eq 0
     end
   end
-
 end

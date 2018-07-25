@@ -17,7 +17,6 @@ control 'mod-include' do
   impact 0
   desc 'mod include installed & configured'
 
-
   describe 'apache2::mod_include' do
     expected_module = 'include'
     subject(:available) { file("#{property[:apache][:dir]}/mods-available/#{expected_module}.load") }
