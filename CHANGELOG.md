@@ -6,7 +6,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 - Fix mod_session_crypto on RHEL/CentOS/Fedora
 - Fix mod_session on RHEL/CentOS/Fedora
-- Backported [GH-493] to fix php5 on CentOS 7
+- Backported #514 to fix php5 on CentOS 7
+- Backported #539 to add Danger and CircleCI support
 
 ## v4.0.0 (2017-07-10)
 
