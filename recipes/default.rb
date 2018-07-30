@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-package 'apache2' do # ~FC009 only available in apt_package. See #388
+package 'apache2' do
   package_name node['apache']['package']
   default_release node['apache']['default_release'] unless node['apache']['default_release'].nil?
 end
