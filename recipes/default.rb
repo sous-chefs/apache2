@@ -137,10 +137,10 @@ template "/etc/sysconfig/#{node['apache']['service_name']}" do
   group node['apache']['root_group']
   mode '0644'
   notifies :restart, 'service[apache2]', :delayed
-  variables({
+  variables(
     apache_binary: apache_binary
-  })
-  only_if  { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
+  )
+  only_if { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
 end
 
 template "#{node['apache']['dir']}/envvars" do
@@ -165,9 +165,9 @@ template 'apache2.conf' do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  variables({
+  variables(
     apache_binary: apache_binary
-  })
+  )
   notifies :reload, 'service[apache2]', :delayed
 end
 
