@@ -131,7 +131,7 @@ directory node['apache']['lock_dir'] do
 end
 
 # Set the preferred execution binary - prefork or worker
-template "/etc/sysconfig/#{node['apache']['service_name']}" do
+template "/etc/sysconfig/#{service_name}" do
   source 'etc-sysconfig-httpd.erb'
   owner 'root'
   group node['apache']['root_group']
@@ -200,10 +200,8 @@ if node['apache']['default_site_enabled']
   end
 end
 
-apache_service_name = node['apache']['service_name']
-
 service 'apache2' do
-  service_name apache_service_name
+  service_name service_name
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
   only_if "#{apache_binary} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: 10
