@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## v6.0.0 (tbc)
+
+- Drop Chef 12 support
+- Add Danger and CircleCI support
+
 ## v5.0.1 (2017-09-01)
 
 - Test using dokken-images in kitchen-dokken
