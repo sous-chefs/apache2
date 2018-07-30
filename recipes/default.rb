@@ -196,6 +196,8 @@ end
 
 apache_service_name = node['apache']['service_name']
 
+Chef::Recipe.send(:include, Apache2::Cookbook::Helpers)
+
 service 'apache2' do
   service_name apache_service_name
   supports [:start, :restart, :reload, :status]
