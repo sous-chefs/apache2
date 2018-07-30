@@ -79,12 +79,11 @@ suites:
       machine_fqdn_as_hostname: true
       apache:
         mpm: prefork
-    includes: [
-      'centos-7',
-      'debian-8',
-      'ubuntu-16.04',
-      'ubuntu-18.04'
-      ]
+    includes:
+      - 'centos-7'
+      - 'debian-8'
+      - 'ubuntu-16.04'
+      - 'ubuntu-18.04'
 
   - name: worker
     run_list:
@@ -99,10 +98,9 @@ suites:
       machine_fqdn_as_hostname: true
       apache:
         mpm: worker
-    includes: [
-      'centos-7',
-      'ubuntu-16.04'
-      ]
+    includes:
+      - 'centos-7'
+      - 'ubuntu-16.04'
 
   - name: event
     run_list:
@@ -120,6 +118,5 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/default
-    includes: [
-      'ubuntu-16.04'
-      ]
+    includes:
+      - 'ubuntu-16.04'
