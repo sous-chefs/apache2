@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-package 'apache2' do # ~FC009 only available in apt_package. See #388
+package 'apache2' do
   package_name node['apache']['package']
   default_release node['apache']['default_release'] unless node['apache']['default_release'].nil?
 end
@@ -137,7 +137,10 @@ template "/etc/sysconfig/#{node['apache']['service_name']}" do
   group node['apache']['root_group']
   mode '0644'
   notifies :restart, 'service[apache2]', :delayed
-  only_if  { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
+  variables(
+    apache_binary: apache_binary
+  )
+  only_if { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
 end
 
 template "#{node['apache']['dir']}/envvars" do
@@ -162,6 +165,9 @@ template 'apache2.conf' do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
+  variables(
+    apache_binary: apache_binary
+  )
   notifies :reload, 'service[apache2]', :delayed
 end
 
@@ -200,5 +206,5 @@ service 'apache2' do
   service_name apache_service_name
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
-  only_if "#{node['apache']['binary']} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: 10
+  only_if "#{apache_binary} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: 10
 end
