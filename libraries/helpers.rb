@@ -18,3 +18,6 @@ module Apache2
     end
   end
 end
+
+Chef::Recipe.include(Apache2::Cookbook::Helpers)
+Chef::Resource.include(Apache2::Cookbook::Helpers)

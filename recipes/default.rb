@@ -137,6 +137,9 @@ template "/etc/sysconfig/#{node['apache']['service_name']}" do
   group node['apache']['root_group']
   mode '0644'
   notifies :restart, 'service[apache2]', :delayed
+  variables({
+    apache_binary: apache_binary
+  })
   only_if  { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
 end
 
@@ -162,6 +165,9 @@ template 'apache2.conf' do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
+  variables({
+    apache_binary: apache_binary
+  })
   notifies :reload, 'service[apache2]', :delayed
 end
 
@@ -195,8 +201,6 @@ if node['apache']['default_site_enabled']
 end
 
 apache_service_name = node['apache']['service_name']
-
-Chef::Recipe.send(:include, Apache2::Cookbook::Helpers)
 
 service 'apache2' do
   service_name apache_service_name
