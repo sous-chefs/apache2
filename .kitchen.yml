@@ -80,10 +80,10 @@ suites:
       apache:
         mpm: prefork
     includes:
-      - 'centos-7'
-      - 'debian-8'
-      - 'ubuntu-16.04'
-      - 'ubuntu-18.04'
+      - centos-7
+      - debian-8
+      - ubuntu-16.04
+      - ubuntu-18.04
 
   - name: worker
     run_list:
@@ -99,8 +99,8 @@ suites:
       apache:
         mpm: worker
     includes:
-      - 'centos-7'
-      - 'ubuntu-16.04'
+      - centos-7
+      - ubuntu-16.04
 
   - name: event
     run_list:
@@ -119,4 +119,4 @@ suites:
       inspec_tests:
         - test/integration/default
     includes:
-      - 'ubuntu-16.04'
+      - ubuntu-16.04
