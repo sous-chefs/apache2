@@ -14,12 +14,12 @@ module Apache2
 
       def service_name
         case node['platform_family']
-        when 'rhel', 'fedora', 'amazon', 'arch'
-          'httpd'
+        when 'debian'
+          'apache2'
         when 'freebsd'
           'apache24'
         else
-          'apache2'
+          'httpd'
         end
       end
     end
