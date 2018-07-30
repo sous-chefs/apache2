@@ -136,7 +136,7 @@ template "/etc/sysconfig/#{node['apache']['service_name']}" do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  notifies :restart, 'service[apache2]', :delayed
+  notifies :restart, "service[#{node['apache']['service_name']}]", :delayed
   only_if  { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
 end
 
@@ -145,7 +145,7 @@ template "#{node['apache']['dir']}/envvars" do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  notifies :reload, 'service[apache2]', :delayed
+  notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
   only_if  { platform_family?('debian') }
 end
 
@@ -162,7 +162,7 @@ template 'apache2.conf' do
   owner 'root'
   group node['apache']['root_group']
   mode '0644'
-  notifies :reload, 'service[apache2]', :delayed
+  notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
 end
 
 %w(security charset).each do |conf|
@@ -177,14 +177,14 @@ apache_conf 'ports' do
 end
 
 if node['apache']['mpm_support'].include?(node['apache']['mpm'])
-  include_recipe "apache2::mpm_#{node['apache']['mpm']}"
+  include_recipe "::mpm_#{node['apache']['mpm']}"
 else
   Chef::Log.warn("apache2: #{node['apache']['mpm']} module is not supported and must be handled separately!")
 end
 
 node['apache']['default_modules'].each do |mod|
   module_recipe_name = mod =~ /^mod_/ ? mod : "mod_#{mod}"
-  include_recipe "apache2::#{module_recipe_name}"
+  include_recipe "::#{module_recipe_name}"
 end
 
 if node['apache']['default_site_enabled']
@@ -194,10 +194,10 @@ if node['apache']['default_site_enabled']
   end
 end
 
-apache_service_name = node['apache']['service_name']
+apache_service_name = "#{node['apache']['service_name']}"
 
-service 'apache2' do
-  service_name apache_service_name
+service "#{node['apache']['service_name']}" do
+  service_name "#{node['apache']['service_name']}"
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
   only_if "#{node['apache']['binary']} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: 10

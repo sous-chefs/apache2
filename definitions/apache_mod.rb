@@ -18,11 +18,11 @@
 #
 
 define :apache_mod do
-  include_recipe 'apache2::default'
+  include_recipe '::default'
 
   template "#{node['apache']['dir']}/mods-available/#{params[:name]}.conf" do
     source "mods/#{params[:name]}.conf.erb"
     mode '0644'
-    notifies :reload, 'service[apache2]', :delayed
+    notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
   end
 end

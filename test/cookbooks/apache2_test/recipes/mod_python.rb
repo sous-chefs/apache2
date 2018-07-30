@@ -19,9 +19,9 @@
 if %w(rhel fedora).include?(node['platform_family'])
   Chef::Log.warn('The rhel and fedora platforms do not have a package for mod_python. This cookbook will not attempt to test compatability.')
 else
-  include_recipe 'apache2::default'
+  include_recipe '::default'
   include_recipe 'yum-epel' if platform_family?('rhel')
-  include_recipe 'apache2::mod_python'
+  include_recipe '::mod_python'
 
   directory node['apache_test']['app_dir'] do
     recursive true

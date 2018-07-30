@@ -18,7 +18,7 @@
 #
 
 define :apache_module, enable: true, conf: false, restart: false do
-  include_recipe 'apache2::default'
+  include_recipe '::default'
 
   params[:filename]    = params[:filename] || "mod_#{params[:name]}.so"
   params[:module_path] = params[:module_path] || "#{node['apache']['libexec_dir']}/#{params[:filename]}"
@@ -35,9 +35,9 @@ define :apache_module, enable: true, conf: false, restart: false do
     execute "a2enmod #{params[:name]}" do
       command "/usr/sbin/a2enmod #{params[:name]}"
       if params[:restart]
-        notifies :restart, 'service[apache2]', :delayed
+        notifies :restart, "service[#{node['apache']['service_name']}]", :delayed
       else
-        notifies :reload, 'service[apache2]', :delayed
+        notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
       end
       not_if do
         ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") &&
@@ -48,9 +48,9 @@ define :apache_module, enable: true, conf: false, restart: false do
     execute "a2dismod #{params[:name]}" do
       command "/usr/sbin/a2dismod #{params[:name]}"
       if params[:restart]
-        notifies :restart, 'service[apache2]', :delayed
+        notifies :restart, "service[#{node['apache']['service_name']}]", :delayed
       else
-        notifies :reload, 'service[apache2]', :delayed
+        notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
       end
       only_if { ::File.symlink?("#{node['apache']['dir']}/mods-enabled/#{params[:name]}.load") }
     end

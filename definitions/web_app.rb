@@ -20,10 +20,10 @@
 define :web_app, template: 'web_app.conf.erb', local: false, enable: true, server_port: 80 do
   application_name = params[:name]
 
-  include_recipe 'apache2::default'
-  include_recipe 'apache2::mod_rewrite'
-  include_recipe 'apache2::mod_deflate'
-  include_recipe 'apache2::mod_headers'
+  include_recipe '::default'
+  include_recipe '::mod_rewrite'
+  include_recipe '::mod_deflate'
+  include_recipe '::mod_headers'
 
   template "#{node['apache']['dir']}/sites-available/#{application_name}.conf" do
     source params[:template]
@@ -37,7 +37,7 @@ define :web_app, template: 'web_app.conf.erb', local: false, enable: true, serve
       params: params
     )
     if ::File.exist?("#{node['apache']['dir']}/sites-enabled/#{application_name}.conf")
-      notifies :reload, 'service[apache2]', :delayed
+      notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
     end
   end
 

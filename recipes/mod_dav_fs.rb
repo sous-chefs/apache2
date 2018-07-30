@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::mod_dav'
+include_recipe '::mod_dav'
 apache_module 'dav_fs' do
   conf true
 end

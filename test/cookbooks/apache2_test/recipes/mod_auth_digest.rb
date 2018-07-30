@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::default'
-include_recipe 'apache2::mod_auth_digest'
+include_recipe '::default'
+include_recipe '::mod_auth_digest'
 
 directory "#{node['apache_test']['root_dir']}/secure" do
   action :create

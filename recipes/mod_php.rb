@@ -74,7 +74,7 @@ end
 template "#{node['apache']['dir']}/mods-available/#{node['apache']['mod_php']['module_name']}.conf" do
   source 'mods/php.conf.erb'
   mode '0644'
-  notifies :reload, 'service[apache2]', :delayed
+  notifies :reload, "service[#{node['apache']['service_name']}]", :delayed
 end
 
 apache_module node['apache']['mod_php']['module_name'] do

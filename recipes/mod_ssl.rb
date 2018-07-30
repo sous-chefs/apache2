@@ -20,12 +20,11 @@ if node['apache']['listen'] == ['*:80']
   node.default['apache']['listen'] = ['*:80', "*:#{node['apache']['mod_ssl']['port']}"]
 end
 
-include_recipe 'apache2::default'
+include_recipe '::default'
 
-if platform_family?('rhel', 'fedora', 'suse', 'amazon')
+if platform_family?('rhel', 'fedora', 'amazon')
   package node['apache']['mod_ssl']['pkg_name'] do
     notifies :run, 'execute[generate-module-list]', :immediately
-    not_if { platform_family?('suse') }
   end
 
   file "#{node['apache']['dir']}/conf.d/ssl.conf" do
@@ -38,11 +37,11 @@ template 'ssl_ports.conf' do
   path "#{node['apache']['dir']}/ports.conf"
   source 'ports.conf.erb'
   mode '0644'
-  notifies :restart, 'service[apache2]', :delayed
+  notifies :restart, "service[#{node['apache']['service_name']}]", :delayed
 end
 
 apache_module 'ssl' do
   conf true
 end
 
-include_recipe 'apache2::mod_socache_shmcb'
+include_recipe '::mod_socache_shmcb'

@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::default'
+include_recipe '::default'
 
 web_app 'broken' do
   template 'broken.conf.erb'

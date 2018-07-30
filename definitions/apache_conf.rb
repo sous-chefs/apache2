@@ -18,7 +18,7 @@
 #
 
 define :apache_conf, enable: true do
-  include_recipe 'apache2::default'
+  include_recipe '::default'
 
   conf_name = "#{params[:name]}.conf"
   params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/conf-available"
@@ -34,7 +34,7 @@ define :apache_conf, enable: true do
     group node['apache']['root_group']
     backup false
     mode '0644'
-    notifies :restart, 'service[apache2]', :delayed
+    notifies :restart, "service[#{node['apache']['service_name']}]", :delayed
   end
 
   if params[:enable]

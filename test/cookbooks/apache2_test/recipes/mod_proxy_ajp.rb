@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::default'
-include_recipe 'apache2::mod_proxy'
-include_recipe 'apache2::mod_proxy_ajp'
+include_recipe '::default'
+include_recipe '::mod_proxy'
+include_recipe '::mod_proxy_ajp'
 include_recipe 'tomcat::default'
 
 if platform?('debian', 'ubuntu')

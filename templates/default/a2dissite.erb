@@ -104,7 +104,7 @@ foreach my $acton (@objs) {
 }
 
 info(
-    "To activate the new configuration, you need to run:\n  service apache2 $reload\n"
+    "To activate the new configuration, you need to run:\n  service <%= node['apache']['service_name'] %> $reload\n"
 ) if $request_reload;
 
 exit($rc);
