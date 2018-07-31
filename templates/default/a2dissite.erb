@@ -424,8 +424,8 @@ sub remove_link {
 
 sub threaded {
     my $result = "";
-    $result = qx{<%= node['apache']['apachectl'] %> -V | grep 'threaded'}
-        if -x '<%= node['apache']['apachectl'] %>';
+    $result = qx{<%= @apachectl %> -V | grep 'threaded'}
+        if -x '<%= @apachectl %>';
     if ( $? != 0 ) {
 
         # config doesn't work

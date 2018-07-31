@@ -55,7 +55,6 @@ when 'rhel', 'fedora', 'amazon'
     default['apache']['devel_package'] = 'httpd-devel'
   end
   default['apache']['perl_pkg']    = 'perl'
-  default['apache']['apachectl']   = '/usr/sbin/apachectl'
   default['apache']['dir']         = '/etc/httpd'
   default['apache']['log_dir']     = '/var/log/httpd'
   default['apache']['error_log']   = 'error.log'
@@ -76,7 +75,6 @@ when 'suse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] = 'httpd-devel'
-  default['apache']['apachectl']   = '/usr/sbin/apache2ctl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
   default['apache']['error_log']   = 'error.log'
@@ -102,7 +100,6 @@ when 'debian'
     else
       'apache2-dev'
     end
-  default['apache']['apachectl']   = '/usr/sbin/apache2ctl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
   default['apache']['error_log']   = 'error.log'
@@ -124,7 +121,6 @@ when 'debian'
 when 'arch'
   default['apache']['package'] = 'apache'
   default['apache']['perl_pkg']    = 'perl'
-  default['apache']['apachectl']   = '/usr/sbin/apachectl'
   default['apache']['dir']         = '/etc/httpd'
   default['apache']['log_dir']     = '/var/log/httpd'
   default['apache']['error_log']   = 'error.log'
@@ -154,7 +150,6 @@ when 'freebsd'
   default['apache']['lib_dir']     = '/usr/local/libexec/apache24'
   default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['perl_pkg']    = 'perl5'
-  default['apache']['apachectl']   = '/usr/local/sbin/apachectl'
   default['apache']['pid_file']    = '/var/run/httpd.pid'
   default['apache']['log_dir']     = '/var/log'
   default['apache']['error_log']   = 'httpd-error.log'
@@ -182,7 +177,7 @@ else
   default['apache']['lock_dir']    = 'logs'
   default['apache']['pid_file']    = 'logs/httpd.pid'
   default['apache']['lib_dir']     = '/usr/lib/apache2'
-  default['apache']['libexec_dir']  = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 end
 
 ###

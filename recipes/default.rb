@@ -64,6 +64,9 @@ package 'perl-Getopt-Long-Descriptive' if platform?('fedora')
     source "#{modscript}.erb"
     mode '0700'
     owner 'root'
+    variables(
+      apachectl: apachectl
+    )
     group node['apache']['root_group']
     action :create
   end
