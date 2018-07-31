@@ -21,7 +21,7 @@ define :apache_conf, enable: true do
   include_recipe 'apache2::default'
 
   conf_name = "#{params[:name]}.conf"
-  params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/conf-available"
+  params[:conf_path] = params[:conf_path] || "#{apache_dir}/conf-available"
 
   file "#{params[:conf_path]}/#{params[:name]}" do
     action :delete
