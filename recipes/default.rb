@@ -156,12 +156,10 @@ template "#{apache_dir}/envvars" do
 end
 
 template 'apache2.conf' do
-  if platform_family?('rhel', 'amazon', 'fedora', 'arch', 'freebsd')
-    path "#{node['apache']['conf_dir']}/httpd.conf"
-  elsif platform_family?('debian')
-    path "#{node['apache']['conf_dir']}/apache2.conf"
-  elsif platform_family?('suse')
-    path "#{node['apache']['conf_dir']}/httpd.conf"
+  if platform_family?('debian')
+    path "#{apache_dir}/apache2.conf"
+  else
+    path "#{apache_dir}/httpd.conf"
   end
   action :create
   source 'apache2.conf.erb'
@@ -180,9 +178,12 @@ end
   end
 end
 
+# Temporary fix whilst we are still using definitions
+a_dir = apache_dir
+
 apache_conf 'ports' do
   enable false
-  conf_path apache_dir
+  conf_path a_dir
 end
 
 if node['apache']['mpm_support'].include?(node['apache']['mpm'])

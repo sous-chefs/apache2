@@ -3,7 +3,7 @@
 #
 # Based on the Ubuntu apache2.conf
 
-ServerRoot "<%= node['apache']['dir'] %>"
+ServerRoot "<%= @apache_dir %>"
 
 #
 # The accept serialization lock file MUST BE STORED ON A LOCAL DISK.
@@ -129,8 +129,8 @@ LogLevel <%= node['apache']['log_level'] %>
 #LoadModule dummy_module modules/mod_dummy.so
 
 # Include module configuration:
-IncludeOptional <%= node['apache']['dir'] %>/mods-enabled/*.load
-IncludeOptional <%= node['apache']['dir'] %>/mods-enabled/*.conf
+IncludeOptional <%= @apache_dir %>/mods-enabled/*.load
+IncludeOptional <%= @apache_dir %>/mods-enabled/*.conf
 
 <% if %w[freebsd].include?(node['platform_family']) -%>
 <IfDefine NOHTTPACCEPT>
@@ -140,7 +140,7 @@ IncludeOptional <%= node['apache']['dir'] %>/mods-enabled/*.conf
 <% end %>
 
 # Include ports listing
-Include <%= node['apache']['dir'] %>/ports.conf
+Include <%= @apache_dir %>/ports.conf
 
 #
 # The following directives define some format nicknames for use with
@@ -154,7 +154,7 @@ LogFormat "%{User-agent}i" agent
 #
 
 # Include generic snippets of statements
-IncludeOptional <%= node['apache']['dir'] %>/conf-enabled/*.conf
+IncludeOptional <%= @apache_dir %>/conf-enabled/*.conf
 
 # Include the virtual host configurations:
-IncludeOptional <%= node['apache']['dir'] %>/sites-enabled/*.conf
+IncludeOptional <%= @apache_dir %>/sites-enabled/*.conf

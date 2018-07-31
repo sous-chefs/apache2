@@ -34,6 +34,9 @@ define :apache_conf, enable: true do
     group node['apache']['root_group']
     backup false
     mode '0644'
+    variables({
+      apache_dir: apache_dir
+    })
     notifies :restart, 'service[apache2]', :delayed
   end
 
