@@ -3,12 +3,12 @@ module Apache2
     module Helpers
       def apache_binary
         case node['platform_family']
-        when 'rhel', 'fedora', 'amazon', 'arch', 'suse'
-          '/usr/sbin/httpd'
+        when 'debian'
+          '/usr/sbin/apache2'
         when 'freebsd'
           '/usr/local/sbin/httpd'
         else
-          '/usr/sbin/apache2'
+          '/usr/sbin/httpd'
         end
       end
 
@@ -20,6 +20,17 @@ module Apache2
           'apache24'
         else
           'httpd'
+        end
+      end
+
+      def apachectl
+        case node['platform_family']
+        when 'debian', 'suse'
+          '/usr/sbin/apache2ctl'
+        when 'freebsd'
+          '/usr/local/sbin/apachectl'
+        else
+          '/usr/sbin/apachectl'
         end
       end
     end
