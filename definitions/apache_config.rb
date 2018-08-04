@@ -19,26 +19,24 @@
 
 define :apache_config, enable: true do
   include_recipe 'apache2::default'
-  require_relative '../libraries/helpers.rb'
-  include 'Apache2::Cookbook::Helpers'
 
   conf_name = "#{params[:name]}.conf"
-  params[:conf_path] = params[:conf_path] || "#{apache_dir}/conf-available"
+  params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/conf-available"
 
   if params[:enable]
     execute "a2enconf #{conf_name}" do
       command "/usr/sbin/a2enconf #{conf_name}"
       notifies :restart, 'service[apache2]', :delayed
       not_if do
-        ::File.symlink?("#{apache_dir}/conf-enabled/#{conf_name}") &&
-          (::File.exist?(params[:conf_path]) ? ::File.symlink?("#{apache_dir}/conf-enabled/#{conf_name}") : true)
+        ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{conf_name}") &&
+          (::File.exist?(params[:conf_path]) ? ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{conf_name}") : true)
       end
     end
   else
     execute "a2disconf #{conf_name}" do
       command "/usr/sbin/a2disconf #{conf_name}"
       notifies :reload, 'service[apache2]', :delayed
-      only_if { ::File.symlink?("#{apache_dir}/conf-enabled/#{conf_name}") }
+      only_if { ::File.symlink?("#{node['apache']['dir']}/conf-enabled/#{conf_name}") }
     end
   end
 end

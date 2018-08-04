@@ -19,11 +19,9 @@
 
 define :apache_conf, enable: true do
   include_recipe 'apache2::default'
-  require_relative '../libraries/helpers.rb'
-  include 'Apache2::Cookbook::Helpers'
 
   conf_name = "#{params[:name]}.conf"
-  params[:conf_path] = params[:conf_path] || "#{apache_dir}/conf-available"
+  params[:conf_path] = params[:conf_path] || "#{node['apache']['dir']}/conf-available"
 
   file "#{params[:conf_path]}/#{params[:name]}" do
     action :delete
@@ -36,9 +34,9 @@ define :apache_conf, enable: true do
     group node['apache']['root_group']
     backup false
     mode '0644'
-    variables(
-      apache_dir: apache_dir
-    )
+    # variables(
+    #   apache_dir: apache_dir
+    # )
     notifies :restart, 'service[apache2]', :delayed
   end
 

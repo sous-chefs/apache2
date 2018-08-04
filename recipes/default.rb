@@ -172,18 +172,19 @@ template 'apache2.conf' do
   notifies :reload, 'service[apache2]', :delayed
 end
 
+# Temporary fix whilst we are still using definitions
+# a_dir = apache_dir
+
 %w(security charset).each do |conf|
   apache_conf conf do
     enable true
+    # conf_path a_dir
   end
 end
 
-# Temporary fix whilst we are still using definitions
-a_dir = apache_dir
-
 apache_conf 'ports' do
   enable false
-  conf_path a_dir
+  # conf_path a_dir
 end
 
 if node['apache']['mpm_support'].include?(node['apache']['mpm'])
