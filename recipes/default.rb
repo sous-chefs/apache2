@@ -65,7 +65,8 @@ package 'perl-Getopt-Long-Descriptive' if platform?('fedora')
     mode '0700'
     owner 'root'
     variables(
-      apachectl: apachectl
+      apachectl: apachectl,
+      apache_dir: apache_dir
     )
     group node['apache']['root_group']
     action :create
@@ -141,7 +142,8 @@ template "/etc/sysconfig/#{platform_service_name}" do
   mode '0644'
   notifies :restart, 'service[apache2]', :delayed
   variables(
-    apache_binary: apache_binary
+    apache_binary: apache_binary,
+    apache_dir: apache_dir
   )
   only_if { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
 end
@@ -167,7 +169,8 @@ template 'apache2.conf' do
   group node['apache']['root_group']
   mode '0644'
   variables(
-    apache_binary: apache_binary
+    apache_binary: apache_binary,
+    apache_dir: apache_dir
   )
   notifies :reload, 'service[apache2]', :delayed
 end
