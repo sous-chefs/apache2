@@ -23,9 +23,9 @@ define :apache_mod do
   template "#{node['apache']['dir']}/mods-available/#{params[:name]}.conf" do
     source "mods/#{params[:name]}.conf.erb"
     mode '0644'
-    # variables(
-    #   apache_dir: apache_dir
-    # )
+    variables(
+      apache_dir: node['apache']['dir']
+    )
     notifies :reload, 'service[apache2]', :delayed
   end
 end
