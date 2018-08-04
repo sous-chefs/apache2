@@ -19,6 +19,8 @@
 
 define :apache_mod do
   include_recipe 'apache2::default'
+  require_relative '../libraries/helpers.rb'
+  include 'Apache2::Cookbook::Helpers'
 
   template "#{apache_dir}/mods-available/#{params[:name]}.conf" do
     source "mods/#{params[:name]}.conf.erb"

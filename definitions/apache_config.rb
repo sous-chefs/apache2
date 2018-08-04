@@ -19,6 +19,8 @@
 
 define :apache_config, enable: true do
   include_recipe 'apache2::default'
+  require_relative '../libraries/helpers.rb'
+  include 'Apache2::Cookbook::Helpers'
 
   conf_name = "#{params[:name]}.conf"
   params[:conf_path] = params[:conf_path] || "#{apache_dir}/conf-available"

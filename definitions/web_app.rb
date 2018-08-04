@@ -18,6 +18,9 @@
 #
 
 define :web_app, template: 'web_app.conf.erb', local: false, enable: true, server_port: 80 do
+  require_relative '../libraries/helpers.rb'
+  include 'Apache2::Cookbook::Helpers'
+
   application_name = params[:name]
 
   include_recipe 'apache2::default'

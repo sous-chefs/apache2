@@ -19,6 +19,9 @@
 
 define :apache_site, enable: true do
   include_recipe 'apache2::default'
+  require_relative '../libraries/helpers.rb'
+  include 'Apache2::Cookbook::Helpers'
+
   conf_name = "#{params[:name]}.conf"
 
   if params[:enable]

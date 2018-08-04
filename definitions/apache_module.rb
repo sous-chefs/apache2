@@ -19,6 +19,8 @@
 
 define :apache_module, enable: true, conf: false, restart: false do
   include_recipe 'apache2::default'
+  require_relative '../libraries/helpers.rb'
+  include 'Apache2::Cookbook::Helpers'
 
   params[:filename]    = params[:filename] || "mod_#{params[:name]}.so"
   params[:module_path] = params[:module_path] || "#{node['apache']['libexec_dir']}/#{params[:filename]}"
