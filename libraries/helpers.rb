@@ -33,6 +33,17 @@ module Apache2
           '/usr/sbin/apachectl'
         end
       end
+
+      def apache_dir
+        case node['platform_family']
+        when 'debian', 'suse'
+          '/etc/apache2'
+        when 'freebsd'
+          '/usr/local/etc/apache24'
+        else
+          '/etc/httpd'
+        end
+      end
     end
   end
 end

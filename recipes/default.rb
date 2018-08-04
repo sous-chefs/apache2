@@ -24,7 +24,7 @@ package 'apache2' do
 end
 
 %w(sites-available sites-enabled mods-available mods-enabled conf-available conf-enabled).each do |dir|
-  directory "#{node['apache']['dir']}/#{dir}" do
+  directory "#{apache_dir}/#{dir}" do
     mode '0755'
     owner 'root'
     group node['apache']['root_group']
@@ -32,12 +32,12 @@ end
 end
 
 %w(default default.conf 000-default 000-default.conf).each do |site|
-  link "#{node['apache']['dir']}/sites-enabled/#{site}" do
+  link "#{apache_dir}/sites-enabled/#{site}" do
     action :delete
     not_if { site == "#{node['apache']['default_site_name']}.conf" && node['apache']['default_site_enabled'] }
   end
 
-  file "#{node['apache']['dir']}/sites-available/#{site}" do
+  file "#{apache_dir}/sites-available/#{site}" do
     action :delete
     backup false
     not_if { site == "#{node['apache']['default_site_name']}.conf" && node['apache']['default_site_enabled'] }
@@ -65,7 +65,8 @@ package 'perl-Getopt-Long-Descriptive' if platform?('fedora')
     mode '0700'
     owner 'root'
     variables(
-      apachectl: apachectl
+      apachectl: apachectl,
+      apache_dir: apache_dir
     )
     group node['apache']['root_group']
     action :create
@@ -81,31 +82,31 @@ unless platform_family?('debian')
   end
 
   execute 'generate-module-list' do
-    command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{node['apache']['dir']}/mods-available"
+    command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{apache_dir}/mods-available"
     action :nothing
   end
 end
 
 if platform_family?('freebsd')
-  directory "#{node['apache']['dir']}/Includes" do
+  directory "#{apache_dir}/Includes" do
     action :delete
     recursive true
   end
 
-  directory "#{node['apache']['dir']}/extra" do
+  directory "#{apache_dir}/extra" do
     action :delete
     recursive true
   end
 end
 
 if platform_family?('suse')
-  directory "#{node['apache']['dir']}/vhosts.d" do
+  directory "#{apache_dir}/vhosts.d" do
     action :delete
     recursive true
   end
 
   %w(charset.conv default-vhost.conf default-server.conf default-vhost-ssl.conf errors.conf listen.conf mime.types mod_autoindex-defaults.conf mod_info.conf mod_log_config.conf mod_status.conf mod_userdir.conf mod_usertrack.conf uid.conf).each do |file|
-    file "#{node['apache']['dir']}/#{file}" do
+    file "#{apache_dir}/#{file}" do
       action :delete
       backup false
     end
@@ -113,7 +114,7 @@ if platform_family?('suse')
 end
 
 %W(
-  #{node['apache']['dir']}/ssl
+  #{apache_dir}/ssl
   #{node['apache']['cache_dir']}
 ).each do |path|
   directory path do
@@ -141,12 +142,13 @@ template "/etc/sysconfig/#{platform_service_name}" do
   mode '0644'
   notifies :restart, 'service[apache2]', :delayed
   variables(
-    apache_binary: apache_binary
+    apache_binary: apache_binary,
+    apache_dir: apache_dir
   )
   only_if { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
 end
 
-template "#{node['apache']['dir']}/envvars" do
+template "#{apache_dir}/envvars" do
   source 'envvars.erb'
   owner 'root'
   group node['apache']['root_group']
@@ -156,12 +158,10 @@ template "#{node['apache']['dir']}/envvars" do
 end
 
 template 'apache2.conf' do
-  if platform_family?('rhel', 'amazon', 'fedora', 'arch', 'freebsd')
-    path "#{node['apache']['conf_dir']}/httpd.conf"
-  elsif platform_family?('debian')
-    path "#{node['apache']['conf_dir']}/apache2.conf"
-  elsif platform_family?('suse')
-    path "#{node['apache']['conf_dir']}/httpd.conf"
+  if platform_family?('debian')
+    path "#{apache_dir}/apache2.conf"
+  else
+    path "#{apache_dir}/httpd.conf"
   end
   action :create
   source 'apache2.conf.erb'
@@ -169,7 +169,8 @@ template 'apache2.conf' do
   group node['apache']['root_group']
   mode '0644'
   variables(
-    apache_binary: apache_binary
+    apache_binary: apache_binary,
+    apache_dir: apache_dir
   )
   notifies :reload, 'service[apache2]', :delayed
 end
@@ -182,7 +183,6 @@ end
 
 apache_conf 'ports' do
   enable false
-  conf_path node['apache']['dir']
 end
 
 if node['apache']['mpm_support'].include?(node['apache']['mpm'])

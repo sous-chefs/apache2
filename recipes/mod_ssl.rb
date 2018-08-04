@@ -28,14 +28,14 @@ if platform_family?('rhel', 'fedora', 'suse', 'amazon')
     not_if { platform_family?('suse') }
   end
 
-  file "#{node['apache']['dir']}/conf.d/ssl.conf" do
+  file "#{apache_dir}/conf.d/ssl.conf" do
     content '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n'
-    only_if { ::Dir.exist?("#{node['apache']['dir']}/conf.d") }
+    only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
   end
 end
 
 template 'ssl_ports.conf' do
-  path "#{node['apache']['dir']}/ports.conf"
+  path "#{apache_dir}/ports.conf"
   source 'ports.conf.erb'
   mode '0644'
   notifies :restart, 'service[apache2]', :delayed
