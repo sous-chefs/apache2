@@ -17,6 +17,12 @@ branches:
 
 services: docker
 
+stages:
+  - unit
+  - test
+
+# This list was generated using
+# kitchen list | awk {'print $1'} | grep -v Instance
 env:
   matrix:
   - INSTANCE=default-amazonlinux
@@ -37,15 +43,21 @@ env:
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
-  - eval "$(chef shell-init bash)"
+  - eval "$(shell-init bash)"
   - chef --version
   - cookstyle --version
   - foodcritic --version
 
 script: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen verify ${INSTANCE}
 
-matrix:
+# matrix:
+#   include:
+#     - script:
+#       - chef exec delivery local all
+#       env: UNIT_AND_LINT=1
+
+jobs:
   include:
-    - script:
-      - chef exec delivery local all
+    - stage: unit
+      script: chef exec delivery local all
       env: UNIT_AND_LINT=1

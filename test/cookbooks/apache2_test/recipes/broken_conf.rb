@@ -19,7 +19,7 @@
 
 include_recipe 'apache2::default'
 
-# These still try to enable the site even though they are designed not to. 
+# These still try to enable the site even though they are designed not to.
 
 # web_app 'broken' do
 #   template 'broken.conf.erb'

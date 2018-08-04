@@ -7,7 +7,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Drop Chef 12 support
 - Add Danger and CircleCI support
 - Move apache binary detection to the helpers file
-- Adds apache_service helper
+- Adds apache_service, platform_service_name, apache_dir helpers
 - Update kitchen configuration
 
 ## v5.0.1 (2017-09-01)
@@ -198,6 +198,7 @@ Major version update because of SSL Improvements and new platform MPM and Versio
 - [GH-264] mod_ssl: Add new attribute for to be ready to any custom directive
 
 - [GH-249] Don't prepend Apache log path when requesting error logging to syslog
+
 - [GH-247] Explicitly include mod_ldap before mod_authnz_ldap
 - [GH-243] Expand mpm options for different distros/versions.
 - [GH-239] Added `apache.mod_php5.install_method` attribute defaults to `package`. Install packages unless PHP is compiled from source.
