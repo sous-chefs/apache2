@@ -203,4 +203,129 @@ RSpec.describe Apache2::Cookbook::Helpers do
       end
     end
   end
+
+  describe '#lib_dir_for_machine' do
+    before do
+      allow(subject).to receive(:[]).and_return({kernel: {machine: 'x64'}})
+    end
+    context 'with rhel family' do
+      it 'returns the correct directory' do
+        expect(subject.lib_dir_for_machine).to eq '/usr/lib64'
+      end
+    end
+  end
+
+  # describe '#lib_dir' do
+  #   before do
+  #     allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+  #   end
+  #
+  #   context 'with rhel family' do
+  #     let(:platform_family) { 'rhel' }
+  #
+  #     it 'returns the correct directory' do
+  #       expect(subject.lib_dir).to eq '/usr/lib64/httpd'
+  #     end
+  #   end
+  #
+  #   context 'with amazon family' do
+  #     let(:platform_family) { 'amazon' }
+  #
+  #     it 'returns the correct directory' do
+  #       expect(subject.lib_dir).to eq '/usr/lib64/httpd'
+  #     end
+  #   end
+  #
+  #   context 'with SUSE family' do
+  #     let(:platform_family) { 'suse' }
+  #
+  #     it 'returns the correct directory' do
+  #       expect(subject.lib_dir).to eq '/usr/lib64/apache2'
+  #     end
+  #   end
+  #
+  #   context 'with Debian family' do
+  #     let(:platform_family) { 'debian' }
+  #
+  #     it 'returns the correct directory' do
+  #       expect(subject.lib_dir).to eq '/usr/lib/apache2'
+  #     end
+  #   end
+  #
+  #   context 'with Arch family' do
+  #     let(:platform_family) { 'arch' }
+  #
+  #     it 'returns the correct directory' do
+  #       expect(subject.lib_dir).to eq '/usr/lib/httpd'
+  #     end
+  #   end
+  #
+  #   context 'with FreeBSD family' do
+  #     let(:platform_family) { 'frebsd' }
+  #
+  #     it 'returns the correct directory' do
+  #       expect(subject.lib_dir).to eq '/usr/local/libexec/apache24'
+  #     end
+  #   end
+  #
+  #   context 'with unknown platform' do
+  #     let(:platform_family) { 'foobar' }
+  #
+  #     it 'returns the default directory' do
+  #       expect(subject.lib_dir).to eq '/usr/lib/apache2'
+  #     end
+  #   end
+  # end
+
+  # describe '#libexec_dir' do
+  #   before do
+  #     allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+  #   end
+  #
+  #   context 'with rhel family' do
+  #     let(:platform_family) { 'rhel' }
+  #
+  #     it 'returns the correct libexec_dir binary' do
+  #       expect(subject.libexec_dir).to eq '/usr/sbin/libexec_dir'
+  #     end
+  #   end
+  #
+  #   context 'with amazon family' do
+  #     let(:platform_family) { 'amazon' }
+  #
+  #     it 'returns the correct libexec_dir binary' do
+  #       expect(subject.libexec_dir).to eq '/usr/sbin/libexec_dir'
+  #     end
+  #   end
+  #
+  #   context 'with SUSE family' do
+  #     let(:platform_family) { 'suse' }
+  #
+  #     it 'returns the correct libexec_dir binary' do
+  #       expect(subject.libexec_dir).to eq '/usr/sbin/apache2ctl'
+  #     end
+  #   end
+  #
+  #   context 'with Debian' do
+  #     let(:platform_family) { 'debian' }
+  #     it 'returns the correct libexec_dir binary' do
+  #       expect(subject.libexec_dir).to eq '/usr/sbin/apache2ctl'
+  #     end
+  #   end
+  #
+  #   context 'with arch' do
+  #     let(:platform_family) { 'arch' }
+  #     it 'returns the correct libexec_dir binary' do
+  #       expect(subject.libexec_dir).to eq '/usr/sbin/libexec_dir'
+  #     end
+  #   end
+  #
+  #   context 'with freebsd' do
+  #     let(:platform_family) { 'freebsd' }
+  #     it 'returns the correct libexec_dir binary' do
+  #       expect(subject.libexec_dir).to eq '/usr/local/sbin/libexec_dir'
+  #     end
+  #   end
+  # end
+
 end

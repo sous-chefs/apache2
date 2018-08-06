@@ -44,6 +44,35 @@ module Apache2
           '/etc/httpd'
         end
       end
+
+      def lib_dir
+        case node['platform_family']
+        when 'rhel', 'amazon', 'fedora'
+          File.join(lib_dir_for_machine, 'httpd')
+        end
+      end
+
+      def libexec_dir
+      end
+
+      # Gets the libdir for a given CPU architecture
+      def lib_dir_for_machine
+        arch = node['kernel']['machine']
+
+        if arch =~ /64/ || %w(armv8l s390x).include?(arch)
+          # 64-bit architectures
+          # (x86_64 / amd64 / aarch64 / armv8l / etc.)
+          '/usr/lib64'
+        else
+          # 32-bit architectures
+          # (i686 / armv7l / s390 / etc.)
+          puts arch
+          puts "DEBUG #{node}"
+          puts "DEBUG #{node['kernel']['machine']}"
+          puts "DEBUG #{node['kernel']}"
+          '/usr/lib'
+        end
+      end
     end
   end
 end
