@@ -270,3 +270,6 @@ default['apache']['default_modules'].delete('unixd') if node['platform_family'] 
 if node['init_package'] == 'systemd'
   default['apache']['default_modules'] << 'systemd' if %w(rhel amazon fedora).include?(node['platform_family'])
 end
+
+# Length in second for httpd -t to run
+default['apache']['httpd_t_timeout'] = 10
