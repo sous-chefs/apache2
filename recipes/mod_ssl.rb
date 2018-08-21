@@ -17,7 +17,9 @@
 # limitations under the License.
 #
 
-node.default['apache']['listen'] += ["*:#{node['apache']['mod_ssl']['port']}"]
+if node['apache']['listen'] == ['*:80']
+  node.default['apache']['listen'] += ["*:#{node['apache']['mod_ssl']['port']}"]
+end
 
 include_recipe 'apache2::default'
 
