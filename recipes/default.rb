@@ -175,14 +175,10 @@ template 'apache2.conf' do
   notifies :reload, 'service[apache2]', :delayed
 end
 
-%w(security charset).each do |conf|
+%w(security charset ports).each do |conf|
   apache_conf conf do
     enable true
   end
-end
-
-apache_conf 'ports' do
-  enable false
 end
 
 if node['apache']['mpm_support'].include?(node['apache']['mpm'])
