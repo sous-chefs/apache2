@@ -44,6 +44,17 @@ module Apache2
           '/etc/httpd'
         end
       end
+
+      def apache_conf_dir
+        case node['platform_family']
+        when 'debian', 'suse'
+          '/etc/apache2'
+        when 'freebsd'
+          '/usr/local/etc/apache24'
+        else
+          '/etc/httpd/conf'
+        end
+      end
     end
   end
 end
