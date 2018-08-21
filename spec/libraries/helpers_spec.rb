@@ -51,7 +51,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
     end
   end
 
-  describe '#platform_service_name' do
+  describe '#apache_platform_service_name' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
     end
@@ -60,7 +60,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
       let(:platform_family) { 'rhel' }
 
       it 'returns the correct service name' do
-        expect(subject.platform_service_name).to eq 'httpd'
+        expect(subject.apache_platform_service_name).to eq 'httpd'
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
       let(:platform_family) { 'amazon' }
 
       it 'returns the correct service name' do
-        expect(subject.platform_service_name).to eq 'httpd'
+        expect(subject.apache_platform_service_name).to eq 'httpd'
       end
     end
 
@@ -76,28 +76,28 @@ RSpec.describe Apache2::Cookbook::Helpers do
       let(:platform_family) { 'suse' }
 
       it 'returns the correct service name' do
-        expect(subject.platform_service_name).to eq 'apache2'
+        expect(subject.apache_platform_service_name).to eq 'apache2'
       end
     end
 
     context 'with Debian' do
       let(:platform_family) { 'debian' }
       it 'returns the correct service name' do
-        expect(subject.platform_service_name).to eq 'apache2'
+        expect(subject.apache_platform_service_name).to eq 'apache2'
       end
     end
 
     context 'with arch' do
       let(:platform_family) { 'arch' }
       it 'returns the correct service name' do
-        expect(subject.platform_service_name).to eq 'httpd'
+        expect(subject.apache_platform_service_name).to eq 'httpd'
       end
     end
 
     context 'with freebsd' do
       let(:platform_family) { 'freebsd' }
       it 'returns the correct service name' do
-        expect(subject.platform_service_name).to eq 'apache24'
+        expect(subject.apache_platform_service_name).to eq 'apache24'
       end
     end
   end
