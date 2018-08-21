@@ -12,7 +12,7 @@ module Apache2
         end
       end
 
-      def platform_service_name
+      def apache_platform_service_name
         case node['platform_family']
         when 'debian', 'suse'
           'apache2'
