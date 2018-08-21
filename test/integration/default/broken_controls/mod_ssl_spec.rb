@@ -45,7 +45,7 @@ control 'mod-ssl' do
       expect(loaded_modules.stdout).to match(/#{expected_module}_module/)
     end
 
-    subject(:portsconf) { file("#{property[:apache][:dir]}/ports.conf").content }
+    subject(:portsconf) { file("#{property[:apache][:dir]}/conf-enabled/ports.conf").content }
     it 'ports.conf specifies listening on port 443' do
       expect(portsconf).to match(/^Listen .*[: ]443$/)
     end

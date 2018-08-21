@@ -16,9 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-if node['apache']['listen'] == ['*:80']
-  node.default['apache']['listen'] = ['*:80', "*:#{node['apache']['mod_ssl']['port']}"]
-end
+
+node.default['apache']['listen'] += ["*:#{node['apache']['mod_ssl']['port']}"]
 
 include_recipe 'apache2::default'
 
@@ -34,11 +33,8 @@ if platform_family?('rhel', 'fedora', 'suse', 'amazon')
   end
 end
 
-template 'ssl_ports.conf' do
-  path "#{apache_dir}/ports.conf"
-  source 'ports.conf.erb'
-  mode '0644'
-  notifies :restart, 'service[apache2]', :delayed
+apache_module 'ports' do
+  conf true
 end
 
 apache_module 'ssl' do

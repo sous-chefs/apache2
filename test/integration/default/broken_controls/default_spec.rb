@@ -86,8 +86,8 @@ control 'package-installed' do
       expect(port(80)).to be_listening
     end
 
-    it "listening on port 80 is defined in #{property[:apache][:dir]}/ports.conf" do
-      expect(file("#{property[:apache][:dir]}/ports.conf").content).to match(/^Listen .*[: ]80$/)
+    it "listening on port 80 is defined in #{property[:apache][:dir]}/conf-enabled/ports.conf" do
+      expect(file("#{property[:apache][:dir]}/conf-enabled/ports.conf").content).to match(/^Listen .*[: ]80$/)
     end
 
     #  it 'only listens on port 443 when SSL is enabled' do
