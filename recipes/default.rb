@@ -159,9 +159,9 @@ end
 
 template 'apache2.conf' do
   if platform_family?('debian')
-    path "#{apache_dir}/apache2.conf"
+    path "#{apache_conf_dir}/apache2.conf"
   else
-    path "#{apache_dir}/httpd.conf"
+    path "#{apache_conf_dir}/httpd.conf"
   end
   action :create
   source 'apache2.conf.erb'
