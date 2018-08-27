@@ -137,6 +137,10 @@ IncludeOptional <%= @apache_dir %>/mods-enabled/*.conf
 </IfDefine>
 <% end %>
 
+# Include ports listing
+Include <%= @apache_dir %>/ports.conf
+
+
 #
 # The following directives define some format nicknames for use with
 # a CustomLog directive (see below).
