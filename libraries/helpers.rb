@@ -49,6 +49,8 @@ module Apache2
         case node['platform_family']
         when 'rhel', 'amazon', 'fedora'
           File.join(lib_dir_for_machine, 'httpd')
+        else
+          'foo'
         end
       end
 
@@ -66,10 +68,6 @@ module Apache2
         else
           # 32-bit architectures
           # (i686 / armv7l / s390 / etc.)
-          puts arch
-          puts "DEBUG #{node}"
-          puts "DEBUG #{node['kernel']['machine']}"
-          puts "DEBUG #{node['kernel']}"
           '/usr/lib'
         end
       end
