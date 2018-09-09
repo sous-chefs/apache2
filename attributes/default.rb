@@ -41,6 +41,7 @@ when 'rhel', 'fedora', 'amazon'
     default['apache']['package'] = 'httpd'
     default['apache']['devel_package'] = 'httpd-devel'
   end
+  default['apache']['service_name'] = 'httpd'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/httpd'
   default['apache']['log_dir']     = '/var/log/httpd'
@@ -107,6 +108,7 @@ when 'debian'
   default['apache']['default_site_name'] = '000-default'
 when 'arch'
   default['apache']['package'] = 'apache'
+  default['apache']['service_name'] = 'httpd'
   default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/httpd'
   default['apache']['log_dir']     = '/var/log/httpd'
@@ -255,3 +257,6 @@ default['apache']['default_modules'].delete('unixd') if node['platform_family'] 
 if node['init_package'] == 'systemd'
   default['apache']['default_modules'] << 'systemd' if %w(rhel amazon fedora).include?(node['platform_family'])
 end
+
+# Length in second for httpd -t to run
+default['apache']['httpd_t_timeout'] = 10

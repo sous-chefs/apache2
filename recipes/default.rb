@@ -135,7 +135,7 @@ directory node['apache']['lock_dir'] do
 end
 
 # Set the preferred execution binary - prefork or worker
-template "/etc/sysconfig/#{platform_service_name}" do
+template "/etc/sysconfig/#{apache_platform_service_name}" do
   source 'etc-sysconfig-httpd.erb'
   owner 'root'
   group node['apache']['root_group']
@@ -159,9 +159,9 @@ end
 
 template 'apache2.conf' do
   if platform_family?('debian')
-    path "#{apache_dir}/apache2.conf"
+    path "#{apache_conf_dir}/apache2.conf"
   else
-    path "#{apache_dir}/httpd.conf"
+    path "#{apache_conf_dir}/httpd.conf"
   end
   action :create
   source 'apache2.conf.erb'
@@ -181,8 +181,11 @@ end
   end
 end
 
-apache_conf 'ports' do
-  enable false
+template 'ports.conf' do
+  path "#{apache_dir}/ports.conf"
+  source 'ports.conf.erb'
+  mode '0644'
+  notifies :restart, 'service[apache2]', :delayed
 end
 
 if node['apache']['mpm_support'].include?(node['apache']['mpm'])
@@ -204,8 +207,8 @@ if node['apache']['default_site_enabled']
 end
 
 service 'apache2' do
-  service_name platform_service_name
+  service_name apache_platform_service_name
   supports [:start, :restart, :reload, :status]
   action [:enable, :start]
-  only_if "#{apache_binary} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: 10
+  only_if "#{apache_binary} -t", environment: { 'APACHE_LOG_DIR' => node['apache']['log_dir'] }, timeout: node['apache']['httpd_t_timeout']
 end

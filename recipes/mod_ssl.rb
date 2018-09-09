@@ -16,8 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 if node['apache']['listen'] == ['*:80']
-  node.default['apache']['listen'] = ['*:80', "*:#{node['apache']['mod_ssl']['port']}"]
+  node.default['apache']['listen'] += ["*:#{node['apache']['mod_ssl']['port']}"]
 end
 
 include_recipe 'apache2::default'
@@ -32,13 +33,6 @@ if platform_family?('rhel', 'fedora', 'suse', 'amazon')
     content '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n'
     only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
   end
-end
-
-template 'ssl_ports.conf' do
-  path "#{apache_dir}/ports.conf"
-  source 'ports.conf.erb'
-  mode '0644'
-  notifies :restart, 'service[apache2]', :delayed
 end
 
 apache_module 'ssl' do
