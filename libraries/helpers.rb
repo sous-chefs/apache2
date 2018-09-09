@@ -46,35 +46,36 @@ module Apache2
       end
 
       def lib_dir
+        arch = node['kernel']['machine']
+
         case node['platform_family']
         when 'rhel', 'amazon', 'fedora'
-          File.join(lib_dir_for_machine, 'httpd')
+          if arch =~ /64/ || %w(armv8l s390x).include?(arch)
+            '/usr/lib64/httpd'
+          else
+            '/usr/lib/httpd'
+          end
+        when 'suse'
+          if arch =~ /64/ || %w(armv8l s390x).include?(arch)
+            '/usr/lib64/apache2'
+          else
+            '/usr/lib/apache2'
+          end
+        when 'freebsd'
+          '/usr/local/libexec/apache24'
+        when 'arch'
+          '/usr/lib/httpd'
         else
-          'foo'
+          '/usr/lib/apache2'
         end
       end
 
       def libexec_dir
-      end
-
-      # Gets the libdir for a given CPU architecture
-      def lib_dir_for_machine
-        arch = node['kernel']['machine']
         case node['platform_family']
-        when 'rhel', 'amazon','fedora','suse'
-          if arch =~ /64/ || %w(armv8l s390x).include?(arch)
-            # 64-bit architectures
-            # (x86_64 / amd64 / aarch64 / armv8l / etc.)
-            '/usr/lib64'
-          else
-            # 32-bit architectures
-            # (i686 / armv7l / s390 / etc.)
-            '/usr/lib'
-          end
-        when 'freebsd'
-          '/usr/local'
+        when 'freebsd','suse'
+          lib_dir
         else
-          '/usr/lib'
+          File.join(lib_dir,'modules')
         end
       end
     end
