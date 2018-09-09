@@ -7,42 +7,44 @@ describe "#lib_dir_for_machine" do
   context 'x86_64' do
     automatic_attributes["kernel"]["machine"] = "x86_64"
 
-    context 'redhat' do
-      recipe do
-        log lib_dir_for_machine
-      end
+    recipe do
+      log lib_dir_for_machine
+    end
 
+    context 'redhat' do
       platform 'redhat'
       it { is_expected.to write_log("/usr/lib64") }
     end
 
     context 'arch' do
-      recipe do
-        log lib_dir_for_machine
-      end
-
       platform 'arch'
       it { is_expected.to write_log("/usr/lib") }
     end
 
-    context 'freebsd' do
-      recipe do
-        log lib_dir_for_machine
-      end
+    context 'suse' do
+      platform 'suse'
+      it { is_expected.to write_log("/usr/lib64") }
+    end
 
+    context 'freebsd' do
       platform 'freebsd'
       it { is_expected.to write_log("/usr/local") }
+    end
+
+    context 'debian' do
+      platform 'debian'
+      it { is_expected.to write_log("/usr/lib") }
     end
   end
 
   context 'x86'do
     automatic_attributes["kernel"]["machine"] = "i686"
 
-    context 'redhat' do
-      recipe do
-        log lib_dir_for_machine
-      end
+    recipe do
+      log lib_dir_for_machine
+    end
 
+    context 'redhat' do
       platform 'redhat'
       it { is_expected.to write_log("/usr/lib") }
     end

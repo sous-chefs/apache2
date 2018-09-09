@@ -60,14 +60,20 @@ module Apache2
       # Gets the libdir for a given CPU architecture
       def lib_dir_for_machine
         arch = node['kernel']['machine']
-
-        if arch =~ /64/ || %w(armv8l s390x).include?(arch)
-          # 64-bit architectures
-          # (x86_64 / amd64 / aarch64 / armv8l / etc.)
-          '/usr/lib64'
+        case node['platform_family']
+        when 'rhel', 'amazon','fedora','suse'
+          if arch =~ /64/ || %w(armv8l s390x).include?(arch)
+            # 64-bit architectures
+            # (x86_64 / amd64 / aarch64 / armv8l / etc.)
+            '/usr/lib64'
+          else
+            # 32-bit architectures
+            # (i686 / armv7l / s390 / etc.)
+            '/usr/lib'
+          end
+        when 'freebsd'
+          '/usr/local'
         else
-          # 32-bit architectures
-          # (i686 / armv7l / s390 / etc.)
           '/usr/lib'
         end
       end
