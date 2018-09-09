@@ -2,11 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## v5.2.1 (04-09-2018)
-
-- Revert ports.conf fix (ports.conf that gets installed by package conflicts.
-
-## v5.2.0 (26-08-2018)
+## v5.1.0 (26-08-2018)
 
 - Drop Chef 12 support
 - Add Danger and CircleCI support
