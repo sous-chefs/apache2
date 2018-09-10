@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## v5.2.2 (tbc)
+
+- Add helpers: `lib_dir` & `libexec_dir`
+
 ## v5.2.1 (04-09-2018)
 
 - Revert ports.conf fix (ports.conf that gets installed by package conflicts.

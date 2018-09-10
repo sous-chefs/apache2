@@ -18,19 +18,6 @@
 # limitations under the License.
 #
 
-# Gets the libdir for a given CPU architecture
-def lib_dir_for_machine(arch)
-  if arch =~ /64/ || %w(armv8l s390x).include?(arch)
-    # 64-bit architectures
-    # (x86_64 / amd64 / aarch64 / armv8l / etc.)
-    '/usr/lib64'
-  else
-    # 32-bit architectures
-    # (i686 / armv7l / s390 / etc.)
-    '/usr/lib'
-  end
-end
-
 default['apache']['mpm'] =
   case node['platform']
   when 'ubuntu', 'linuxmint'
@@ -70,7 +57,7 @@ when 'rhel', 'fedora', 'amazon'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
-  default['apache']['lib_dir'] = "#{lib_dir_for_machine(node['kernel']['machine'])}/httpd"
+  default['apache']['lib_dir']     = "#{lib_dir_for_machine}/httpd"
   default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'suse'
   default['apache']['package']     = 'apache2'
@@ -90,7 +77,7 @@ when 'suse'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd2.pid'
-  default['apache']['lib_dir'] = "#{lib_dir_for_machine(node['kernel']['machine'])}/apache2"
+  default['apache']['lib_dir']     = "#{lib_dir_for_machine}/apache2"
   default['apache']['libexec_dir'] = node['apache']['lib_dir']
 when 'debian'
   default['apache']['package']     = 'apache2'

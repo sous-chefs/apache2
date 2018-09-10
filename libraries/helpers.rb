@@ -45,6 +45,40 @@ module Apache2
         end
       end
 
+      def lib_dir
+        arch = node['kernel']['machine']
+
+        case node['platform_family']
+        when 'rhel', 'amazon', 'fedora'
+          if arch =~ /64/ || %w(armv8l s390x).include?(arch)
+            '/usr/lib64/httpd'
+          else
+            '/usr/lib/httpd'
+          end
+        when 'suse'
+          if arch =~ /64/ || %w(armv8l s390x).include?(arch)
+            '/usr/lib64/apache2'
+          else
+            '/usr/lib/apache2'
+          end
+        when 'freebsd'
+          '/usr/local/libexec/apache24'
+        when 'arch'
+          '/usr/lib/httpd'
+        else
+          '/usr/lib/apache2'
+        end
+      end
+
+      def libexec_dir
+        case node['platform_family']
+        when 'freebsd', 'suse'
+          lib_dir
+        else
+          File.join(lib_dir, 'modules')
+        end
+      end
+
       def apache_conf_dir
         case node['platform_family']
         when 'debian', 'suse'
