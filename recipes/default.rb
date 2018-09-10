@@ -82,7 +82,7 @@ unless platform_family?('debian')
   end
 
   execute 'generate-module-list' do
-    command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{apache_dir}/mods-available"
+    command "/usr/local/bin/apache2_module_conf_generate.pl #{lib_dir} #{apache_dir}/mods-available"
     action :nothing
   end
 end

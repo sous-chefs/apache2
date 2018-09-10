@@ -57,8 +57,6 @@ when 'rhel', 'fedora', 'amazon'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
-  default['apache']['lib_dir']     = "#{lib_dir_for_machine}/httpd"
-  default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'suse'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
@@ -77,8 +75,6 @@ when 'suse'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd2.pid'
-  default['apache']['lib_dir']     = "#{lib_dir_for_machine}/apache2"
-  default['apache']['libexec_dir'] = node['apache']['lib_dir']
 when 'debian'
   default['apache']['package']     = 'apache2'
   default['apache']['perl_pkg']    = 'perl'
@@ -102,9 +98,7 @@ when 'debian'
   default['apache']['lock_dir']    = '/var/lock/apache2'
   default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
   default['apache']['docroot_dir'] = '/var/www/html'
-  default['apache']['lib_dir']       = '/usr/lib/apache2'
-  default['apache']['build_dir']     = '/usr/share/apache2'
-  default['apache']['libexec_dir']   = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['build_dir'] = '/usr/share/apache2'
   default['apache']['default_site_name'] = '000-default'
 when 'arch'
   default['apache']['package'] = 'apache'
@@ -124,8 +118,6 @@ when 'arch'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
-  default['apache']['lib_dir']     = '/usr/lib/httpd'
-  default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'freebsd'
   default['apache']['package']     = 'apache24'
   default['apache']['dir']         = '/usr/local/etc/apache24'
@@ -136,7 +128,6 @@ when 'freebsd'
   default['apache']['cache_dir']   = '/var/cache/apache24'
   default['apache']['run_dir']     = '/var/run'
   default['apache']['lock_dir']    = '/var/run'
-  default['apache']['lib_dir']     = '/usr/local/libexec/apache24'
   default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['perl_pkg']    = 'perl5'
   default['apache']['pid_file']    = '/var/run/httpd.pid'
@@ -146,7 +137,6 @@ when 'freebsd'
   default['apache']['root_group']  = 'wheel'
   default['apache']['user']        = 'www'
   default['apache']['group']       = 'www'
-  default['apache']['libexec_dir'] = node['apache']['lib_dir']
 else
   default['apache']['package'] = 'apache2'
   default['apache']['devel_package'] = 'apache2-dev'
@@ -165,8 +155,6 @@ else
   default['apache']['run_dir']     = 'logs'
   default['apache']['lock_dir']    = 'logs'
   default['apache']['pid_file']    = 'logs/httpd.pid'
-  default['apache']['lib_dir']     = '/usr/lib/apache2'
-  default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 end
 
 ###

@@ -22,7 +22,7 @@ define :apache_module, enable: true, conf: false, restart: false do
   include_recipe 'apache2::default'
 
   params[:filename]    = params[:filename] || "mod_#{params[:name]}.so"
-  params[:module_path] = params[:module_path] || "#{node['apache']['libexec_dir']}/#{params[:filename]}"
+  params[:module_path] = params[:module_path] || "#{libexec_dir}/#{params[:filename]}"
   params[:identifier]  = params[:identifier] || "#{params[:name]}_module"
 
   apache_mod params[:name] if params[:conf]
