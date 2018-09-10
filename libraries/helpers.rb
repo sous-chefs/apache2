@@ -72,10 +72,12 @@ module Apache2
 
       def libexec_dir
         case node['platform_family']
-        when 'freebsd','suse'
+        when 'freebsd', 'suse'
           lib_dir
         else
-          File.join(lib_dir,'modules')
+          File.join(lib_dir, 'modules')
+        end
+      end
 
       def apache_conf_dir
         case node['platform_family']
