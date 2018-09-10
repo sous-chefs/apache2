@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 ## v5.2.2 (tbc)
 
 - Add helpers: `lib_dir` & `libexec_dir`
+- Add package helpers
 
 ## v5.2.1 (04-09-2018)
 
