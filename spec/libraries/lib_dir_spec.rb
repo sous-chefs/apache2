@@ -1,7 +1,4 @@
 require 'spec_helper'
-require 'chefspec'
-require 'chefspec/berkshelf'
-require_relative '../../libraries/helpers'
 
 describe '#lib_dir' do
   context 'x86_64' do

@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'chefspec'
-require_relative '../../libraries/helpers'
 
 RSpec.describe Apache2::Cookbook::Helpers do
   class DummyClass < Chef::Node
