@@ -34,13 +34,11 @@ default['apache']['default_site_name'] = 'default'
 # Where the various parts of apache are
 case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
-  if node['platform'] == 'amazon' && node['platform_version'] == 1
-    default['apache']['package'] = 'httpd24'
-    default['apache']['devel_package'] = 'httpd24-devel'
-  else
-    default['apache']['package'] = 'httpd'
-    default['apache']['devel_package'] = 'httpd-devel'
-  end
+  default['apache']['devel_package'] = if node['platform'] == 'amazon' && node['platform_version'] == 1
+                                         'httpd24-devel'
+                                       else
+                                         'httpd-devel'
+                                       end
   default['apache']['log_dir']     = '/var/log/httpd'
   default['apache']['user']        = 'apache'
   default['apache']['group']       = 'apache'
@@ -72,7 +70,6 @@ when 'debian'
   default['apache']['build_dir'] = '/usr/share/apache2'
   default['apache']['default_site_name'] = '000-default'
 when 'arch'
-  default['apache']['package'] = 'apache'
   default['apache']['log_dir']     = '/var/log/httpd'
   default['apache']['user']        = 'http'
   default['apache']['group']       = 'http'
@@ -85,7 +82,6 @@ when 'arch'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
 when 'freebsd'
-  default['apache']['package']     = 'apache24'
   default['apache']['conf_dir']    = '/usr/local/etc/apache24'
   default['apache']['docroot_dir'] = '/usr/local/www/apache24/data'
   default['apache']['cgibin_dir']  = '/usr/local/www/apache24/cgi-bin'
@@ -102,7 +98,6 @@ when 'freebsd'
   default['apache']['user']        = 'www'
   default['apache']['group']       = 'www'
 else
-  default['apache']['package'] = 'apache2'
   default['apache']['devel_package'] = 'apache2-dev'
   default['apache']['log_dir']     = '/var/log/apache2'
   default['apache']['error_log']   = 'error.log'

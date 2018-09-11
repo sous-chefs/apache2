@@ -19,7 +19,7 @@
 #
 
 package 'apache2' do
-  package_name node['apache']['package']
+  package_name apache_pkg
   default_release node['apache']['default_release'] unless node['apache']['default_release'].nil?
 end
 

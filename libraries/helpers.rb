@@ -100,6 +100,33 @@ module Apache2
           '/usr/share/httpd/icons'
         end
       end
+
+      def perl_pkg
+        if node['platform_family'] == 'freebsd'
+          'perl5'
+        else
+          'perl'
+        end
+      end
+
+      def apache_pkg
+        case node['platform_family']
+        when 'amazon'
+          if node['platform_version'] == '2'
+            'httpd'
+          else
+            'httpd24'
+          end
+        when 'debian', 'suse'
+          'apache2'
+        when 'arch'
+          'apache'
+        when 'freebsd'
+          'apache24'
+        else
+          'httpd'
+        end
+      end
     end
   end
 end
