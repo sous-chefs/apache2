@@ -154,7 +154,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
     end
   end
 
-  describe '#apache directory name' do
+  describe '#apache_dir directory' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
     end
