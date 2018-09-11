@@ -16,7 +16,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 -   Drop Chef 12 support
 -   Add Danger and CircleCI support
 -   Move apache binary detection to the helpers file
--   Adds apache_service, apache_platform_service_name, apache_dir ,apache_conf_dir helpers
+-   Adds apache_platform_service_name, apache_dir ,apache_conf_dir helpers
 -   Update kitchen configuration
 -   Fix ports.conf location and how its set up (#550, skadz)
 -   Allow httpd -t timeout to be configurable (#547, skadz)
