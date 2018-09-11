@@ -89,6 +89,17 @@ module Apache2
           '/etc/httpd/conf'
         end
       end
+
+      def icon_dir
+        case node['platform_family']
+        when 'debian', 'suse'
+          '/usr/share/apache2/icons'
+        when 'freebsd'
+          '/usr/local/www/apache24/icons'
+        else
+          '/usr/share/httpd/icons'
+        end
+      end
     end
   end
 end
