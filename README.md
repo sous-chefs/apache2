@@ -111,6 +111,7 @@ These are general settings used in recipes and templates. Default values are not
 - `node['apache']['keepalive']` - Value for the KeepAlive directive. Default is On.
 - `node['apache']['keepaliverequests']` - Value for MaxKeepAliveRequests. Default is 100.
 - `node['apache']['keepalivetimeout']` - Value for the KeepAliveTimeout directive. Default is 5.
+- `node['apache']['envvars_additional_params']` - Additionals variables set in envvars file. Default is empty.
 - `node['apache']['sysconfig_additional_params']` - Additionals variables set in sysconfig file. Default is empty.
 - `node['apache']['log_level']` - Value for LogLevel directive. Default is 'warn'.
 - `node['apache']['default_modules']` - Array of module names. Can take "mod_FOO" or "FOO" as names, where FOO is the apache module, e.g. "`mod_status`" or "`status`".

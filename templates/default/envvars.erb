@@ -43,10 +43,9 @@ export LANG
 #export APACHE2_MAINTSCRIPT_DEBUG=1
 
 APACHE_STATUSURL=<%= node['apache']['status_url'] %>
-<%- if node['apache']['envvars']['custom_config'] %>
+<%- if node['apache']['envvars_additional_config'] %>
 
-<%= node['apache']['envvars']['custom_config'].join("\n") %>
-<%- end %>
-
+<%= node['apache']['envvars_additional_config'].join("\n") %>
 # return code 0:
 :
+<%- end %>
