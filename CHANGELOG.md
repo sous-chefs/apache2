@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## v4.0.3 (2018-10-17)
+
+- Fix mod_session_crypto on RHEL/CentOS/Fedora
+- Fix mod_session on RHEL/CentOS/Fedora
+- Backported [GH-493] to fix php5 on CentOS 7
+
 ## v4.0.0 (2017-07-10)
 
 ### Breaking changes

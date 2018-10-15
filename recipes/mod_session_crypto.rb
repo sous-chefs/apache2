@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
+package 'apr-util-openssl' if platform_family?('rhel', 'fedora', 'amazon')
+
 apache_module 'session_crypto'

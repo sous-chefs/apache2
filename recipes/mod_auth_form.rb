@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
+package 'mod_session' if platform_family?('rhel', 'fedora', 'amazon')
+
 apache_module 'auth_form'
