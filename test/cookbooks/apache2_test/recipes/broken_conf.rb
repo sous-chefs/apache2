@@ -19,16 +19,18 @@
 
 include_recipe 'apache2::default'
 
-web_app 'broken' do
-  template 'broken.conf.erb'
-  server_name node['hostname']
-  server_aliases [node['fqdn']]
-  docroot node['apache']['docroot_dir']
-end
+# These still try to enable the site even though they are designed not to.
 
-apache_site 'broken' do
-  enable false
-end
+# web_app 'broken' do
+#   template 'broken.conf.erb'
+#   server_name node['hostname']
+#   server_aliases [node['fqdn']]
+#   docroot node['apache']['docroot_dir']
+# end
+
+# apache_site 'broken' do
+#   enable false
+# end
 
 web_app 'working' do
   template 'working.conf.erb'

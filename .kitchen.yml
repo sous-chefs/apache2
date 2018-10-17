@@ -3,7 +3,12 @@ driver:
 
 provisioner:
   name: chef_zero
-  require_chef_omnibus: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  product_name: chef
+  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  install_strategy: once
+
+client_rb:
+  treat_deprecation_warnings_as_errors: true
 
 verifier:
   name: inspec
@@ -12,16 +17,16 @@ platforms:
   - name: amazonlinux
     driver_config:
       box: mvbcoding/awslinux
-  - name: centos-7.3
-  - name: debian-7.11
-  - name: debian-8.9
-  - name: debian-9.0
-  - name: fedora-25
-  - name: freebsd-10.3
-  - name: freebsd-11.0
-  - name: opensuse-leap-42.3
-  - name: ubuntu-14.04
+  - name: centos-7
+  - name: debian-7
+  - name: debian-8
+  - name: debian-9
+  - name: fedora-28
+  - name: freebsd-10
+  - name: freebsd-11
+  - name: opensuse-leap-42
   - name: ubuntu-16.04
+  - name: ubuntu-18.04
 
 suites:
   - name: default
@@ -74,12 +79,11 @@ suites:
       machine_fqdn_as_hostname: true
       apache:
         mpm: prefork
-    includes: [
-      'centos-7.3',
-      'debian-8.9',
-      'ubuntu-14.04',
-      'ubuntu-16.04'
-      ]
+    includes:
+      - centos-7
+      - debian-8
+      - ubuntu-16.04
+      - ubuntu-18.04
 
   - name: worker
     run_list:
@@ -94,10 +98,9 @@ suites:
       machine_fqdn_as_hostname: true
       apache:
         mpm: worker
-    includes: [
-      'centos-7.3',
-      'ubuntu-14.04'
-      ]
+    includes:
+      - centos-7
+      - ubuntu-16.04
 
   - name: event
     run_list:
@@ -115,6 +118,5 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/default
-    includes: [
-      'ubuntu-16.04'
-      ]
+    includes:
+      - ubuntu-16.04
