@@ -2,14 +2,27 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## v5.2.2 (tbc)
+## v6.0.0 (tbc)
 
--   Add helpers: `lib_dir`, `libexec_dir`, `icon_dir`
--   Add package helpers
+**Breaking Change**
+
+-   Default recipe now calls the install resource!
+-   Add helpers: cache_dir, lock_dir, apache_default_user
+-   Add helpers: default_modules, mpm_support, default modules
+-   Add helpers: status_url, apache_locale
+-   Remove all mpm_ recipes. Move mpm setup to the install resource
+-   Fix Options allowed in alias.conf
+-   Remove MPM setup as it breaks things, just leave it alone for now
+-   Remove FreeBSD, openSuse & Fedora Kitchen testing
+-   Rename test cookbook name to test
+-   Add CircleCI and remove Travis
+-   Add CircleCI Orbs
+-   Include apache2 hardening inspec tests
+-   Fix readme by removing huge chunks of it
 -   Remove all mpm_ recipes
 -   Allow user to set the mpm mode no matter what platform they're on
 -   Set the server to listen on ports 80 and 443 by default
--   Add dev-sec/apache-baseline tests and set cookbook defaults to securre defaults
+-   Add dev-sec/apache-baseline tests and set cookbook defaults to secure defaults
 -   Add CircleCI
 -   Cleanup test integration directory
 
