@@ -1,0 +1,63 @@
+<VirtualHost *:<%= node['apache']['default_site_port'] %>>
+  ServerAdmin <%= node['apache']['contact'] %>
+
+  DocumentRoot <%= node['apache']['docroot_dir'] %>/
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride None
+  </Directory>
+
+  <Directory <%= node['apache']['docroot_dir'] %>/>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Require all granted
+    # This directive allows us to have apache2's default start page
+    # in /apache2-default/, but still have / go to the right place
+    #RedirectMatch ^/$ /apache2-default/
+  </Directory>
+
+  ScriptAlias /cgi-bin/ <%= node['apache']['cgibin_dir'] %>/
+  <Directory "<%= node['apache']['cgibin_dir'] %>">
+    AllowOverride None
+    Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+    Require all granted
+  </Directory>
+
+  <% if @error_log =~ /^syslog:/ || @error_log =~ /^\|/ %>
+  ErrorLog <%= @error_log %>
+  <% else %>
+  ErrorLog <%= @log_dir %>/<%= @error_log %>
+  <% end %>
+
+  # Possible values include: debug, info, notice, warn, error, crit,
+  # alert, emerg.
+  LogLevel <%= @log_level %>
+
+  <% if @error_log =~ /^syslog:/ || @error_log =~ /^\|/ %>
+  CustomLog <%= @access_log %> combined
+  <% else %>
+  CustomLog <%= @log_dir %>/<%= @access_log %> combined
+  <% end %>
+  ServerSignature On
+
+  Alias /doc/ "/usr/share/doc/"
+  <Directory "/usr/share/doc/">
+    Options Indexes MultiViews FollowSymLinks
+    AllowOverride None
+    Require ip 127.0.0.0/255.0.0.0
+    Require ip ::1/128
+  </Directory>
+
+  <% if %w{ rhel fedora amazon }.include?(node['platform_family']) -%>
+  #
+  # This configuration file enables the default "Welcome"
+  # page if there is no default index page present for
+  # the root URL.  To disable the Welcome page, comment
+  # out all the lines below.
+  #
+  <LocationMatch "^/+$">
+    Options -Indexes
+    ErrorDocument 403 /error/noindex.html
+  </LocationMatch>
+  <% end -%>
+</VirtualHost>

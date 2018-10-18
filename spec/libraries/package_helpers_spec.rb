@@ -72,8 +72,8 @@ describe '#apache_pkg' do
     log apache_pkg
   end
 
-  context 'with rhel family' do
-    platform 'redhat'
+  context 'on centos-7' do
+    platform 'redhat', '7'
     it { is_expected.to write_log('httpd') }
   end
 

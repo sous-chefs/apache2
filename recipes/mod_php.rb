@@ -73,6 +73,7 @@ end
 
 template "#{apache_dir}/mods-available/#{node['apache']['mod_php']['module_name']}.conf" do
   source 'mods/php.conf.erb'
+  cookbook 'apache2'
   mode '0644'
   notifies :reload, 'service[apache2]', :delayed
 end

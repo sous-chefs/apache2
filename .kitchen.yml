@@ -2,13 +2,12 @@ driver:
    name: vagrant
 
 provisioner:
-  name: chef_zero
+  name: chef_solo
   product_name: chef
-  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
-  install_strategy: once
-
-client_rb:
-  treat_deprecation_warnings_as_errors: true
+  enforce_idempotency: true
+  multiple_converge: 2
+  solo_rb:
+    treat_deprecation_warnings_as_errors: true
 
 verifier:
   name: inspec
@@ -17,106 +16,84 @@ platforms:
   - name: amazonlinux
     driver_config:
       box: mvbcoding/awslinux
+  # - name: centos-6
   - name: centos-7
-  - name: debian-7
   - name: debian-8
   - name: debian-9
-  - name: fedora-28
-  - name: freebsd-10
-  - name: freebsd-11
-  - name: opensuse-leap-42
+  - name: fedora-latest
+  - name: opensuse-leap
   - name: ubuntu-16.04
   - name: ubuntu-18.04
 
 suites:
   - name: default
     run_list:
-    - recipe[fqdn]
-    - recipe[apache2_test::setup]
-    - recipe[apache2_test::default]
-    - recipe[apache2_test::basic_web_app]
-    - recipe[apache2_test::broken_conf]
-    - recipe[apache2_test::modules]
-    - recipe[apache2_test::mod_ssl]
-    - recipe[apache2_test::mod_auth_basic]
-    - recipe[apache2_test::mod_auth_digest]
-  # - recipe[apache2_test::mod_auth_openid]
-  # - recipe[apache2_test::mod_authnz_ldap]
-    - recipe[apache2_test::mod_authz_groupfile]
-    - recipe[apache2_test::mod_authz_listed_host]
-    - recipe[apache2_test::mod_authz_unlisted_host]
-    - recipe[apache2_test::mod_authz_user]
-    - recipe[apache2_test::mod_cgi]
-  # not supported by apache 2.4 without source compile with non-maintainer patches
-  # - recipe[apache2_test::mod_fastcgi]
-  # - recipe[apache2_test::mod_dav_svn]
-    - recipe[apache2_test::mod_expires]
-    - recipe[apache2_test::mod_status_remote]
-    attributes:
-      machine_fqdn: working.computers.biz
-      machine_fqdn_as_hostname: true
+    - recipe[test::default]
+  # - name: ssl
+  #   run_list:
+  #   - recipe[test::mod_ssl]
 
-  - name: prefork
-    run_list:
-    - recipe[fqdn]
-    - recipe[apache2_test::setup]
-    - recipe[apache2_test::default]
-    - recipe[apache2_test::broken_conf]
-    - recipe[apache2_test::modules]
-    - recipe[apache2_test::mod_cgi]
-  # not supported by apache 2.4 without source compile with non-maintainer patches
-  # - recipe[apache2_test::mod_fastcgi]
-    - recipe[apache2_test::mod_perl]
-    - recipe[apache2_test::mod_php]
-  # - recipe[apache2_test::mod_proxy_ajp]
-    - recipe[apache2_test::mod_python]
-    - recipe[apache2_test::mod_ssl]
-    verifier:
-      inspec_tests:
-        - test/integration/default
-    attributes:
-      machine_fqdn: working.computers.biz
-      machine_fqdn_as_hostname: true
-      apache:
-        mpm: prefork
-    includes:
-      - centos-7
-      - debian-8
-      - ubuntu-16.04
-      - ubuntu-18.04
-
-  - name: worker
-    run_list:
-    - recipe[fqdn]
-    - recipe[apache2_test::setup]
-    - recipe[apache2_test::default]
-    - recipe[apache2_test::basic_web_app]
-    - recipe[apache2_test::broken_conf]
-    - recipe[apache2_test::modules]
-    attributes:
-      machine_fqdn: working.computers.biz
-      machine_fqdn_as_hostname: true
-      apache:
-        mpm: worker
-    includes:
-      - centos-7
-      - ubuntu-16.04
-
-  - name: event
-    run_list:
-    - recipe[fqdn]
-    - recipe[apache2_test::setup]
-    - recipe[apache2_test::default]
-    - recipe[apache2_test::basic_web_app]
-    - recipe[apache2_test::broken_conf]
-    - recipe[apache2_test::modules]
-    attributes:
-      machine_fqdn: working.computers.biz
-      machine_fqdn_as_hostname: true
-      apache:
-        mpm: event
-    verifier:
-      inspec_tests:
-        - test/integration/default
-    includes:
-      - ubuntu-16.04
+  # - name: prefork
+  #   run_list:
+  #   - recipe[fqdn]
+  #   - recipe[apache2_test::setup]
+  #   - recipe[apache2_test::default]
+  #   - recipe[apache2_test::broken_conf]
+  #   - recipe[apache2_test::modules]
+  #   - recipe[apache2_test::mod_cgi]
+  # # not supported by apache 2.4 without source compile with non-maintainer patches
+  # # - recipe[apache2_test::mod_fastcgi]
+  #   - recipe[apache2_test::mod_perl]
+  #   - recipe[apache2_test::mod_php]
+  # # - recipe[apache2_test::mod_proxy_ajp]
+  #   - recipe[apache2_test::mod_python]
+  #   - recipe[apache2_test::mod_ssl]
+  #   verifier:
+  #     inspec_tests:
+  #       - test/integration/default
+  #   attributes:
+  #     machine_fqdn: working.computers.biz
+  #     machine_fqdn_as_hostname: true
+  #     apache:
+  #       mpm: prefork
+  #   includes:
+  #     - centos-7
+  #     - debian-8
+  #     - ubuntu-16.04
+  #     - ubuntu-18.04
+  #
+  # - name: worker
+  #   run_list:
+  #   - recipe[fqdn]
+  #   - recipe[apache2_test::setup]
+  #   - recipe[apache2_test::default]
+  #   - recipe[apache2_test::basic_web_app]
+  #   - recipe[apache2_test::broken_conf]
+  #   - recipe[apache2_test::modules]
+  #   attributes:
+  #     machine_fqdn: working.computers.biz
+  #     machine_fqdn_as_hostname: true
+  #     apache:
+  #       mpm: worker
+  #   includes:
+  #     - centos-7
+  #     - ubuntu-16.04
+  #
+  # - name: event
+  #   run_list:
+  #   - recipe[fqdn]
+  #   - recipe[apache2_test::setup]
+  #   - recipe[apache2_test::default]
+  #   - recipe[apache2_test::basic_web_app]
+  #   - recipe[apache2_test::broken_conf]
+  #   - recipe[apache2_test::modules]
+  #   attributes:
+  #     machine_fqdn: working.computers.biz
+  #     machine_fqdn_as_hostname: true
+  #     apache:
+  #       mpm: event
+  #   verifier:
+  #     inspec_tests:
+  #       - test/integration/default
+  #   includes:
+  #     - ubuntu-16.04

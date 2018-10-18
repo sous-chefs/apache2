@@ -8,13 +8,16 @@ transport:
 
 provisioner:
   name: dokken
-  deprecations_as_errors: true
 
 platforms:
 - name: amazonlinux
   driver:
     image: dokken/amazonlinux
     pid_one_command: /sbin/init
+    # intermediate_instructions:
+      # - RUN echo NETWORKING=yes > /etc/sysconfig/network
+    # Note for future cookbook contributors: faking out the network like we do above breaks the network
+    # e.g. `getaddrinfo: Temporary failure in name resolution`
 
 - name: debian-8
   driver:
@@ -29,6 +32,12 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
+
+#  Not currently supported due to CentOS only installing 2.2
+# - name: centos-6
+#   driver:
+#     image: dokken/centos-6
+#     pid_one_command: /sbin/init
 
 - name: centos-7
   driver:

@@ -30,6 +30,7 @@ define :web_app, template: 'web_app.conf.erb', local: false, enable: true, serve
   template "#{apache_dir}/sites-available/#{application_name}.conf" do
     source params[:template]
     local params[:local]
+    cookbook 'apache2'
     owner 'root'
     group node['apache']['root_group']
     mode '0644'

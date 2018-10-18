@@ -107,6 +107,7 @@ end
 
 template "#{apache_dir}/mods-available/authopenid.load" do
   source 'mods/authopenid.load.erb'
+  cookbook 'apache2'
   owner 'root'
   group node['apache']['root_group']
   mode '0644'

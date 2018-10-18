@@ -1,9 +1,8 @@
 #
-# Cookbook:: apache2
-# Recipe:: mod_cgi
+# Cookbook:: apache2_test
+# Recipe:: default
 #
-# Copyright:: 2008-2017, Chef Software, Inc.
-# Copyright:: 2014, Viverae, Inc.
+# Copyright:: 2012, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,17 +16,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+apt_update 'update'
 
-# Disable until refactored
-# if node['apache']['mpm'] == 'prefork'
-#   link '/usr/lib64/apache2/mod_cgi.so' do
-#     to '/usr/lib64/apache2-prefork/mod_cgi.so'
-#     only_if { node['platform_family'] == 'suse' }
-#   end
-#
-#   apache_module 'cgi'
-# else
-#   Chef::Log.warn "apache::mod_cgi. Your MPM #{node['apache']['mpm']} seems to be threaded. Selecting cgid instead of cgi."
-#
-#   include_recipe 'apache2::mod_cgid'
-# end
+apache2_install 'default_install'
+
+service 'apache2' do
+  extend Apache2::Cookbook::Helpers
+  service_name lazy { apache_platform_service_name }
+  supports restart: true, status: true, reload: true
+  action :nothing
+end

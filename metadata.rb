@@ -9,6 +9,8 @@ description 'Installs and configures apache2'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '5.2.1'
 
+depends 'yum-epel'
+
 supports 'debian'
 supports 'ubuntu'
 supports 'redhat'

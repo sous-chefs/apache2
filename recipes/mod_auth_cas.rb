@@ -35,6 +35,7 @@ if node['apache']['mod_auth_cas']['from_source']
   end
 
   template "#{apache_dir}/mods-available/auth_cas.load" do
+    cookbook 'apache2'
     source 'mods/auth_cas.load.erb'
     owner 'root'
     group node['apache']['root_group']
