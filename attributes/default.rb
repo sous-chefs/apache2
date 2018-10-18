@@ -18,19 +18,6 @@
 # limitations under the License.
 #
 
-default['apache']['mpm'] =
-  case node['platform']
-  when 'ubuntu', 'linuxmint'
-    'event'
-  when 'debian'
-    'worker'
-  else
-    'prefork'
-  end
-
-default['apache']['root_group'] = 'root'
-default['apache']['default_site_name'] = 'default'
-
 # Where the various parts of apache are
 case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
@@ -41,36 +28,19 @@ when 'rhel', 'fedora', 'amazon'
     default['apache']['package'] = 'httpd'
     default['apache']['devel_package'] = 'httpd-devel'
   end
-  default['apache']['service_name'] = 'httpd'
   default['apache']['dir']         = '/etc/httpd'
-  default['apache']['log_dir']     = '/var/log/httpd'
-  default['apache']['error_log']   = 'error.log'
-  default['apache']['access_log']  = 'access.log'
-  default['apache']['user']        = 'apache'
-  default['apache']['group']       = 'apache'
   default['apache']['conf_dir']    = '/etc/httpd/conf'
   default['apache']['docroot_dir'] = '/var/www/html'
   default['apache']['cgibin_dir']  = '/var/www/cgi-bin'
-  default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
-  default['apache']['lock_dir']    = '/var/run/httpd'
-  default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
 when 'suse'
   default['apache']['package']     = 'apache2'
   default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['dir']         = '/etc/apache2'
-  default['apache']['log_dir']     = '/var/log/apache2'
-  default['apache']['error_log']   = 'error.log'
-  default['apache']['access_log']  = 'access.log'
-  default['apache']['user']        = 'wwwrun'
-  default['apache']['group']       = 'www'
   default['apache']['conf_dir']    = '/etc/apache2'
   default['apache']['docroot_dir'] = '/srv/www/htdocs'
   default['apache']['cgibin_dir']  = '/srv/www/cgi-bin'
-  default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = '/var/run/httpd'
-  default['apache']['lock_dir']    = '/var/run/httpd'
-  default['apache']['pid_file']    = '/var/run/httpd2.pid'
 when 'debian'
   default['apache']['package']     = 'apache2'
   default['apache']['devel_package'] =
@@ -80,69 +50,34 @@ when 'debian'
       'apache2-dev'
     end
   default['apache']['dir']         = '/etc/apache2'
-  default['apache']['log_dir']     = '/var/log/apache2'
-  default['apache']['error_log']   = 'error.log'
-  default['apache']['access_log']  = 'access.log'
-  default['apache']['user']        = 'www-data'
-  default['apache']['group']       = 'www-data'
   default['apache']['conf_dir']    = '/etc/apache2'
   default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
-  default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = '/var/run/apache2'
-  default['apache']['lock_dir']    = '/var/lock/apache2'
-  default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
   default['apache']['docroot_dir'] = '/var/www/html'
   default['apache']['build_dir'] = '/usr/share/apache2'
-  default['apache']['default_site_name'] = '000-default'
 when 'arch'
   default['apache']['package'] = 'apache'
-  default['apache']['service_name'] = 'httpd'
   default['apache']['dir']         = '/etc/httpd'
-  default['apache']['log_dir']     = '/var/log/httpd'
-  default['apache']['error_log']   = 'error.log'
-  default['apache']['access_log']  = 'access.log'
-  default['apache']['user']        = 'http'
-  default['apache']['group']       = 'http'
   default['apache']['conf_dir']    = '/etc/httpd'
   default['apache']['docroot_dir'] = '/srv/http'
   default['apache']['cgibin_dir']  = '/usr/share/httpd/cgi-bin'
-  default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
-  default['apache']['lock_dir']    = '/var/run/httpd'
-  default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
 when 'freebsd'
   default['apache']['package']     = 'apache24'
   default['apache']['dir']         = '/usr/local/etc/apache24'
   default['apache']['conf_dir']    = '/usr/local/etc/apache24'
   default['apache']['docroot_dir'] = '/usr/local/www/apache24/data'
   default['apache']['cgibin_dir']  = '/usr/local/www/apache24/cgi-bin'
-  default['apache']['cache_dir']   = '/var/cache/apache24'
   default['apache']['run_dir']     = '/var/run'
-  default['apache']['lock_dir']    = '/var/run'
   default['apache']['devel_package'] = 'httpd-devel'
-  default['apache']['pid_file']    = '/var/run/httpd.pid'
-  default['apache']['log_dir']     = '/var/log'
-  default['apache']['error_log']   = 'httpd-error.log'
-  default['apache']['access_log']  = 'httpd-access.log'
-  default['apache']['root_group']  = 'wheel'
-  default['apache']['user']        = 'www'
-  default['apache']['group']       = 'www'
 else
   default['apache']['package'] = 'apache2'
   default['apache']['devel_package'] = 'apache2-dev'
   default['apache']['dir']         = '/etc/apache2'
-  default['apache']['log_dir']     = '/var/log/apache2'
-  default['apache']['error_log']   = 'error.log'
-  default['apache']['access_log']  = 'access.log'
-  default['apache']['user']        = 'www-data'
-  default['apache']['group']       = 'www-data'
   default['apache']['conf_dir']    = '/etc/apache2'
   default['apache']['docroot_dir'] = '/var/www'
   default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
-  default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = 'logs'
-  default['apache']['lock_dir']    = 'logs'
-  default['apache']['pid_file']    = 'logs/httpd.pid'
 end
 
 ###
@@ -163,7 +98,6 @@ default['apache']['default_site_enabled'] = false
 default['apache']['default_site_port']    = '80'
 default['apache']['access_file_name'] = '.htaccess'
 default['apache']['default_release'] = nil
-default['apache']['log_level'] = 'warn'
 
 # Security
 default['apache']['servertokens']    = 'Prod'
@@ -173,17 +107,11 @@ default['apache']['traceenable']     = 'Off'
 # mod_status Allow list, space seprated list of allowed entries.
 default['apache']['status_allow_list'] = '127.0.0.1 ::1'
 
-# URL used by apache2ctl status
-default['apache']['status_url'] = 'http://localhost:80/server-status'
-
 # mod_status ExtendedStatus, set to 'true' to enable
 default['apache']['ext_status'] = false
 
 # mod_info Allow list, space seprated list of allowed entries.
 default['apache']['info_allow_list'] = '127.0.0.1 ::1'
-
-# Supported mpm list
-default['apache']['mpm_support'] = %w(prefork worker event)
 
 # Prefork Attributes
 default['apache']['prefork']['startservers']        = 16
@@ -218,21 +146,3 @@ default['apache']['proxy']['require']    = 'all denied'
 default['apache']['proxy']['order']      = 'deny,allow'
 default['apache']['proxy']['deny_from']  = 'all'
 default['apache']['proxy']['allow_from'] = 'none'
-
-# Default modules to enable via include_recipe
-default['apache']['default_modules'] = %w(
-  status alias auth_basic authn_core authn_file authz_core authz_groupfile
-  authz_host authz_user autoindex deflate dir env mime negotiation setenvif
-)
-
-%w(log_config logio unixd).each do |log_mod|
-  default['apache']['default_modules'] << log_mod if %w(rhel amazon fedora suse arch freebsd).include?(node['platform_family'])
-end
-default['apache']['default_modules'].delete('unixd') if node['platform_family'] == 'suse'
-
-if node['init_package'] == 'systemd'
-  default['apache']['default_modules'] << 'systemd' if %w(rhel amazon fedora).include?(node['platform_family'])
-end
-
-# Length in second for httpd -t to run
-default['apache']['httpd_t_timeout'] = 10

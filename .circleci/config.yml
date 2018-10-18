@@ -1,23 +1,39 @@
-version: 2
-jobs:
-  build:
-    docker:
-       - image: circleci/ruby:2.5.1-browsers
+version: 2.1
 
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-      - run:
-          name: Install Danger
-          command: gem install danger
-      - run:
-          name: Run Danger
-          command: danger
+orbs:
+  kitchen: sous-chefs/kitchen@1.0.1
 
 workflows:
-  version: 2
-  danger-flow:
+  kitchen:
     jobs:
-      - build:
+      - kitchen/danger:
+          name: danger
           context: Danger
+      - kitchen/lint:
+          name: lint
+          # Use dokken-single as we don't support CentOS-6
+      - kitchen/dokken-single:
+          name: centos-7
+          platform: centos-7
+          suite: default
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: debian-8
+          platform: debian-8
+          suite: default
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: debian-9
+          platform: debian-9
+          suite: default
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: ubuntu-16.04
+          platform: ubuntu-1604
+          suite: default
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: ubuntu-18.04
+          platform: ubuntu-1804
+          suite: default
+          requires: [ lint, danger ]

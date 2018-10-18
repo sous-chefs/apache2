@@ -23,6 +23,7 @@ define :apache_mod do
 
   template "#{apache_dir}/mods-available/#{params[:name]}.conf" do
     source "mods/#{params[:name]}.conf.erb"
+    cookbook 'apache2'
     mode '0644'
     variables(
       apache_dir: apache_dir
