@@ -27,4 +27,4 @@ package 'libapache2-mod-jk' do
   end
 end
 
-apache_module 'jk'
+apache2_module 'jk'

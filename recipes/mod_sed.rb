@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'sed'
+apache2_module 'sed'

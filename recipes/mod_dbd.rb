@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'dbd'
+apache2_module 'dbd'

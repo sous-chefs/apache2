@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'authn_socache'
+apache2_module 'authn_socache'

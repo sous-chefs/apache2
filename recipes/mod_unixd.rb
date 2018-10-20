@@ -21,5 +21,5 @@
 if platform_family?('debian')
   Chef::Log.info("Skipping mod_unixd recipe as unixd module is statically linked into apache2 on #{node['platform']}")
 else
-  apache_module 'unixd'
+  apache2_module 'unixd'
 end

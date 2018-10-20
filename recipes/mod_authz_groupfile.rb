@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'authz_groupfile'
+apache2_module 'authz_groupfile'

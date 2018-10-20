@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'version'
+apache2_module 'version'

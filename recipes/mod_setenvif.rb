@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'setenvif' do
+apache2_module 'setenvif' do
   conf true
 end

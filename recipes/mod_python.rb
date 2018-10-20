@@ -37,4 +37,4 @@ file "#{apache_dir}/conf.d/python.conf" do
   only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
 end
 
-apache_module 'python'
+apache2_module 'python'

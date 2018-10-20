@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'cern_meta'
+apache2_module 'cern_meta'

@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'env'
+apache2_module 'env'

@@ -18,6 +18,6 @@
 #
 package 'mod_ldap' if platform_family?('rhel', 'fedora', 'amazon')
 
-apache_module 'ldap' do
+apache2_module 'ldap' do
   conf true
 end

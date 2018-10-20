@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'headers' do
+apache2_module 'headers' do
   restart true
 end

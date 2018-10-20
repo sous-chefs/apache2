@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'lua'
+apache2_module 'lua'

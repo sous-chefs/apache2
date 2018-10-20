@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'dialup'
+apache2_module 'dialup'

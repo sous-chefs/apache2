@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'autoindex' do
+apache2_module 'autoindex' do
   conf true
 end

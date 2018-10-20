@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'charset_lite'
+apache2_module 'charset_lite'

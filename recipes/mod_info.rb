@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'info' do
+apache2_module 'info' do
   conf true
 end

@@ -50,4 +50,4 @@ file "#{apache_dir}/conf.d/perl.conf" do
   only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
 end
 
-apache_module 'perl'
+apache2_module 'perl'

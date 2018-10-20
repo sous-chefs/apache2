@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'request'
+apache2_module 'request'

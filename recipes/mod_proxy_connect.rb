@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'proxy_connect'
+apache2_module 'proxy_connect'

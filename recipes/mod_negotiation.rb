@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-apache_module 'negotiation' do
+apache2_module 'negotiation' do
   conf true
 end

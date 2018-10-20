@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'data'
+apache2_module 'data'

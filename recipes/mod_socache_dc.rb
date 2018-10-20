@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'socache_dc'
+apache2_module 'socache_dc'

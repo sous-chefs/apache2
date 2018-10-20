@@ -25,7 +25,7 @@
 #     only_if { node['platform_family'] == 'suse' }
 #   end
 #
-#   apache_module 'cgi'
+#   apache2_module 'cgi'
 # else
 #   Chef::Log.warn "apache::mod_cgi. Your MPM #{node['apache']['mpm']} seems to be threaded. Selecting cgid instead of cgi."
 #

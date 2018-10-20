@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'expires'
+apache2_module 'expires'

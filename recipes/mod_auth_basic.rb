@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'auth_basic'
+apache2_module 'auth_basic'

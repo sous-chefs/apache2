@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'echo'
+apache2_module 'echo'

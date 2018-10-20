@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'heartbeat'
+apache2_module 'heartbeat'

@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'ident'
+apache2_module 'ident'

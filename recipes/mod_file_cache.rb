@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'file_cache'
+apache2_module 'file_cache'

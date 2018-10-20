@@ -18,4 +18,4 @@
 #
 
 include_recipe 'apache2::mod_proxy'
-apache_module 'proxy_ajp'
+apache2_module 'proxy_ajp'

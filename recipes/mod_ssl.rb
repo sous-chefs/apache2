@@ -35,7 +35,7 @@ if platform_family?('rhel', 'fedora', 'suse', 'amazon')
   end
 end
 
-apache_module 'ssl' do
+apache2_module 'ssl' do
   conf true
 end
 

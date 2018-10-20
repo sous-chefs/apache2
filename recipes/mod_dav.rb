@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'dav'
+apache2_module 'dav'

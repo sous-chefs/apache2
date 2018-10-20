@@ -18,6 +18,6 @@
 #
 
 include_recipe 'apache2::mod_dav'
-apache_module 'dav_fs' do
+apache2_module 'dav_fs' do
   conf true
 end
