@@ -5,6 +5,6 @@ supports:
   - os-family: linux
   - os-family: bsd
 
-depends:
-- name:  dev-sec/apache-baseline
-  supermarket: dev-sec/apache-baseline
+# depends:
+# - name:  dev-sec/apache-baseline
+#   supermarket: dev-sec/apache-baseline

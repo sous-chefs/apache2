@@ -77,9 +77,7 @@ On RHEL Family distributions, certain modules ship with a config file with the p
 ## default
 The default recipe simply includes the `apache2_install` resource.
 
-# Definitions
-The cookbook provides a few definitions. In a future release these definitions will be refactored into custom resources see [issue 414](https://github.com/sous-chefs/apache2/issues/414).
-
+# Custom Resources
 ## apache_conf
 Writes conf files to the `conf-available` folder, and passes enabled values to `apache_config`.
 
@@ -89,16 +87,14 @@ This definition should generally be called over `apache_config`.
 Place and enable the example conf:
 
 ```ruby
-apache_conf 'example' do
-  enable true
-end
+apache_conf 'example'
 ```
 
-Place and disable (or never enable to begin with) the example conf:
+Disable the example conf:
 
 ```ruby
 apache_conf 'example' do
-  enable false
+  action :disable
 end
 ```
 
@@ -106,42 +102,12 @@ Place the example conf, which has a different path than the default (conf-*):
 
 ```ruby
 apache_conf 'example' do
-  conf_path '/random/example/path'
-  enable false
+  path '/random/example/path'
 end
 ```
 
-## apache_config (internal)
-Sets up configuration file for Apache from a template. The template should be in the same cookbook where the definition is used. This is used by the `apache_conf` definition and should not be used directly.
-
-It will use `a2enconf` and `a2disconf` to control the symlinking of configuration files between `conf-available` and `conf-enabled`.
-
-Enable or disable an Apache config file in `#{node['apache']['dir']}/conf-available` by calling `a2enconf` or `a2disconf` to manage the symbolic link in `#{node['apache']['dir']}/conf-enabled`. These config files should be created in your cookbook, and placed on the system using `apache_conf`
-
-### Parameters:
-
--   `name` - Name of the config enabled or disabled with the `a2enconf` or `a2disconf` scripts.
--   `source` - The location of a template file. The default `name.erb`.
--   `cookbook` - The cookbook in which the configuration template is located (if it is not located in the current cookbook). The default value is the current cookbook.
--   `enable` - Default true, which uses `a2enconf` to enable the config. If false, the config will be disabled with `a2disconf`.
-
-### Examples:
-
-Enable the example config.
-
-```ruby
-apache_config 'example' do
-  enable true
-end
-```
-
-Disable a module:
-
-```ruby
-apache_config 'disabled_example' do
-  enable false
-end
-```
+# Definitions
+The cookbook provides a few definitions. In a future release these definitions will be refactored into custom resources see [issue 414](https://github.com/sous-chefs/apache2/issues/414).
 
 ## apache_module
 
