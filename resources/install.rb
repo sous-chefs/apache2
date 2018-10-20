@@ -1,23 +1,38 @@
 include Apache2::Cookbook::Helpers
 
-property :root_group,  String, default: lazy { node['platform_family'] == 'freebsd' ? 'wheel' : 'root' }
-property :apache_user, String, default: lazy { default_apache_user }
-property :apache_group, String, default: lazy { default_apache_group }
-
-# Configuration
-property :log_dir,              String, default: lazy { default_log_dir }
-property :error_log,            String, default: lazy { default_error_log }
-property :log_level,            String, default: 'warn'
-property :apache_locale,        String, default: 'system'
-property :status_url,           String, default: 'http://localhost:80/server-status'
-
-property :httpd_t_timeout,      Integer, default: 10
-property :mpm,                  String, default: lazy { default_mpm }
-property :listen,               [String, Array], default: %w(80 443)
-
-# Default Site
-# property :default_site_name,    String, default: lazy { node['platform_family'] == 'debian' ? '000-default' : 'default' }
-# property :default_site_enabled, [true, false], default: false
+property :root_group, String,
+         default: lazy { default_apache_root_group },
+         description: 'Group that the root user on the box runs as'
+property :apache_user, String,
+         default: lazy { default_apache_user },
+         description: 'Set to override the default apache2 user'
+property :apache_group, String,
+         default: lazy { default_apache_group },
+         description: 'Set to override the default apache2 user'
+property :log_dir, String,
+         default: lazy { default_log_dir },
+         description: 'Log directory'
+property :error_log, String,
+         default: lazy { default_error_log },
+         description: 'Log directory'
+property :log_level, String,
+         default: 'warn',
+         description: 'log level for apache2'
+property :apache_locale, String,
+         default: 'system',
+         description: 'Locale for apache2, defaults to the system locale'
+property :status_url, String,
+         default: 'http://localhost:80/server-status',
+         description: 'URL for status checks'
+property :httpd_t_timeout, Integer,
+         default: 10,
+         description: 'Service timeout setting. Defaults to 10 seconds'
+property :mpm, String,
+         default: lazy { default_mpm },
+         description: 'Multi-processing Module, defaults to each platforms default'
+property :listen, [String, Array],
+         default: %w(80 443),
+         description: 'Port to listen on. Defaults to both 80 & 443'
 
 action :install do
   package [apache_pkg, perl_pkg]
@@ -181,11 +196,8 @@ action :install do
     )
   end
 
-  %w(security charset).each do |conf|
-    apache_conf conf do
-      enable true
-    end
-  end
+  apache2_conf 'security'
+  apache2_conf 'charset'
 
   template 'ports.conf' do
     path "#{apache_dir}/ports.conf"
@@ -197,26 +209,26 @@ action :install do
 
   # MPM Support Setup
   case new_resource.mpm
-  # when 'event'
-  #   if platform_family?('suse')
-  #     package %w(apache2-prefork apache2-worker) do
-  #       action :remove
-  #     end
-  #
-  #     package 'apache2-event'
-  #   else
-  #     %w(mpm_prefork mpm_worker).each do |mpm|
-  #       apache_module mpm do
-  #         enable false
-  #       end
-  #     end
-  #
-  #     apache_module 'mpm_event' do
-  #       conf true
-  #       restart true
-  #     end
-  #   end
-  #
+  when 'event'
+    if platform_family?('suse')
+      package %w(apache2-prefork apache2-worker) do
+        action :remove
+      end
+
+      package 'apache2-event'
+    else
+      %w(mpm_prefork mpm_worker).each do |mpm|
+        apache_module mpm do
+          action :disable
+        end
+      end
+
+      apache_module 'mpm_event' do
+        conf true
+        apache_service_notification :restart
+      end
+    end
+
   when 'prefork'
     if platform_family?('suse')
       package %w(apache2-event apache2-worker) do
@@ -226,49 +238,42 @@ action :install do
       package 'apache2-prefork'
     else
       %w(mpm_event mpm_worker).each do |mpm|
-        apache_module mpm do
-          enable false
+        apache2_module mpm do
+          action :disable
         end
       end
 
-      apache_module 'mpm_prefork' do
+      apache2_module 'mpm_prefork' do
         conf true
-        restart true
+        apache_service_notification :restart
       end
     end
 
-    # when 'worker'
-    #   if platform_family?('suse')
-    #     package %w(apache2-event apache2-prefork) do
-    #       action :remove
-    #     end
-    #
-    #     package 'apache2-worker'
-    #   else
-    #     %w(prefork event).each do |mpm|
-    #       apache_module mpm do
-    #         enable false
-    #       end
-    #     end
-    #
-    #     apache_module 'mpm_worker' do
-    #       conf true
-    #       restart true
-    #     end
-    #   end
+    when 'worker'
+      if platform_family?('suse')
+        package %w(apache2-event apache2-prefork) do
+          action :remove
+        end
+
+        package 'apache2-worker'
+      else
+        %w(prefork event).each do |mpm|
+          apache2_module mpm do
+            action :disable
+          end
+        end
+
+        apache2_module 'mpm_worker' do
+          conf true
+          apache_service_notification :restart
+        end
+      end
   end
 
   default_modules.each do |mod|
     recipe = mod =~ /^mod_/ ? mod : "mod_#{mod}"
     include_recipe "apache2::#{recipe}"
   end
-
-  # if new_resource.default_site_enabled
-  #   web_app new_resource.default_site_name do
-  #     template 'default-site.conf.erb'
-  #     enable new_resource.default_site_enabled
-  #   end
-  # end
 
   service 'apache2' do
     service_name apache_platform_service_name

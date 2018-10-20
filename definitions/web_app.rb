@@ -17,35 +17,35 @@
 # limitations under the License.
 #
 
-define :web_app, template: 'web_app.conf.erb', local: false, enable: true, server_port: 80 do
-  require_relative '../libraries/helpers.rb'
-
-  application_name = params[:name]
-
-  include_recipe 'apache2::default'
-  include_recipe 'apache2::mod_rewrite'
-  include_recipe 'apache2::mod_deflate'
-  include_recipe 'apache2::mod_headers'
-
-  template "#{apache_dir}/sites-available/#{application_name}.conf" do
-    source params[:template]
-    local params[:local]
-    cookbook 'apache2'
-    owner 'root'
-    group node['apache']['root_group']
-    mode '0644'
-    cookbook params[:cookbook] if params[:cookbook]
-    variables(
-      application_name: application_name,
-      params: params
-    )
-    if ::File.exist?("#{apache_dir}/sites-enabled/#{application_name}.conf")
-      notifies :reload, 'service[apache2]', :delayed
-    end
-  end
-
-  site_enabled = params[:enable]
-  apache_site params[:name] do
-    enable site_enabled
-  end
-end
+# define :web_app, template: 'web_app.conf.erb', local: false, enable: true, server_port: 80 do
+#   require_relative '../libraries/helpers.rb'
+#
+#   application_name = params[:name]
+#
+#   include_recipe 'apache2::default'
+#   include_recipe 'apache2::mod_rewrite'
+#   include_recipe 'apache2::mod_deflate'
+#   include_recipe 'apache2::mod_headers'
+#
+#   template "#{apache_dir}/sites-available/#{application_name}.conf" do
+#     source params[:template]
+#     local params[:local]
+#     cookbook 'apache2'
+#     owner 'root'
+#     group node['apache']['root_group']
+#     mode '0644'
+#     cookbook params[:cookbook] if params[:cookbook]
+#     variables(
+#       application_name: application_name,
+#       params: params
+#     )
+#     if ::File.exist?("#{apache_dir}/sites-enabled/#{application_name}.conf")
+#       notifies :reload, 'service[apache2]', :delayed
+#     end
+#   end
+#
+#   site_enabled = params[:enable]
+#   apache_site params[:name] do
+#     enable site_enabled
+#   end
+# end
