@@ -35,4 +35,4 @@ file "#{apache_dir}/conf.d/xsendfile.conf" do
   only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
 end
 
-apache_module 'xsendfile'
+apache2_module 'xsendfile'

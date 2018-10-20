@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'log_debug'
+apache2_module 'log_debug'

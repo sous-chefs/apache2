@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'usertrack'
+apache2_module 'usertrack'

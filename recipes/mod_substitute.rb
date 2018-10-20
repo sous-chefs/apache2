@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'substitute'
+apache2_module 'substitute'

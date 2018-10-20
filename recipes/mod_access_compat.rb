@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'access_compat'
+apache2_module 'access_compat'

@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'ext_filter'
+apache2_module 'ext_filter'

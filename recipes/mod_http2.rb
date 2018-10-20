@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'http2'
+apache2_module 'http2'

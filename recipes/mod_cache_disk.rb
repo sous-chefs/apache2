@@ -19,6 +19,6 @@
 
 include_recipe 'apache2::mod_cache'
 
-apache_module 'cache_disk' do
+apache2_module 'cache_disk' do
   conf true
 end

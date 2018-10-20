@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'unique_id'
+apache2_module 'unique_id'

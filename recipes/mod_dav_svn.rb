@@ -40,4 +40,4 @@ when 'rhel', 'fedora', 'suse', 'amazon'
   end
 end
 
-apache_module 'dav_svn'
+apache2_module 'dav_svn'

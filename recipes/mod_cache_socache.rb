@@ -19,4 +19,4 @@
 
 include_recipe 'apache2::mod_cache'
 
-apache_module 'cache_socache'
+apache2_module 'cache_socache'

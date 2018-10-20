@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'lbmethod_bybusyness'
+apache2_module 'lbmethod_bybusyness'

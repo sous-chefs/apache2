@@ -29,7 +29,7 @@ if platform_family?('debian')
     action :install
   end
 
-  apache_module 'pagespeed' do
+  apache2_module 'pagespeed' do
     conf true
   end
 else

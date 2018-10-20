@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'asis'
+apache2_module 'asis'

@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'vhost_alias'
+apache2_module 'vhost_alias'

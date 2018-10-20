@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'ratelimit'
+apache2_module 'ratelimit'

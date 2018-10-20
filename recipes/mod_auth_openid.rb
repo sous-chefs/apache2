@@ -113,6 +113,6 @@ template "#{apache_dir}/mods-available/authopenid.load" do
   mode '0644'
 end
 
-apache_module 'authopenid' do
+apache2_module 'authopenid' do
   filename 'mod_auth_openid.so'
 end

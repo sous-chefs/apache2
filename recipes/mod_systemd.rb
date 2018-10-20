@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'systemd'
+apache2_module 'systemd'

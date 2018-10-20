@@ -18,4 +18,4 @@
 # limitations under the License.
 #
 
-apache_module 'proxy_html'
+apache2_module 'proxy_html'

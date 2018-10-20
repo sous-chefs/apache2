@@ -78,7 +78,7 @@ template "#{apache_dir}/mods-available/#{node['apache']['mod_php']['module_name'
   notifies :reload, 'service[apache2]', :delayed
 end
 
-apache_module node['apache']['mod_php']['module_name'] do
+apache2_module node['apache']['mod_php']['module_name'] do
   conf false
   filename node['apache']['mod_php']['so_filename']
 end

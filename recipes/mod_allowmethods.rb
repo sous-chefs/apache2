@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'allowmethods'
+apache2_module 'allowmethods'

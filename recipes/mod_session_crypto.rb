@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'session_crypto'
+apache2_module 'session_crypto'

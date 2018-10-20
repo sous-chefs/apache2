@@ -31,4 +31,4 @@ file "#{apache_dir}/conf.d/wsgi.conf" do
   only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
 end
 
-apache_module 'wsgi'
+apache2_module 'wsgi'

@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'authz_dbm'
+apache2_module 'authz_dbm'

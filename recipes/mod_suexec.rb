@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'suexec'
+apache2_module 'suexec'

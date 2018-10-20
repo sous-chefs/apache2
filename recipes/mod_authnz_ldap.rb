@@ -19,4 +19,4 @@
 
 include_recipe 'apache2::mod_ldap'
 
-apache_module 'authnz_ldap'
+apache2_module 'authnz_ldap'

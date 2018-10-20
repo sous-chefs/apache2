@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'macro'
+apache2_module 'macro'

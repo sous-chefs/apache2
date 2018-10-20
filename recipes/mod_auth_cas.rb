@@ -58,7 +58,7 @@ else
   end
 end
 
-apache_module 'auth_cas' do
+apache2_module 'auth_cas' do
   conf true
 end
 

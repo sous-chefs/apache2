@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'dumpio'
+apache2_module 'dumpio'

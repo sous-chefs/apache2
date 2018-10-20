@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'xml2enc'
+apache2_module 'xml2enc'

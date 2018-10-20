@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'heartmonitor'
+apache2_module 'heartmonitor'

@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'session'
+apache2_module 'session'

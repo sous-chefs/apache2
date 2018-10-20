@@ -17,4 +17,4 @@
 # limitations under the License.
 #
 
-apache_module 'speling'
+apache2_module 'speling'

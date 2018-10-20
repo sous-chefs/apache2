@@ -20,6 +20,6 @@
 
 include_recipe 'apache2::mod_slotmem_shm' unless platform_family?('freebsd')
 
-apache_module 'proxy_balancer' do
+apache2_module 'proxy_balancer' do
   conf true
 end

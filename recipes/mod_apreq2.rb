@@ -47,4 +47,4 @@ file "#{apache_dir}/conf.d/apreq.conf" do
   only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
 end
 
-apache_module 'apreq'
+apache2_module 'apreq'
