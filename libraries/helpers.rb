@@ -195,6 +195,10 @@ module Apache2
         end
       end
 
+      def default_apache_root_group
+        node['platform_family'] == 'freebsd' ? 'wheel' : 'root'
+      end
+
       def default_modules
         default_modules = %w(status alias auth_basic authn_core authn_file authz_core authz_groupfile
                              authz_host authz_user autoindex deflate dir env mime negotiation setenvif)
@@ -251,6 +255,14 @@ module Apache2
         else
           '/var/run/httpd/httpd.pid'
         end
+      end
+
+      def conf_enabled?(new_resource)
+        ::File.symlink?("#{apache_dir}/conf-enabled/#{new_resource.name}.conf")
+      end
+
+      def mod_enabled?(new_resource)
+        ::File.symlink?("#{apache_dir}/mods-enabled/#{new_resource.name}.load")
       end
     end
   end
