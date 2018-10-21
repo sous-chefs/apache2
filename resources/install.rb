@@ -257,7 +257,7 @@ action :install do
 
       package 'apache2-worker'
     else
-      %w(prefork event).each do |mpm|
+      %w(mpm_prefork mpm_event).each do |mpm|
         apache2_module mpm do
           action :disable
         end
