@@ -21,10 +21,10 @@ include Apache2::Cookbook::Helpers
 
 property :root_group, String,
          default: lazy { default_apache_root_group },
-         description: "Set to override the default root group"
+         description: 'Set to override the default root group'
 property :identify, String,
          default: lazy { "#{name}_module" },
-         description: "String to identify the module for the `LoadModule` directive"
+         description: 'String to identify the module for the `LoadModule` directive'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', "#{new_resource.name}.conf") do
