@@ -26,7 +26,7 @@ property :path, String,
          description: ''
 property :identifier, String,
          default: lazy { "#{name}_module" },
-         description: "String to identify the module for the `LoadModule` directive"
+         description: 'String to identify the module for the `LoadModule` directive'
 property :conf, [true, false],
          default: false,
          description: 'Set to true if the module has a config file, which will use `apache_mod` for the file.'

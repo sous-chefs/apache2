@@ -218,12 +218,12 @@ action :install do
       package 'apache2-event'
     else
       %w(mpm_prefork mpm_worker).each do |mpm|
-        apache_module mpm do
+        apache2_module mpm do
           action :disable
         end
       end
 
-      apache_module 'mpm_event' do
+      apache2_module 'mpm_event' do
         conf true
         apache_service_notification :restart
       end
@@ -249,25 +249,25 @@ action :install do
       end
     end
 
-    when 'worker'
-      if platform_family?('suse')
-        package %w(apache2-event apache2-prefork) do
-          action :remove
-        end
+  when 'worker'
+    if platform_family?('suse')
+      package %w(apache2-event apache2-prefork) do
+        action :remove
+      end
 
-        package 'apache2-worker'
-      else
-        %w(prefork event).each do |mpm|
-          apache2_module mpm do
-            action :disable
-          end
-        end
-
-        apache2_module 'mpm_worker' do
-          conf true
-          apache_service_notification :restart
+      package 'apache2-worker'
+    else
+      %w(prefork event).each do |mpm|
+        apache2_module mpm do
+          action :disable
         end
       end
+
+      apache2_module 'mpm_worker' do
+        conf true
+        apache_service_notification :restart
+      end
+    end
   end
 
   default_modules.each do |mod|
