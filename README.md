@@ -106,10 +106,7 @@ apache_conf 'example' do
 end
 ```
 
-# Definitions
-The cookbook provides a few definitions. In a future release these definitions will be refactored into custom resources see [issue 414](https://github.com/sous-chefs/apache2/issues/414).
-
-## apache_module
+## apache2_module
 
 Enable or disable an Apache module in `#{node['apache']['dir']}/mods-available` by calling `a2enmod` or `a2dismod` to manage the symbolic link in `#{node['apache']['dir']}/mods-enabled`. If the module has a configuration file, a template should be created in the cookbook where the definition is used. See **Examples**.
 
@@ -149,7 +146,7 @@ end
 
 See the recipes directory for many more examples of `apache_module`.
 
-## apache_mod (internal)
+## apache2_mod (internal)
 
 Sets up configuration file for an Apache module from a template. The template should be in the same cookbook where the definition is used. This is used by the `apache_module` definition and is not often used directly.
 
@@ -164,7 +161,7 @@ This will use a template resource to write the module's configuration file in th
 Create `#{node['apache']['dir']}/mods-available/alias.conf`.
 
 ```ruby
-apache_mod "alias"
+apache2_mod "alias"
 ```
 
 ## apache_site
