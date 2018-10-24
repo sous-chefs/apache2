@@ -55,6 +55,4 @@ else
   end
 end
 
-apache2_module 'fastcgi' do
-  conf true
-end
+apache2_module 'fastcgi'

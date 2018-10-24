@@ -29,9 +29,7 @@ if platform_family?('debian')
     action :install
   end
 
-  apache2_module 'pagespeed' do
-    conf true
-  end
+  apache2_module 'pagespeed'
 else
   Chef::Log.warn "apache::mod_pagespeed does not support #{node['platform_family']} yet, and is not being installed"
 end

@@ -43,6 +43,4 @@ EOH
   end
 end
 
-apache2_module 'fcgid' do
-  conf true
-end
+apache2_module 'fcgid'

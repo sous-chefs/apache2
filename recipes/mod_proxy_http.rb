@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::mod_proxy'
+apache2_module 'proxy'
 
 apache2_module 'proxy_http'

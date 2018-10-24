@@ -19,8 +19,6 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::default'
-
 case node['platform_family']
 when 'debian'
   package 'libapache2-mod-apreq2'

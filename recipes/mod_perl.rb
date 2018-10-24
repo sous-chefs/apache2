@@ -23,9 +23,6 @@ case node['platform_family']
 when 'debian'
   package %w(libapache2-mod-perl2 libapache2-request-perl)
 
-  if node['platform'] == 'ubuntu' && node['platform_version'].to_f <= 14.04
-    package 'apache2-mpm-prefork'
-  end
   if node['platform'] == 'debian' && node['platform_version'].to_f <= 8
     package 'apache2-mpm-prefork'
   end

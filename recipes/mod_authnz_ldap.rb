@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::mod_ldap'
+package 'mod_ldap' if platform_family?('rhel', 'fedora', 'amazon')
 
+apache2_module 'ldap'
 apache2_module 'authnz_ldap'
