@@ -18,68 +18,6 @@
 # limitations under the License.
 #
 
-# Where the various parts of apache are
-case node['platform_family']
-when 'rhel', 'fedora', 'amazon'
-  if node['platform'] == 'amazon' && node['platform_version'] == 1
-    default['apache']['package'] = 'httpd24'
-    default['apache']['devel_package'] = 'httpd24-devel'
-  else
-    default['apache']['package'] = 'httpd'
-    default['apache']['devel_package'] = 'httpd-devel'
-  end
-  default['apache']['dir']         = '/etc/httpd'
-  default['apache']['conf_dir']    = '/etc/httpd/conf'
-  default['apache']['docroot_dir'] = '/var/www/html'
-  default['apache']['cgibin_dir']  = '/var/www/cgi-bin'
-  default['apache']['run_dir']     = '/var/run/httpd'
-when 'suse'
-  default['apache']['package']     = 'apache2'
-  default['apache']['devel_package'] = 'httpd-devel'
-  default['apache']['dir']         = '/etc/apache2'
-  default['apache']['conf_dir']    = '/etc/apache2'
-  default['apache']['docroot_dir'] = '/srv/www/htdocs'
-  default['apache']['cgibin_dir']  = '/srv/www/cgi-bin'
-  default['apache']['run_dir']     = '/var/run/httpd'
-when 'debian'
-  default['apache']['package']     = 'apache2'
-  default['apache']['devel_package'] =
-    if node['apache']['mpm'] == 'prefork'
-      'apache2-prefork-dev'
-    else
-      'apache2-dev'
-    end
-  default['apache']['dir']         = '/etc/apache2'
-  default['apache']['conf_dir']    = '/etc/apache2'
-  default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
-  default['apache']['run_dir']     = '/var/run/apache2'
-  default['apache']['docroot_dir'] = '/var/www/html'
-  default['apache']['build_dir'] = '/usr/share/apache2'
-when 'arch'
-  default['apache']['package'] = 'apache'
-  default['apache']['dir']         = '/etc/httpd'
-  default['apache']['conf_dir']    = '/etc/httpd'
-  default['apache']['docroot_dir'] = '/srv/http'
-  default['apache']['cgibin_dir']  = '/usr/share/httpd/cgi-bin'
-  default['apache']['run_dir']     = '/var/run/httpd'
-when 'freebsd'
-  default['apache']['package']     = 'apache24'
-  default['apache']['dir']         = '/usr/local/etc/apache24'
-  default['apache']['conf_dir']    = '/usr/local/etc/apache24'
-  default['apache']['docroot_dir'] = '/usr/local/www/apache24/data'
-  default['apache']['cgibin_dir']  = '/usr/local/www/apache24/cgi-bin'
-  default['apache']['run_dir']     = '/var/run'
-  default['apache']['devel_package'] = 'httpd-devel'
-else
-  default['apache']['package'] = 'apache2'
-  default['apache']['devel_package'] = 'apache2-dev'
-  default['apache']['dir']         = '/etc/apache2'
-  default['apache']['conf_dir']    = '/etc/apache2'
-  default['apache']['docroot_dir'] = '/var/www'
-  default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
-  default['apache']['run_dir']     = 'logs'
-end
-
 ###
 # These settings need the unless, since we want them to be tunable,
 # and we don't want to override the tunings.
@@ -89,15 +27,11 @@ end
 default['apache']['listen']            = ['*:80']
 default['apache']['contact']           = 'ops@example.com'
 default['apache']['timeout']           = 300
-default['apache']['keepalive']         = 'On'
-default['apache']['keepaliverequests'] = 100
-default['apache']['keepalivetimeout']  = 5
 default['apache']['locale'] = 'C'
 default['apache']['sysconfig_additional_params'] = {}
 default['apache']['default_site_enabled'] = false
 default['apache']['default_site_port']    = '80'
 default['apache']['access_file_name'] = '.htaccess'
-default['apache']['default_release'] = nil
 
 # Security
 default['apache']['servertokens']    = 'Prod'
