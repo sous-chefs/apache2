@@ -1,13 +1,13 @@
 <VirtualHost *:<%= node['apache']['default_site_port'] %>>
   ServerAdmin <%= node['apache']['contact'] %>
 
-  DocumentRoot <%= node['apache']['docroot_dir'] %>/
+  DocumentRoot <%= @docroot_dir %>/
   <Directory />
     Options FollowSymLinks
     AllowOverride None
   </Directory>
 
-  <Directory <%= node['apache']['docroot_dir'] %>/>
+  <Directory <%= @docroot_dir %>/>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride None
     Require all granted

@@ -19,26 +19,25 @@ PidFile <%= @pid_file %>
 #
 # Timeout: The number of seconds before receives and sends time out.
 #
-Timeout <%= node['apache']['timeout'] %>
 
 #
 # KeepAlive: Whether or not to allow persistent connections (more than
 # one request per connection). Set to "Off" to deactivate.
 #
-KeepAlive <%= node['apache']['keepalive'] %>
+KeepAlive <%= @keep_alive %>
 
 #
 # MaxKeepAliveRequests: The maximum number of requests to allow
 # during a persistent connection. Set to 0 to allow an unlimited amount.
 # We recommend you leave this number high, for maximum performance.
 #
-MaxKeepAliveRequests <%= node['apache']['keepaliverequests'] %>
+MaxKeepAliveRequests <%= @keep_alive_requests %>
 
 #
 # KeepAliveTimeout: Number of seconds to wait for the next request from the
 # same client on the same connection.
 #
-KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
+KeepAliveTimeout <%= @keep_alive_timeout %>
 
 <IfModule unixd_module>
   User <%= @apache_user %>
@@ -46,7 +45,7 @@ KeepAliveTimeout <%= node['apache']['keepalivetimeout'] %>
 </IfModule>
 
 # Sets the default security model of the Apache2 HTTPD server. It does
-# not allow access to the root filesystem outside of /usr/share and <%= node['apache']['docroot_dir'] %>.
+# not allow access to the root filesystem outside of /usr/share and <%= @docroot_dir %>.
 # If your system is serving content from a sub-directory in /srv you must allow
 # access in conf-enabled, or in any related virtual host. e.g.
 #
