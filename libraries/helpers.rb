@@ -329,38 +329,42 @@ module Apache2
         end
       end
 
-      def has_config_file?(mod_name)
-        %w(ldap
-           actions
-           alias
-           auth_cas
-           autoindex
-           cache_disk
-           cgid
-           dav_fs
-           deflate
-           dir
-           fastcgi
-           fcgid
-           include
-           info
-           ldap
-           mime_magic
-           mime
-           negotiation
-           pagespeed
-           proxy_balancer
-           proxy_ftp
-           proxy
-           reqtimeout
-           setenvif
-           ssl
-           status
-           userdir
-           mpm_event
-           mpm_prefork
-           mpm_worker
-        ).include?(mod_name) ? true : false
+      def config_file?(mod_name)
+        if %w(ldap
+              actions
+              alias
+              auth_cas
+              autoindex
+              cache_disk
+              cgid
+              dav_fs
+              deflate
+              dir
+              fastcgi
+              fcgid
+              include
+              info
+              ldap
+              mime_magic
+              mime
+              negotiation
+              pagespeed
+              proxy_balancer
+              proxy_ftp
+              proxy
+              reqtimeout
+              setenvif
+              ssl
+              status
+              userdir
+              mpm_event
+              mpm_prefork
+              mpm_worker
+        ).include?(mod_name)
+          true
+        else
+          false
+        end
       end
     end
   end

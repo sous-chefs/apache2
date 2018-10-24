@@ -28,7 +28,7 @@ property :identifier, String,
          default: lazy { "#{name}_module" },
          description: 'String to identify the module for the `LoadModule` directive'
 property :conf, [true, false],
-         default: lazy { has_config_file?(name) },
+         default: lazy { config_file?(name) },
          description: 'Set to true if the module has a config file, which will use `apache_mod` for the file.'
 property :apache_service_notification, Symbol,
          equal_to: %i( reload restart ),

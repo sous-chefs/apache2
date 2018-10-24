@@ -16,7 +16,7 @@ property :apache_user, String,
 property :apache_group, String,
          default: lazy { default_apache_group },
          description: 'Set to override the default apache2 user'
-property :mpm, String, 
+property :mpm, String,
          default: lazy { default_mpm },
          description: 'Apache2 MPM: used to determine which devel package to install on Debian'
 
