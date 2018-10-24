@@ -20,5 +20,8 @@
 if platform_family?('rhel', 'fedora', 'suse', 'arch', 'freebsd', 'amazon')
   apache2_module 'log_config'
 else
-  include_recipe 'apache2::default'
+  Chef.log "mod_log_config recipe is not required on #{node['platform_family']} " do
+    level :warn
+  end
+  
 end

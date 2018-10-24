@@ -18,5 +18,5 @@
 #
 
 apache2_module 'headers' do
-  restart true
+  apache_service_notification :restart
 end

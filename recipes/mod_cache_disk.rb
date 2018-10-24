@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::mod_cache'
+apache2_module 'cache'
 
-apache2_module 'cache_disk' do
-  conf true
-end
+apache2_module 'cache_disk'

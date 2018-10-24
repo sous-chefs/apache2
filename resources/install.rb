@@ -33,6 +33,25 @@ property :mpm, String,
 property :listen, [String, Array],
          default: %w(80 443),
          description: 'Port to listen on. Defaults to both 80 & 443'
+property :keep_alive, String,
+         equal_to: %w(On Off),
+         default: 'On',
+         description: 'Persistent connection feature of HTTP/1.1 provide long-lived HTTP sessions'
+property :keep_alive_requests, Integer,
+         default: 100,
+         description: ''
+property :keep_alive_timeout, Integer,
+         default: 5,
+         description: ''
+property :docroot_dir, String,
+         default: lazy { default_docroot_dir },
+         description: ''
+property :cgibin_dir, String,
+         default: lazy { default_cgibin_dir },
+         description: ''
+property :run_dir, String,
+         default: lazy { default_run_dir },
+         describe: ''
 
 action :install do
   package [apache_pkg, perl_pkg]
@@ -192,7 +211,11 @@ action :install do
       log_level: new_resource.log_level,
       pid_file: apache_pid_file,
       apache_user: new_resource.apache_user,
-      apache_group: new_resource.apache_group
+      apache_group: new_resource.apache_group,
+      keep_alive: new_resource.keep_alive,
+      keep_alive_requests: new_resource.keep_alive_requests,
+      keep_alive_timeout: new_resource.keep_alive_timeout,
+      docroot_dir: new_resource.docroot_dir
     )
   end
 
@@ -224,7 +247,6 @@ action :install do
       end
 
       apache2_module 'mpm_event' do
-        conf true
         apache_service_notification :restart
       end
     end
@@ -244,7 +266,6 @@ action :install do
       end
 
       apache2_module 'mpm_prefork' do
-        conf true
         apache_service_notification :restart
       end
     end
@@ -264,15 +285,13 @@ action :install do
       end
 
       apache2_module 'mpm_worker' do
-        conf true
         apache_service_notification :restart
       end
     end
   end
 
   default_modules.each do |mod|
-    recipe = mod =~ /^mod_/ ? mod : "mod_#{mod}"
-    include_recipe "apache2::#{recipe}"
+    apache2_module mod
   end
 
   service 'apache2' do

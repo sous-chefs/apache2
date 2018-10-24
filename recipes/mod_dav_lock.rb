@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::mod_dav'
+apache2_module 'dav'
 apache2_module 'dav_lock'

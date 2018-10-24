@@ -35,8 +35,6 @@ if platform_family?('rhel', 'fedora', 'suse', 'amazon')
   end
 end
 
-apache2_module 'ssl' do
-  conf true
-end
+apache2_module 'ssl'
 
-include_recipe 'apache2::mod_socache_shmcb'
+apache2_module 'socache_shmcb'

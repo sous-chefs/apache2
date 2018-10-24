@@ -18,6 +18,4 @@
 # limitations under the License.
 #
 
-apache2_module 'cgid' do
-  conf true
-end
+apache2_module 'cgid'

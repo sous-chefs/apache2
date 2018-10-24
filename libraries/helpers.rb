@@ -167,6 +167,43 @@ module Apache2
         end
       end
 
+      def default_docroot_dir
+        case node['platform_family']
+        when 'arch'
+          '/srv/http'
+        when 'freebsd'
+          '/usr/local/www/apache24/data'
+        when 'suse'
+          '/srv/www/htdocs'
+        else
+          '/var/www/html'
+        end
+      end
+
+      def default_cgibin_dir
+        case node['platform_family']
+        when 'debian'
+          '/usr/www/cgi-bin'
+        when 'arch'
+          '/usr/share/httpd/cgi-bin'
+        when 'freebsd'
+          '/usr/lib/cgi-bin'
+        else
+          '/var/www/cgi-bin'
+        end
+      end
+
+      def default_run_dir
+        case node['platform_family']
+        when 'debian'
+          '/var/run/apache2'
+        when 'freebsd'
+          '/var/run'
+        else
+          '/var/run/httpd'
+        end
+      end
+
       def default_apache_user
         case node['platform_family']
         when 'suse'
@@ -263,6 +300,67 @@ module Apache2
 
       def mod_enabled?(new_resource)
         ::File.symlink?("#{apache_dir}/mods-enabled/#{new_resource.name}.load")
+      end
+
+      def site_enabled?(new_resource)
+        ::File.symlink?("#{apache_dir}/sites-enabled/#{new_resource.name}")
+      end
+
+      def site_available?(new_resource)
+        ::File.exist?("#{apache_dir}/sites-available/#{new_resource.name}")
+      end
+
+      def apache_devel_package(new_resource)
+        case node['platform_family']
+        when 'amazon'
+          if node['platform_version'].to_i == 2
+            'httpd-devel'
+          else
+            'httpd24-devel'
+          end
+        when 'debian'
+          if new_resource.mpm == 'prefork'
+            'apache2-prefork-dev'
+          else
+            'apache2-dev'
+          end
+        else
+          'httpd-devel'
+        end
+      end
+
+      def has_config_file?(mod_name)
+        %w(ldap
+           actions
+           alias
+           auth_cas
+           autoindex
+           cache_disk
+           cgid
+           dav_fs
+           deflate
+           dir
+           fastcgi
+           fcgid
+           include
+           info
+           ldap
+           mime_magic
+           mime
+           negotiation
+           pagespeed
+           proxy_balancer
+           proxy_ftp
+           proxy
+           reqtimeout
+           setenvif
+           ssl
+           status
+           userdir
+           mpm_event
+           mpm_prefork
+           mpm_worker
+        ).include?(mod_name) ? true : false
       end
     end
   end
