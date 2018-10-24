@@ -23,5 +23,5 @@ else
   Chef.log "mod_log_config recipe is not required on #{node['platform_family']} " do
     level :warn
   end
-  
+
 end

@@ -120,7 +120,7 @@ Enable or disable an Apache module in `#{node['apache']['dir']}/mods-available` 
 
 ### Examples:
 
-Enable the ssl module, which also has a configuration template in `templates/default/mods/ssl.conf.erb`. Simply call the resource. The cookbook contains a list of modules in `library/helpers.rb`  in the `#has_config_file?` method.
+Enable the ssl module, which also has a configuration template in `templates/default/mods/ssl.conf.erb`. Simply call the resource. The cookbook contains a list of modules in `library/helpers.rb`  in the `#config_file?` method.
 
 ```ruby
 apache_module "ssl"
