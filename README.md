@@ -70,8 +70,6 @@ The default recipe simply includes the `apache2_install` resource. This resource
 # Custom Resources
 ## apache2_install
 
-
-
 ## apache2_conf
 Writes conf files to the `conf-available` folder, and passes enabled values to `apache2_config`.
 
@@ -136,17 +134,14 @@ end
 See the recipes directory for many more examples of `apache2_module`.
 
 ## apache2_mod
-
 Sets up configuration file for an Apache module from a template. The template should be in the same cookbook where the definition is used. This is used by the `apache2_module` definition and is not often used directly.
 
 This will use a template resource to write the module's configuration file in the `mods-available` under the Apache configuration directory (`node['apache']['dir']`). This is a platform-dependent location. See **apache2_module**.
 
 ### Parameters:
-
 -   `name` - Name of the template. When used from the `apache2_module`, it will use the same name as the module.
 
 ### Examples:
-
 Create `#{node['apache']['dir']}/mods-available/alias.conf`.
 
 ```ruby
@@ -154,13 +149,11 @@ apache2_mod "alias"
 ```
 
 ## apache2_site
-
 Enable or disable a VirtualHost in `#{node['apache']['dir']}/sites-available` by calling a2ensite or a2dissite to manage the symbolic link in `#{node['apache']['dir']}/sites-enabled`.
 
 The template for the site must be managed as a separate resource. To combine the template with enabling a site, see `web_app`.
 
 ### Parameters:
-
 -   `name` - Name of the site.
 -   `enable` - Default true, which uses `a2ensite` to enable the site. If false, the site will be disabled with `a2dissite`.
 
