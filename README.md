@@ -1,5 +1,5 @@
 # apache2 Cookbook
-[![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg?style=flat)](https://supermarket.chef.io/cookbooks/apache2) [![Build Status](https://travis-ci.org/sous-chefs/apache2.svg?branch=master)](https://travis-ci.org/sous-chefs/apache2) [![License](https://img.shields.io/badge/license-Apache_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg?style=flat)](https://supermarket.chef.io/cookbooks/apache2) [![Build Status](https://travis-ci.org/sous-chefs/apache2.svg?branch=master)](https://travis-ci.org/sous-chefs/apache2) [![License](https://img.shields.io/badge/license-apache2_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD configuration. Non-Debian based distributions such as Red Hat/CentOS, ArchLinux and others supported by this cookbook will have a configuration that mimics Debian/Ubuntu style as it is easier to manage with Chef.
 
@@ -71,22 +71,23 @@ The default recipe simply includes the `apache2_install` resource. This resource
 ## apache2_install
 
 
-## apache2_conf
-Writes conf files to the `conf-available` folder, and passes enabled values to `apache_config`.
 
-This definition should generally be called over `apache_config`.
+## apache2_conf
+Writes conf files to the `conf-available` folder, and passes enabled values to `apache2_config`.
+
+This definition should generally be called over `apache2_config`.
 
 ### Examples:
 Place and enable the example conf:
 
 ```ruby
-apache_conf 'example'
+apache2_conf 'example'
 ```
 
 Disable the example conf:
 
 ```ruby
-apache_conf 'example' do
+apache2_conf 'example' do
   action :disable
 end
 ```
@@ -94,7 +95,7 @@ end
 Place the example conf, which has a different path than the default (conf-*):
 
 ```ruby
-apache_conf 'example' do
+apache2_conf 'example' do
   path '/random/example/path'
 end
 ```
@@ -106,7 +107,7 @@ Enable or disable an Apache module in `#{node['apache']['dir']}/mods-available` 
 -   `name` - Name of the module enabled or disabled with the `a2enmod` or `a2dismod` scripts.
 -   `identifier` - String to identify the module for the `LoadModule` directive. Not typically needed, defaults to `#{name}_module`
 -   `enable` - Default true, which uses `a2enmod` to enable the module. If false, the module will be disabled with `a2dismod`.
--   `conf` - Default false. Set to true if the module has a config file, which will use `apache_mod` for the file.
+-   `conf` - Default false. Set to true if the module has a config file, which will use `apache2_mod` for the file.
 -   `filename` - specify the full name of the file, e.g.
 
 ### Examples:
@@ -165,7 +166,7 @@ The template for the site must be managed as a separate resource. To combine the
 
 ## apache2_web_app
 
-Manage a template resource for a VirtualHost site, and enable it with `apache_site`. This is commonly done for managing web applications such as Ruby on Rails, PHP or Django, and the default behavior reflects that. However it is flexible.
+Manage a template resource for a VirtualHost site, and enable it with `apache2_site`. This is commonly done for managing web applications such as Ruby on Rails, PHP or Django, and the default behavior reflects that. However it is flexible.
 
 This definition includes some recipes to make sure the system is configured to have Apache and some sane default modules:
 
@@ -183,7 +184,7 @@ Current parameters used by the definition:
 -   `name` - The name of the site. The template will be written to `#{node['apache']['dir']}/sites-available/#{params['name']}.conf`
 -   `cookbook` - Optional. Cookbook where the source template is. If this is not defined, Chef will use the named template in the cookbook where the definition is used.
 -   `template` - Default `web_app.conf.erb`, source template file.
--   `enable` - Default true. Passed to the `apache_site` definition.
+-   `enable` - Default true. Passed to the `apache2_site` definition.
 
 Additional parameters can be defined when the definition is called in a recipe, see **Examples**.
 
