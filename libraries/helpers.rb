@@ -310,7 +310,7 @@ module Apache2
         ::File.exist?("#{apache_dir}/sites-available/#{new_resource.name}")
       end
 
-      def apache_devel_package(new_resource)
+      def apache_devel_package(mpm)
         case node['platform_family']
         when 'amazon'
           if node['platform_version'].to_i == 2
@@ -319,7 +319,7 @@ module Apache2
             'httpd24-devel'
           end
         when 'debian'
-          if new_resource.mpm == 'prefork'
+          if mpm == 'prefork'
             'apache2-prefork-dev'
           else
             'apache2-dev'

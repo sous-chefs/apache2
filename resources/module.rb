@@ -1,6 +1,6 @@
 #
 # Cookbook:: apache2
-# Definition:: apache_module
+# Resource:: apache2_module
 #
 # Copyright:: 2008-2017, Chef Software, Inc.
 #
