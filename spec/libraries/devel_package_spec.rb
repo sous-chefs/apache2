@@ -3,8 +3,7 @@ require 'spec_helper'
 describe '#apache_devel_package' do
   recipe do
     apache2_install 'package'
-
-    log apache_devel_package
+    log apache_devel_package(default_mpm)
   end
 
   context 'redhat' do
@@ -47,19 +46,18 @@ context 'debian' do
         mpm 'prefork'
       end
 
-      log apache_devel_package
+      log apache_devel_package('prefork')
     end
 
-    it { is_expected.to write_log('apache2-dev') }
+    it { is_expected.to write_log('apache2-prefork-dev') }
   end
 
   context 'default' do
     recipe do
       apache2_install 'package'
-
-      log apache_devel_package
+      log apache_devel_package('worker')
     end
 
-    it { is_expected.to write_log('apache2-prefork-dev') }
+    it { is_expected.to write_log('apache2-dev') }
   end
 end
