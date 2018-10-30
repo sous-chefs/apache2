@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-if node['apache']['version'] == '2.4' && %w(rhel fedora).include?(node['platform_family'])
+if %w(rhel fedora).include?(node['platform_family'])
   Chef::Log.warn('The rhel and fedora platforms do not have a package for mod_python. This cookbook will not attempt to test compatability.')
 else
   include_recipe 'apache2::default'

@@ -1,6 +1,3 @@
-<% if node['apache']['version'] != '2.4' -%>
-NameVirtualHost *:<%= @params[:server_port] %>
-<% end -%>
 <VirtualHost *:<%= @params[:server_port] %>>
   ServerName <%= @params[:server_name] %>
   <% if @params[:server_aliases] -%>
@@ -11,12 +8,7 @@ NameVirtualHost *:<%= @params[:server_port] %>
   <Directory <%= @params[:docroot] %>>
     Options <%= [@params[:directory_options] || "FollowSymLinks" ].flatten.join " " %>
     AllowOverride <%= [@params[:allow_override] || "None" ].flatten.join " " %>
-  <% if node['apache']['version'] == '2.4' -%>
     Require all granted
-  <% else -%>
-    Order allow,deny
-    Allow from all
-  <% end -%>
   </Directory>
 
   <Directory />
@@ -26,26 +18,11 @@ NameVirtualHost *:<%= @params[:server_port] %>
 
   <Location /server-status>
     SetHandler server-status
-
-  <% if node['apache']['version'] == '2.4' -%>
     Require local
-  <% else -%>
-    Order Deny,Allow
-    Deny from all
-    Allow from 127.0.0.1
-  <% end -%>
-
   </Location>
 
   RewriteEngine On
-  <%- if node['apache']['version'] == '2.4' -%>
   LogLevel info rewrite:trace1
-  <%- else -%>
-  LogLevel info
-  RewriteLog <%= node['apache']['log_dir'] %>/<%= @application_name %>-rewrite.log
-  RewriteLogLevel 0
-  <%- end -%>
-
   ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
   CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
 

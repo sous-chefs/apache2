@@ -1,6 +1,6 @@
 #
 # Cookbook:: apache2_test
-# Recipe:: mod_php5
+# Recipe:: mod_php
 #
 # Copyright:: 2012, Chef Software, Inc.
 #
@@ -24,7 +24,7 @@ package 'which' do
   only_if { platform_family?('rhel', 'fedora', 'amazon') }
 end
 
-include_recipe 'apache2::mod_php5'
+include_recipe 'apache2::mod_php'
 
 directory node['apache_test']['app_dir'] do
   recursive true

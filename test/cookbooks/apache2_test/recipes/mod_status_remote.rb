@@ -19,7 +19,7 @@
 
 include_recipe 'apache2::default'
 
-template "#{node['apache']['dir']}/mods-available/status.conf" do
+template "#{apache_dir}/mods-available/status.conf" do
   source 'status.conf.erb'
   mode '0644'
 end

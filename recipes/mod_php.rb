@@ -1,6 +1,6 @@
 #
 # Cookbook:: apache2
-# Recipe:: mod_php5
+# Recipe:: mod_php
 #
 # Copyright:: 2008-2017, Chef Software, Inc.
 # Copyright:: 2014, OneHealth Solutions, Inc.
@@ -57,17 +57,17 @@ end unless node['apache']['mod_php']['install_method'] == 'source'
 case node['platform_family']
 when 'debian'
   # on debian plaform_family php creates newly named incompatible config
-  file "#{node['apache']['dir']}/mods-available/php7.0.conf" do
+  file "#{apache_dir}/mods-available/php7.0.conf" do
     content '# conf is under mods-available/php.conf - apache2 cookbook\n'
   end
 
-  file "#{node['apache']['dir']}/mods-available/php7.0.load" do
+  file "#{apache_dir}/mods-available/php7.0.load" do
     content '# conf is under mods-available/php.load - apache2 cookbook\n'
   end
 when 'rhel', 'fedora', 'suse', 'amazon'
-  file "#{node['apache']['dir']}/conf.d/php.conf" do
+  file "#{apache_dir}/conf.d/php.conf" do
     content '# conf is under mods-available/php.conf - apache2 cookbook\n'
-    only_if { ::Dir.exist?("#{node['apache']['dir']}/conf.d") }
+    only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
   end
 end
 

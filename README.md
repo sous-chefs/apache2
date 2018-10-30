@@ -43,21 +43,10 @@ The following platforms and versions are tested and supported using [test-kitche
 
 - Amazon Linux 2013.09+
 - Ubuntu 14.04 / 16.04
-- Debian 8
+- Debian 8/9
 - CentOS 7
 - Fedora
 - OpenSUSE Leap
-
-The following platform families are supported in the code, and are assumed to work based on the successful testing on Ubuntu and CentOS.
-
-- RHEL
-- Debian
-
-The following platforms are also supported in the code, have been tested manually but are not regularly tested under test-kitchen.
-
-- SLES
-- ArchLinux
-- FreeBSD
 
 ### Notes for RHEL Family:
 
@@ -92,8 +81,8 @@ This cookbook uses many attributes, broken up into a few different kinds.
 
 In order to support the broadest number of platforms, several attributes are determined based on the node's platform. See the attributes/default.rb file for default values in the case statement at the top of the file.
 
-- `node['apache']['package']` - Package name for Apache2
-- `node['apache']['perl_pkg']` - Package name for Perl
+- `apache_pkg` - Package name for Apache2
+- `perl_pkg` - Package name for Perl
 - `node['apache']['dir']` - Location for the Apache configuration
 - `node['apache']['log_dir']` - Location for Apache logs
 - `node['apache']['error_log']` - Location for the default error log
@@ -116,7 +105,6 @@ In order to support the broadest number of platforms, several attributes are det
 
 These are general settings used in recipes and templates. Default values are noted.
 
-- `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support. If the platform is known during our test to install 2.4 by default, it will be set to 2.4 for you. Otherwise it falls back to 2.2\. This value should be specified as a string.
 - `node['apache']['listen']` - Array of address:port combinations that httpd should listen on. Default is any address and port 80 (`["*:80"]`).
 - `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
 - `node['apache']['timeout']` - Value for the Timeout directive. Default is 300.
@@ -188,7 +176,7 @@ On RHEL Family distributions, certain modules ship with a config file with the p
 
 The default recipe does a number of things to set up Apache HTTPd. It also includes a number of modules based on the attribute `node['apache']['default_modules']` as recipes.
 
-## mod_auth_cas
+## mod\_auth_cas
 
 This recipe installs the proper package and enables the `auth_cas` module. It can install from source or package. Package is the default, set the attribute `node['apache']['mod_auth_cas']['from_source']` to true to enable source installation. Modify the version to install by changing the attribute `node['apache']['mod_auth_cas']['source_revision']`. It is a version tag by default, but could be master, or another tag, or branch.
 
@@ -198,7 +186,7 @@ The module configuration is written out with the `CASCookiePath` set, otherwise 
 
 <https://bugzilla.redhat.com/show_bug.cgi?format=multiple&id=708550>
 
-## mod_auth_openid
+## mod\_auth_openid
 
 This recipe compiles the module from source. In addition to `build-essential`, some other packages are included for installation like the GNU C++ compiler and development headers.
 
@@ -230,13 +218,11 @@ Note: In Ubuntu 14.04, the `libapache2-mod-fastcgi` module is not available by d
 
 Installs the fcgi package and enables the module. Requires EPEL on RHEL family.
 
-## mod_php5
+## mod_php
 
-Simply installs the appropriate package on Debian, Ubuntu and ArchLinux.
+Simply installs the appropriate package and enables the module
 
-On Red Hat family distributions including Fedora, the php.conf that comes with the package is removed. On RHEL platforms less than v6, the `php53` package is used.
-
-- `node['apache']['mod_php5']['install_method']` - default `package` can be overridden to avoid package installs.
+- `node['apache']['mod_php']['install_method']` - default `package` can be overridden to avoid package installs.
 
 ## mod_ssl
 

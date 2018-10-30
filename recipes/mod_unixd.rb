@@ -17,14 +17,9 @@
 # limitations under the License.
 #
 
-if node['apache']['version'] == '2.4'
-
-  # on platform_family debian this module is staticly linked into apache2
-  if platform_family?('debian')
-    Chef::Log.info("Skipping mod_unixd recipe as unixd module is statically linked into apache2 on #{node['platform']}")
-  else
-    apache_module 'unixd'
-  end
+# on platform_family debian this module is staticly linked into apache2
+if platform_family?('debian')
+  Chef::Log.info("Skipping mod_unixd recipe as unixd module is statically linked into apache2 on #{node['platform']}")
 else
-  Chef::Log.info('Ignoring apache2::mod_unixd. Not available until apache 2.4')
+  apache_module 'unixd'
 end
