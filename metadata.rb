@@ -7,7 +7,7 @@ chef_version '>= 13.0'
 license 'Apache-2.0'
 description 'Installs and configures apache2'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '5.0.1'
+version '5.2.1'
 
 supports 'debian'
 supports 'ubuntu'

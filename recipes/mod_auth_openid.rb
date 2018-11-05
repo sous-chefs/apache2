@@ -49,7 +49,7 @@ if platform_family?('rhel', 'fedora', 'amazon')
   bash 'install libopkele' do
     cwd Chef::Config['file_cache_path']
     # Ruby 1.8.6 does not have rpartition, unfortunately
-    syslibdir = node['apache']['lib_dir'][0..node['apache']['lib_dir'].rindex('/')]
+    syslibdir = lib_dir[0..lib_dir.rindex('/')]
     code <<-EOH
     tar zxvf libopkele-2.0.4.tar.gz
     cd libopkele-2.0.4 && ./configure --prefix=/usr --libdir=#{syslibdir}
@@ -100,9 +100,9 @@ bash 'install-mod_auth_openid' do
   code <<-EOH
   #{make_cmd} install
   EOH
-  creates "#{node['apache']['libexec_dir']}/mod_auth_openid.so"
+  creates "#{libexec_dir}/mod_auth_openid.so"
   notifies :restart, 'service[apache2]'
-  not_if "test -f #{node['apache']['libexec_dir']}/mod_auth_openid.so"
+  not_if "test -f #{libexec_dir}/mod_auth_openid.so"
 end
 
 template "#{apache_dir}/mods-available/authopenid.load" do

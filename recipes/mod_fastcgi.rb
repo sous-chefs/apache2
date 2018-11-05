@@ -39,7 +39,7 @@ else
   top_dir = if platform_family?('debian')
               node['apache']['build_dir']
             else
-              node['apache']['lib_dir']
+              lib_dir
             end
   include_recipe 'apache2::default'
   bash 'compile fastcgi source' do

@@ -36,9 +36,9 @@ when 'rhel', 'fedora', 'amazon'
   # seems that the apreq lib is weirdly broken or something - it needs to be
   # loaded as 'apreq', but on RHEL & derivitatives the file needs a symbolic
   # link to mod_apreq.so.
-  link "#{node['apache']['libexec_dir']}/mod_apreq.so" do
-    to "#{node['apache']['libexec_dir']}/mod_apreq2.so"
-    only_if "test -f #{node['apache']['libexec_dir']}/mod_apreq2.so"
+  link "#{libexec_dir}/mod_apreq.so" do
+    to "#{libexec_dir}/mod_apreq2.so"
+    only_if "test -f #{libexec_dir}/mod_apreq2.so"
   end
 end
 

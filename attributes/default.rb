@@ -18,19 +18,6 @@
 # limitations under the License.
 #
 
-# Gets the libdir for a given CPU architecture
-def lib_dir_for_machine(arch)
-  if arch =~ /64/ || %w(armv8l s390x).include?(arch)
-    # 64-bit architectures
-    # (x86_64 / amd64 / aarch64 / armv8l / etc.)
-    '/usr/lib64'
-  else
-    # 32-bit architectures
-    # (i686 / armv7l / s390 / etc.)
-    '/usr/lib'
-  end
-end
-
 default['apache']['mpm'] =
   case node['platform']
   when 'ubuntu', 'linuxmint'
@@ -55,7 +42,6 @@ when 'rhel', 'fedora', 'amazon'
     default['apache']['devel_package'] = 'httpd-devel'
   end
   default['apache']['service_name'] = 'httpd'
-  default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/httpd'
   default['apache']['log_dir']     = '/var/log/httpd'
   default['apache']['error_log']   = 'error.log'
@@ -65,16 +51,12 @@ when 'rhel', 'fedora', 'amazon'
   default['apache']['conf_dir']    = '/etc/httpd/conf'
   default['apache']['docroot_dir'] = '/var/www/html'
   default['apache']['cgibin_dir']  = '/var/www/cgi-bin'
-  default['apache']['icondir']     = '/usr/share/httpd/icons'
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
-  default['apache']['lib_dir'] = "#{lib_dir_for_machine(node['kernel']['machine'])}/httpd"
-  default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'suse'
   default['apache']['package']     = 'apache2'
-  default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] = 'httpd-devel'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
@@ -85,16 +67,12 @@ when 'suse'
   default['apache']['conf_dir']    = '/etc/apache2'
   default['apache']['docroot_dir'] = '/srv/www/htdocs'
   default['apache']['cgibin_dir']  = '/srv/www/cgi-bin'
-  default['apache']['icondir']     = '/usr/share/apache2/icons'
   default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd2.pid'
-  default['apache']['lib_dir'] = "#{lib_dir_for_machine(node['kernel']['machine'])}/apache2"
-  default['apache']['libexec_dir'] = node['apache']['lib_dir']
 when 'debian'
   default['apache']['package']     = 'apache2'
-  default['apache']['perl_pkg']    = 'perl'
   default['apache']['devel_package'] =
     if node['apache']['mpm'] == 'prefork'
       'apache2-prefork-dev'
@@ -109,20 +87,16 @@ when 'debian'
   default['apache']['group']       = 'www-data'
   default['apache']['conf_dir']    = '/etc/apache2'
   default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
-  default['apache']['icondir']     = '/usr/share/apache2/icons'
   default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = '/var/run/apache2'
   default['apache']['lock_dir']    = '/var/lock/apache2'
   default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
   default['apache']['docroot_dir'] = '/var/www/html'
-  default['apache']['lib_dir']       = '/usr/lib/apache2'
-  default['apache']['build_dir']     = '/usr/share/apache2'
-  default['apache']['libexec_dir']   = "#{node['apache']['lib_dir']}/modules"
+  default['apache']['build_dir'] = '/usr/share/apache2'
   default['apache']['default_site_name'] = '000-default'
 when 'arch'
   default['apache']['package'] = 'apache'
   default['apache']['service_name'] = 'httpd'
-  default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/httpd'
   default['apache']['log_dir']     = '/var/log/httpd'
   default['apache']['error_log']   = 'error.log'
@@ -132,26 +106,20 @@ when 'arch'
   default['apache']['conf_dir']    = '/etc/httpd'
   default['apache']['docroot_dir'] = '/srv/http'
   default['apache']['cgibin_dir']  = '/usr/share/httpd/cgi-bin'
-  default['apache']['icondir']     = '/usr/share/httpd/icons'
   default['apache']['cache_dir']   = '/var/cache/httpd'
   default['apache']['run_dir']     = '/var/run/httpd'
   default['apache']['lock_dir']    = '/var/run/httpd'
   default['apache']['pid_file']    = '/var/run/httpd/httpd.pid'
-  default['apache']['lib_dir']     = '/usr/lib/httpd'
-  default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 when 'freebsd'
   default['apache']['package']     = 'apache24'
   default['apache']['dir']         = '/usr/local/etc/apache24'
   default['apache']['conf_dir']    = '/usr/local/etc/apache24'
   default['apache']['docroot_dir'] = '/usr/local/www/apache24/data'
   default['apache']['cgibin_dir']  = '/usr/local/www/apache24/cgi-bin'
-  default['apache']['icondir']     = '/usr/local/www/apache24/icons'
   default['apache']['cache_dir']   = '/var/cache/apache24'
   default['apache']['run_dir']     = '/var/run'
   default['apache']['lock_dir']    = '/var/run'
-  default['apache']['lib_dir']     = '/usr/local/libexec/apache24'
   default['apache']['devel_package'] = 'httpd-devel'
-  default['apache']['perl_pkg']    = 'perl5'
   default['apache']['pid_file']    = '/var/run/httpd.pid'
   default['apache']['log_dir']     = '/var/log'
   default['apache']['error_log']   = 'httpd-error.log'
@@ -159,11 +127,9 @@ when 'freebsd'
   default['apache']['root_group']  = 'wheel'
   default['apache']['user']        = 'www'
   default['apache']['group']       = 'www'
-  default['apache']['libexec_dir'] = node['apache']['lib_dir']
 else
   default['apache']['package'] = 'apache2'
   default['apache']['devel_package'] = 'apache2-dev'
-  default['apache']['perl_pkg']    = 'perl'
   default['apache']['dir']         = '/etc/apache2'
   default['apache']['log_dir']     = '/var/log/apache2'
   default['apache']['error_log']   = 'error.log'
@@ -173,13 +139,10 @@ else
   default['apache']['conf_dir']    = '/etc/apache2'
   default['apache']['docroot_dir'] = '/var/www'
   default['apache']['cgibin_dir']  = '/usr/lib/cgi-bin'
-  default['apache']['icondir']     = '/usr/share/apache2/icons'
   default['apache']['cache_dir']   = '/var/cache/apache2'
   default['apache']['run_dir']     = 'logs'
   default['apache']['lock_dir']    = 'logs'
   default['apache']['pid_file']    = 'logs/httpd.pid'
-  default['apache']['lib_dir']     = '/usr/lib/apache2'
-  default['apache']['libexec_dir'] = "#{node['apache']['lib_dir']}/modules"
 end
 
 ###
