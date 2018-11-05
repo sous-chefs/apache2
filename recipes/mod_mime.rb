@@ -17,6 +17,19 @@
 # limitations under the License.
 #
 
+if node['apache']['mod_mime']['extras']
+  template "#{apache_dir}/conf.d/mod_mime_extras.conf" do
+    source "mods/mod_mime_extras.conf.erb"
+    mode '0700'
+    owner 'root'
+    variables(
+      extra_mime_types: node['apache']['mod_mime']['extras']
+    )
+    group node['apache']['root_group']
+    action :create
+  end
+end
+
 apache_module 'mime' do
   conf true
 end
