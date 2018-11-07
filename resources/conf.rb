@@ -21,13 +21,14 @@ include Apache2::Cookbook::Helpers
 
 property :path, String,
          default: lazy { "#{apache_dir}/conf-available" },
-         description: ''
+         description: 'Path to the '
 property :root_group, String,
          default: lazy { default_apache_root_group },
          description: ''
 property :template_cookbook, String,
          default: 'apache2',
-         description: ''
+         description: 'Cookbook to source the template from.
+         Override this to provide your own template.'
 
 action :enable do
   template ::File.join(new_resource.path, "#{new_resource.name}.conf") do
@@ -46,10 +47,6 @@ action :enable do
     command "/usr/sbin/a2enconf #{new_resource.name}"
     notifies :restart, 'service[apache2]', :delayed
     not_if { conf_enabled?(new_resource) }
-    # not_if do
-    #     ::File.symlink?("#{apache_dir}/conf-enabled/#{new_resource.name}") &&
-    #       (::File.exist?(params[:conf_path]) ? ::File.symlink?("#{apache_dir}/conf-enabled/#{new_resource.name}") : true)
-    #   end
   end
 end
 
