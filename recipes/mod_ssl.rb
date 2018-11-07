@@ -21,8 +21,6 @@ if node['apache']['listen'] == ['*:80']
   node.default['apache']['listen'] += ["*:#{node['apache']['mod_ssl']['port']}"]
 end
 
-include_recipe 'apache2::default'
-
 if platform_family?('rhel', 'fedora', 'suse', 'amazon')
   package node['apache']['mod_ssl']['pkg_name'] do
     notifies :run, 'execute[generate-module-list]', :immediately
