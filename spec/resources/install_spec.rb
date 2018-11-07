@@ -20,7 +20,7 @@ describe 'apache2_install' do
         docroot_dir: '/var/www/html',
         error_log: 'error.log',
         keep_alive: 'On',
-        keep_alive_requests: 100,
+        max_keep_alive_requests: 100,
         keep_alive_timeout: 5,
         lock_dir: '/var/lock/apache2',
         log_dir: '/var/log/apache2',
