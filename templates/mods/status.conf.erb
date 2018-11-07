@@ -5,10 +5,10 @@
   # Uncomment and change the ".example.com" to allow
   # access from other hosts.
   #
-  <Location /server-status>
+  <Location <%= @location %>>
     SetHandler server-status
     Require local
-    Require ip <%=node['apache']['status_allow_list']%>
+    Require ip <%= @status_allow_list %>
   </Location>
 
   #
@@ -16,19 +16,10 @@
   # information (ExtendedStatus On) or just basic information (ExtendedStatus
   # Off) when the "server-status" handler is called. The default is Off.
   #
-  <% if node['apache']['ext_status'] -%>
-  ExtendedStatus On
-  <% else -%>
-  ExtendedStatus Off
-  <% end -%>
-
-  # Determine if mod_status displays the first 63 characters of a request or
-  # the last 63, assuming the request itself is greater than 63 chars.
-  # Default: Off
-  #SeeRequestTail On
+  ExtendedStatus <%= @extended_status %>
 
   <IfModule mod_proxy.c>
      # Show Proxy LoadBalancer status in mod_status
-     ProxyStatus On
+     ProxyStatus <%= @proxy_status %>
   </IfModule>
 </IfModule>
