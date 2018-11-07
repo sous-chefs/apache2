@@ -1,8 +1,0 @@
-<VirtualHost *:80>
-  ServerName <%= @params[:server_name] %>
-  DocumentRoot <%= @params[:document_root] %>
-  ObviouslyBorkedConfig
-  <LocationMatch "^/+$">
-    Options -Indexes
-  </LocationMatch>
-</VirtualHost>
