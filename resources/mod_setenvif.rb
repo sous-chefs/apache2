@@ -19,7 +19,6 @@
 #
 include Apache2::Cookbook::Helpers
 
-# rubocop:disable Lint/PercentStringArray
 property :browser_match, Array,
          default: [
            '"Mozilla/2" nokeepalive',
@@ -35,11 +34,9 @@ property :browser_match, Array,
            '"^gvfs/1" redirect-carefully',
            '"^XML Spy" redirect-carefully',
            '"^Dreamweaver-WebDAV-SCM1" redirect-carefully',
-           '"Konqueror/4" redirect-carefully'
+           '"Konqueror/4" redirect-carefully',
          ],
          description: ''
-# rubocop:enable Lint/PercentStringArray
-
 property :browser_match_nocase, Array,
          default: [],
          description: ''

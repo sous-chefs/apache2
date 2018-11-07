@@ -17,23 +17,19 @@
 # limitations under the License.
 #
 
-include_recipe 'apache2::default'
+apache2_install 'default'
 
-app_dir = "#{node['apache_test']['root_dir']}/basic_web_app"
-
-directory app_dir do
-  action :create
+directory '/var/www/basic_web_app' do
   recursive true
 end
 
-file "#{app_dir}/index.html" do
+file '/var/www/index.html' do
   content 'Hello World'
-  action :create
 end
 
 web_app 'basic_webapp' do
   cookbook 'apache2'
-  server_name node['hostname']
+  server_name 'example.com'
   server_aliases [node['fqdn']]
-  docroot app_dir
+  docroot '/home/apache2/env'
 end

@@ -36,7 +36,7 @@ action :create do
     variables(
       status_location: new_resource.status_location,
       set_handler: new_resource.set_handler,
-      require: new_resource.require,
+      require: new_resource.require
     )
   end
 end
