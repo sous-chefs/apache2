@@ -29,7 +29,7 @@ property :identifier, String,
          description: 'String to identify the module for the `LoadModule` directive'
 property :conf, [true, false],
          default: lazy { config_file?(name) },
-         description: 'Set to true if the module has a config file, which will use `apache_mod` for the file.'
+         description: 'The default is set by the config_file? helper. Override to set whether the module should have a config file'
 property :apache_service_notification, Symbol,
          equal_to: %i( reload restart ),
          default: :reload,
