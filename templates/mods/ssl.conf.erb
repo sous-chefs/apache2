@@ -33,19 +33,19 @@
   #   Configure the pass phrase gathering process.
   #   The filtering dialog program (`builtin' is a internal
   #   terminal dialog) has to provide the pass phrase on stdout.
-  SSLPassPhraseDialog <%= node['apache']['mod_ssl']['pass_phrase_dialog'] %>
+  SSLPassPhraseDialog <%= @pass_phrase_dialog %>
 
   #   Inter-Process Session Cache:
   #   Configure the SSL Session Cache: First the mechanism
   #   to use and second the expiring timeout (in seconds).
-  SSLSessionCache         <%= node['apache']['mod_ssl']['session_cache'] %>
-  SSLSessionCacheTimeout  <%= node['apache']['mod_ssl']['session_cache_timeout'] %>
+  SSLSessionCache         <%= @session_cache %>
+  SSLSessionCacheTimeout  <%= @session_cache_timeout %>
 
   #   SSL Cipher Suite:
   #   List the ciphers that the client is permitted to negotiate.
   #   See the mod_ssl documentation for a complete list.
   #   enable only secure ciphers:
-  SSLCipherSuite <%= node['apache']['mod_ssl']['cipher_suite'] %>
+  SSLCipherSuite <%= @cipher_suite %>
 
   #   Speed-optimized SSL Cipher configuration:
   #   If speed is your main concern (on busy HTTPS servers e.g.),
@@ -58,27 +58,27 @@
   #   compromised, captures of past or future traffic must be
   #   considered compromised, too.
   #SSLCipherSuite RC4-SHA:AES128-SHA:HIGH:MEDIUM:!aNULL:!MD5
-  SSLHonorCipherOrder <%= node['apache']['mod_ssl']['honor_cipher_order'] %>
+  SSLHonorCipherOrder <%= @honor_cipher_order %>
 
   #   The protocols to enable.
   #   Available values: all, SSLv3, TLSv1, TLSv1.1, TLSv1.2
   #   SSL v2  is no longer supported
-  SSLProtocol <%= node['apache']['mod_ssl']['protocol'] %>
+  SSLProtocol <%= @protocol %>
 
   #   Allow insecure renegotiation with clients which do not yet support the
   #   secure renegotiation protocol. Default: Off
-  SSLInsecureRenegotiation <%= node['apache']['mod_ssl']['insecure_renegotiation'] %>
+  SSLInsecureRenegotiation <%= @insecure_renegotiation %>
 
-<% unless node['apache']['mod_ssl']['strict_sni_vhost_check'] == "Off"%>
+<% unless @strict_sni_vhost_check == "Off"%>
   #   Whether to forbid non-SNI clients to access name based virtual hosts.
   #   Default: Off
-  SSLStrictSNIVHostCheck <%= node['apache']['mod_ssl']['strict_sni_vhost_check'] %>
+  SSLStrictSNIVHostCheck <%= @strict_sni_vhost_check %>
 <% end %>
 
   #   Enable compression on the SSL level
   #   Enabling compression causes security issues in most setups (the so called CRIME attack).
   #   Default: Off
-  SSLCompression         <%= node['apache']['mod_ssl']['compression'] %>
+  SSLCompression         <%= @compression %>
 
   #   OCSP Stapling, only in httpd 2.3.3 and later
   #   This option enables OCSP stapling, as defined by the "Certificate Status Request" TLS
@@ -86,14 +86,14 @@
   #   include an OCSP response for its own certificate in the TLS handshake.
   #   Configuring an SSLStaplingCache is a prerequisite for enabling OCSP stapling.
   #   Default: Off
-  <% if node['apache']['mod_ssl']['use_stapling'] == 'On' -%>
-  SSLUseStapling         <%= node['apache']['mod_ssl']['use_stapling'] %>
-  SSLStaplingResponderTimeout <%= node['apache']['mod_ssl']['stapling_responder_timeout'] %>
-  SSLStaplingReturnResponderErrors <%= node['apache']['mod_ssl']['stapling_return_responder_errors'] %>
-  SSLStaplingCache        <%= node['apache']['mod_ssl']['stapling_cache'] %>
+  <% if @use_stapling  == 'On' -%>
+  SSLUseStapling         <%= @use_stapling %>
+  SSLStaplingResponderTimeout <%= @stapling_responder_timeout %>
+  SSLStaplingReturnResponderErrors <%= @stapling_return_responder_errors %>
+  SSLStaplingCache        <%= @stapling_cache %>
   <% end -%>
 
-  <% node['apache']['mod_ssl']['directives'].sort_by { |key, val| key }.each do |directive, value| -%>
+  <% @directives.sort_by { |key, val| key }.each do |directive, value| -%>
       <%= directive %> <%= value %>
   <% end -%>
 </IfModule>
