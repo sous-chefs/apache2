@@ -12,13 +12,11 @@ Debian-style Apache configuration uses scripts to manage modules and sites (vhos
 -   a2enconf
 -   a2disconf
 
-This cookbook ships with templates of these scripts for non-Debian/Ubuntu platforms. The scripts are used in the custom resources below.
+This cookbook ships with templates of these scripts for non-Debian/Ubuntu platforms.
 
 ## Cookbooks:
-- Build Essential
-  Some recipes (e.g., `apache2::mod_auth_openid`) build the module from source
-
-
+-   Build Essential
+    This is required as some recipes (e.g., `apache2::mod_auth_openid`) build the module from source
 
 Depending on your OS configuration and security policy, you may need additional recipes or cookbooks for this cookbook's recipes to converge on the node. In particular, the following Operating System settings may affect the behavior of this cookbook:
 
@@ -33,7 +31,7 @@ To deal with firewalls Chef Software does provide an [iptables](https://supermar
 
 On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also need the [pacman](https://supermarket.chef.io/cookbooks/pacman) cookbook for the `pacman_aur` LWRP. Put `recipe[pacman]` on the node's expanded run list (on the node or in a role). This is not an explicit dependency because it is only required for this single recipe and platform; the pacman default recipe performs `pacman -Sy` to keep pacman's package cache updated.
 
-## Platforms:
+## Platforms
 The following platforms and versions are tested and supported using [test-kitchen](http://kitchen.ci/)
 
 -   Amazon Linux 2013.09+
@@ -43,39 +41,40 @@ The following platforms and versions are tested and supported using [test-kitche
 -   Fedora Latest
 -   OpenSUSE Leap
 
-### Notes for RHEL Family:
-Apache2.4 support for Centos 6 is not complete and a sucessful install requires installing from source, which is in advisable. 
+### Notes for RHEL Family
+Apache2.4 support for Centos 6 is not complete and a sucessful install requires installing from source, which is in advisable.
 
 # Usage
-Using this cookbook is relatively straightforward. It is recommended to create a project or organization specific [wrapper cookbook](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/) and add the desired custom resources to the run list of a node. Depending on your environment, you may have multiple roles that use different recipes from this cookbook. Adjust any attributes as desired. For example, to create a basic recipe for web servers that provide both HTTP and HTTPS:
+It is recommended to create a project or organization specific [wrapper cookbook](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/) and add the desired custom resources to the run list of a node. Depending on your environment, you may have multiple roles that use different recipes from this cookbook. Adjust any attributes as desired.
 
-```ruby
-% cat my_org/webserver.rb
-
-apache2_install 'webserver'
-
-apache2_module 'ssl'
-```
-
-For examples of using the definitions in your own recipes, see their respective sections below.
+Example wrapper cookbooks can be found in the `test/cookbooks/test` folder.
 
 # Recipes
-Most of the recipes in the cookbook are for enabling Apache modules. It is recommended to use custom resources directly for more control.
+This cookbook comes with recipes as a way of maintaining backwards compataility.
+It is recommended to use custom resources directly for more control.
 
 On RHEL Family distributions, certain modules ship with a config file with the package. The recipes here may delete those configuration files to ensure they don't conflict with the settings from the cookbook, which will use per-module configuration in `/etc/httpd/mods-enabled`.
 
 ## default
-The default recipe simply includes the `apache2_install` resource. This resource is more flexible and should be used in favour of the default recipe.
+The default recipe simply includes the `apache2_install` resource, using all the default values. The `apache2_install` resource is more flexible and should be used in favour of the default recipe.
 
 # Custom Resources
 ## apache2_install
 
+
+
 ## apache2_conf
 Writes conf files to the `conf-available` folder, and passes enabled values to `apache2_config`.
 
-This definition should generally be called over `apache2_config`.
+## Properties
 
-### Examples:
+| Name              | Type   | Default                          | Description                                                                        |
+| ----------------- | ------ | -------------------------------- | ---------------------------------------------------------------------------------- |
+| path              | String | `"#{apache_dir}/conf-available"` | Path to the                                                                        |
+| root_group        | String | default_apache_root_group        | Platform based default for the templates root group.                               |
+| template_cookbook | String | apache2                          | Cookbook to source the template from.  Override this to provide your own template. |
+
+### Examples
 Place and enable the example conf:
 
 ```ruby
@@ -101,14 +100,17 @@ end
 ## apache2_module
 Enable or disable an Apache module in `#{node['apache']['dir']}/mods-available` by calling `a2enmod` or `a2dismod` to manage the symbolic link in `#{node['apache']['dir']}/mods-enabled`. If the module has a configuration file, a template should be created in the cookbook where the definition is used. See **Examples**.
 
-### Parameters:
--   `name` - Name of the module enabled or disabled with the `a2enmod` or `a2dismod` scripts.
--   `identifier` - String to identify the module for the `LoadModule` directive. Not typically needed, defaults to `#{name}_module`
--   `enable` - Default true, which uses `a2enmod` to enable the module. If false, the module will be disabled with `a2dismod`.
--   `conf` - Default false. Set to true if the module has a config file, which will use `apache2_mod` for the file.
--   `filename` - specify the full name of the file, e.g.
+### Properties
 
-### Examples:
+| Name              | Type    | Default                   | Description                                                                                                 |
+| ----------------- | ------- | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| name              | String  |                           | Name of the module enabled or disabled with the `a2enmod` or `a2dismod` scripts.                            |
+| identifier        | String  | default_apache_root_group | `#{name}_module`                                                                                            |
+| template_cookbook | String  | apache2                   | Cookbook to source the template from.  Override this to provide your own template.                          |
+| conf              | Boolean | has_config?               | The default is set by the config_file? helper. Override to set whether the module should have a config file |
+
+
+### Examples
 Enable the ssl module, which also has a configuration template in `templates/default/mods/ssl.conf.erb`. Simply call the resource. The cookbook contains a list of modules in `library/helpers.rb`  in the `#config_file?` method.
 
 ```ruby
@@ -138,11 +140,12 @@ Sets up configuration file for an Apache module from a template. The template sh
 
 This will use a template resource to write the module's configuration file in the `mods-available` under the Apache configuration directory (`node['apache']['dir']`). This is a platform-dependent location. See **apache2_module**.
 
-### Parameters:
--   `name` - Name of the template. When used from the `apache2_module`, it will use the same name as the module.
+### Parameters
+-   `name` - Type: String - Name of the template.
+-   `root_group` - Type: String - Set to override the platforms default root group for the template file.'
 
-### Examples:
-Create `#{node['apache']['dir']}/mods-available/alias.conf`.
+### Examples
+Create `#{apache_dir}/mods-available/alias.conf`.
 
 ```ruby
 apache2_mod "alias"
@@ -158,7 +161,6 @@ The template for the site must be managed as a separate resource. To combine the
 -   `enable` - Default true, which uses `a2ensite` to enable the site. If false, the site will be disabled with `a2dissite`.
 
 ## apache2_web_app
-
 Manage a template resource for a VirtualHost site, and enable it with `apache2_site`. This is commonly done for managing web applications such as Ruby on Rails, PHP or Django, and the default behavior reflects that. However it is flexible.
 
 This definition includes some recipes to make sure the system is configured to have Apache and some sane default modules:
@@ -170,10 +172,8 @@ This definition includes some recipes to make sure the system is configured to h
 
 It will then configure the template (see **Parameters** and **Examples** below), and enable or disable the site per the `enable` parameter.
 
-### Parameters:
-
+### Parameters
 Current parameters used by the definition:
-
 -   `name` - The name of the site. The template will be written to `#{node['apache']['dir']}/sites-available/#{params['name']}.conf`
 -   `cookbook` - Optional. Cookbook where the source template is. If this is not defined, Chef will use the named template in the cookbook where the definition is used.
 -   `template` - Default `web_app.conf.erb`, source template file.
@@ -181,8 +181,7 @@ Current parameters used by the definition:
 
 Additional parameters can be defined when the definition is called in a recipe, see **Examples**.
 
-### Examples:
-
+### Examples
 The recommended way to use the `web_app` definition is in a application specific cookbook named "my_app". The following example would look for a template named 'web_app.conf.erb' in your cookbook containing the apache httpd directives defining the `VirtualHost` that would serve up "my_app".
 
 ```ruby
@@ -214,7 +213,6 @@ end
 ```
 
 ## License
-
 ```text
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
