@@ -2,9 +2,9 @@
   UserDir public_html
   UserDir disabled root
 
-  <Directory /home/*/public_html>
-    AllowOverride FileInfo AuthConfig Limit Indexes
-    Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+  <Directory <%= @public_html_dir %>>
+    AllowOverride <%= @allow_override %>
+    Options <%= @options %>
     <Limit GET POST OPTIONS>
 	Require all granted
     </Limit>
