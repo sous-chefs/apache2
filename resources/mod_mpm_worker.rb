@@ -17,35 +17,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-property :startservers, [String, Integer],
+property :startservers, Integer,
          default: 4,
          description: 'initial number of server processes to start'
 
-property :minsparethreads, [String, Integer],
+property :minsparethreads, Integer,
          default: 64,
          description: 'minimum number of worker threads which are kept spare'
 
-property :maxsparethreads, [String, Integer],
+property :maxsparethreads, Integer,
          default: 192,
          description: 'maximum number of worker threads which are kept spare'
 
-property :threadsperchild, [String, Integer],
+property :threadsperchild, Integer,
          default: 64,
          description: 'constant number of worker threads in each server process'
 
-property :maxrequestworkers, [String, Integer],
+property :maxrequestworkers, Integer,
          default: 1024,
          description: 'maximum number of threads'
 
-property :maxconnectionsperchild, [String, Integer],
+property :maxconnectionsperchild, Integer,
          default: 0,
          description: 'maximum number of requests a server process serves'
 
-property :threadlimit, [String, Integer],
+property :threadlimit, Integer,
          default: 192,
          description: 'ThreadsPerChild can be changed to this maximum value during a graceful restart. ThreadLimit can only be changed by stopping and starting Apache.'
 
-property :serverlimit, [String, Integer],
+property :serverlimit, Integer,
          default: 16,
          description: ''
 
