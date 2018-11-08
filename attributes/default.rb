@@ -38,22 +38,5 @@ default['apache']['servertokens']    = 'Prod'
 default['apache']['serversignature'] = 'On'
 default['apache']['traceenable']     = 'Off'
 
-# mod_status Allow list, space seprated list of allowed entries.
-default['apache']['status_allow_list'] = '127.0.0.1 ::1'
-
 # mod_status ExtendedStatus, set to 'true' to enable
 default['apache']['ext_status'] = false
-
-# mod_info Allow list, space seprated list of allowed entries.
-default['apache']['info_allow_list'] = '127.0.0.1 ::1'
-
-# Event Attributes
-default['apache']['event']['startservers']        = 4
-default['apache']['event']['serverlimit']         = 16
-default['apache']['event']['minsparethreads']     = 64
-default['apache']['event']['maxsparethreads']     = 192
-default['apache']['event']['threadlimit']         = 192
-default['apache']['event']['threadsperchild']     = 64
-default['apache']['event']['maxrequestworkers']   = 1024
-default['apache']['event']['maxconnectionsperchild'] = 0
-

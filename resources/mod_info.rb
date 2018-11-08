@@ -17,30 +17,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include Apache2::Cookbook::Helpers
-
-property :options, String,
-         default: 'Indexes MultiViews SymLinksIfOwnerMatch',
-         description: ''
-property :icondir, String,
-         default: lazy { icon_dir },
-         description: 'The icon directory'
-property :allow_override, String,
-         default: 'None',
-         description: 'For full description see https://httpd.apache.org/docs/2.4/mod/core.html#allowoverride'
-property :require, String,
-         default: 'all granted',
-         description: 'For full description see https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require'
+property :info_allow_list, String, default: '127.0.0.1 ::1', description: ''
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'mod_info.conf') do
     source 'mods/info.conf.erb'
     cookbook 'apache2'
     variables(
-      icondir: new_resource.icondir,
-      options: new_resource.options,
-      allow_override: new_resource.allow_override,
-      require: new_resource.require
+      info_allow_list: new_resource.info_allow_list
     )
   end
+end
+
+action_class do
+  include Apache2::Cookbook::Helpers
 end
