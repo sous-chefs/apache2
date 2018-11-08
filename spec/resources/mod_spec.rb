@@ -23,11 +23,11 @@ describe 'apache2_install' do
 
     it 'outputs the reqtimeout template with the correct hash values only' do
       is_expected.to render_file('/etc/apache2/mods-available/mod_reqtimeout.conf').with_content(
-        %r{header=20-40,minrate=500}
+        /header=20-40,minrate=500/
       )
 
       is_expected.to render_file('/etc/apache2/mods-available/mod_reqtimeout.conf').with_content(
-        %r{body=10,minrate=500}
+        /body=10,minrate=500/
       )
     end
   end
@@ -39,10 +39,8 @@ describe 'apache2_install' do
 
     it 'outputs the proxy template with the correct values' do
       is_expected.to render_file('/etc/apache2/mods-available/mod_proxy.conf').with_content(
-        %r{ProxyRequests Off}
+        /ProxyRequests Off/
       )
     end
   end
-
-
 end
