@@ -7,8 +7,8 @@ describe '#pagespeed_url' do
     recipe do
       log pagespeed_url
     end
-    
-     context 'redhat' do
+
+    context 'redhat' do
       platform 'redhat'
       it { is_expected.to write_log('https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.rpm') }
     end
@@ -28,12 +28,12 @@ describe '#pagespeed_url' do
 
     context 'redhat' do
       platform 'redhat'
-      it { is_expected.to write_log( 'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.rpm') }
+      it { is_expected.to write_log('https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.rpm') }
     end
 
     context 'debian' do
       platform 'debian'
-      it { is_expected.to write_log( 'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.deb') }
+      it { is_expected.to write_log('https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.deb') }
     end
   end
 end
