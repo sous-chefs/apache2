@@ -14,9 +14,13 @@
   # the time a browser may need to fetch the CRL for the certificate. If
   # the CRL server is not reachable, it may take more than 10 seconds
   # until the browser gives up.
-  RequestReadTimeout header=20-40,minrate=500
+  # RequestReadTimeout header=20-40,minrate=500
 
   # Wait max 10 seconds for the first byte of the request body (if any)
   # From then, require a minimum data rate of 500 bytes/s
-  RequestReadTimeout body=10,minrate=500
+  # RequestReadTimeout body=10,minrate=500
+
+  <% @request_read_timeout.each_value do |value| %>
+  RequestReadTimeout <%= value %>
+  <% end %>
 </IfModule>

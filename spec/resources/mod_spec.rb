@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe 'apache2_install' do
-  step_into :apache2_mod_setenvif
+  step_into :apache2_mod_setenvif, :apache2_mod_reqtimeout
   platform 'ubuntu'
 
-  context 'install apache2 with default properties' do
+  context 'mod_setenvif' do
     recipe do
       apache2_mod_setenvif ''
     end
@@ -15,4 +15,22 @@ describe 'apache2_install' do
       )
     end
   end
+
+  context 'mod_reqtimeout' do
+    recipe do
+      apache2_mod_reqtimeout ''
+    end
+
+    it 'outputs the reqtimeout template with the correct hash values only' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_reqtimeout.conf').with_content(
+        %r{header=20-40,minrate=500}
+      )
+
+      is_expected.to render_file('/etc/apache2/mods-available/mod_reqtimeout.conf').with_content(
+        %r{body=10,minrate=500}
+      )
+    end
+  end
+
+
 end
