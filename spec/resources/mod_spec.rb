@@ -69,8 +69,5 @@ describe 'apache2_install' do
         /ProxyFtpListOnWildcards/
       )
     end
-
-
-
   end
 end
