@@ -57,8 +57,3 @@ default['apache']['event']['threadsperchild']     = 64
 default['apache']['event']['maxrequestworkers']   = 1024
 default['apache']['event']['maxconnectionsperchild'] = 0
 
-# mod_proxy settings
-default['apache']['proxy']['require']    = 'all denied'
-default['apache']['proxy']['order']      = 'deny,allow'
-default['apache']['proxy']['deny_from']  = 'all'
-default['apache']['proxy']['allow_from'] = 'none'
