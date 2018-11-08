@@ -2,16 +2,15 @@
   #turning ProxyRequests on and allowing proxying from all may allow
   #spammers to use your proxy to send email.
 
-  ProxyRequests Off
+  ProxyRequests <%= @proxy_requests %>
 
   <Proxy *>
-    AddDefaultCharset off
-    Require <%= node['apache']['proxy']['require'] %>
+    AddDefaultCharset <%=  @add_default_charset %>
+    Require <%= @require %>
   </Proxy>
 
   # Enable/disable the handling of HTTP/1.1 "Via:" headers.
   # ("Full" adds the server version; "Block" removes all outgoing Via: headers)
   # Set to one of: Off | On | Full | Block
-
-  ProxyVia On
+  ProxyVia <%= @proxy_via %>
 </IfModule>
