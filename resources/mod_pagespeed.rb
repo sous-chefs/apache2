@@ -39,25 +39,25 @@ property :output_filters, Array,
          default: ['MOD_PAGESPEED_OUTPUT_FILTER text/html'],
          description: ''
 
-property :inherit_vhost_config, String, 
+property :inherit_vhost_config, String,
          default: 'on',
          equal_to: %w(on off),
          description: ''
 
-property :rewrite_level, String, 
+property :rewrite_level, String,
          default: '',
-         equal_to: ['','PassThrough','CoreFilters','TestingCoreFilters'],
+         equal_to: ['', 'PassThrough', 'CoreFilters', 'TestingCoreFilters'],
          description: 'For full info see https://www.modpagespeed.com/doc/config_filters'
 
-property :disable_filters, String, 
-         default: '',
-         description: 'For full info see https://www.modpagespeed.com/doc/filters'
-         
-property :enable_filters, String, 
+property :disable_filters, String,
          default: '',
          description: 'For full info see https://www.modpagespeed.com/doc/filters'
 
-property :domain, String, 
+property :enable_filters, String,
+         default: '',
+         description: 'For full info see https://www.modpagespeed.com/doc/filters'
+
+property :domain, String,
          default: '',
          description: 'For full info see https://www.modpagespeed.com/doc/domains'
 
@@ -80,7 +80,7 @@ property :library, Array,
           '105527 ltVVzzYxo0 //ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js',
           '92501 J8KF47pYOq //ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js',
           '141547 GKjMUuF4PK //ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js',
-          '43 1o978_K0_L http://www.modpagespeed.com/rewrite_javascript.js'
+          '43 1o978_K0_L http://www.modpagespeed.com/rewrite_javascript.js',
         ],
         description: 'Array of libraries to load in the form "bytes MD5 canonical_url" we prepend ModPagespeedLibrary'
 
@@ -117,7 +117,7 @@ action :create do
       extra_config: new_resource.extra_config,
       file_cache_inode_limit: new_resource.file_cache_inode_limit,
       avoid_renaming_introspective_javascript: new_resource.avoid_renaming_introspective_javascript,
-      library: new_resource.library,
+      library: new_resource.library
     )
   end
 end
