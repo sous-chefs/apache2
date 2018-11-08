@@ -1,6 +1,6 @@
 #
 # Cookbook:: apache2
-# Resource:: apache2_conf
+# Resource:: apache2_mod_mpm_prefork
 #
 # Copyright:: 2008-2017, Chef Software, Inc.
 # Copyright:: 2018, Webb Agile Solutions Ltd.
@@ -18,27 +18,27 @@
 # limitations under the License.
 #
 
-property :startservers, String,
+property :startservers, Integer,
          default: 16,
          description: 'number of server processes to start'
 
-property :minspareservers, String,
+property :minspareservers, Integer,
          default: 16,
          description: 'minimum number of server processes which are kept spare'
 
-property :maxspareservers, String,
+property :maxspareservers, Integer,
          default: 32,
          description: 'maximum number of server processes which are kept spare'
 
-property :serverlimit, String,
+property :serverlimit, Integer,
          default: 256,
          description: ''
 
-property :maxrequestworkers, String,
+property :maxrequestworkers, Integer,
          default: 256,
          description: 'maximum number of server processes allowed to start'
 
-property :maxconnectionsperchild, String,
+property :maxconnectionsperchild, Integer,
          default: 10_000,
          description: ''
 
