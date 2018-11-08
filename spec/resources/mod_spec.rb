@@ -5,7 +5,8 @@ describe 'apache2_install' do
             :apache2_mod_reqtimeout,
             :apache2_mod_proxy,
             :apache2_mod_proxy_ftp,
-            :apache2_mod_pagespeed
+            :apache2_mod_pagespeed,
+            :apache2_mod_negotiation
 
   platform 'ubuntu'
 
@@ -71,7 +72,7 @@ describe 'apache2_install' do
       apache2_mod_pagespeed ''
     end
 
-    it 'outputs the proxy ftp template with the correct values' do
+    it 'outputs the pagespeed template with the correct values' do
       is_expected.to render_file('/etc/apache2/mods-available/mod_pagespeed.conf')
         .with_content(/ModPagespeed on/)
         .with_content(/ModPagespeedInheritVHostConfig on/)
@@ -95,6 +96,17 @@ describe 'apache2_install' do
       is_expected.to create_directory('/var/cache/mod_pagespeed/')
         .with_owner('www-data')
         .with_group('www-data')
+    end
+  end
+
+  context 'mod_negotiation' do
+    recipe do
+      apache2_mod_negotiation ''
+    end
+
+    it 'outputs the proxy negotiation template with the correct values' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_negotiation.conf')
+        .with_content(/en ca cs da de el eo es et fr he hr it ja ko ltz nl nn no pl pt pt-BR ru sv tr zh-CN zh-TW/)
     end
   end
 end
