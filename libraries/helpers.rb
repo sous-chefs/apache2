@@ -381,6 +381,14 @@ module Apache2
           false
         end
       end
+
+      def pagespeed_url
+        if node['kernel']['machine'] =~ /^i[36']86$/
+          'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.deb'
+        else
+          'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb'
+        end
+      end
     end
   end
 end
