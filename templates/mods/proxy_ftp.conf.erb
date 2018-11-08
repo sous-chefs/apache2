@@ -1,4 +1,12 @@
 <IfModule mod_proxy_ftp.c>
-  # Define the character set for proxied FTP listings. Default is ISO-8859-1
-  ProxyFtpDirCharset UTF-8
+  ProxyFtpDirCharset <%= @proxy_ftp_dir_charset %>
+
+  <% unless @proxy_ftp_escape_wildcards.empty? %>
+  ProxyFtpEscapeWildcards <%= @proxy_ftp_escape_wildcards %>
+  <% end -%>
+
+  <% unless @proxy_ftp_list_on_wildcard.empty? %>
+  ProxyFtpListOnWildcards <%= @proxy_ftp_list_on_wildcard %>
+  <% end -%>
+
 </IfModule>
