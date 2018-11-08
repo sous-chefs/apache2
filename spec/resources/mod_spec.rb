@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe 'apache2_install' do
-  step_into :apache2_mod_setenvif, :apache2_mod_reqtimeout, :apache2_mod_proxy
+  step_into :apache2_mod_setenvif,
+            :apache2_mod_reqtimeout,
+            :apache2_mod_proxy,
+            :apache2_mod_proxy_ftp
   platform 'ubuntu'
 
   context 'mod_setenvif' do
@@ -42,5 +45,32 @@ describe 'apache2_install' do
         /ProxyRequests Off/
       )
     end
+  end
+
+  context 'mod_proxy_ftp' do
+    recipe do
+      apache2_mod_proxy_ftp ''
+    end
+
+    it 'outputs the proxy ftp template with the correct values' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_proxy_ftp.conf').with_content(
+        /ProxyFtpDirCharset UTF-8/
+      )
+    end
+
+    it 'should not output empty value' do
+      is_expected.not_to render_file('/etc/apache2/mods-available/mod_proxy_ftp.conf').with_content(
+        /ProxyFtpEscapeWildcards/
+      )
+    end
+
+    it 'should not output empty value' do
+      is_expected.not_to render_file('/etc/apache2/mods-available/mod_proxy_ftp.conf').with_content(
+        /ProxyFtpListOnWildcards/
+      )
+    end
+
+
+
   end
 end
