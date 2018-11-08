@@ -1,11 +1,19 @@
 <IfModule mod_setenvif.c>
+  <% unless @browser_match.nil? %>
   <% @browser_match.each do |match| %>
   BrowserMatch <%= match %>
-  <% end %>
+  <% end -%>
+  <% end -%>
+
+  <% unless @browser_match.nil? %>
   <% @browser_matches_no_case.each do |match| %>
   BrowserMatchNoCase <%= match %>
-  <% end %>
+  <% end -%>
+  <% end -%>
+
+  <% unless @set_env_if_no_cases.nil? %>  
   <% @set_env_if_no_cases.each do |match| %>
   SetEnvIfNoCase <%= match %>
-  <% end %>
+  <% end -%>
+  <% end -%>
 </IfModule>

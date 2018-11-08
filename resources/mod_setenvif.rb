@@ -17,8 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include Apache2::Cookbook::Helpers
-
 property :browser_match, Array,
          default: [
            '"Mozilla/2" nokeepalive',
