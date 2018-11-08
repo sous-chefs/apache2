@@ -383,10 +383,17 @@ module Apache2
       end
 
       def pagespeed_url
+        case node['platform_family']
+        when 'redhat'
+          suffix = 'rpm'
+        when 'debian'
+          suffix = 'deb'
+        end
+
         if node['kernel']['machine'] =~ /^i[36']86$/
-          'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.deb'
+          "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.#{suffix}"
         else
-          'https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb'
+          "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.#{suffix}"
         end
       end
     end
