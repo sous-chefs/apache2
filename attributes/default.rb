@@ -47,14 +47,6 @@ default['apache']['ext_status'] = false
 # mod_info Allow list, space seprated list of allowed entries.
 default['apache']['info_allow_list'] = '127.0.0.1 ::1'
 
-# Prefork Attributes
-default['apache']['prefork']['startservers']        = 16
-default['apache']['prefork']['minspareservers']     = 16
-default['apache']['prefork']['maxspareservers']     = 32
-default['apache']['prefork']['serverlimit']         = 256
-default['apache']['prefork']['maxrequestworkers']   = 256
-default['apache']['prefork']['maxconnectionsperchild'] = 10_000
-
 # Event Attributes
 default['apache']['event']['startservers']        = 4
 default['apache']['event']['serverlimit']         = 16
