@@ -55,16 +55,6 @@ default['apache']['prefork']['serverlimit']         = 256
 default['apache']['prefork']['maxrequestworkers']   = 256
 default['apache']['prefork']['maxconnectionsperchild'] = 10_000
 
-# Worker Attributes
-default['apache']['worker']['startservers']        = 4
-default['apache']['worker']['serverlimit']         = 16
-default['apache']['worker']['minsparethreads']     = 64
-default['apache']['worker']['maxsparethreads']     = 192
-default['apache']['worker']['threadlimit']         = 192
-default['apache']['worker']['threadsperchild']     = 64
-default['apache']['worker']['maxrequestworkers']   = 1024
-default['apache']['worker']['maxconnectionsperchild'] = 0
-
 # Event Attributes
 default['apache']['event']['startservers']        = 4
 default['apache']['event']['serverlimit']         = 16
