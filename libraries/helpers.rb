@@ -23,6 +23,17 @@ module Apache2
         end
       end
 
+      def default_types_config
+        case node['platform_family']
+        when 'arch'
+          "#{apache_dir}/conf/mime.types"
+        when 'frebsd'
+          "#{apache_dir}/mime.types"
+        else
+          "/etc/mime.types"
+        end
+      end
+
       def apachectl
         case node['platform_family']
         when 'debian', 'suse'

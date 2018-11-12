@@ -6,7 +6,8 @@ describe 'apache2_install' do
             :apache2_mod_proxy,
             :apache2_mod_proxy_ftp,
             :apache2_mod_pagespeed,
-            :apache2_mod_negotiation
+            :apache2_mod_negotiation,
+            :apache2_mod_mime
 
   platform 'ubuntu'
 
@@ -107,6 +108,20 @@ describe 'apache2_install' do
     it 'outputs the proxy negotiation template with the correct values' do
       is_expected.to render_file('/etc/apache2/mods-available/mod_negotiation.conf')
         .with_content(/en ca cs da de el eo es et fr he hr it ja ko ltz nl nn no pl pt pt-BR ru sv tr zh-CN zh-TW/)
+    end
+  end
+
+  context 'mod_mime' do
+    recipe do
+      apache2_mod_mime ''
+    end
+
+    it 'outputs the mime template' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_mime.conf')
+        .with_content(/AddOutputFilter INCLUDES .shtml/)
+        .with_content(%r{AddType text/html .shtml})
+        .with_content(/AddHandler type-map var/) 
+        .with_content(/AddEncoding gzip svgz/)
     end
   end
 end
