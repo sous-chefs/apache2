@@ -398,8 +398,9 @@ module Apache2
       end
 
       def pagespeed_url
+        suffix = ''
         case node['platform_family']
-        when 'redhat'
+        when 'rhel'
           suffix = 'rpm'
         when 'debian'
           suffix = 'deb'
