@@ -30,7 +30,7 @@ module Apache2
         when 'frebsd'
           "#{apache_dir}/mime.types"
         else
-          "/etc/mime.types"
+          '/etc/mime.types'
         end
       end
 
