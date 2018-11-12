@@ -38,7 +38,7 @@ property :apache_service_notification, Symbol,
 action :enable do
   mod = "apache2_mod_#{new_resource.name}"
 
-  mod if new_resource.conf
+  send mod
 
   file ::File.join(apache_dir, 'mods-available', "#{new_resource.name}.load") do
     content "LoadModule #{new_resource.identifier} #{new_resource.path}\n"
