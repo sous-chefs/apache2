@@ -1,4 +1,4 @@
-<Location /ldap-status>
-   SetHandler ldap-status
-   Require local
+<Location <%= @location %>>
+   SetHandler <%= @set_handler %>
+   Require <%= @require %>
 </Location>

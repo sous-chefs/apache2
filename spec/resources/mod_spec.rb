@@ -8,7 +8,8 @@ describe 'apache2_install' do
             :apache2_mod_pagespeed,
             :apache2_mod_negotiation,
             :apache2_mod_mime,
-            :apache2_mod_mime_magic
+            :apache2_mod_mime_magic,
+            :apache2_mod_ldap
 
   platform 'ubuntu'
 
@@ -121,7 +122,7 @@ describe 'apache2_install' do
       is_expected.to render_file('/etc/apache2/mods-available/mod_mime.conf')
         .with_content(/AddOutputFilter INCLUDES .shtml/)
         .with_content(%r{AddType text/html .shtml})
-        .with_content(/AddHandler type-map var/) 
+        .with_content(/AddHandler type-map var/)
         .with_content(/AddEncoding gzip svgz/)
     end
   end
@@ -135,5 +136,16 @@ describe 'apache2_install' do
       is_expected.to render_file('/etc/apache2/mods-available/mod_mime_magic.conf')
         .with_content(%r{MIMEMagicFile /etc/apache2/magic})
     end
-  end  
+  end
+
+  context 'mod_ldap' do
+    recipe do
+      apache2_mod_ldap ''
+    end
+
+    it 'outputs the mime template' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_ldap.conf')
+        .with_content(/Require local/)
+    end
+  end
 end
