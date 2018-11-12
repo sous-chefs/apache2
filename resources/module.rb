@@ -36,9 +36,7 @@ property :apache_service_notification, Symbol,
          description: 'Service notifcation for apache2 service, accepts reload or restart.'
 
 action :enable do
-  mod = "apache2_mod_#{new_resource.name}"
-
-  send mod
+  send("apache2_mod_#{new_resource.name}", '') if new_resource.conf
 
   file ::File.join(apache_dir, 'mods-available', "#{new_resource.name}.load") do
     content "LoadModule #{new_resource.identifier} #{new_resource.path}\n"
