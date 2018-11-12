@@ -9,7 +9,8 @@ describe 'apache2_install' do
             :apache2_mod_negotiation,
             :apache2_mod_mime,
             :apache2_mod_mime_magic,
-            :apache2_mod_ldap
+            :apache2_mod_ldap,
+            :apache2_mod_include
 
   platform 'ubuntu'
 
@@ -146,6 +147,18 @@ describe 'apache2_install' do
     it 'outputs the mime template' do
       is_expected.to render_file('/etc/apache2/mods-available/mod_ldap.conf')
         .with_content(/Require local/)
+    end
+  end
+
+  context 'mod_include' do
+    recipe do
+      apache2_mod_include ''
+    end
+
+    it 'outputs the include template' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_include.conf')
+        .with_content(%r{AddType text/html .shtml})
+        .with_content(/AddOutputFilter INCLUDES .shtml/)
     end
   end
 end

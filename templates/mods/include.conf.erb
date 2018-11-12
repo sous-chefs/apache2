@@ -1,4 +1,13 @@
 <IfModule mod_include.c>
-	AddType text/html .shtml
-	AddOutputFilter INCLUDES .shtml
+	<% unless @add_type.empty? %>
+	<% @add_type.each_value do |type| %>
+	AddType <%= type %>
+	<% end -%>
+	<% end -%>
+
+	<% unless @add_output_filter.empty? %>
+	<% @add_output_filter.each_value do |filter| %>
+	AddOutputFilter <%= filter %>
+	<% end -%>
+	<% end -%>		
 </IfModule>
