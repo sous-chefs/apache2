@@ -292,6 +292,10 @@ module Apache2
         end
       end
 
+      def default_mime_magic_file
+        ::File.join(apache_dir, 'magic')
+      end
+
       def apache_pid_file
         case node['platform_family']
         when 'suse'

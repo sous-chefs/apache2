@@ -7,7 +7,8 @@ describe 'apache2_install' do
             :apache2_mod_proxy_ftp,
             :apache2_mod_pagespeed,
             :apache2_mod_negotiation,
-            :apache2_mod_mime
+            :apache2_mod_mime,
+            :apache2_mod_mime_magic
 
   platform 'ubuntu'
 
@@ -124,4 +125,15 @@ describe 'apache2_install' do
         .with_content(/AddEncoding gzip svgz/)
     end
   end
+
+  context 'mod_mime_magic' do
+    recipe do
+      apache2_mod_mime_magic ''
+    end
+
+    it 'outputs the mime template' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_mime_magic.conf')
+        .with_content(%r{MIMEMagicFile /etc/apache2/magic})
+    end
+  end  
 end
