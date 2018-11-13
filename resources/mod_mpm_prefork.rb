@@ -44,7 +44,7 @@ property :maxconnectionsperchild, Integer,
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'mod_mpm_prefork.conf') do
-    source 'mods/prefork.conf.erb'
+    source 'mods/mpm_prefork.conf.erb'
     cookbook 'apache2'
     variables(
       startservers: new_resource.startservers,
