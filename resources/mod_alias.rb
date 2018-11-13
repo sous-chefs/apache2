@@ -19,14 +19,14 @@
 #
 include Apache2::Cookbook::Helpers
 
-property :options, String,
-         default: 'Indexes MultiViews SymLinksIfOwnerMatch',
+property :options, Array,
+         default: %w(Indexes MultiViews SymLinksIfOwnerMatch),
          description: ''
 property :icondir, String,
          default: lazy { icon_dir },
          description: 'The icon directory'
-property :allow_override, String,
-         default: 'None',
+property :allow_override, Array,
+         default: %w(None),
          description: 'For full description see https://httpd.apache.org/docs/2.4/mod/core.html#allowoverride'
 property :require, String,
          default: 'all granted',
@@ -43,4 +43,8 @@ action :create do
       require: new_resource.require
     )
   end
+end
+
+action_class do
+  include Apache2::Cookbook::Helpers
 end

@@ -20,7 +20,8 @@ describe 'apache2_install' do
             :apache2_mod_cache_disk,
             :apache2_mod_autoindex,
             :apache2_mod_actions,
-            :apache2_mod_status
+            :apache2_mod_status,
+            :apache2_mod_alias
 
   platform 'ubuntu'
 
@@ -294,6 +295,18 @@ describe 'apache2_install' do
         .with_content(/ExtendedStatus Off/)
         .with_content(/ProxyStatus On/)
         .with_content(%r{<Location /server-status>})
+    end
+  end
+
+  context 'mod_alias' do
+    recipe do
+      apache2_mod_alias ''
+    end
+
+    it 'outputs template correctly' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_alias.conf')
+        .with_content(%r{Directory "/usr/share/apache2/icons"})
+        .with_content(/Require all granted/)
     end
   end
 end

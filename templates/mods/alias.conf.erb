@@ -15,8 +15,8 @@
   Alias /icons/ "<%= @icondir %>/"
 
   <Directory "<%= @icondir %>">
-    Options <%= @options %>
-    AllowOverride <%= @allowoverride %>
+    Options <%= @options.join(' ') %>
+    AllowOverride <%= @allow_override.join(' ') %>
     Require <%= @require %>
   </Directory>
 </IfModule>
