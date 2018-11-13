@@ -25,7 +25,7 @@ describe 'apache2_install' do
             :apache2_mod_mpm_event,
             :apache2_mod_mpm_worker,
             :apache2_mod_mpm_prefork,
-            :apache2_mod_mod_proxy_balancer,
+            :apache2_mod_proxy_balancer,
             :apache2_mod_mod_proxy_ftp,
             :apache2_mod_mod_proxy
 
