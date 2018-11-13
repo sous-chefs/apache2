@@ -29,7 +29,7 @@ elsif platform_family?('rhel', 'fedora', 'amazon')
     only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
   end
 elsif platform_family?('suse')
-  apache_lib_path = node['apache']['lib_dir']
+  apache_lib_path = lib_dir
 
   package node['apache']['devel_package']
 

@@ -19,7 +19,7 @@
 #
 
 package 'apache2' do
-  package_name node['apache']['package']
+  package_name apache_pkg
   default_release node['apache']['default_release'] unless node['apache']['default_release'].nil?
 end
 
@@ -50,7 +50,7 @@ directory node['apache']['log_dir'] do
 end
 
 # perl is needed for the a2* scripts
-package node['apache']['perl_pkg']
+package perl_pkg
 
 package 'perl-Getopt-Long-Descriptive' if platform?('fedora')
 
@@ -82,7 +82,7 @@ unless platform_family?('debian')
   end
 
   execute 'generate-module-list' do
-    command "/usr/local/bin/apache2_module_conf_generate.pl #{node['apache']['lib_dir']} #{apache_dir}/mods-available"
+    command "/usr/local/bin/apache2_module_conf_generate.pl #{lib_dir} #{apache_dir}/mods-available"
     action :nothing
   end
 end
@@ -159,9 +159,9 @@ end
 
 template 'apache2.conf' do
   if platform_family?('debian')
-    path "#{apache_dir}/apache2.conf"
+    path "#{apache_conf_dir}/apache2.conf"
   else
-    path "#{apache_dir}/httpd.conf"
+    path "#{apache_conf_dir}/httpd.conf"
   end
   action :create
   source 'apache2.conf.erb'
@@ -175,10 +175,17 @@ template 'apache2.conf' do
   notifies :reload, 'service[apache2]', :delayed
 end
 
-%w(security charset ports).each do |conf|
+%w(security charset).each do |conf|
   apache_conf conf do
     enable true
   end
+end
+
+template 'ports.conf' do
+  path "#{apache_dir}/ports.conf"
+  source 'ports.conf.erb'
+  mode '0644'
+  notifies :restart, 'service[apache2]', :delayed
 end
 
 if node['apache']['mpm_support'].include?(node['apache']['mpm'])

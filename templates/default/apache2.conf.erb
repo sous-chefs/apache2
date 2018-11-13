@@ -70,7 +70,7 @@ Group <%= node['apache']['group'] %>
 #
 # No DocumentRoot or other <Directory /> blocks are declared in this
 # file. These statements should be covered in virtual site files created
-# in "#{node['apache']['dir']}/sites-available.
+# in "#{apache_dir}/sites-available.
 #
 # AccessFileName: The name of the file to look for in each directory
 # for additional configuration directives.  See also the AllowOverride
@@ -136,6 +136,10 @@ IncludeOptional <%= @apache_dir %>/mods-enabled/*.conf
    AcceptFilter https none
 </IfDefine>
 <% end %>
+
+# Include ports listing
+Include <%= @apache_dir %>/ports.conf
+
 
 #
 # The following directives define some format nicknames for use with

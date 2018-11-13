@@ -21,7 +21,7 @@ define :apache_mod do
   require_relative '../libraries/helpers.rb'
   include_recipe 'apache2::default'
 
-  template "#{node['apache']['dir']}/mods-available/#{params[:name]}.conf" do
+  template "#{apache_dir}/mods-available/#{params[:name]}.conf" do
     source "mods/#{params[:name]}.conf.erb"
     mode '0644'
     variables(
