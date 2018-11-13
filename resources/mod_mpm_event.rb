@@ -50,8 +50,8 @@ property :maxconnectionsperchild, Integer,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_ssl.conf') do
-    source 'mods/alias.conf.erb'
+  template ::File.join(apache_dir, 'mods-available', 'mod_mpm_event.conf') do
+    source 'mods/mpm_event.conf.erb'
     cookbook 'apache2'
     variables(
       startservers:  new_resource.startservers,

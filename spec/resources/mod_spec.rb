@@ -21,7 +21,13 @@ describe 'apache2_install' do
             :apache2_mod_autoindex,
             :apache2_mod_actions,
             :apache2_mod_status,
-            :apache2_mod_alias
+            :apache2_mod_alias,
+            :apache2_mod_mpm_event,
+            :apache2_mod_mpm_worker,
+            :apache2_mod_mpm_prefork,
+            :apache2_mod_mod_proxy_balancer,
+            :apache2_mod_mod_proxy_ftp,
+            :apache2_mod_mod_proxy
 
   platform 'ubuntu'
 
@@ -307,6 +313,48 @@ describe 'apache2_install' do
       is_expected.to render_file('/etc/apache2/mods-available/mod_alias.conf')
         .with_content(%r{Directory "/usr/share/apache2/icons"})
         .with_content(/Require all granted/)
+    end
+  end
+
+  context 'mod_mpm_event' do
+    recipe do
+      apache2_mod_mpm_event ''
+    end
+
+    it 'outputs template correctly' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_mpm_event.conf')
+    end
+  end
+
+  context 'mod_mpm_worker' do
+    recipe do
+      apache2_mod_mpm_worker ''
+    end
+
+    it 'outputs template correctly' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_mpm_worker.conf')
+    end
+  end
+
+  context 'mod_mpm_prefork' do
+    recipe do
+      apache2_mod_mpm_prefork ''
+    end
+
+    it 'outputs template correctly' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_mpm_prefork.conf')
+    end
+  end
+
+  context 'mod_proxy_balancer' do
+    recipe do
+      apache2_mod_proxy_balancer ''
+    end
+
+    it 'outputs template correctly' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_proxy_balancer.conf')
+      # is_expected.not_to render_file('/etc/apache2/mods-available/mod_proxy_balancer.conf')
+      # .with_content(/SetHandler/)
     end
   end
 end
