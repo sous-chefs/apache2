@@ -17,12 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include Apache2::Cookbook::Helpers
-
 property :location, String,
          default: '/server-status'
-property :status_allow_list, String,
-         default: '127.0.0.1 ::1',
+property :status_allow_list, Array,
+         default: %w(127.0.0.1 ::1),
          description: 'Clients in the specified IP address ranges can access the resource. For full description see https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require'
 property :extended_status, String,
          equal_to: %w(On Off),
@@ -35,7 +33,7 @@ property :proxy_status, String,
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'mod_status.conf') do
-    source 'mods/alias.conf.erb'
+    source 'mods/status.conf.erb'
     cookbook 'apache2'
     variables(
       location: new_resource.location,
@@ -44,4 +42,8 @@ action :create do
       proxy_status: new_resource.proxy_status
     )
   end
+end
+
+action_class do
+  include Apache2::Cookbook::Helpers
 end

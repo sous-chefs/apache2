@@ -8,7 +8,7 @@
   <Location <%= @location %>>
     SetHandler server-status
     Require local
-    Require ip <%= @status_allow_list %>
+    Require ip <%= @status_allow_list.join(' ') %>
   </Location>
 
   #

@@ -19,7 +19,8 @@ describe 'apache2_install' do
             :apache2_mod_cgid,
             :apache2_mod_cache_disk,
             :apache2_mod_autoindex,
-            :apache2_mod_actions
+            :apache2_mod_actions,
+            :apache2_mod_status
 
   platform 'ubuntu'
 
@@ -279,6 +280,20 @@ describe 'apache2_install' do
 
       is_expected.not_to render_file('/etc/apache2/mods-available/mod_actions.conf')
         .with_content(/	Action /)
+    end
+  end
+
+  context 'mod_status' do
+    recipe do
+      apache2_mod_status ''
+    end
+
+    it 'outputs template correctly' do
+      is_expected.to render_file('/etc/apache2/mods-available/mod_status.conf')
+        .with_content(/Require ip 127.0.0.1 ::1/)
+        .with_content(/ExtendedStatus Off/)
+        .with_content(/ProxyStatus On/)
+        .with_content(%r{<Location /server-status>})
     end
   end
 end
