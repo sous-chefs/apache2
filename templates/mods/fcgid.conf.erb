@@ -1,4 +1,9 @@
 <IfModule mod_fcgid.c>
-  AddHandler    fcgid-script .fcgi
-  IPCConnectTimeout 20
+  <% unless @add_handler.empty? %>
+	<% @add_handler.each_value do |handler| %>
+	AddHandler <%= handler %>
+	<% end -%>
+	<% end -%>		
+
+  IPCConnectTimeout <%= @ipc_connect_timeout %>
 </IfModule>

@@ -21,7 +21,7 @@ platforms:
   - name: debian-8
   - name: debian-9
   - name: fedora-latest
-  - name: opensuse-leap
+  - name: opensuse-leap-15
   - name: ubuntu-16.04
   - name: ubuntu-18.04
 
