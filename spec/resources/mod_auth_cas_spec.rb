@@ -8,9 +8,9 @@ describe 'apache2_mod_auth_cas' do
     recipe do
       apache2_install 'package'
 
-      include_recipe 'apache2::mod_auth_cas'
+      apache2_mod_auth_cas 'package_install'
 
-      apache2_mod_auth_cas 'foo' do
+      apache2_mod_auth_cas 'source_install' do
         install_method 'source'
       end
     end
@@ -20,6 +20,7 @@ describe 'apache2_mod_auth_cas' do
       stub_command('test -f /usr/lib/apache2/modules/mod_auth_cas.so').and_return('bar')
 
       is_expected.to install_package('libapache2-mod-auth-cas')
+      is_expected.not_to install_package('mod_auth_cas')
     end
 
     it 'Creates the load template with the correct cach directory' do
