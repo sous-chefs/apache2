@@ -167,6 +167,15 @@ module Apache2
         end
       end
 
+      def default_cache_root
+        case node['platform_family']
+        when 'debian', 'suse', 'freebsd'
+          ::File.join(cache_dir, 'proxy')
+        else
+          ::File.join(cache_dir, 'mod_cache_disk')
+        end
+      end
+
       def lock_dir
         case node['platform_family']
         when 'debian'

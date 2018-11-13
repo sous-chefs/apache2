@@ -6,4 +6,9 @@
   # Format: Action media/type /cgi-script/location
   # Format: Action handler-name /cgi-script/location
   #
+  <% unless @actions.empty? %>
+	<% @actions.each do |handler_name, location| %>
+	Action <%= handler_name location %>
+	<% end -%>
+	<% end -%>		
 </IfModule>

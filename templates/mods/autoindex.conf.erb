@@ -8,7 +8,7 @@
   # listings.
   # Remove/replace the "Charset=UTF-8" if you don't use UTF-8 for your filenames.
   #
-  IndexOptions FancyIndexing VersionSort HTMLTable NameWidth=* DescriptionWidth=* Charset=UTF-8
+  IndexOptions <%= @index_options.join(' ') %>
 
   #
   # AddIcon* directives tell the server which icon to show for different
@@ -79,9 +79,6 @@
   # directories.
   # Format: AddDescription "description" filename
   #
-  #AddDescription "GZIP compressed document" .gz
-  #AddDescription "tar archive" .tar
-  #AddDescription "GZIP compressed tar archive" .tgz
 
   #
   # ReadmeName is the name of the README file the server will look for by
@@ -89,12 +86,12 @@
   #
   # HeaderName is the name of a file which should be prepended to
   # directory indexes.
-  ReadmeName README.html
-  HeaderName HEADER.html
+  ReadmeName <%= @readme_name%> 
+  HeaderName <%= @header_name%>
 
   #
   # IndexIgnore is a set of filenames which directory indexing should ignore
   # and not include in the listing.  Shell-style wildcarding is permitted.
   #
-  IndexIgnore .??* *~ *# RCS CVS *,v *,t
+  IndexIgnore <%= @index_ignore %>
 </IfModule>
