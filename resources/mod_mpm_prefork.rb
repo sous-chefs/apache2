@@ -43,7 +43,7 @@ property :maxconnectionsperchild, Integer,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_mom_prefork.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'mod_mpm_prefork.conf') do
     source 'mods/prefork.conf.erb'
     cookbook 'apache2'
     variables(
