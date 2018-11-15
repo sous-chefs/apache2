@@ -33,8 +33,7 @@ property :options, Hash,
          default: {
            server_tokens: 'Prod',
            server_signature: 'On',
-           trace_enable: 'Off',
-           listen: '80',
+           trace_enable: 'Off'
          },
          description: 'A hash to pass to the template'
 
@@ -49,8 +48,7 @@ action :enable do
       apache_dir: apache_dir,
       server_tokens: new_resource.options[:server_tokens],
       server_signature: new_resource.options[:server_signature],
-      trace_enable: new_resource.options[:trace_enable],
-      listen: new_resource.options[:listen]
+      trace_enable: new_resource.options[:trace_enable]
     )
     notifies :restart, 'service[apache2]', :delayed
   end
