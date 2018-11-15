@@ -68,6 +68,9 @@ property :docroot_dir, String,
 property :run_dir, String,
          default: lazy { default_run_dir },
          description: 'Location for APACHE_RUN_DIR. Defaults to platform specific locations, see libraries/helpers.rb'
+property :access_file_name, String,
+         defualt: '.htaccess',
+         description: 'String: Access filename'
 
 action :install do
   package [apache_pkg, perl_pkg]
@@ -213,33 +216,17 @@ action :install do
     only_if { platform_family?('debian') }
   end
 
-  template 'apache2.conf' do
-    if platform_family?('debian')
-      path "#{apache_conf_dir}/apache2.conf"
-    else
-      path "#{apache_conf_dir}/httpd.conf"
-    end
-    action :create
-    source 'apache2.conf.erb'
-    cookbook 'apache2'
-    owner 'root'
-    group new_resource.root_group
-    mode '0640'
-    variables(
-      apache_binary: apache_binary,
-      apache_dir: apache_dir,
-      lock_dir: lock_dir,
-      log_dir: new_resource.log_dir,
-      error_log: new_resource.error_log,
-      log_level: new_resource.log_level,
-      pid_file: apache_pid_file,
-      apache_user: new_resource.apache_user,
-      apache_group: new_resource.apache_group,
-      keep_alive: new_resource.keep_alive,
-      max_keep_alive_requests: new_resource.max_keep_alive_requests,
-      keep_alive_timeout: new_resource.keep_alive_timeout,
-      docroot_dir: new_resource.docroot_dir
-    )
+  apache2_config 'apache2.conf' do
+    access_file_name new_resource.access_file_name
+    log_dir new_resource.log_dir
+    error_log new_resource.error_log
+    log_level new_resource.log_level
+    apache_user new_resource.apache_user
+    apache_group new_resource.apache_group
+    keep_alive new_resource.keep_alive
+    max_keep_alive_requests new_resource.max_keep_alive_requests
+    keep_alive_timeout new_resource.keep_alive_timeout
+    docroot_dir new_resource.docroot_dir
   end
 
   apache2_conf 'security'
@@ -251,7 +238,7 @@ action :install do
     mode     '0644'
     variables(
       listen: new_resource.listen
-      )
+    )
   end
 
   # MPM Support Setup
