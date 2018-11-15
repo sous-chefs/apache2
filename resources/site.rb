@@ -1,6 +1,6 @@
 #
 # Cookbook:: apache2
-# Resource:: apache2_conf
+# Resource:: apache2_site
 #
 # Copyright:: 2008-2017, Chef Software, Inc.
 # Copyright:: 2018, Webb Agile Solutions Ltd.
