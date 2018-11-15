@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'apache2_install' do
-  step_into :apache2_install
+  step_into :apache2_install, :apache2_config
   platform 'ubuntu'
 
   context 'install apache2 with default properties' do
@@ -13,6 +13,7 @@ describe 'apache2_install' do
       stub_command('/usr/sbin/apache2 -t').and_return('foo')
 
       is_expected.to create_template('/etc/apache2/apache2.conf').with_variables(
+        access_file_name: '.htaccess',
         apache_binary: '/usr/sbin/apache2',
         apache_dir: '/etc/apache2',
         apache_group: 'www-data',

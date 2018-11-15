@@ -4,7 +4,7 @@ property :root_group, String,
          default: lazy { default_apache_root_group },
          description: 'Group that the root user on the box runs as. Defaults to platform specific locations, see libraries/helpers.rb'
 property :access_file_name, String,
-         defualt: '.htaccess',
+         default: '.htaccess',
          description: 'String: Access filename'
 property :log_dir, String,
          default: lazy { default_log_dir },
