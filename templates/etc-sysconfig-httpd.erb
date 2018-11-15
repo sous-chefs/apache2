@@ -30,6 +30,8 @@ HTTPD_LANG=<%= @apache_locale %>
 #
 PIDFILE=<%= @apache_pid_file %>
 
-<% node['apache']['sysconfig_additional_params'].each do |k,v| %>
+<% unless @sysconfig_additional_params.nil? %>
+<% @sysconfig_additional_params.each do |k,v| %>
 <%= "#{k}=#{v}" %>
-<% end %>
+<% end -%>
+<% end -%>
