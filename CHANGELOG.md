@@ -6,85 +6,93 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 **Breaking Change**
 
--   Default recipe now calls the install resource!
--   Add helpers: cache_dir, lock_dir, apache_default_user
--   Add helpers: default_modules, mpm_support, default modules
--   Add helpers: status_url, apache_locale
--   Remove all mpm_ recipes. Move mpm setup to the install resource
--   Fix Options allowed in alias.conf
--   Remove MPM setup as it breaks things, just leave it alone for now
--   Remove FreeBSD, openSuse & Fedora Kitchen testing
--   Rename test cookbook name to test
--   Add CircleCI and remove Travis
--   Add CircleCI Orbs
--   Include apache2 hardening inspec tests
--   Fix readme by removing huge chunks of it
--   Remove all mpm_ recipes
--   Allow user to set the mpm mode no matter what platform they're on
--   Set the server to listen on ports 80 and 443 by default
--   Add dev-sec/apache-baseline tests and set cookbook defaults to secure defaults
--   Add CircleCI
--   Cleanup test integration directory
+See UPGRADING.md for upgrading.
+
+### Behavour Changes
+
+- Default recipe now calls the install resource!
+- Add helpers: for a full list see `libraries/helpers.rb`
+- Remove all `mpm_` recipes. Move mpm setup to the install resource
+- Allow user to set the mpm mode no matter what platform they're on
+- Remove MPM setup as it breaks things, just leave it alone for now
+- Remove FreeBSD, openSuse & Fedora Kitchen testing
+- `mod_` recipes now call `apache2_module_`.
+- Mod templates are now more configurable when calling the resources directly
+
+### Testing/CI
+
+- Add CircleCI and remove Travis
+- Add CircleCI Orbs
+- Rename test cookbook name to test
+- Include apache2 hardening inspec tests
+- Cleanup test integration directory
+- Specs added for most helpers.
+
+### Mic Updates & Improvements
+
+- Update README
+- Add dev-sec/apache-baseline tests and set cookbook defaults to secure defaults
+- Set the server to listen on ports 80 and 443 by default
+- Fix Options allowed in alias.conf
 
 ## v5.2.1 (04-09-2018)
 
--   Revert ports.conf fix (ports.conf that gets installed by package conflicts.
+- Revert ports.conf fix (ports.conf that gets installed by package conflicts.
 
 ## v5.2.0 (26-08-2018)
 
--   Drop Chef 12 support
--   Add Danger and CircleCI support
--   Move apache binary detection to the helpers file
--   Adds apache_platform_service_name, apache_dir ,apache_conf_dir helpers
--   Update kitchen configuration
--   Fix ports.conf location and how its set up (#550, skadz)
--   Allow httpd -t timeout to be configurable (#547, skadz)
+- Drop Chef 12 support
+- Add Danger and CircleCI support
+- Move apache binary detection to the helpers file
+- Adds apache_platform_service_name, apache_dir ,apache_conf_dir helpers
+- Update kitchen configuration
+- Fix ports.conf location and how its set up (#550, skadz)
+- Allow httpd -t timeout to be configurable (#547, skadz)
 
 ## v5.0.1 (2017-09-01)
 
--   Test using dokken-images in kitchen-dokken
--   Fix readme section for mod_php
--   Replace the existing testing.md contents with a link to the Chef testing docs
--   Fix mod_ldap failing on non-RHEL platforms
--   Fix mod_dav_svn to install the correct packages on Debian 8/9
+- Test using dokken-images in kitchen-dokken
+- Fix readme section for mod_php
+- Replace the existing testing.md contents with a link to the Chef testing docs
+- Fix mod_ldap failing on non-RHEL platforms
+- Fix mod_dav_svn to install the correct packages on Debian 8/9
 
 ## v5.0.0 (2017-07-13)
 
 ### Breaking changes
 
--   Support for Apache 2.2 has been fully removed so we can focus on providing a solid experience for Apache 2.4 and above. This removes support for RHEL 6, SLES 11, and Debian 7
+- Support for Apache 2.2 has been fully removed so we can focus on providing a solid experience for Apache 2.4 and above. This removes support for RHEL 6, SLES 11, and Debian 7
 
 ### Other changes
 
--   Fixed openSUSE support in multiple places and added integration testing for openSUSE in Travis
+- Fixed openSUSE support in multiple places and added integration testing for openSUSE in Travis
 
 ## v4.0.0 (2017-07-10)
 
 ### Breaking changes
 
--   This cookbook now requires Chef 12.1 or later
--   Support for Apache 2.2 on FreeBSD has been removed
--   Support for Amazon Linux < 2013.09 has been removed
--   Support for end of life releases of Fedora (< 24), CentOS (5), Debian (6), Linux Mint (17), and Ubuntu (12.04) have been removed
--   Removed the deprecated recipes for mod_authz_default and mod_php5
+- This cookbook now requires Chef 12.1 or later
+- Support for Apache 2.2 on FreeBSD has been removed
+- Support for Amazon Linux < 2013.09 has been removed
+- Support for end of life releases of Fedora (< 24), CentOS (5), Debian (6), Linux Mint (17), and Ubuntu (12.04) have been removed
+- Removed the deprecated recipes for mod_authz_default and mod_php5
 
 ### Other changes
 
--   Switched many package resources to Chef 12+ multipackage style to speed up Chef converges and reduce log clutter
--   mod_cache is now enabled when using mod_cache_disk and mod_cache_socache
--   The mod_cloudflare recipe now sets up the Apt repo with https
--   Improved support for Amazon Linux on Chef 13 and added Test Kitchen amazon testing
--   Improved support for Debian and RHEL derivative platforms
--   Improved Fedora support in multiple modules
--   Improved error logging for unsupported platforms in the mod_negotiation and mod_unixd recipes
--   Switched from Rake for testing to Delivery local mode
--   Setup integration testing with kitchen-dokken for core platforms in Travis so that every PR is now fully tested
--   Removed the EC2 and Docker kitchen files now that we have kitchen-dokken setup
--   Removed apt, pacman, yum, and zypper from the Berksfile as they're no longer needed for testing
--   Removed testing dependencies from the Gemfile as we're testing using ChefDK
--   Added integration testing for new Debian releases
+- Switched many package resources to Chef 12+ multipackage style to speed up Chef converges and reduce log clutter
+- mod_cache is now enabled when using mod_cache_disk and mod_cache_socache
+- The mod_cloudflare recipe now sets up the Apt repo with https
+- Improved support for Amazon Linux on Chef 13 and added Test Kitchen amazon testing
+- Improved support for Debian and RHEL derivative platforms
+- Improved Fedora support in multiple modules
+- Improved error logging for unsupported platforms in the mod_negotiation and mod_unixd recipes
+- Switched from Rake for testing to Delivery local mode
+- Setup integration testing with kitchen-dokken for core platforms in Travis so that every PR is now fully tested
+- Removed the EC2 and Docker kitchen files now that we have kitchen-dokken setup
+- Removed apt, pacman, yum, and zypper from the Berksfile as they're no longer needed for testing
+- Removed testing dependencies from the Gemfile as we're testing using ChefDK
+- Added integration testing for new Debian releases
 
 ## Pre 4.0 Changelog
 
-For changelog entries pre4.0 please see
-[the pre-4.0 CHANGELOG](CHANGELOG-pre4.md).
+For changelog entries pre4.0 please see [the pre-4.0 CHANGELOG](CHANGELOG-pre4.md).
