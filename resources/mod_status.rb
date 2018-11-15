@@ -32,7 +32,7 @@ property :proxy_status, String,
          description: 'For info see: https://httpd.apache.org/docs/current/mod/mod_status.html'
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_status.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'status.conf') do
     source 'mods/status.conf.erb'
     cookbook 'apache2'
     variables(

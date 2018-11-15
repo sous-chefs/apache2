@@ -43,7 +43,7 @@ property :set_env_if_no_case, Array,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_setenvif.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'setenvif.conf') do
     source 'mods/setenvif.conf.erb'
     cookbook 'apache2'
     variables(

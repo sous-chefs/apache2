@@ -49,7 +49,7 @@ property :add_language, Hash,
          description: 'Not currently used'
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_mime.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'mime.conf') do
     source 'mods/mime.conf.erb'
     cookbook 'apache2'
     variables(

@@ -26,7 +26,7 @@ property :force_language_priority, String,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_negotiation.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'negotiation.conf') do
     source 'mods/negotiation.conf.erb'
     cookbook 'apache2'
     variables(

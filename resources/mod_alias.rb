@@ -33,7 +33,7 @@ property :require, String,
          description: 'For full description see https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require'
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_alias.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'alias.conf') do
     source 'mods/alias.conf.erb'
     cookbook 'apache2'
     variables(

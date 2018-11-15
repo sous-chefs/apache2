@@ -30,7 +30,7 @@ property :allow_override, String,
          description: 'For full description see https://httpd.apache.org/docs/2.4/mod/core.html#allowoverride'
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_userdir.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'userdir.conf') do
     source 'mods/userdir.conf.erb'
     cookbook 'apache2'
     variables(

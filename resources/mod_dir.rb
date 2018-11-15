@@ -29,7 +29,7 @@ property :directory_index, Array,
          description: 'Array of directory indexes'
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_dir.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'dir.conf') do
     source 'mods/dir.conf.erb'
     cookbook 'apache2'
     variables(

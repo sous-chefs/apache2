@@ -102,7 +102,7 @@ action :create do
     mode '0750'
   end
 
-  template ::File.join(apache_dir, 'mods-available', 'mod_pagespeed.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'pagespeed.conf') do
     source 'mods/pagespeed.conf.erb'
     cookbook 'apache2'
     variables(

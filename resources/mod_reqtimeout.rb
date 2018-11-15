@@ -25,7 +25,7 @@ property :request_read_timeout, Hash,
          description: 'A hash of ordered rules. For full information see https://httpd.apache.org/docs/2.4/mod/mod_reqtimeout.html'
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_reqtimeout.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'reqtimeout.conf') do
     source 'mods/reqtimeout.conf.erb'
     cookbook 'apache2'
     variables(request_read_timeout: new_resource.request_read_timeout)

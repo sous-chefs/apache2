@@ -24,7 +24,7 @@ default: {},
 description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_actions.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'actions.conf') do
     source 'mods/actions.conf.erb'
     cookbook 'apache2'
     variables(
