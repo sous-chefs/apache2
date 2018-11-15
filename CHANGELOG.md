@@ -27,6 +27,7 @@ See UPGRADING.md for upgrading.
 - Include apache2 hardening inspec tests
 - Cleanup test integration directory
 - Specs added for most helpers.
+- Make sysconfig paramters configurable via the install resource
 
 ### Mic Updates & Improvements
 

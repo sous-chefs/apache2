@@ -71,6 +71,9 @@ property :run_dir, String,
 property :access_file_name, String,
          defualt: '.htaccess',
          description: 'String: Access filename'
+property :sysconfig_additional_params, Hash,
+         default: {},
+         description: 'Hash of additional sysconfig parameters to apply to the system'
 
 action :install do
   package [apache_pkg, perl_pkg]
