@@ -1,5 +1,6 @@
 #
 # Cookbook:: apache2
+# Resource:: apache2_mod_fastcgi
 # Resource:: apache2_conf
 #
 # Copyright:: 2008-2017, Chef Software, Inc.
