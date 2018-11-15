@@ -37,7 +37,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_setenvif.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/setenvif.conf')
         .with_content(%r{BrowserMatch "Konqueror/4" redirect-carefully})
     end
   end
@@ -48,10 +48,10 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_reqtimeout.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/reqtimeout.conf')
         .with_content(/header=20-40,minrate=500/)
 
-      is_expected.to render_file('/etc/apache2/mods-available/mod_reqtimeout.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/reqtimeout.conf')
         .with_content(/body=10,minrate=500/)
     end
   end
@@ -62,7 +62,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_proxy.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/proxy.conf')
         .with_content(/ProxyRequests Off/)
     end
   end
@@ -73,12 +73,12 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_proxy_ftp.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/proxy_ftp.conf')
         .with_content(/ProxyFtpDirCharset UTF-8/)
     end
 
     it 'should not output empty value' do
-      is_expected.not_to render_file('/etc/apache2/mods-available/mod_proxy_ftp.conf')
+      is_expected.not_to render_file('/etc/apache2/mods-available/proxy_ftp.conf')
         .with_content(/ProxyFtpEscapeWildcards/)
         .with_content(/ProxyFtpListOnWildcards/)
     end
@@ -90,14 +90,14 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_pagespeed.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/pagespeed.conf')
         .with_content(/ModPagespeed on/)
         .with_content(/ModPagespeedInheritVHostConfig on/)
         .with_content(%r{AddOutputFilterByType MOD_PAGESPEED_OUTPUT_FILTER text/html})
         .with_content(/ModPagespeedInheritVHostConfig on/)
         .with_content(/ModPagespeedFileCacheInodeLimit 500000/)
 
-      is_expected.not_to render_file('/etc/apache2/mods-available/mod_pagespeed.conf')
+      is_expected.not_to render_file('/etc/apache2/mods-available/pagespeed.conf')
         .with_content(%r{AddOutputFilterByType application/xhtml+xml})
         .with_content(/ModPagespeedRewriteLevel PassThrough/)
         .with_content(/ModPagespeedDisableFilters/)
@@ -122,7 +122,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_negotiation.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/negotiation.conf')
         .with_content(/en ca cs da de el eo es et fr he hr it ja ko ltz nl nn no pl pt pt-BR ru sv tr zh-CN zh-TW/)
     end
   end
@@ -133,7 +133,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_mime.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/mime.conf')
         .with_content(/AddOutputFilter INCLUDES .shtml/)
         .with_content(%r{AddType text/html .shtml})
         .with_content(/AddHandler type-map var/)
@@ -147,7 +147,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_mime_magic.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/mime_magic.conf')
         .with_content(%r{MIMEMagicFile /etc/apache2/magic})
     end
   end
@@ -158,7 +158,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_ldap.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/ldap.conf')
         .with_content(/Require local/)
     end
   end
@@ -169,7 +169,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_include.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/include.conf')
         .with_content(%r{AddType text/html .shtml})
         .with_content(/AddOutputFilter INCLUDES .shtml/)
     end
@@ -181,7 +181,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_fcgid.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/fcgid.conf')
         .with_content(/AddHandler fcgid-script .fcgi/)
         .with_content(/IPCConnectTimeout 20/)
     end
@@ -193,10 +193,10 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_fastcgi.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/fastcgi.conf')
         .with_content(%r{FastCgiIpcDir /usr/lib/apache2/fastcgi})
 
-      is_expected.not_to render_file('/etc/apache2/mods-available/mod_fastcgi.conf')
+      is_expected.not_to render_file('/etc/apache2/mods-available/fastcgi.conf')
         .with_content(%r{FastCgiWrapper /usr/lib/apache2/suexec})
     end
   end
@@ -207,7 +207,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_dir.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/dir.conf')
         .with_content(/DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm/)
     end
   end
@@ -218,7 +218,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_deflate.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/deflate.conf')
         .with_content(/AddOutputFilterByType/)
         .with_content(%r{AddOutputFilterByType DEFLATE image/svg\+xml})
         .with_content(%r{AddOutputFilterByType DEFLATE application/x-httpd-eruby})
@@ -231,7 +231,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_dav_fs.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/dav_fs.conf')
         .with_content(%r{DAVLockDB /var/lock/apache2/DAVLock})
     end
   end
@@ -242,7 +242,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_cgid.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/cgid.conf')
         .with_content(%r{ScriptSock /var/run/apache2/cgisock})
     end
   end
@@ -253,7 +253,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_cache_disk.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/cache_disk.conf')
         .with_content(%r{CacheRoot /var/cache/apache2/proxy})
         .with_content(/CacheDirLevels 2/)
         .with_content(/CacheDirLength 2/)
@@ -266,13 +266,13 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_autoindex.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/autoindex.conf')
         .with_content(/IndexOptions FancyIndexing VersionSort HTMLTable NameWidth=\* DescriptionWidth=\* Charset=UTF-8/)
         .with_content(/ReadmeName README.html/)
         .with_content(/HeaderName HEADER.html/)
         .with_content(/IndexIgnore .\?\?\* \*~ \*# RCS CVS \*,v \*,t/)
 
-      is_expected.not_to render_file('/etc/apache2/mods-available/mod_autoindex.conf')
+      is_expected.not_to render_file('/etc/apache2/mods-available/autoindex.conf')
         .with_content(/AddDescription "GZIP compressed tar archive" .tgz/)
     end
   end
@@ -283,9 +283,9 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_actions.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/actions.conf')
 
-      is_expected.not_to render_file('/etc/apache2/mods-available/mod_actions.conf')
+      is_expected.not_to render_file('/etc/apache2/mods-available/actions.conf')
         .with_content(/	Action /)
     end
   end
@@ -296,7 +296,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_status.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/status.conf')
         .with_content(/Require ip 127.0.0.1 ::1/)
         .with_content(/ExtendedStatus Off/)
         .with_content(/ProxyStatus On/)
@@ -310,7 +310,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_alias.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/alias.conf')
         .with_content(%r{Directory "/usr/share/apache2/icons"})
         .with_content(/Require all granted/)
     end
@@ -322,7 +322,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_mpm_event.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/mpm_event.conf')
     end
   end
 
@@ -332,7 +332,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_mpm_worker.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/mpm_worker.conf')
     end
   end
 
@@ -342,7 +342,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_mpm_prefork.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/mpm_prefork.conf')
     end
   end
 
@@ -352,8 +352,8 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/mod_proxy_balancer.conf')
-      # is_expected.not_to render_file('/etc/apache2/mods-available/mod_proxy_balancer.conf')
+      is_expected.to render_file('/etc/apache2/mods-available/proxy_balancer.conf')
+      # is_expected.not_to render_file('/etc/apache2/mods-available/proxy_balancer.conf')
       # .with_content(/SetHandler/)
     end
   end
@@ -370,7 +370,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      is_expected.to render_file('/etc/httpd/mods-available/mod_mime.conf')
+      is_expected.to render_file('/etc/httpd/mods-available/mime.conf')
         .with_content(%r{TypesConfig /etc/mime.types})
     end
   end
