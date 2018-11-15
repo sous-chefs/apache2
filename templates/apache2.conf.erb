@@ -71,19 +71,21 @@ KeepAliveTimeout <%= @keep_alive_timeout %>
 # directive.
 #
 
-AccessFileName <%= node['apache']['access_file_name'] %>
+AccessFileName <%= @access_file_name %>
 
 #
 # The following lines prevent .htaccess and .htpasswd files from being
 # viewed by Web clients.
 #
-<% access_file_name_prefix = node['apache']['access_file_name'][0..2] if !node['apache']['access_file_name'].empty?
+<% unless @access_file_name.empty? %>
+<% access_file_name_prefix = @access_file_name[0..2]
    if access_file_name_prefix != '.ht'
     file_name_prefix = '(' + access_file_name_prefix + '|\.ht)'
    else
     file_name_prefix = '\.ht'
    end
 %>
+<% end -%>
 <Files ~ "^<%= file_name_prefix %>">
     Require all denied
 </Files>
@@ -124,7 +126,7 @@ LogLevel <%= @log_level %>
 IncludeOptional <%= @apache_dir %>/mods-enabled/*.load
 IncludeOptional <%= @apache_dir %>/mods-enabled/*.conf
 
-<% if %w[freebsd].include?(node['platform_family']) -%>
+<% if node['platform_family'] =~ /freebsd/ -%>
 <IfDefine NOHTTPACCEPT>
    AcceptFilter http none
    AcceptFilter https none

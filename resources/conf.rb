@@ -33,7 +33,7 @@ property :options, Hash,
          default: {
            server_tokens: 'Prod',
            server_signature: 'On',
-           trace_enable: 'Off'
+           trace_enable: 'Off',
          },
          description: 'A hash to pass to the template'
 
