@@ -67,7 +67,7 @@ property :docroot_dir, String,
          description: 'Apache document root. Defaults to platform specific locations, see libraries/helpers.rb'
 property :run_dir, String,
          default: lazy { default_run_dir },
-         describe: 'Location for APACHE_RUN_DIR. Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Location for APACHE_RUN_DIR. Defaults to platform specific locations, see libraries/helpers.rb'
 
 action :install do
   package [apache_pkg, perl_pkg]
@@ -84,6 +84,13 @@ action :install do
       mode '0750'
       owner 'root'
       group new_resource.root_group
+    end
+  end
+
+  %w( conf.d conf.modules.d ).each do |dir|
+    directory "#{apache_dir}/#{dir}" do
+      recursive true
+      action :delete
     end
   end
 
