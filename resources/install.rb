@@ -245,12 +245,9 @@ action :install do
   apache2_conf 'security'
   apache2_conf 'charset'
 
-  template 'ports.conf' do
-    path "#{apache_dir}/ports.conf"
-    source 'ports.conf.erb'
-    cookbook 'apache2'
-    mode '0644'
-    variables(listen: new_resource.listen)
+  apache2_conf 'ports' do
+    path    apache_dir
+    options listen: new_resource.listen
   end
 
   # MPM Support Setup

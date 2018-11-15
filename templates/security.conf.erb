@@ -9,7 +9,7 @@
 # Set to one of:  Full | OS | Minimal | Minor | Major | Prod
 # where Full conveys the most information, and Prod the least.
 #
-ServerTokens <%= node['apache']['servertokens'] %>
+ServerTokens <%= @server_tokens %>
 
 #
 # Optionally add a line containing the server version and virtual host
@@ -19,7 +19,7 @@ ServerTokens <%= node['apache']['servertokens'] %>
 # Set to "EMail" to also include a mailto: link to the ServerAdmin.
 # Set to one of:  On | Off | EMail
 #
-ServerSignature <%= node['apache']['serversignature'] %>
+ServerSignature <%= @server_signature %>
 
 #
 # Allow TRACE method
@@ -29,4 +29,4 @@ ServerSignature <%= node['apache']['serversignature'] %>
 #
 # Set to one of:  On | Off | extended
 #
-TraceEnable <%= node['apache']['traceenable'] %>
+TraceEnable <%= @trace_enable %>
