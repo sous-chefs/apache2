@@ -27,11 +27,3 @@
 default['apache']['sysconfig_additional_params'] = {}
 default['apache']['default_site_port'] = '80'
 default['apache']['access_file_name'] = '.htaccess'
-
-# Security
-default['apache']['servertokens']    = 'Prod'
-default['apache']['serversignature'] = 'On'
-default['apache']['traceenable']     = 'Off'
-
-# mod_status ExtendedStatus, set to 'true' to enable
-default['apache']['ext_status'] = false
