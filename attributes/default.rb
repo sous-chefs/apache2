@@ -24,13 +24,8 @@
 ###
 
 # General settings
-default['apache']['listen']            = ['*:80']
-default['apache']['contact']           = 'ops@example.com'
-default['apache']['timeout']           = 300
-default['apache']['locale'] = 'C'
 default['apache']['sysconfig_additional_params'] = {}
-default['apache']['default_site_enabled'] = false
-default['apache']['default_site_port']    = '80'
+default['apache']['default_site_port'] = '80'
 default['apache']['access_file_name'] = '.htaccess'
 
 # Security
