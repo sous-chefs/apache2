@@ -50,7 +50,7 @@ property :serverlimit, Integer,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_mpm_worker.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'mpm_worker.conf') do
     source 'mods/mpm_worker.conf.erb'
     cookbook 'apache2'
     variables(

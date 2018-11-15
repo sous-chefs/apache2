@@ -29,7 +29,7 @@ property :ipc_connect_timeout, Integer,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_fcgid.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'fcgid.conf') do
     source 'mods/fcgid.conf.erb'
     cookbook 'apache2'
     variables(

@@ -34,7 +34,7 @@ property :fast_cgi_ipc_dir, String,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_fastcgi.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'fastcgi.conf') do
     source 'mods/fastcgi.conf.erb'
     cookbook 'apache2'
     variables(

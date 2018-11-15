@@ -20,7 +20,7 @@
 property :info_allow_list, String, default: '127.0.0.1 ::1', description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_info.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'info.conf') do
     source 'mods/info.conf.erb'
     cookbook 'apache2'
     variables(

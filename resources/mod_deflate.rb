@@ -36,7 +36,7 @@ property :add_output_filter_by_type, Hash,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_deflate.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'deflate.conf') do
     source 'mods/deflate.conf.erb'
     cookbook 'apache2'
     variables(

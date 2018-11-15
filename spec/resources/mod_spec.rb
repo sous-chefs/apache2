@@ -358,3 +358,20 @@ describe 'apache2_install' do
     end
   end
 end
+
+describe 'apache2_install' do
+  step_into :apache2_mod_mime
+
+  platform 'redhat'
+
+  context 'mod_mime' do
+    recipe do
+      apache2_mod_mime ''
+    end
+
+    it 'outputs template correctly' do
+      is_expected.to render_file('/etc/httpd/mods-available/mod_mime.conf')
+        .with_content(%r{TypesConfig /etc/mime.types})
+    end
+  end
+end

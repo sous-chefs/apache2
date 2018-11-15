@@ -36,7 +36,7 @@ property :index_ignore, String,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_autoindex.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'autoindex.conf') do
     source 'mods/autoindex.conf.erb'
     cookbook 'apache2'
     variables(

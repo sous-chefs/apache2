@@ -24,7 +24,7 @@ property :mime_magic_file, String,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_mime_magic.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'mime_magic.conf') do
     source 'mods/mime_magic.conf.erb'
     cookbook 'apache2'
     variables(

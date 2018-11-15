@@ -32,7 +32,7 @@ property :cache_dir_length, String,
          description: 'https://httpd.apache.org/docs/2.4/mod/mod_cache_disk.html#cachedirlength'
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_cache_disk.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'cache_disk.conf') do
     source 'mods/cache_disk.conf.erb'
     cookbook 'apache2'
     variables(

@@ -24,7 +24,7 @@ property :set_handler, String,
 property :require, String,
          default: 'local'
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_ldap.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'ldap.conf') do
     source 'mods/ldap.conf.erb'
     cookbook 'apache2'
     variables(

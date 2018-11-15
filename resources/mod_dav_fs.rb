@@ -23,7 +23,7 @@ property :dav_lock_db, String,
          default: lazy { ::File.join(lock_dir, 'DAVLock') }
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_dav_fs.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'dav_fs.conf') do
     source 'mods/dav_fs.conf.erb'
     cookbook 'apache2'
     variables(

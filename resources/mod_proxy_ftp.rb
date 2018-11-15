@@ -30,7 +30,7 @@ property :proxy_ftp_list_on_wildcard, String,
          default: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_proxy_ftp.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'proxy_ftp.conf') do
     source 'mods/proxy_ftp.conf.erb'
     cookbook 'apache2'
     variables(

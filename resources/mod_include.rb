@@ -32,7 +32,7 @@ property :add_output_filter, Hash,
          description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_include.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'include.conf') do
     source 'mods/include.conf.erb'
     cookbook 'apache2'
     variables(

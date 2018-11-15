@@ -35,7 +35,7 @@ property :proxy_via, String,
          description: 'Enable/disable the handling of HTTP/1.1 "Via:" headers.'
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_proxy.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'proxy.conf') do
     source 'mods/proxy.conf.erb'
     cookbook 'apache2'
     variables(

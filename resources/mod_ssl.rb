@@ -63,7 +63,7 @@ property :directives, Hash,
         description: ''
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', 'mod_ssl.conf') do
+  template ::File.join(apache_dir, 'mods-available', 'ssl.conf') do
     source 'mods/ssl.conf.erb'
     cookbook 'apache2'
     variables(
