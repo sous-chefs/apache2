@@ -43,5 +43,3 @@ default['apache']['mod_auth_openid']['configure_flags'] =
   else
     []
   end
-
-  
