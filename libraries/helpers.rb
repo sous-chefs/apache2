@@ -27,7 +27,7 @@ module Apache2
         case node['platform_family']
         when 'arch'
           "#{apache_dir}/conf/mime.types"
-        when 'frebsd'
+        when 'freebsd'
           "#{apache_dir}/mime.types"
         else
           '/etc/mime.types'
