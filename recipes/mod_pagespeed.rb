@@ -17,19 +17,4 @@
 # limitations under the License.
 #
 
-if platform_family?('debian')
-  remote_file "#{Chef::Config[:file_cache_path]}/mod-pagespeed.deb" do
-    source node['apache2']['mod_pagespeed']['package_link']
-    mode '0644'
-    action :create_if_missing
-  end
-
-  package 'mod_pagespeed' do
-    source "#{Chef::Config[:file_cache_path]}/mod-pagespeed.deb"
-    action :install
-  end
-
-  apache2_module 'pagespeed'
-else
-  Chef::Log.warn "apache::mod_pagespeed does not support #{node['platform_family']} yet, and is not being installed"
-end
+apache2_module 'pagespeed'
