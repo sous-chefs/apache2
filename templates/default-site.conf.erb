@@ -1,5 +1,5 @@
-<VirtualHost *:<%= node['apache']['default_site_port'] %>>
-  ServerAdmin <%= node['apache']['contact'] %>
+<VirtualHost *:<%= @port %>>
+  ServerAdmin <%= @server_admin %>
 
   DocumentRoot <%= @docroot_dir %>/
   <Directory />
@@ -16,8 +16,8 @@
     #RedirectMatch ^/$ /apache2-default/
   </Directory>
 
-  ScriptAlias /cgi-bin/ <%= node['apache']['cgibin_dir'] %>/
-  <Directory "<%= node['apache']['cgibin_dir'] %>">
+  ScriptAlias /cgi-bin/ <%= @cgibin_dir %>/
+  <Directory "<%= @cgibin_dir %>">
     AllowOverride None
     Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
     Require all granted

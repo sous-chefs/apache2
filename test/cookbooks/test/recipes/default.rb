@@ -20,6 +20,8 @@ apt_update 'update'
 
 apache2_install 'default_install'
 
+apache2_default_site ''
+
 service 'apache2' do
   extend Apache2::Cookbook::Helpers
   service_name lazy { apache_platform_service_name }
