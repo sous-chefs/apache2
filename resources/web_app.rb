@@ -70,5 +70,5 @@ action :enable do
     end
   end
 
-  apache_site new_resource.name
+  apache2_site new_resource.name
 end

@@ -17,10 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-property :cgibin_dir, String,
-         default: lazy { default_cgibin_dir },
-         description: 'Location for cgibin. Defaults to platform specific locations, see libraries/helpers.rb'
-
 action :enable do
   execute "a2ensite #{new_resource.name}" do
     command "/usr/sbin/a2ensite #{new_resource.name}"
