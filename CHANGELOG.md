@@ -16,8 +16,10 @@ See UPGRADING.md for upgrading.
 - Allow user to set the mpm mode no matter what platform they're on
 - Remove MPM setup as it breaks things, just leave it alone for now
 - Remove FreeBSD, openSuse & Fedora Kitchen testing
-- `mod_` recipes now call `apache2_module_`.
+- `mod_` recipes now call `apache2_module_`
 - Mod templates are now more configurable when calling the resources directly
+- Add apache2_default_site resource
+- Remove and document apache2_webapp resource
 
 ### Testing/CI
 
