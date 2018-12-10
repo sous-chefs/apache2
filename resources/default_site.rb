@@ -26,7 +26,7 @@ property :log_level, String,
 
 action :enable do
   template 'default-site.conf' do
-    path "#{apache_dir}/sites-available/default-site.conf"
+    path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     source 'default-site.conf.erb'
     owner 'root'
     group default_apache_root_group
