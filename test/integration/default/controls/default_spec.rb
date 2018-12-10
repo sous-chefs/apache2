@@ -24,17 +24,32 @@ control 'package-installed' do
       it { should be_running }
     end
 
+    describe http('localhost', enable_remote_worker: true) do
+      its('status') { should eq 200 }
+      its('body') { should cmp /nope!/ }
+    end
+
   when 'freebsd'
     describe service('apache24') do
       it { should be_installed }
       it { should be_enabled }
       it { should be_running }
     end
+
+    describe http('localhost', enable_remote_worker: true) do
+      its('status') { should eq 200 }
+    end
+
   else
     describe service('httpd') do
       it { should be_installed }
       it { should be_enabled }
       it { should be_running }
+    end
+
+    describe http('localhost', enable_remote_worker: true) do
+      its('status') { should eq 403 }
+      its('body') { should cmp 'CentOS' }
     end
   end
 end

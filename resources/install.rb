@@ -214,7 +214,8 @@ action :install do
       apache_group: new_resource.apache_group,
       pid_file: apache_pid_file,
       apache_locale: new_resource.apache_locale,
-      status_url: new_resource.status_url
+      status_url: new_resource.status_url,
+      run_dir: new_resource.run_dir
     )
     only_if { platform_family?('debian') }
   end

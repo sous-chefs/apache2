@@ -1,5 +1,5 @@
 property :default_site_name, String,
-         default: 'default_site',
+         default: 'default-site',
          description: 'The default site name'
 
 property :site_action, [String, Symbol],
@@ -17,7 +17,7 @@ property :cookbook, String,
          description: 'Cookbook to source the template file from'
 
 property :server_admin, String,
-         default: 'admin@server',
+         default: 'root@localhost',
          description: 'Default site contact name'
 
 property :log_level, String,
@@ -25,7 +25,7 @@ property :log_level, String,
          description: 'log level for apache2'
 
 action :enable do
-  template 'default-site.conf' do
+  template "#{new_resource.default_site_name}.conf" do
     path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     source 'default-site.conf.erb'
     owner 'root'
@@ -51,8 +51,8 @@ action :enable do
 end
 
 action :disable do
-  template 'default-site.conf' do
-    path "#{apache_dir}/sites-available/default-site.conf"
+  template "#{new_resource.default_site_name}.conf" do
+    path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     source 'default-site.conf.erb'
     owner 'root'
     group apache_root_group
