@@ -1,5 +1,6 @@
 <VirtualHost *:<%= @port %>>
   ServerAdmin <%= @server_admin %>
+
   DocumentRoot <%= @docroot_dir %>
   <% if @error_log =~ /^syslog:/ || @error_log =~ /^\|/ %>
   ErrorLog <%= @error_log %>

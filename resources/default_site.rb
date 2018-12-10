@@ -25,6 +25,7 @@ property :log_level, String,
          description: 'log level for apache2'
 
 action :enable do
+
   template "#{new_resource.default_site_name}.conf" do
     path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     source 'default-site.conf.erb'
@@ -51,6 +52,7 @@ action :enable do
 end
 
 action :disable do
+
   template "#{new_resource.default_site_name}.conf" do
     path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     source 'default-site.conf.erb'
