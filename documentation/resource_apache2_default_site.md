@@ -18,7 +18,6 @@ end
 `:enable`
 `:disable`
 
-
 ## Properties
 
 ### `default_site_name`

@@ -11,6 +11,7 @@ Writes conf files to the `conf-available` folder, and passes enabled values to `
 | template_cookbook | String | apache2                          | Cookbook to source the template from.  Override this to provide your own template. |
 
 ### Examples
+
 Place and enable the example conf:
 
 ```ruby
