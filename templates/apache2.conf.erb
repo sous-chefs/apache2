@@ -14,7 +14,7 @@ Mutex file:<%= @lock_dir %> default
 # PidFile: The file in which the server should record its process
 # identification number when it starts.
 #
-PidFile <%= @pid_file %>
+PidFile ${APACHE_PID_FILE}
 
 #
 # Timeout: The number of seconds before receives and sends time out.
