@@ -131,24 +131,24 @@ action :install do
     recursive true
   end
 
-  %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
+  %w(a2ensite a2dissite a2dismod a2enconf a2disconf).each do |modscript|
     link "/usr/sbin/#{modscript}" do
-      action :delete
+      to '/usr/sbin/a2enmod'
       only_if { ::File.symlink?("/usr/sbin/#{modscript}") }
     end
+  end
 
-    template "/usr/sbin/#{modscript}" do
-      source "#{modscript}.erb"
-      cookbook 'apache2'
-      mode '0700'
-      owner 'root'
-      variables(
-        apachectl: apachectl,
-        apache_dir: apache_dir
-      )
-      group new_resource.root_group
-      action :create
-    end
+  template "/usr/sbin/a2enmod" do
+    source "a2enmod.erb"
+    cookbook 'apache2'
+    mode '0700'
+    owner 'root'
+    variables(
+      apachectl: apachectl,
+      apache_dir: apache_dir
+    )
+    group new_resource.root_group
+    action :create
   end
 
   unless platform_family?('debian')
