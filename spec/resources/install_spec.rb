@@ -26,7 +26,8 @@ describe 'apache2_install' do
         lock_dir: '/var/lock/apache2',
         log_dir: '/var/log/apache2',
         log_level: 'warn',
-        pid_file: '/var/run/apache2/apache2.pid'
+        pid_file: '/var/run/apache2/apache2.pid',
+        timeout: '300'
       )
     end
   end

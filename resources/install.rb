@@ -22,65 +22,91 @@ include Apache2::Cookbook::Helpers
 property :root_group, String,
          default: lazy { default_apache_root_group },
          description: 'Group that the root user on the box runs as. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :apache_user, String,
          default: lazy { default_apache_user },
          description: 'Set to override the default apache2 user. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :apache_group, String,
          default: lazy { default_apache_group },
          description: 'Set to override the default apache2 user. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :log_dir, String,
          default: lazy { default_log_dir },
          description: 'Log directory location. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :error_log, String,
          default: lazy { default_error_log },
          description: 'Error log location. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :log_level, String,
          default: 'warn',
          description: 'log level for apache2'
+
 property :apache_locale, String,
          default: 'system',
          description: 'Locale for apache2, defaults to the system locale'
+
 property :status_url, String,
          default: 'http://localhost:80/server-status',
          description: 'URL for status checks'
+
 property :httpd_t_timeout, Integer,
          default: 10,
          description: 'Service timeout setting. Defaults to 10 seconds'
+
 property :mpm, String,
          default: lazy { default_mpm },
          description: 'Multi-processing Module. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :listen, [String, Array],
          default: %w(80 443),
          description: 'Port to listen on. Defaults to both 80 & 443'
+
 property :keep_alive, String,
          equal_to: %w(On Off),
          default: 'On',
          description: 'Persistent connection feature of HTTP/1.1 provide long-lived HTTP sessions'
+
 property :max_keep_alive_requests, Integer,
          default: 100,
          description: 'MaxKeepAliveRequests'
+
 property :keep_alive_timeout, Integer,
          default: 5,
          description: 'KeepAliveTimeout'
+
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
          description: 'Apache document root. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :run_dir, String,
          default: lazy { default_run_dir },
          description: 'Location for APACHE_RUN_DIR. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :access_file_name, String,
          defualt: '.htaccess',
-         description: 'String: Access filename'
-property :sysconfig_additional_params, Hash,
-         default: {},
-         description: 'Hash of additional sysconfig parameters to apply to the system'
+         description: 'Access filename'
+
+property :timeout, [Integer, String],
+         coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m },
+         description: 'The number of seconds before receives and sends time out.',
+         default: 300
+
+# property :sysconfig_additional_params, Hash,
+#          default: {},
+#          description: 'Hash of additional sysconfig parameters to apply to the system'
 
 action :install do
   package [apache_pkg, perl_pkg]
-  package 'perl-Getopt-Long-Descriptive' if platform?('fedora')
+  # Disabling for now as we don't have Fedora support (right now)
+  # package 'perl-Getopt-Long-Descriptive' if platform?('fedora')
 
+  # Setup the config directories as per Debian for easier adding and removing config
+  # If we didn't do this, we would need to use the line cookbook to remove and add config from
+  # a single file.
   directory apache_dir do
-    mode '0751'
+    mode '0750'
     owner 'root'
     group new_resource.root_group
   end
@@ -231,6 +257,7 @@ action :install do
     max_keep_alive_requests new_resource.max_keep_alive_requests
     keep_alive_timeout new_resource.keep_alive_timeout
     docroot_dir new_resource.docroot_dir
+    timeout new_resource.timeout
   end
 
   apache2_conf 'security'
@@ -240,9 +267,7 @@ action :install do
     path     "#{apache_dir}/ports.conf"
     cookbook 'apache2'
     mode     '0644'
-    variables(
-      listen: new_resource.listen
-    )
+    variables(listen: new_resource.listen)
   end
 
   # MPM Support Setup
