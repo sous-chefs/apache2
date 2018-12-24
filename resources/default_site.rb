@@ -24,15 +24,17 @@ property :log_level, String,
          default: 'warn',
          description: 'log level for apache2'
 
+property :apache_root_group, String,
+         default: lazy { default_apache_root_group }
+
 action :enable do
   template "#{new_resource.default_site_name}.conf" do
+    source "#{new_resource.default_site_name}.conf.erb"
     path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
-    source 'default-site.conf.erb'
     owner 'root'
-    group default_apache_root_group
+    group new_resource.apache_root_group
     mode '0644'
     cookbook new_resource.cookbook
-
     variables(
       server_admin: new_resource.server_admin,
       port: new_resource.port,
@@ -59,17 +61,6 @@ action :disable do
     mode '0644'
     cookbook new_resource.cookbook
     action :delete
-  end
-
-  %w(default default.conf 000-default 000-default.conf).each do |site|
-    link "#{apache_dir}/sites-enabled/#{site}" do
-      action :delete
-    end
-
-    file "#{apache_dir}/sites-available/#{site}" do
-      action :delete
-      backup false
-    end
   end
 
   apache2_site new_resource.default_site_name do
