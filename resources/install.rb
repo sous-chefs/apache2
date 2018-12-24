@@ -138,8 +138,8 @@ action :install do
     end
   end
 
-  template "/usr/sbin/a2enmod" do
-    source "a2enmod.erb"
+  template '/usr/sbin/a2enmod' do
+    source 'a2enmod.erb'
     cookbook 'apache2'
     mode '0700'
     owner 'root'

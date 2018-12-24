@@ -13,7 +13,7 @@ describe 'apache2_install' do
     it 'Creates the default site template' do
       stub_command('/usr/sbin/apache2 -t').and_return('foo')
       is_expected.to render_file('/etc/apache2/sites-available/default-site.conf')
-        .with_content(%r{/cgi-bin/ /usr/www/cgi-bin})
+        .with_content(%r{DocumentRoot /var/www/html})
     end
   end
 end
