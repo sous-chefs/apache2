@@ -26,7 +26,7 @@ control 'package-installed' do
 
     describe http('localhost', enable_remote_worker: true) do
       its('status') { should eq 200 }
-      its('body') { should cmp /nope!/ }
+      its('body') { should cmp /This is the default welcome page/ }
     end
 
   when 'freebsd'
@@ -38,6 +38,7 @@ control 'package-installed' do
 
     describe http('localhost', enable_remote_worker: true) do
       its('status') { should eq 200 }
+      its('body') { should_not cmp /Forbidden/ }
     end
 
   else
@@ -49,6 +50,7 @@ control 'package-installed' do
 
     describe http('localhost', enable_remote_worker: true) do
       its('status') { should eq 403 }
+      its('body') { should_not cmp /Forbidden/ }
       its('body') { should cmp 'CentOS' }
     end
   end
