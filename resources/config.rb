@@ -53,6 +53,10 @@ property :keep_alive_timeout, Integer,
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
          description: 'Apache document root. Defaults to platform specific locations, see libraries/helpers.rb'
+property :timeout, [Integer, String],
+         coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m },
+         description: 'The number of seconds before receives and sends time out.',
+         default: 300
 
 action :create do
   template 'apache2.conf' do
@@ -81,7 +85,8 @@ action :create do
       keep_alive: new_resource.keep_alive,
       max_keep_alive_requests: new_resource.max_keep_alive_requests,
       keep_alive_timeout: new_resource.keep_alive_timeout,
-      docroot_dir: new_resource.docroot_dir
+      docroot_dir: new_resource.docroot_dir,
+      timeout: new_resource.timeout
     )
   end
 end
