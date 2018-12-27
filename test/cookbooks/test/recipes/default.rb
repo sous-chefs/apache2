@@ -2,11 +2,11 @@ apt_update 'update'
 
 apache2_install 'default_install'
 
-apache2_default_site '' do
-  action :enable
+apache2_site '000-default' do
+  action :disable
 end
 
-apache2_site '000-default' do
+apache2_default_site '' do
   action :enable
 end
 
