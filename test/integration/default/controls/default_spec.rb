@@ -24,7 +24,7 @@ control 'package-installed' do
       it { should be_running }
     end
 
-    describe http('localhost') do
+    describe http('localhost', enable_remote_worker: true) do
       its('status') { should eq 200 }
       its('body') { should cmp /This is the default welcome page/ }
     end
@@ -36,7 +36,7 @@ control 'package-installed' do
       it { should be_running }
     end
 
-    describe http('localhost') do
+    describe http('localhost', enable_remote_worker: true) do
       its('status') { should eq 200 }
       its('body') { should_not cmp /Forbidden/ }
     end
@@ -48,7 +48,7 @@ control 'package-installed' do
       it { should be_running }
     end
 
-    describe http('localhost') do
+    describe http('localhost', enable_remote_worker: true) do
       its('status') { should eq 403 }
       its('body') { should_not cmp /Forbidden/ }
       its('body') { should cmp 'CentOS' }
