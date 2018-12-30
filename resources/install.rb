@@ -338,7 +338,7 @@ action :install do
     service_name apache_platform_service_name
     supports [:start, :restart, :reload, :status]
     action [:enable, :start]
-    only_if "#{apache_binary} -t", environment: { 'APACHE_LOG_DIR' => new_resource.log_dir }, timeout: new_resource.httpd_t_timeout
+    only_if "#{apachectl} -t", environment: { 'APACHE_LOG_DIR' => new_resource.log_dir }, timeout: new_resource.httpd_t_timeout
   end
 end
 
