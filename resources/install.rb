@@ -51,6 +51,10 @@ property :status_url, String,
          default: 'http://localhost:80/server-status',
          description: 'URL for status checks'
 
+property :server_name, String,
+         default: 'loclhost',
+         description: 'Sets the ServerName directive'
+
 property :httpd_t_timeout, Integer,
          default: 10,
          description: 'Service timeout setting. Defaults to 10 seconds'
@@ -258,6 +262,7 @@ action :install do
     keep_alive_timeout new_resource.keep_alive_timeout
     docroot_dir new_resource.docroot_dir
     timeout new_resource.timeout
+    server_name new_resource.server_name
   end
 
   apache2_conf 'security'

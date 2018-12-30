@@ -58,6 +58,10 @@ property :timeout, [Integer, String],
          description: 'The number of seconds before receives and sends time out.',
          default: 300
 
+property :server_name, String,
+         default: 'loclhost',
+         description: 'Sets the ServerName directive'
+
 action :create do
   template 'apache2.conf' do
     if platform_family?('debian')
@@ -86,7 +90,8 @@ action :create do
       max_keep_alive_requests: new_resource.max_keep_alive_requests,
       keep_alive_timeout: new_resource.keep_alive_timeout,
       docroot_dir: new_resource.docroot_dir,
-      timeout: new_resource.timeout
+      timeout: new_resource.timeout,
+      server_name: new_resource.server_name
     )
   end
 end
