@@ -69,7 +69,7 @@ property :timeout, [Integer, String],
          default: 300
 
 property :server_name, String,
-         default: 'loclhost',
+         default: 'localhost',
          description: 'Sets the ServerName directive'
 
 action :create do

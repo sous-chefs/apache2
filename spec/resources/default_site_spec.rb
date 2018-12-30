@@ -11,7 +11,7 @@ describe 'apache2_install' do
     end
 
     it 'Creates the default site template' do
-      stub_command('/usr/sbin/apache2 -t').and_return('foo')
+      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
       is_expected.to render_file('/etc/apache2/sites-available/default-site.conf')
         .with_content(%r{DocumentRoot /var/www/html})
     end

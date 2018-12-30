@@ -52,7 +52,7 @@ property :status_url, String,
          description: 'URL for status checks'
 
 property :server_name, String,
-         default: 'loclhost',
+         default: 'localhost',
          description: 'Sets the ServerName directive'
 
 property :httpd_t_timeout, Integer,
