@@ -25,7 +25,8 @@ property :log_level, String,
          description: 'log level for apache2'
 
 property :apache_root_group, String,
-         default: lazy { default_apache_root_group }
+         default: lazy { default_apache_root_group },
+         description: ''
 
 action :enable do
   template "#{new_resource.default_site_name}.conf" do
