@@ -135,13 +135,6 @@ action :install do
     recursive true
   end
 
-  %w(a2ensite a2dissite a2dismod a2enconf a2disconf).each do |modscript|
-    link "/usr/sbin/#{modscript}" do
-      to '/usr/sbin/a2enmod'
-      only_if { ::File.symlink?("/usr/sbin/#{modscript}") }
-    end
-  end
-
   template '/usr/sbin/a2enmod' do
     source 'a2enmod.erb'
     cookbook 'apache2'
@@ -153,6 +146,12 @@ action :install do
     )
     group new_resource.root_group
     action :create
+  end
+
+  %w(a2ensite a2dissite a2dismod a2enconf a2disconf).each do |modscript|
+    link "/usr/sbin/#{modscript}" do
+      to '/usr/sbin/a2enmod'
+    end
   end
 
   unless platform_family?('debian')
