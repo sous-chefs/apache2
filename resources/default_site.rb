@@ -70,7 +70,7 @@ action :enable do
       log_dir: default_log_dir,
       log_level: new_resource.log_level
     )
-    only_if { platform_family? 'redhat' }
+    only_if { platform_family? 'rhel' }
   end
 
   apache2_site new_resource.default_site_name do

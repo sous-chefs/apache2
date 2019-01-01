@@ -51,7 +51,7 @@ control 'package-installed' do
     describe http('localhost', enable_remote_worker: true) do
       its('status') { should eq 403 }
       its('body') { should_not cmp /Forbidden/ }
-      its('body') { should cmp 'CentOS' }
+      its('body') { should cmp /powered by CentOS/ }
     end
   end
 end
