@@ -20,6 +20,7 @@ See UPGRADING.md for upgrading.
 - Mod templates are now more configurable when calling the resources directly
 - Add apache2_default_site resource
 - Remove and document apache2_webapp resource
+- Add the default_site resource for managing the default site
 
 ### Testing/CI
 
