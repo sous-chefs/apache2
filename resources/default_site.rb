@@ -22,7 +22,11 @@ property :server_admin, String,
 
 property :log_level, String,
          default: 'warn',
-         description: 'log level for apache2'
+         description: 'Log level for apache2'
+
+property :log_dir, String,
+         default: lazy { default_log_dir },
+         description: 'Default Apache2 log directory'
 
 property :apache_root_group, String,
          default: lazy { default_apache_root_group },
@@ -46,6 +50,27 @@ action :enable do
       log_dir: default_log_dir,
       log_level: new_resource.log_level
     )
+    only_if { platform_family? 'debian' }
+  end
+
+  template "#{new_resource.default_site_name}.conf" do
+    source "welcome.conf.erb"
+    path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
+    owner 'root'
+    group new_resource.apache_root_group
+    mode '0644'
+    cookbook new_resource.cookbook
+    variables(
+      server_admin: new_resource.server_admin,
+      port: new_resource.port,
+      docroot_dir: default_docroot_dir,
+      cgibin_dir: default_cgibin_dir,
+      error_log: default_error_log,
+      access_log: default_access_log,
+      log_dir: default_log_dir,
+      log_level: new_resource.log_level
+    )
+    only_if { platform_family? 'redhat' }
   end
 
   apache2_site new_resource.default_site_name do

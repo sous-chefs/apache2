@@ -72,6 +72,10 @@ property :server_name, String,
          default: 'localhost',
          description: 'Sets the ServerName directive'
 
+property :run_dir, String,
+         default: lazy { default_run_dir },
+         description:' Sets the DefaultRuntimeDir directive'
+
 action :create do
   template 'apache2.conf' do
     if platform_family?('debian')
@@ -101,7 +105,8 @@ action :create do
       keep_alive_timeout: new_resource.keep_alive_timeout,
       docroot_dir: new_resource.docroot_dir,
       timeout: new_resource.timeout,
-      server_name: new_resource.server_name
+      server_name: new_resource.server_name,
+      run_dir: new_resource.run_dir
     )
   end
 end

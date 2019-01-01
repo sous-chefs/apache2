@@ -14,13 +14,13 @@
 # The directory where shm and other runtime files will be stored.
 #
 
-DefaultRuntimeDir ${APACHE_RUN_DIR}
+DefaultRuntimeDir <%= @run_dir %>
 
 #
 # PidFile: The file in which the server should record its process
 # identification number when it starts.
 #
-PidFile ${APACHE_PID_FILE}
+PidFile <%= @pid_file %>
 
 #
 # Timeout: The number of seconds before receives and sends time out.
@@ -47,9 +47,8 @@ MaxKeepAliveRequests <%= @max_keep_alive_requests %>
 KeepAliveTimeout <%= @keep_alive_timeout %>
 
 # These are set in /etc/apache2/envvars
-User ${APACHE_RUN_USER}
-Group ${APACHE_RUN_GROUP}
-
+User <%= @apache_user %>
+Group <%= @apache_group %>
 #
 # HostnameLookups: Log the names of clients or just their IP addresses
 # e.g., www.apache.org (on) or 204.62.129.132 (off).
@@ -66,7 +65,7 @@ HostnameLookups Off
 # logged here.  If you *do* define an error logfile for a <VirtualHost>
 # container, that host's errors will be logged there and not here.
 #
-ErrorLog ${APACHE_LOG_DIR}/error.log
+ErrorLog <%= @log_dir %>/error.log
 
 #
 # LogLevel: Control the severity of messages logged to the error_log.
@@ -83,7 +82,6 @@ IncludeOptional mods-enabled/*.conf
 
 # Include list of ports to listen on
 Include ports.conf
-
 
 
 # Sets the default security model of the Apache2 HTTPD server. It does
