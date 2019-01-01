@@ -74,7 +74,7 @@ property :server_name, String,
 
 property :run_dir, String,
          default: lazy { default_run_dir },
-         description:' Sets the DefaultRuntimeDir directive'
+         description: ' Sets the DefaultRuntimeDir directive'
 
 action :create do
   template 'apache2.conf' do

@@ -33,28 +33,14 @@ property :apache_root_group, String,
          description: ''
 
 action :enable do
-  template "#{new_resource.default_site_name}.conf" do
-    source "#{new_resource.default_site_name}.conf.erb"
-    path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
-    owner 'root'
-    group new_resource.apache_root_group
-    mode '0644'
-    cookbook new_resource.cookbook
-    variables(
-      server_admin: new_resource.server_admin,
-      port: new_resource.port,
-      docroot_dir: default_docroot_dir,
-      cgibin_dir: default_cgibin_dir,
-      error_log: default_error_log,
-      access_log: default_access_log,
-      log_dir: default_log_dir,
-      log_level: new_resource.log_level
-    )
-    only_if { platform_family? 'debian' }
-  end
+  template_source = if platform_family? 'debian'
+                      "#{new_resource.default_site_name}.conf.erb"
+                    else
+                      'welcome.conf.erb'
+                    end
 
   template "#{new_resource.default_site_name}.conf" do
-    source "welcome.conf.erb"
+    source template_source
     path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     owner 'root'
     group new_resource.apache_root_group
@@ -70,7 +56,6 @@ action :enable do
       log_dir: default_log_dir,
       log_level: new_resource.log_level
     )
-    only_if { platform_family? 'rhel' }
   end
 
   apache2_site new_resource.default_site_name do

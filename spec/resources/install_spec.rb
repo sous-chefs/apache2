@@ -27,6 +27,7 @@ describe 'apache2_install' do
         log_dir: '/var/log/apache2',
         log_level: 'warn',
         pid_file: '/var/run/apache2/apache2.pid',
+        run_dir: '/var/run/apache2',
         server_name: 'localhost',
         timeout: '300'
       )
