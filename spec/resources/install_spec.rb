@@ -10,7 +10,7 @@ describe 'apache2_install' do
     end
 
     it 'has a correct Group' do
-      stub_command('/usr/sbin/apache2 -t').and_return('foo')
+      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
 
       is_expected.to create_template('/etc/apache2/apache2.conf').with_variables(
         access_file_name: '.htaccess',
@@ -26,7 +26,10 @@ describe 'apache2_install' do
         lock_dir: '/var/lock/apache2',
         log_dir: '/var/log/apache2',
         log_level: 'warn',
-        pid_file: '/var/run/apache2/apache2.pid'
+        pid_file: '/var/run/apache2/apache2.pid',
+        run_dir: '/var/run/apache2',
+        server_name: 'localhost',
+        timeout: '300'
       )
     end
   end

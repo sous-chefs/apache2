@@ -22,37 +22,59 @@ include Apache2::Cookbook::Helpers
 property :root_group, String,
          default: lazy { default_apache_root_group },
          description: 'Group that the root user on the box runs as. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :access_file_name, String,
          default: '.htaccess',
          description: 'String: Access filename'
+
 property :log_dir, String,
          default: lazy { default_log_dir },
          description: 'Log directory location. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :error_log, String,
          default: lazy { default_error_log },
          description: 'Error log location. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :log_level, String,
          default: 'warn',
          description: 'log level for apache2'
 property :apache_user, String,
          default: lazy { default_apache_user },
          description: 'Set to override the default apache2 user. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :apache_group, String,
          default: lazy { default_apache_group },
          description: 'Set to override the default apache2 user. Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :keep_alive, String,
          equal_to: %w(On Off),
          default: 'On',
          description: 'Persistent connection feature of HTTP/1.1 provide long-lived HTTP sessions'
+
 property :max_keep_alive_requests, Integer,
          default: 100,
          description: 'MaxKeepAliveRequests'
+
 property :keep_alive_timeout, Integer,
          default: 5,
          description: 'KeepAliveTimeout'
+
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
          description: 'Apache document root. Defaults to platform specific locations, see libraries/helpers.rb'
+
+property :timeout, [Integer, String],
+         coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m },
+         description: 'The number of seconds before receives and sends time out.',
+         default: 300
+
+property :server_name, String,
+         default: 'localhost',
+         description: 'Sets the ServerName directive'
+
+property :run_dir, String,
+         default: lazy { default_run_dir },
+         description: ' Sets the DefaultRuntimeDir directive'
 
 action :create do
   template 'apache2.conf' do
@@ -81,7 +103,10 @@ action :create do
       keep_alive: new_resource.keep_alive,
       max_keep_alive_requests: new_resource.max_keep_alive_requests,
       keep_alive_timeout: new_resource.keep_alive_timeout,
-      docroot_dir: new_resource.docroot_dir
+      docroot_dir: new_resource.docroot_dir,
+      timeout: new_resource.timeout,
+      server_name: new_resource.server_name,
+      run_dir: new_resource.run_dir
     )
   end
 end

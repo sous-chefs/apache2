@@ -326,12 +326,12 @@ module Apache2
         ::File.symlink?("#{apache_dir}/mods-enabled/#{new_resource.name}.load")
       end
 
-      def site_enabled?(new_resource)
-        ::File.symlink?("#{apache_dir}/sites-enabled/#{new_resource.name}")
+      def site_enabled?(site_name)
+        ::File.symlink?("#{apache_dir}/sites-enabled/#{site_name}.conf")
       end
 
-      def site_available?(new_resource)
-        ::File.exist?("#{apache_dir}/sites-available/#{new_resource.name}")
+      def site_available?(site_name)
+        ::File.exist?("#{apache_dir}/sites-available/#{site_name}.conf")
       end
 
       def apache_devel_package(mpm)

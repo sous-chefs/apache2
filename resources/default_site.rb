@@ -1,5 +1,5 @@
 property :default_site_name, String,
-         default: 'default_site',
+         default: 'default-site',
          description: 'The default site name'
 
 property :site_action, [String, Symbol],
@@ -17,22 +17,35 @@ property :cookbook, String,
          description: 'Cookbook to source the template file from'
 
 property :server_admin, String,
-         default: 'admin@server',
+         default: 'root@localhost',
          description: 'Default site contact name'
 
 property :log_level, String,
          default: 'warn',
-         description: 'log level for apache2'
+         description: 'Log level for apache2'
+
+property :log_dir, String,
+         default: lazy { default_log_dir },
+         description: 'Default Apache2 log directory'
+
+property :apache_root_group, String,
+         default: lazy { default_apache_root_group },
+         description: ''
 
 action :enable do
-  template 'default-site.conf' do
-    path "#{apache_dir}/sites-available/default-site.conf"
-    source 'default-site.conf.erb'
+  template_source = if platform_family? 'debian'
+                      "#{new_resource.default_site_name}.conf.erb"
+                    else
+                      'welcome.conf.erb'
+                    end
+
+  template "#{new_resource.default_site_name}.conf" do
+    source template_source
+    path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     owner 'root'
-    group default_apache_root_group
+    group new_resource.apache_root_group
     mode '0644'
     cookbook new_resource.cookbook
-
     variables(
       server_admin: new_resource.server_admin,
       port: new_resource.port,
@@ -51,25 +64,14 @@ action :enable do
 end
 
 action :disable do
-  template 'default-site.conf' do
-    path "#{apache_dir}/sites-available/default-site.conf"
+  template "#{new_resource.default_site_name}.conf" do
+    path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     source 'default-site.conf.erb'
     owner 'root'
     group apache_root_group
     mode '0644'
     cookbook new_resource.cookbook
     action :delete
-  end
-
-  %w(default default.conf 000-default 000-default.conf).each do |site|
-    link "#{apache_dir}/sites-enabled/#{site}" do
-      action :delete
-    end
-
-    file "#{apache_dir}/sites-available/#{site}" do
-      action :delete
-      backup false
-    end
   end
 
   apache2_site new_resource.default_site_name do

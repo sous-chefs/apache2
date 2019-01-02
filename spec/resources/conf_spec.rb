@@ -11,13 +11,13 @@ describe 'apache2_install' do
     end
 
     it 'Creates a LoadModule file with the correct path' do
-      stub_command('/usr/sbin/apache2 -t').and_return('foo')
+      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
 
       is_expected.to run_execute('a2enmod sed')
     end
 
     it 'Creates the security template' do
-      stub_command('/usr/sbin/apache2 -t').and_return('foo')
+      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
       is_expected.to render_file('/etc/apache2/conf-available/security.conf')
         .with_content(/ServerTokens Prod/)
         .with_content(/ServerSignature On/)
@@ -25,14 +25,14 @@ describe 'apache2_install' do
     end
 
     it 'Creates the ports template' do
-      stub_command('/usr/sbin/apache2 -t').and_return('foo')
+      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
       is_expected.to render_file('/etc/apache2/ports.conf')
         .with_content(/Listen 80/)
         .with_content(/Listen 443/)
     end
 
     it 'Creates the charset template' do
-      stub_command('/usr/sbin/apache2 -t').and_return('foo')
+      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
       is_expected.to render_file('/etc/apache2/conf-available/charset.conf')
 
       is_expected.not_to render_file('/etc/apache2/conf-available/charset.conf')

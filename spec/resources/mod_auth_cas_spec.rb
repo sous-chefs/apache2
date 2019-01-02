@@ -16,7 +16,7 @@ describe 'apache2_mod_auth_cas' do
     end
 
     it do
-      stub_command('/usr/sbin/apache2 -t').and_return('foo')
+      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
       stub_command('test -f /usr/lib/apache2/modules/mod_auth_cas.so').and_return('bar')
 
       is_expected.to install_package('libapache2-mod-auth-cas')
@@ -24,7 +24,7 @@ describe 'apache2_mod_auth_cas' do
     end
 
     it 'Creates the load template with the correct cach directory' do
-      stub_command('/usr/sbin/apache2 -t').and_return('foo')
+      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
       stub_command('test -f /usr/lib/apache2/modules/mod_auth_cas.so').and_return('bar')
 
       is_expected.to create_template('/etc/apache2/mods-available/auth_cas.load').with_variables(

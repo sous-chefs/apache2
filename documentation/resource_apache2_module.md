@@ -2,7 +2,7 @@
 
 Enable or disable an Apache module in `#{node['apache']['dir']}/mods-available` by calling `a2enmod` or `a2dismod` to manage the symbolic link in `#{node['apache']['dir']}/mods-enabled`. If the module has a configuration file, a template should be created in the cookbook where the definition is used. See **Examples**.
 
-### Properties
+## Properties
 
 | Name              | Type    | Default                   | Description                                                                                                 |
 | ----------------- | ------- | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
@@ -11,8 +11,8 @@ Enable or disable an Apache module in `#{node['apache']['dir']}/mods-available` 
 | template_cookbook | String  | apache2                   | Cookbook to source the template from.  Override this to provide your own template.                          |
 | conf              | Boolean | has_config?               | The default is set by the config_file? helper. Override to set whether the module should have a config file |
 
+## Examples
 
-### Examples
 Enable the ssl module, which also has a configuration template in `templates/default/mods/ssl.conf.erb`. Simply call the resource. The cookbook contains a list of modules in `library/helpers.rb`  in the `#config_file?` method.
 
 ```ruby

@@ -1,5 +1,5 @@
 # apache2 Cookbook
-[![CircleCI](https://circleci.com/gh/sous-chefs/apache2.svg?style=svg)](https://circleci.com/gh/sous-chefs/apache2) [![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg?style=flat)](https://supermarket.chef.io/cookbooks/apache2) [![License](https://img.shields.io/badge/license-apache2_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg?style=flat)](https://supermarket.chef.io/cookbooks/apache2) [![License](https://img.shields.io/badge/license-apache2_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD configuration. Non-Debian based distributions such as Red Hat/CentOS, ArchLinux and others supported by this cookbook will have a configuration that mimics Debian/Ubuntu style as it is easier to manage with Chef.
 
