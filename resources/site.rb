@@ -1,21 +1,21 @@
-#
-# Cookbook:: apache2
-# Resource:: apache2_site
-#
+property :site_name, String,
+         name_property: true,
+         description: 'Name of the site to enable/disable'
+
 action :enable do
-  execute "a2ensite #{new_resource.name}" do
-    command "/usr/sbin/a2ensite #{new_resource.name}"
+  execute "a2ensite #{new_resource.site_name}" do
+    command "/usr/sbin/a2ensite #{new_resource.site_name}"
     notifies :reload, 'service[apache2]', :delayed
-    not_if { site_enabled?(new_resource.name) }
-    only_if { site_available?(new_resource.name) }
+    not_if { site_enabled?(new_resource.site_name) }
+    only_if { site_available?(new_resource.site_name) }
   end
 end
 
 action :disable do
-  execute "a2dissite #{new_resource.name}" do
-    command "/usr/sbin/a2dissite #{new_resource.name}"
+  execute "a2dissite #{new_resource.site_name}" do
+    command "/usr/sbin/a2dissite #{new_resource.site_name}"
     notifies :reload, 'service[apache2]', :delayed
-    only_if { site_enabled?(new_resource.name) }
+    only_if { site_enabled?(new_resource.site_name) }
   end
 end
 

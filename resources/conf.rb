@@ -2,14 +2,16 @@ include Apache2::Cookbook::Helpers
 
 property :path, String,
          default: lazy { "#{apache_dir}/conf-available" },
-         description: 'Path to the '
+         description: 'Path to the config file'
+
 property :root_group, String,
          default: lazy { default_apache_root_group },
          description: ''
+
 property :template_cookbook, String,
          default: 'apache2',
-         description: 'Cookbook to source the template from.
-         Override this to provide your own template.'
+         description: 'Cookbook to source the template from. Override this to provide your own template'
+
 property :options, Hash,
          default: {
            server_tokens: 'Prod',

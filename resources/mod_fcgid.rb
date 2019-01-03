@@ -1,12 +1,10 @@
 property :add_handler, Hash,
-         default: {
-           1 => 'fcgid-script .fcgi',
-         },
-         description: ''
+         default: { 1 => 'fcgid-script .fcgi' },
+         description: 'A key ordered hash of handlers'
 
 property :ipc_connect_timeout, Integer,
          default: 20,
-         description: ''
+         description: 'IPC Connection Timeout in seconds'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'fcgid.conf') do

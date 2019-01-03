@@ -16,9 +16,11 @@ property :browser_match, Array,
            '"Konqueror/4" redirect-carefully',
          ],
          description: ''
+
 property :browser_match_nocase, Array,
          default: [],
          description: ''
+         
 property :set_env_if_no_case, Array,
          default: [],
          description: ''

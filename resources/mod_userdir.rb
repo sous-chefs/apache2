@@ -3,9 +3,11 @@ include Apache2::Cookbook::Helpers
 property :public_html_dir, String,
          default: '/home/*/public_html',
          description: ''
+
 property :options, String,
          default: 'MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec',
          description: ''
+
 property :allow_override, String,
          default: 'FileInfo AuthConfig Limit Indexes',
          description: 'For full description see https://httpd.apache.org/docs/2.4/mod/core.html#allowoverride'

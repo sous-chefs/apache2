@@ -2,7 +2,8 @@ include Apache2::Cookbook::Helpers
 
 property :cache_root, String,
          default: lazy { default_cache_root },
-         description: ''
+         description: 'Root directory to keep the cache.
+Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :cache_dir_levels, String,
          default: '2',

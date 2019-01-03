@@ -1,9 +1,11 @@
 property :status_location, String,
          default: '/balancer-manager',
          description: ''
+
 property :set_handler, String,
          default: 'balancer-manager',
          description: ''
+
 property :require, String,
          default: 'local',
          description: 'For full description see https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require'

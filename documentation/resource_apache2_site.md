@@ -6,5 +6,4 @@ The template for the site must be managed as a separate resource. For an example
 
 ## Properties
 
-- `name` - Name of the site.
-- `enable` - Default true, which uses `a2ensite` to enable the site. If false, the site will be disabled with `a2dissite`.
+- `site_name` - Name of the site to enable/disable.

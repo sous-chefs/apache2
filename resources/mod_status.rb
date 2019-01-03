@@ -1,12 +1,17 @@
 property :location, String,
-         default: '/server-status'
+         default: '/server-status',
+         description: ''
+
 property :status_allow_list, Array,
          default: %w(127.0.0.1 ::1),
-         description: 'Clients in the specified IP address ranges can access the resource. For full description see https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require'
+         description: 'Clients in the specified IP address ranges can access the resource.
+For full description see https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require'
+
 property :extended_status, String,
          equal_to: %w(On Off),
-         description: 'For info see: https://httpd.apache.org/docs/current/mod/mod_status.html',
-         default: 'Off'
+         default: 'Off',
+         description: 'For info see: https://httpd.apache.org/docs/current/mod/mod_status.html'
+
 property :proxy_status, String,
          equal_to: %w(On Off),
          default: 'On',

@@ -1,13 +1,9 @@
 property :add_type, Hash,
-         default: {
-           1 => 'text/html .shtml',
-         },
+         default: { 1 => 'text/html .shtml' },
          description: ''
 
 property :add_output_filter, Hash,
-         default: {
-           1 => 'INCLUDES .shtml',
-         },
+         default: { 1 => 'INCLUDES .shtml' },
          description: ''
 
 action :create do

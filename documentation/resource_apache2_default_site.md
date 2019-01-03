@@ -20,11 +20,19 @@ end
 
 ## Properties
 
+|Name|Ruby Type|Description||Default|
+|----|----|----|----|
+|default_site_name|`String`|
+|site_action|`[String, Symbol]`|
+|port|`String`|
+|cookbook|
+|server_admin|
+|log_level|
+
 ### `default_site_name`
 
 | --              | --                    |
 | --------------- | --------------------- |
-| **Ruby type**   | `String`              |
 | **default**     | `default_site`        |
 | **description** | The default site name |
 

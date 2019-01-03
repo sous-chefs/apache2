@@ -13,9 +13,7 @@ action :create do
   template ::File.join(apache_dir, 'mods-available', 'dir.conf') do
     source 'mods/dir.conf.erb'
     cookbook 'apache2'
-    variables(
-      directory_index: new_resource.directory_index
-    )
+    variables(directory_index: new_resource.directory_index)
   end
 end
 

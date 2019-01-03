@@ -12,15 +12,13 @@ property :add_output_filter_by_type, Hash,
            10 => 'DEFLATE application/x-httpd-fastphp',
            11 => 'DEFLATE application/x-httpd-eruby',
          },
-         description: ''
+         description: 'A hash of output filters, ordered by key number'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'deflate.conf') do
     source 'mods/deflate.conf.erb'
     cookbook 'apache2'
-    variables(
-      add_output_filter_by_type: new_resource.add_output_filter_by_type
-    )
+    variables(add_output_filter_by_type: new_resource.add_output_filter_by_type)
   end
 end
 

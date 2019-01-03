@@ -3,6 +3,7 @@ include Apache2::Cookbook::Helpers
 property :types_config, String,
          default: lazy { default_types_config },
          description: ''
+
 property :add_type, Hash,
          default: {
            1 => 'text/html .shtml',
@@ -12,19 +13,19 @@ property :add_type, Hash,
            5 => 'image/svg+xml svg svgz',
          },
          description: ''
+
 property :add_handler, Hash,
-         default: {
-           1 => 'AddHandler type-map var',
-         },
+         default: { 1 => 'AddHandler type-map var' },
          description: ''
+
 property :add_output_filter, Hash,
          default: { 1 => 'INCLUDES .shtml' },
          description: ''
+
 property :add_encoding, Hash,
-         default: {
-           1 => 'gzip svgz',
-         },
+         default: { 1 => 'gzip svgz' },
          description: ''
+
 property :add_language, Hash,
          default: {},
          description: 'Not currently used'

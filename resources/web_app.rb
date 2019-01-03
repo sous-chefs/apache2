@@ -1,29 +1,37 @@
 property :template, String,
          default: 'web_app.conf.erb',
          description: 'Template name'
+
 property :cookbook, String,
          default: 'apache2',
          description: 'Cookbok to source the template from'
+
 property :local, [true, false],
           default: false,
           description: 'Load a template from a local path. By default, the chef-client
 loads templates from a cookbook’s /templates directory. When this property is
 set to true, use the source property to specify the path to a template on the
 local node.'
+
 property :local, [true, false],
          default: false,
          description: ''
+
 property :enable, [true, false],
          default: true,
          description: 'enable or disable the site'
+
 property :server_port, Integer,
          default: 80,
          description: 'Port to listen on'
+
 property :root_group, String,
-default: lazy { default_apache_root_group },
-description: ''
+         default: lazy { default_apache_root_group },
+         description: ''
+
 property :parameters, Hash,
-description: ''
+         description: ''
+
 
 action :enable do
   apache2_module 'rewrite'

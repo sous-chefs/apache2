@@ -4,18 +4,26 @@ property :install_method, String,
          equal_to: %w( source package ),
          default: 'package',
          description: 'Install method for Mod auth CAS'
+
 property :source_revision, String,
          default: 'v1.0.9.1',
          description: 'Revision for the mod auth cas source install'
+
 property :root_group, String,
          default: lazy { default_apache_root_group },
-         description: ''
+         description: 'Group that the root user on the box runs as.
+Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :apache_user, String,
          default: lazy { default_apache_user },
-         description: 'Set to override the default apache2 user'
+         description: 'Set to override the default apache2 user.
+Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :apache_group, String,
          default: lazy { default_apache_group },
-         description: 'Set to override the default apache2 user'
+         description: 'Set to override the default apache2 user.
+Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :mpm, String,
          default: lazy { default_mpm },
          description: 'Apache2 MPM: used to determine which devel package to install on Debian'
@@ -41,9 +49,7 @@ action :install do
       source 'mods/auth_cas.load.erb'
       owner 'root'
       group new_resource.root_group
-      variables(
-        cache_dir: cache_dir
-      )
+      variables(cache_dir: cache_dir)
       mode '0644'
     end
   else
@@ -51,7 +57,6 @@ action :install do
     case node['platform_family']
     when 'debian'
       package 'libapache2-mod-auth-cas'
-
     when 'rhel', 'fedora', 'amazon'
       yum_package 'mod_auth_cas' do
         notifies :run, 'execute[generate-module-list]', :immediately
