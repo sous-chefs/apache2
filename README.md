@@ -50,7 +50,7 @@ It is recommended to create a project or organization specific [wrapper cookbook
 Example wrapper cookbooks can be found in the `test/cookbooks/test` folder.
 
 # Recipes
-This cookbook comes with recipes as a way of maintaining backwards compataility.
+This cookbook comes with recipes as a way of maintaining backwards compatibility.
 It is recommended to use custom resources directly for more control.
 
 On RHEL Family distributions, certain modules ship with a config file with the package. The recipes here may delete those configuration files to ensure they don't conflict with the settings from the cookbook, which will use per-module configuration in `/etc/httpd/mods-enabled`.
