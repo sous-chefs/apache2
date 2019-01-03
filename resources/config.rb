@@ -43,13 +43,13 @@ property :keep_alive_timeout, Integer,
 
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
-         description: 'Apache document root.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Apache document root.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :timeout, [Integer, String],
          coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m },
-         default: 300
-         description: 'The number of seconds before receives and sends time out',
+         default: 300,
+         description: 'The number of seconds before receives and sends time out'
 
 property :server_name, String,
          default: 'localhost',
@@ -57,8 +57,8 @@ property :server_name, String,
 
 property :run_dir, String,
          default: lazy { default_run_dir },
-         description: ' Sets the DefaultRuntimeDir directive.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: ' Sets the DefaultRuntimeDir directive.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 action :create do
   template 'apache2.conf' do

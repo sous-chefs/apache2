@@ -20,7 +20,7 @@ property :browser_match, Array,
 property :browser_match_nocase, Array,
          default: [],
          description: ''
-         
+
 property :set_env_if_no_case, Array,
          default: [],
          description: ''

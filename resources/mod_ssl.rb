@@ -51,7 +51,7 @@ property :stapling_return_responder_errors, String,
 property :stapling_cache, String,
         default: 'shmcb:/var/run/ocsp(128000)',
         description: ''
-        
+
 property :directives, Hash,
         default: {},
         description: ''

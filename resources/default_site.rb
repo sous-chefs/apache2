@@ -30,18 +30,19 @@ property :log_dir, String,
 
 property :apache_root_group, String,
          default: lazy { default_apache_root_group },
-         description: 'Group that the root user on the box runs as.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Group that the root user on the box runs as.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :template_source, String,
          default: lazy {
            if platform_family? 'debian'
-              "#{new_resource.default_site_name}.conf.erb"
-            else
-              'welcome.conf.erb'
-            end
+             "#{new_resource.default_site_name}.conf.erb"
+           else
+             'welcome.conf.erb'
+           end
          },
-         description: 'Source for the template, defaults to #{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms'
+         description: 'Source for the template.'\
+'defaults to #{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms'
 
 action :enable do
   template "#{new_resource.default_site_name}.conf" do
@@ -59,7 +60,7 @@ action :enable do
       log_dir: default_log_dir,
       log_level: new_resource.log_level,
       port: new_resource.port,
-      server_admin: new_resource.server_admin,
+      server_admin: new_resource.server_admin
     )
   end
 

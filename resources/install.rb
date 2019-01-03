@@ -7,23 +7,23 @@ Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :apache_user, String,
          default: lazy { default_apache_user },
-         description: 'Set to override the default apache2 user.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Set to override the default apache2 user.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :apache_group, String,
          default: lazy { default_apache_group },
-         description: 'Set to override the default apache2 user.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Set to override the default apache2 user.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :log_dir, String,
          default: lazy { default_log_dir },
-         description: 'Log directory location.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Log directory location.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :error_log, String,
          default: lazy { default_error_log },
-         description: 'Error log location.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Error log location.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :log_level, String,
          default: 'warn',
@@ -47,8 +47,8 @@ property :httpd_t_timeout, Integer,
 
 property :mpm, String,
          default: lazy { default_mpm },
-         description: 'Multi-processing Module.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Multi-processing Module.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :listen, [String, Array],
          default: %w(80 443),
@@ -69,13 +69,13 @@ property :keep_alive_timeout, Integer,
 
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
-         description: 'Apache document root.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Apache document root.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :run_dir, String,
          default: lazy { default_run_dir },
-         description: 'Location for APACHE_RUN_DIR.
-Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Location for APACHE_RUN_DIR.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :access_file_name, String,
          defualt: '.htaccess',
@@ -83,8 +83,8 @@ property :access_file_name, String,
 
 property :timeout, [Integer, String],
          coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m },
-         default: 300
-         description: 'The number of seconds before receives and sends time out',
+         default: 300,
+         description: 'The number of seconds before receives and sends time out'
 
 property :sysconfig_additional_params, Hash,
          description: 'Hash of additional sysconfig parameters to apply to the system'
@@ -214,7 +214,7 @@ action :install do
     variables(
       apache_binary: apache_binary,
       apache_dir: apache_dir,
-      sysconfig_additional_params: new_resource.sysconfig_additional_params if new_resource.sysconfig_additional_params
+      sysconfig_additional_params: new_resource.sysconfig_additional_params
     )
     only_if { platform_family?('rhel', 'amazon', 'fedora', 'suse') }
   end

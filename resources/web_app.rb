@@ -32,7 +32,6 @@ property :root_group, String,
 property :parameters, Hash,
          description: ''
 
-
 action :enable do
   apache2_module 'rewrite'
 
