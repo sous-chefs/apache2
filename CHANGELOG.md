@@ -8,7 +8,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 See UPGRADING.md for upgrading.
 
-### Behavour Changes
+### Behaviour Changes
 
 - Default recipe now calls the install resource!
 - Add helpers: for a full list see `libraries/helpers.rb`
@@ -32,7 +32,7 @@ See UPGRADING.md for upgrading.
 - Specs added for most helpers.
 - Make sysconfig paramters configurable via the install resource
 
-### Mic Updates & Improvements
+### Misc Updates & Improvements
 
 - Update README
 - Add dev-sec/apache-baseline tests and set cookbook defaults to secure defaults

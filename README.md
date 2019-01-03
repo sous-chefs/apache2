@@ -50,7 +50,7 @@ It is recommended to create a project or organization specific [wrapper cookbook
 Example wrapper cookbooks can be found in the `test/cookbooks/test` folder.
 
 # Recipes
-This cookbook comes with recipes as a way of maintaining backwards compataility.
+This cookbook comes with recipes as a way of maintaining backwards compatibility.
 It is recommended to use custom resources directly for more control.
 
 On RHEL Family distributions, certain modules ship with a config file with the package. The recipes here may delete those configuration files to ensure they don't conflict with the settings from the cookbook, which will use per-module configuration in `/etc/httpd/mods-enabled`.
@@ -60,13 +60,13 @@ The default recipe simply includes the `apache2_install` resource, using all the
 
 ## Resources
 
-- [install](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_install.md)
-- [default_site](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_default_site.md)
-- [site](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_site.md)
-- [conf](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_conf.md)
-- [config](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2config.md)
-- [mod](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_mod.md)
-- [module](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_module.md)
+- [install](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_install.md)
+- [default_site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_default_site.md)
+- [site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_site.md)
+- [conf](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_conf.md)
+- [config](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_config.md)
+- [mod](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod.md)
+- [module](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_module.md)
 
 ## License
 ```text

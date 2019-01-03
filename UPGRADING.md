@@ -27,8 +27,8 @@ These have been removed in favour of tunable properties on each resource.
 ## What happened to apache2_web_app?
 The `apache2_web_app` resource was a wrapper around the template resource and `apache2_site` that provided little value, and restricted the the users ability to provide all the variables possible.
 
-It is recommeneded that you, manage your template and call the `apache2_site` resource directly.
+It is recommended that you manage your template and call the `apache2_site` resource directly.
 
 This leads to a simpler system, and you get more control over the variables and values you pass to the template.
 
-An example of this behaviour can be see in the `apache2_default_site` resource.
+An example of this behaviour can be seen in the `apache2_default_site` resource.
