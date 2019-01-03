@@ -60,13 +60,13 @@ The default recipe simply includes the `apache2_install` resource, using all the
 
 ## Resources
 
-- [install](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_install.md)
-- [default_site](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_default_site.md)
-- [site](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_site.md)
-- [conf](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_conf.md)
-- [config](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2config.md)
-- [mod](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_mod.md)
-- [module](https://github.com/sou-chefs/apache2/blob/master/documentation/resource_apache2_module.md)
+- [install](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_install.md)
+- [default_site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_default_site.md)
+- [site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_site.md)
+- [conf](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_conf.md)
+- [config](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2config.md)
+- [mod](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod.md)
+- [module](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_module.md)
 
 ## License
 ```text
