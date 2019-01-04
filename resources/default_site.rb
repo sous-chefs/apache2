@@ -34,13 +34,7 @@ property :apache_root_group, String,
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :template_source, String,
-         default: lazy {
-           if platform_family? 'debian'
-             "#{new_resource.default_site_name}.conf.erb"
-           else
-             'welcome.conf.erb'
-           end
-         },
+         default: lazy { default_site_template_source },
          description: 'Source for the template.'\
 'defaults to #{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms'
 
