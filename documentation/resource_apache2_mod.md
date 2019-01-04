@@ -6,8 +6,10 @@ This will use a template resource to write the module's configuration file in th
 
 ## Properties
 
-- `name` - Type: String - Name of the template.
-- `root_group` - Type: String - Set to override the platforms default root group for the template file.'
+|Name|Type|Default|Description|
+|-|-|-|-|
+| `template` | String |  | Name of the template |
+| `root_group` | String | `default_apache_root_group` | Set to override the platforms default root group for the template file |
 
 ## Examples
 

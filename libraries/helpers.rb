@@ -421,6 +421,10 @@ module Apache2
           "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.#{suffix}"
         end
       end
+
+      def default_site_template_source
+        node['platform_family'] == 'debian' ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
+      end
     end
   end
 end

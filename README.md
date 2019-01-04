@@ -1,5 +1,6 @@
 # apache2 Cookbook
-[![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg?style=flat)](https://supermarket.chef.io/cookbooks/apache2) [![License](https://img.shields.io/badge/license-apache2_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
+[![CircleCI](https://circleci.com/gh/sous-chefs/apache2.svg?style=svg)](https://circleci.com/gh/sous-chefs/apache2) [![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg?style=flat)](https://supermarket.chef.io/cookbooks/apache2) [![License](https://img.shields.io/badge/license-apache2_2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD configuration. Non-Debian based distributions such as Red Hat/CentOS, ArchLinux and others supported by this cookbook will have a configuration that mimics Debian/Ubuntu style as it is easier to manage with Chef.
 
@@ -14,7 +15,8 @@ Debian-style Apache configuration uses scripts to manage modules and sites (vhos
 
 This cookbook ships with templates of these scripts for non-Debian/Ubuntu platforms.
 
-## Cookbooks:
+## Cookbooks
+
 - Build Essential
   This is required as some recipes (e.g., `apache2::mod_auth_openid`) build the module from source
 
@@ -32,6 +34,7 @@ To deal with firewalls Chef Software does provide an [iptables](https://supermar
 On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also need the [pacman](https://supermarket.chef.io/cookbooks/pacman) cookbook for the `pacman_aur` LWRP. Put `recipe[pacman]` on the node's expanded run list (on the node or in a role). This is not an explicit dependency because it is only required for this single recipe and platform; the pacman default recipe performs `pacman -Sy` to keep pacman's package cache updated.
 
 ## Platforms
+
 The following platforms and versions are tested and supported using [test-kitchen](http://kitchen.ci/)
 
 - Amazon Linux 2013.09+
@@ -42,20 +45,24 @@ The following platforms and versions are tested and supported using [test-kitche
 - OpenSUSE Leap
 
 ### Notes for RHEL Family
+
 Apache2.4 support for Centos 6 is not officially supported.
 
-# Usage
+## Usage
+
 It is recommended to create a project or organization specific [wrapper cookbook](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/) and add the desired custom resources to the run list of a node. Depending on your environment, you may have multiple roles that use different recipes from this cookbook. Adjust any attributes as desired.
 
 Example wrapper cookbooks can be found in the `test/cookbooks/test` folder.
 
-# Recipes
-This cookbook comes with recipes as a way of maintaining backwards compatibility.
+## Recipes
+
+This cookbook comes with recipes as a way of maintaining backwards compataility.
 It is recommended to use custom resources directly for more control.
 
 On RHEL Family distributions, certain modules ship with a config file with the package. The recipes here may delete those configuration files to ensure they don't conflict with the settings from the cookbook, which will use per-module configuration in `/etc/httpd/mods-enabled`.
 
 ## default
+
 The default recipe simply includes the `apache2_install` resource, using all the default values. The `apache2_install` resource is more flexible and should be used in favour of the default recipe.
 
 ## Resources
@@ -69,6 +76,7 @@ The default recipe simply includes the `apache2_install` resource, using all the
 - [module](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_module.md)
 
 ## License
+
 ```text
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

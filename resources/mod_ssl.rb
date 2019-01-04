@@ -1,63 +1,57 @@
-#
-# Cookbook:: apache2
-# Resource:: apache2_mod_ssl
-#
-# Copyright:: 2008-2017, Chef Software, Inc.
-# Copyright:: 2018, Webb Agile Solutions Ltd.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 include Apache2::Cookbook::Helpers
 
 property :pass_phrase_dialog, String,
          default: lazy { pass_phrase_dialog },
          description: ''
+
 property :session_cache, String,
         default: lazy { session_cache },
         description: ''
+
 property :session_cache_timeout, String,
         default: '300',
         description: ''
+
 property :cipher_suite, String,
         default: 'EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA256:EECDH:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!IDEA:!ECDSA:kEDH:CAMELLIA128-SHA:AES128-SHA',
         description: ''
+
 property :honor_cipher_order, String,
         default: 'On',
         description: ''
+
 property :protocol, String,
         default: '',
         description: ''
+
 property :insecure_renegotiation, String,
         default: 'Off',
         description: ''
+
 property :strict_sni_vhost_check, String,
         default: 'Off',
         description: ''
+
 property :compression, String,
         default: 'Off',
         description: ''
+
 property :use_stapling, String,
         default: 'Off',
         description: ''
+
 property :stapling_responder_timeout, String,
         default: '5',
         description: ''
+
 property :stapling_return_responder_errors, String,
         default: 'Off',
         description: ''
+
 property :stapling_cache, String,
         default: 'shmcb:/var/run/ocsp(128000)',
         description: ''
+
 property :directives, Hash,
         default: {},
         description: ''

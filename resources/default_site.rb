@@ -6,7 +6,7 @@ property :site_action, [String, Symbol],
          default: :enable,
          coerce: proc { |m| m.is_a?(String) ? m.to_i : m },
          equal_to: %i( enable disable),
-         description: 'Enable the site. Allows you to place all the configuration on disk but not enable the site.'
+         description: 'Enable the site. Allows you to place all the configuration on disk but not enable the site'
 
 property :port, String,
          default: '80',
@@ -30,31 +30,31 @@ property :log_dir, String,
 
 property :apache_root_group, String,
          default: lazy { default_apache_root_group },
-         description: ''
+         description: 'Group that the root user on the box runs as.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
+
+property :template_source, String,
+         default: lazy { default_site_template_source },
+         description: 'Source for the template.'\
+'defaults to #{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms'
 
 action :enable do
-  template_source = if platform_family? 'debian'
-                      "#{new_resource.default_site_name}.conf.erb"
-                    else
-                      'welcome.conf.erb'
-                    end
-
   template "#{new_resource.default_site_name}.conf" do
-    source template_source
+    source new_resource.template_source
     path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     owner 'root'
     group new_resource.apache_root_group
     mode '0644'
     cookbook new_resource.cookbook
     variables(
-      server_admin: new_resource.server_admin,
-      port: new_resource.port,
-      docroot_dir: default_docroot_dir,
-      cgibin_dir: default_cgibin_dir,
-      error_log: default_error_log,
       access_log: default_access_log,
+      cgibin_dir: default_cgibin_dir,
+      docroot_dir: default_docroot_dir,
+      error_log: default_error_log,
       log_dir: default_log_dir,
-      log_level: new_resource.log_level
+      log_level: new_resource.log_level,
+      port: new_resource.port,
+      server_admin: new_resource.server_admin
     )
   end
 

@@ -1,23 +1,3 @@
-#
-# Cookbook:: apache2
-# Resource:: apache2_mod_fastcgi
-# Resource:: apache2_conf
-#
-# Copyright:: 2008-2017, Chef Software, Inc.
-# Copyright:: 2018, Webb Agile Solutions Ltd.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 include Apache2::Cookbook::Helpers
 
 property :fast_cgi_wrapper, String,
@@ -25,14 +5,13 @@ property :fast_cgi_wrapper, String,
          description: 'Defaults to an empty string'
 
 property :add_handler, Hash,
-         default: {
-           1 => 'fastcgi-script .fcgi',
-         },
-         description: ''
+         default: { 1 => 'fastcgi-script .fcgi' },
+         description: 'A key ordered hash of handlers'
 
 property :fast_cgi_ipc_dir, String,
          default: lazy { ::File.join(lib_dir, 'fastcgi') },
-         description: ''
+         description: 'FastCGI directory.
+Defaults to platform specific locations, see libraries/helpers.rb'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'fastcgi.conf') do

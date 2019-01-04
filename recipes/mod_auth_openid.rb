@@ -101,7 +101,7 @@ bash 'install-mod_auth_openid' do
   #{make_cmd} install
   EOH
   creates "#{libexec_dir}/mod_auth_openid.so"
-  notifies :restart, 'service[apache2]'
+  notifies :restart, 'service[apache2]', :delayed
   not_if "test -f #{libexec_dir}/mod_auth_openid.so"
 end
 

@@ -1,22 +1,3 @@
-#
-# Cookbook:: apache2
-# Resource:: apache2_config
-#
-# Copyright:: 2008-2017, Chef Software, Inc.
-# Copyright:: 2018, Webb Agile Solutions Ltd.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 include Apache2::Cookbook::Helpers
 
 property :root_group, String,
@@ -38,6 +19,7 @@ property :error_log, String,
 property :log_level, String,
          default: 'warn',
          description: 'log level for apache2'
+
 property :apache_user, String,
          default: lazy { default_apache_user },
          description: 'Set to override the default apache2 user. Defaults to platform specific locations, see libraries/helpers.rb'
@@ -61,12 +43,13 @@ property :keep_alive_timeout, Integer,
 
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
-         description: 'Apache document root. Defaults to platform specific locations, see libraries/helpers.rb'
+         description: 'Apache document root.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :timeout, [Integer, String],
          coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m },
-         description: 'The number of seconds before receives and sends time out.',
-         default: 300
+         default: 300,
+         description: 'The number of seconds before receives and sends time out'
 
 property :server_name, String,
          default: 'localhost',
@@ -74,7 +57,8 @@ property :server_name, String,
 
 property :run_dir, String,
          default: lazy { default_run_dir },
-         description: ' Sets the DefaultRuntimeDir directive'
+         description: ' Sets the DefaultRuntimeDir directive.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
 
 action :create do
   template 'apache2.conf' do
@@ -90,23 +74,23 @@ action :create do
     group new_resource.root_group
     mode '0640'
     variables(
+      access_file_name: new_resource.access_file_name,
       apache_binary: apache_binary,
       apache_dir: apache_dir,
-      lock_dir: lock_dir,
-      pid_file: apache_pid_file,
-      access_file_name: new_resource.access_file_name,
-      log_dir: new_resource.log_dir,
-      error_log: new_resource.error_log,
-      log_level: new_resource.log_level,
       apache_user: new_resource.apache_user,
       apache_group: new_resource.apache_group,
-      keep_alive: new_resource.keep_alive,
-      max_keep_alive_requests: new_resource.max_keep_alive_requests,
-      keep_alive_timeout: new_resource.keep_alive_timeout,
       docroot_dir: new_resource.docroot_dir,
+      error_log: new_resource.error_log,
+      keep_alive: new_resource.keep_alive,
+      keep_alive_timeout: new_resource.keep_alive_timeout,
+      lock_dir: lock_dir,
+      log_dir: new_resource.log_dir,
+      log_level: new_resource.log_level,
+      max_keep_alive_requests: new_resource.max_keep_alive_requests,
+      pid_file: apache_pid_file,
+      run_dir: new_resource.run_dir,
       timeout: new_resource.timeout,
-      server_name: new_resource.server_name,
-      run_dir: new_resource.run_dir
+      server_name: new_resource.server_name
     )
   end
 end
