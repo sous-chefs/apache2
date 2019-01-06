@@ -58,8 +58,8 @@ property :directives, Hash,
 action :create do
   package 'mod_ssl' do
     notifies :run, 'execute[generate-module-list]', :immediately
-#     notifies :enable, 'apache2_conf[security]', :delayed
-#     only_if { platform_family?('rhel', 'fedora', 'suse', 'amazon') }
+    #     notifies :enable, 'apache2_conf[security]', :delayed
+    #     only_if { platform_family?('rhel', 'fedora', 'suse', 'amazon') }
   end
 
   file "#{apache_dir}/conf.d/ssl.conf" do

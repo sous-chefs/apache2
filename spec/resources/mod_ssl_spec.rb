@@ -11,7 +11,7 @@ describe 'apache2_install' do
     end
 
     it 'outputs template correctly' do
-      stub_command("/usr/sbin/apache2ctl -t").and_return('OK')
+      stub_command('/usr/sbin/apache2ctl -t').and_return('OK')
 
       is_expected.not_to render_file('/etc/apache2/mods-available/ssl.conf')
         .with_content(/SSLStrictSNIVHostCheck Off/)
