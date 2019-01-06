@@ -353,11 +353,11 @@ module Apache2
         end
       end
 
-      def pass_phrase_dialog
-        node['platform_family'] == 'ubuntu' ? 'exec:/usr/share/apache2/ask-for-passphrase' : 'builtin'
+      def default_pass_phrase_dialog
+        node['platform'] == 'ubuntu' ? 'exec:/usr/share/apache2/ask-for-passphrase' : 'builtin'
       end
 
-      def session_cache
+      def default_session_cache
         case node['platform_family']
         when 'freebsd'
           'shmcb:/var/run/ssl_scache(512000)'

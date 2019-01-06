@@ -1,11 +1,11 @@
 include Apache2::Cookbook::Helpers
 
 property :pass_phrase_dialog, String,
-         default: lazy { pass_phrase_dialog },
+         default: lazy { default_pass_phrase_dialog },
          description: ''
 
 property :session_cache, String,
-        default: lazy { session_cache },
+        default: lazy { default_session_cache },
         description: ''
 
 property :session_cache_timeout, String,
@@ -21,7 +21,7 @@ property :honor_cipher_order, String,
         description: ''
 
 property :protocol, String,
-        default: '',
+        default: 'TLSv1.2',
         description: ''
 
 property :insecure_renegotiation, String,
@@ -53,10 +53,20 @@ property :stapling_cache, String,
         description: ''
 
 property :directives, Hash,
-        default: {},
         description: ''
 
 action :create do
+  package 'mod_ssl' do
+    notifies :run, 'execute[generate-module-list]', :immediately
+#     notifies :enable, 'apache2_conf[security]', :delayed
+#     only_if { platform_family?('rhel', 'fedora', 'suse', 'amazon') }
+  end
+
+  file "#{apache_dir}/conf.d/ssl.conf" do
+    content '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n'
+    only_if { ::File.exist?("#{apache_dir}/conf.d") }
+  end
+
   template ::File.join(apache_dir, 'mods-available', 'ssl.conf') do
     source 'mods/ssl.conf.erb'
     cookbook 'apache2'
@@ -77,6 +87,8 @@ action :create do
       directives: new_resource.directives
     )
   end
+
+  apache2_module 'socache_shmcb'
 end
 
 action_class do

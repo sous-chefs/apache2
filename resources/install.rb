@@ -151,9 +151,12 @@ action :install do
       group new_resource.root_group
     end
 
-    execute 'generate-module-list' do
-      command "/usr/local/bin/apache2_module_conf_generate.pl #{lib_dir} #{apache_dir}/mods-available"
-      action :nothing
+    # Throw this in the root context so we can find it easier
+    with_run_context :root do
+      execute 'generate-module-list' do
+        command "/usr/local/bin/apache2_module_conf_generate.pl #{lib_dir} #{apache_dir}/mods-available"
+        action :nothing
+      end
     end
   end
 

@@ -78,7 +78,7 @@
   #   Enable compression on the SSL level
   #   Enabling compression causes security issues in most setups (the so called CRIME attack).
   #   Default: Off
-  SSLCompression         <%= @compression %>
+  SSLCompression <%= @compression %>
 
   #   OCSP Stapling, only in httpd 2.3.3 and later
   #   This option enables OCSP stapling, as defined by the "Certificate Status Request" TLS
@@ -93,7 +93,9 @@
   SSLStaplingCache        <%= @stapling_cache %>
   <% end -%>
 
+  <% unless @directives.nil? -%>
   <% @directives.sort_by { |key, val| key }.each do |directive, value| -%>
       <%= directive %> <%= value %>
+  <% end -%>
   <% end -%>
 </IfModule>

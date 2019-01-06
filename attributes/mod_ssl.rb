@@ -24,14 +24,12 @@ default['apache']['mod_ssl']['cipher_suite'] = 'EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA
 default['apache']['mod_ssl']['honor_cipher_order']     = 'On'
 default['apache']['mod_ssl']['insecure_renegotiation'] = 'Off'
 default['apache']['mod_ssl']['strict_sni_vhost_check'] = 'Off'
-default['apache']['mod_ssl']['session_cache'] = 'shmcb:/var/run/apache2/ssl_scache'
 default['apache']['mod_ssl']['session_cache_timeout'] = 300
 default['apache']['mod_ssl']['compression'] = 'Off'
 default['apache']['mod_ssl']['use_stapling'] = 'Off'
 default['apache']['mod_ssl']['stapling_responder_timeout'] = 5
 default['apache']['mod_ssl']['stapling_return_responder_errors'] = 'Off'
 default['apache']['mod_ssl']['stapling_cache'] = 'shmcb:/var/run/ocsp(128000)'
-default['apache']['mod_ssl']['pass_phrase_dialog'] = 'builtin'
 default['apache']['mod_ssl']['mutex'] = 'file:/var/run/apache2/ssl_mutex'
 default['apache']['mod_ssl']['directives'] = {}
 default['apache']['mod_ssl']['pkg_name'] = 'mod_ssl'
@@ -42,10 +40,8 @@ when 'debian'
     default['apache']['mod_ssl']['pass_phrase_dialog'] = 'exec:/usr/share/apache2/ask-for-passphrase'
   end
 when 'freebsd'
-  default['apache']['mod_ssl']['session_cache'] = 'shmcb:/var/run/ssl_scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'file:/var/run/ssl_mutex'
 when 'rhel', 'fedora', 'suse', 'amazon'
   default['apache']['mod_ssl']['pkg_name'] = 'mod24_ssl' if platform?('amazon') && node['platform_version'] != 2
-  default['apache']['mod_ssl']['session_cache'] = 'shmcb:/var/cache/mod_ssl/scache(512000)'
   default['apache']['mod_ssl']['mutex'] = 'default'
 end
