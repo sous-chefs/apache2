@@ -1,0 +1,31 @@
+<VirtualHost *:443>
+  ServerName <%= @server_name %>
+  DocumentRoot <%= @document_root %>
+
+  <Directory <%= @document_root %>>
+    Options FollowSymLinks
+    AllowOverride None
+    Require all granted
+  </Directory>
+
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride None
+  </Directory>
+
+  <Location /server-status>
+    SetHandler server-status
+    Require local
+  </Location>
+
+  <IfModule mod_ssl.c>
+    SSLEngine on
+    SSLCertificateFile <%= @ssl_cert_file %>
+    SSLCertificateKeyFile <%= @ssl_cert_key_file %>
+  </IfModule>
+
+  RewriteEngine On
+  LogLevel info rewrite:trace1
+  ErrorLog <%= @log_dir %>/<%= @site_name %>-error.log
+  CustomLog <%= @log_dir %>/<%= @site_name %>-access.log combined
+</VirtualHost>

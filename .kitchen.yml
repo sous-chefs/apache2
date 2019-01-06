@@ -31,6 +31,9 @@ suites:
   - name: default
     run_list:
     - recipe[test::default]
-  # - name: ssl
-  #   run_list:
-  #   - recipe[test::mod_ssl]
+  - name: basic_site
+    run_list:
+    - recipe[test::basic_site]
+  - name: ssl
+    run_list:
+    - recipe[test::mod_ssl]
