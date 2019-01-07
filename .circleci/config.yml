@@ -37,3 +37,13 @@ workflows:
           platform: ubuntu-1804
           suite: default
           requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: basic-site-centos
+          platform: centos-7
+          suite: basic-site
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: ssl-centos
+          platform: centos-7
+          suite: ssl
+          requires: [ lint, danger ]
