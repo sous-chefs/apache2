@@ -24,8 +24,7 @@
     SSLCertificateKeyFile <%= @ssl_cert_key_file %>
   </IfModule>
 
-  RewriteEngine On
-  LogLevel info rewrite:trace1
+  LogLevel info
   ErrorLog <%= @log_dir %>/<%= @site_name %>-error.log
   CustomLog <%= @log_dir %>/<%= @site_name %>-access.log combined
 </VirtualHost>

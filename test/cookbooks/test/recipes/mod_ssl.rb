@@ -5,23 +5,16 @@ app_dir           = '/var/www/basic_site'
 
 apache2_install 'default'
 
-# service 'apache2' do
-#   extend Apache2::Cookbook::Helpers
-#   service_name lazy { apache_platform_service_name }
-#   supports restart: true, status: true, reload: true
-#   action :nothing
-# end
-
-find_resource(:service, 'apache2') do
-  extend       Apache2::Cookbook::Helpers
+service 'apache2' do
+  extend Apache2::Cookbook::Helpers
   service_name lazy { apache_platform_service_name }
-  supports     restart: true, status: true, reload: true
-  action       [:enable, :start]
+  supports restart: true, status: true, reload: true
+  action [:start, :enable]
 end
 
 apache2_module 'deflate'
 apache2_module 'headers'
-# apache2_module 'ssl'
+apache2_module 'ssl'
 
 apache2_mod_ssl 'foo'
 
