@@ -21,6 +21,9 @@ See UPGRADING.md for upgrading.
 - Add apache2_default_site resource
 - Remove and document apache2_webapp resource
 - Add the default_site resource for managing the default site
+- Add site resource
+- Remove the web_app resource as it was very perscriptive
+- Add mod_ssl
 
 ### Testing/CI
 
