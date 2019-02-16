@@ -56,9 +56,13 @@ property :directives, Hash,
         description: ''
 
 action :create do
-  package 'mod_ssl' do
-    notifies :run, 'execute[generate-module-list]', :immediately
-    only_if { platform_family?('rhel', 'fedora', 'suse', 'amazon') }
+  if platform_family?('rhel', 'fedora', 'suse', 'amazon')
+    with_run_context :root do
+      package 'mod_ssl' do
+        notifies :run, 'execute[generate-module-list]', :immediately
+        only_if { platform_family?('rhel', 'fedora', 'suse', 'amazon') }
+      end
+    end
   end
 
   file "#{apache_dir}/conf.d/ssl.conf" do
@@ -88,6 +92,13 @@ action :create do
   end
 
   apache2_module 'socache_shmcb'
+
+  %w( conf.d conf.modules.d ).each do |dir|
+    directory "#{apache_dir}/#{dir}" do
+      recursive true
+      action :delete
+    end
+  end
 end
 
 action_class do

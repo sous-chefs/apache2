@@ -58,8 +58,10 @@ action :install do
     when 'debian'
       package 'libapache2-mod-auth-cas'
     when 'rhel', 'fedora', 'amazon'
-      yum_package 'mod_auth_cas' do
-        notifies :run, 'execute[generate-module-list]', :immediately
+      with_run_context :root do
+        yum_package 'mod_auth_cas' do
+          notifies :run, 'execute[generate-module-list]', :immediately
+        end
       end
 
       file "#{apache_dir}/conf.d/auth_cas.conf" do

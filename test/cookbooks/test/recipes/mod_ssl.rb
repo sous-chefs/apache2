@@ -16,14 +16,28 @@ apache2_module 'deflate'
 apache2_module 'headers'
 apache2_module 'ssl'
 
-apache2_mod_ssl 'foo'
+apache2_mod_ssl ''
 
-# # Create Certificates
+# Create Certificates
 directory '/home/apache2' do
   extend    Apache2::Cookbook::Helpers
   owner     lazy { default_apache_user }
   group     lazy { default_apache_group }
   recursive true
+end
+
+directory app_dir do
+  extend    Apache2::Cookbook::Helpers
+  owner     lazy { default_apache_user }
+  group     lazy { default_apache_group }
+  recursive true
+end
+
+file "#{app_dir}/index.html" do
+  content 'Hello World'
+  extend  Apache2::Cookbook::Helpers
+  owner   lazy { default_apache_user }
+  group   lazy { default_apache_group }
 end
 
 execute 'create-private-key' do
@@ -32,28 +46,28 @@ execute 'create-private-key' do
 end
 
 execute 'create-certficate' do
-  command %(openssl req -new -x509 -key #{ssl_cert_key_file} -out #{ssl_cert_file} -days 1 <<EOF
+  command %(openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout #{ssl_cert_key_file} -out #{ssl_cert_file} <<EOF
 US
 Washington
 Seattle
 Chef Software, Inc
 
-example.com
+127.0.0.1
 webmaster@example.com
 EOF)
   not_if { File.exist?(ssl_cert_file) }
 end
 
-# # Create site template with our custom config
+# Create site template with our custom config
 site_name = 'ssl_site'
 
 template site_name do
   extend Apache2::Cookbook::Helpers
   source 'ssl.conf.erb'
-  path "#{apache_dir}/sites-available/ssl.conf.conf"
+  path "#{apache_dir}/sites-available/#{site_name}.conf"
   variables(
-    # server_name: '127.0.0.1',
-    server_name: 'example.com',
+    server_name: '127.0.0.1',
+    # server_name: 'example.com',
     document_root: app_dir,
     log_dir: lazy { default_log_dir },
     site_name: site_name,

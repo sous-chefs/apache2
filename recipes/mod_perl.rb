@@ -27,14 +27,18 @@ when 'debian'
     package 'apache2-mpm-prefork'
   end
 when 'suse'
-  package 'apache2-mod_perl' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+  with_run_context :root do
+    package 'apache2-mod_perl' do
+      notifies :run, 'execute[generate-module-list]', :immediately
+    end
   end
 
   package 'perl-Apache2-Request'
 when 'rhel', 'fedora', 'amazon'
-  package 'mod_perl' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+  with_run_context :root do
+    package 'mod_perl' do
+      notifies :run, 'execute[generate-module-list]', :immediately
+    end
   end
 
   package 'perl-libapreq2'

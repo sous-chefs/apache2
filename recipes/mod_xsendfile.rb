@@ -19,14 +19,18 @@
 
 case node['platform_family']
 when 'suse'
-  package 'apache2-mod_xsendfile' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+  with_run_context :root do
+    package 'apache2-mod_xsendfile' do
+      notifies :run, 'execute[generate-module-list]', :immediately
+    end
   end
 when 'debian'
   package 'libapache2-mod-xsendfile'
 when 'rhel', 'fedora', 'amazon'
-  package 'mod_xsendfile' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+  with_run_context :root do
+    package 'mod_xsendfile' do
+      notifies :run, 'execute[generate-module-list]', :immediately
+    end
   end
 end
 
