@@ -7,5 +7,5 @@ supports:
   - os-family: bsd
 
 depends:
-- name: apache2-integration-tests
-  path: test/integration/default
+  - name: apache2-integration-tests
+    path: test/integration/default

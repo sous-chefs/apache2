@@ -1,6 +1,6 @@
 ---
 driver:
-   name: vagrant
+  name: vagrant
 
 provisioner:
   name: chef_solo
