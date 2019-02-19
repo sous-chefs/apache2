@@ -22,11 +22,11 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
+      - kitchen/dokken-install-chef:
+          name: Install ChefDK
 
       # Use dokken-single as we don't support CentOS-6
       # Test default config
-      - kitchen/dokken-install-chef:
-          name: Install ChefDK
       - kitchen/dokken-single:
           name: default-centos-7
           platform: centos-7
