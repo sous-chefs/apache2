@@ -4,8 +4,6 @@ lint_and_unit: &lint_and_unit
   - danger
   - lint-yaml
   - lint-markdown
-  - Install ChefDK
-
 
 version: 2.1
 orbs:
@@ -24,8 +22,6 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
-      - kitchen/dokken-install-chef:
-          name: Install ChefDK
 
       # Use dokken-single as we don't support CentOS-6
       # Test default config
