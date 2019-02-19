@@ -5,7 +5,6 @@ As a result we are now providing the default assigned names:
 
 - apache_mod --> apache2_mod
 - apache_conf --> apache2_conf
-- web_app --> apache2_web_app
 - apache_site --> apache2_site
 
 ## apache_module
