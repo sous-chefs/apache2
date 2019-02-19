@@ -25,31 +25,33 @@ workflows:
 
       # Use dokken-single as we don't support CentOS-6
       # Test default config
+      - dokken-install-chef:
+          name: Install ChefDK
       - kitchen/dokken-single:
           name: default-centos-7
           platform: centos-7
           suite: default
-          requires: [delivery, danger]
+          requires: [Install ChefDK, delivery, danger]
       - kitchen/dokken-single:
           name: default-debian-8
           platform: debian-8
           suite: default
-          requires: [delivery, danger]
+          requires: [Install ChefDK, delivery, danger]
       - kitchen/dokken-single:
           name: default-debian-9
           platform: debian-9
           suite: default
-          requires: [delivery, danger]
+          requires: [Install ChefDK, delivery, danger]
       - kitchen/dokken-single:
           name: default-ubuntu-16.04
           platform: ubuntu-1604
           suite: default
-          requires: [delivery, danger]
+          requires: [Install ChefDK, delivery, danger]
       - kitchen/dokken-single:
           name: default-ubuntu-18.04
           platform: ubuntu-1804
           suite: default
-          requires: [delivery, danger]
+          requires: [Install ChefDK, delivery, danger]
 
       # Basic Site Tests
       - kitchen/dokken-single:
