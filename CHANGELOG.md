@@ -4,8 +4,6 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## v6.0.0 (tbc)
 
-**Breaking Change**
-
 See UPGRADING.md for upgrading.
 
 ### Behaviour Changes
@@ -76,16 +74,11 @@ See UPGRADING.md for upgrading.
 
 ## v4.0.0 (2017-07-10)
 
-### Breaking changes
-
 - This cookbook now requires Chef 12.1 or later
 - Support for Apache 2.2 on FreeBSD has been removed
 - Support for Amazon Linux < 2013.09 has been removed
 - Support for end of life releases of Fedora (< 24), CentOS (5), Debian (6), Linux Mint (17), and Ubuntu (12.04) have been removed
 - Removed the deprecated recipes for mod_authz_default and mod_php5
-
-### Other changes
-
 - Switched many package resources to Chef 12+ multipackage style to speed up Chef converges and reduce log clutter
 - mod_cache is now enabled when using mod_cache_disk and mod_cache_socache
 - The mod_cloudflare recipe now sets up the Apt repo with https

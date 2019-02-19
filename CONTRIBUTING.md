@@ -16,8 +16,8 @@ any suggestions or concerns.
 You should submit your patch as a git branch named after the change.
 
 It is a best practice to have your commit message have a _summary
-line_, followed by an empty line and then a brief description of 
-the commit. This also helps other contributors understand the 
+line_, followed by an empty line and then a brief description of
+the commit. This also helps other contributors understand the
 purpose of changes to the code.
 
 Remember that not all users use Chef in the same way or on the same
@@ -67,14 +67,14 @@ signalling to them to research your ticket and use case and accounting
 for it.
 
 If you need help writing tests, please ask on the Chef Developer's
-mailing list, or https://community-slack.chef.io/
+mailing list, or [https://community-slack.chef.io/](https://community-slack.chef.io/)
 
 ## Cookbook Contribution Do's and Don't's
 
 Please do include tests for your contribution. If you need help, ask
 on the
 [chef-dev mailing list](http://lists.chef.io/sympa/info/chef-dev)
-or the https://community-slack.chef.io/
+or the [https://community-slack.chef.io/](https://community-slack.chef.io/)
 
 Not all platforms that a cookbook supports may be supported by Test
 Kitchen. Please provide evidence of testing your contribution if it
@@ -82,7 +82,7 @@ isn't trivial so we don't have to duplicate effort in testing. Chef
 10.14+ "doc" formatted output is sufficient.
 
 Please do indicate new platform (families) or platform versions in the
-commit message, and update the relevant ticket.  If a contribution adds 
+commit message, and update the relevant ticket.  If a contribution adds
 new platforms or platform versions, indicate such in the body of the commit message(s).
 
 Please do use [foodcritic](http://www.foodcritic.io/) to
