@@ -36,3 +36,7 @@ template 'basic_site' do
 end
 
 apache2_site 'basic_site'
+
+apache2_site '000-default' do
+  action :disable
+end
