@@ -29,27 +29,27 @@ workflows:
           name: default-centos-7
           platform: centos-7
           suite: default
-          requires: [delivery,danger]
+          requires: [delivery, danger]
       - kitchen/dokken-single:
           name: default-debian-8
           platform: debian-8
           suite: default
-          requires: [delivery,danger]
+          requires: [delivery, danger]
       - kitchen/dokken-single:
           name: default-debian-9
           platform: debian-9
           suite: default
-          requires: [delivery,danger]
+          requires: [delivery, danger]
       - kitchen/dokken-single:
           name: default-ubuntu-16.04
           platform: ubuntu-1604
           suite: default
-          requires: [delivery,danger]
+          requires: [delivery, danger]
       - kitchen/dokken-single:
           name: default-ubuntu-18.04
           platform: ubuntu-1804
           suite: default
-          requires: [delivery,danger]
+          requires: [delivery, danger]
 
       # Basic Site Tests
       - kitchen/dokken-single:
