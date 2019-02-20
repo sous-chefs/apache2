@@ -7,14 +7,22 @@ As a result we are now providing the default assigned names:
 - apache_conf --> apache2_conf
 - apache_site --> apache2_site
 
+This helps as resource behaviours have been significantly changed to remove magic where possible.
+
 ## apache_module
 
 Having a module disabled is now an action on the resource:
 
+
 ```ruby
+# Old Style
 apache_module "disabled_module" do
   enable false
 end
+```
+
+```ruby
+# New Style
 apache2_module "disabled_module" do
   action :disable
 end
@@ -24,7 +32,7 @@ end
 
 In custom resources having & using a global variable like attributes makes the cookbook brittle and hard to test.
 
-These have been removed in favour of tunable properties on each resource.
+These have been removed in favour of tunable properties on each resource. Please see the documentation directory for all tunables.
 
 ## What happened to apache2_web_app
 
