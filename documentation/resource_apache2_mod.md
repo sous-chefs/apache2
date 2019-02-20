@@ -1,4 +1,4 @@
-# mod
+# apache2_mod
 
 Sets up configuration file for an Apache module from a template. The template should be in the same cookbook where the definition is used. This is used by the `apache2_module` definition and is not often used directly.
 
@@ -6,9 +6,9 @@ This will use a template resource to write the module's configuration file in th
 
 ## Properties
 
-|Name|Type|Default|Description|
-|-|-|-|-|
-| `template` | String |  | Name of the template |
+| Name         | Type   | Default                     | Description                                                            |
+| ------------ | ------ | --------------------------- | ---------------------------------------------------------------------- |
+| `template`   | String |                             | Name of the template                                                   |
 | `root_group` | String | `default_apache_root_group` | Set to override the platforms default root group for the template file |
 
 ## Examples

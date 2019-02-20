@@ -15,12 +15,9 @@ Debian-style Apache configuration uses scripts to manage modules and sites (vhos
 - a2enconf
 - a2disconf
 
-This cookbook ships with templates of these scripts for non-Debian/Ubuntu platforms.
+This cookbook ships with templates of these scripts for non-Debian based platforms.
 
 ## Cookbooks
-
-- Build Essential
-  This is required as some recipes (e.g., `apache2::mod_auth_openid`) build the module from source
 
 Depending on your OS configuration and security policy, you may need additional recipes or cookbooks for this cookbook's recipes to converge on the node. In particular, the following Operating System settings may affect the behavior of this cookbook:
 
@@ -39,7 +36,6 @@ On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also n
 
 The following platforms and versions are tested and supported using [test-kitchen](http://kitchen.ci/)
 
-- Amazon Linux 2013.09+
 - Ubuntu 16.04 / 18.04
 - Debian 8/9
 - CentOS 7+
@@ -69,13 +65,13 @@ The default recipe simply includes the `apache2_install` resource, using all the
 
 ## Resources
 
-- [install](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_install.md)
-- [default_site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_default_site.md)
-- [site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_site.md)
-- [conf](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_conf.md)
-- [config](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_config.md)
-- [mod](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod.md)
-- [module](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_module.md)
+- [install](documentation/resource_apache2_install.md)
+- [default_site](documentation/resource_apache2_default_site.md)
+- [site](documentation/resource_apache2_site.md)
+- [conf](documentation/resource_apache2_conf.md)
+- [config](documentation/resource_apache2_config.md)
+- [mod](documentation/resource_apache2_mod.md)
+- [module](documentation/resource_apache2_module.md)
 
 ## License
 
