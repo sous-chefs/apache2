@@ -21,12 +21,16 @@ case node['platform_family']
 when 'debian'
   package 'libapache2-mod-python'
 when 'suse'
-  package 'apache2-mod_python' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+  with_run_context :root do
+    package 'apache2-mod_python' do
+      notifies :run, 'execute[generate-module-list]', :immediately
+    end
   end
 when 'rhel', 'fedora', 'amazon'
-  package 'mod_python' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+  with_run_context :root do
+    package 'mod_python' do
+      notifies :run, 'execute[generate-module-list]', :immediately
+    end
   end
 when 'freebsd'
   package 'ap24-mod_python35'

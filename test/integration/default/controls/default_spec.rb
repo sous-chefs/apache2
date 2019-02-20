@@ -1,5 +1,5 @@
-control 'package-installed' do
-  impact 0
+control 'service' do
+  impact 1
   desc 'Apache2 service is running'
 
   case os[:family]
@@ -9,31 +9,37 @@ control 'package-installed' do
       it { should be_enabled }
       it { should be_running }
     end
-
-    describe http('localhost') do
-      its('status') { should eq 200 }
-      its('body') { should cmp /This is the default welcome page/ }
-    end
-
   when 'freebsd'
     describe service('apache24') do
       it { should be_installed }
       it { should be_enabled }
       it { should be_running }
     end
-
-    describe http('localhost') do
-      its('status') { should eq 200 }
-      its('body') { should_not cmp /Forbidden/ }
-    end
-
   else
     describe service('httpd') do
       it { should be_installed }
       it { should be_enabled }
       it { should be_running }
     end
+  end
+end
 
+control 'welcome-page' do
+  impact 1
+  desc 'Apache2 Welcome Pages Displayed'
+
+  case os[:family]
+  when 'debian', 'suse'
+    describe http('localhost') do
+      its('status') { should eq 200 }
+      its('body') { should cmp /This is the default welcome page/ }
+    end
+  when 'freebsd'
+    describe http('localhost') do
+      its('status') { should eq 200 }
+      its('body') { should_not cmp /Forbidden/ }
+    end
+  else
     describe http('localhost') do
       its('status') { should eq 403 }
       its('body') { should_not cmp /Forbidden/ }

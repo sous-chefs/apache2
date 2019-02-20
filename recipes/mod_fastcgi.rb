@@ -42,16 +42,18 @@ else
               lib_dir
             end
   include_recipe 'apache2::default'
-  bash 'compile fastcgi source' do
-    notifies :run, 'execute[generate-module-list]', :immediately if platform_family?('rhel', 'fedora', 'amazon')
-    not_if "test -f #{apache_dir}/mods-available/fastcgi.conf"
-    cwd ::File.dirname(src_filepath)
-    code <<-EOH
-      tar zxf #{::File.basename(src_filepath)} &&
-      cd mod_fastcgi-* &&
-      cp Makefile.AP2 Makefile &&
-      make top_dir=#{top_dir} && make install top_dir=#{top_dir}
-    EOH
+  with_run_context :root do
+    bash 'compile fastcgi source' do
+      notifies :run, 'execute[generate-module-list]', :immediately if platform_family?('rhel', 'fedora', 'amazon')
+      not_if "test -f #{apache_dir}/mods-available/fastcgi.conf"
+      cwd ::File.dirname(src_filepath)
+      code <<-EOH
+        tar zxf #{::File.basename(src_filepath)} &&
+        cd mod_fastcgi-* &&
+        cp Makefile.AP2 Makefile &&
+        make top_dir=#{top_dir} && make install top_dir=#{top_dir}
+      EOH
+    end
   end
 end
 

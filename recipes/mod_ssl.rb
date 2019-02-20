@@ -17,22 +17,4 @@
 # limitations under the License.
 #
 
-if node['apache']['listen'] == ['*:80']
-  node.default['apache']['listen'] += ["*:#{node['apache']['mod_ssl']['port']}"]
-end
-
-if platform_family?('rhel', 'fedora', 'suse', 'amazon')
-  package node['apache']['mod_ssl']['pkg_name'] do
-    notifies :run, 'execute[generate-module-list]', :immediately
-    not_if { platform_family?('suse') }
-  end
-
-  file "#{apache_dir}/conf.d/ssl.conf" do
-    content '# SSL Conf is under mods-available/ssl.conf - apache2 cookbook\n'
-    only_if { ::Dir.exist?("#{apache_dir}/conf.d") }
-  end
-end
-
 apache2_module 'ssl'
-
-apache2_module 'socache_shmcb'

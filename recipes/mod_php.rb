@@ -41,9 +41,11 @@ when 'arch'
   end
 when 'rhel', 'amazon', 'fedora', 'suse'
   package 'which'
-  package 'php' do
-    notifies :run, 'execute[generate-module-list]', :immediately
-    not_if 'which php'
+  with_run_context :root do
+    package 'php' do
+      notifies :run, 'execute[generate-module-list]', :immediately
+      not_if 'which php'
+    end
   end
 when 'freebsd'
   package %w(php56 libxml2)

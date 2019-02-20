@@ -1,0 +1,24 @@
+<VirtualHost *:80>
+  ServerName <%= @server_name %>
+  DocumentRoot <%= @document_root %>
+
+  <Directory <%= @document_root %>>
+    Options FollowSymLinks
+    AllowOverride None
+    Require all granted
+  </Directory>
+
+  <Directory />
+    Options FollowSymLinks
+    AllowOverride None
+  </Directory>
+
+  <Location /server-status>
+    SetHandler server-status
+    Require local
+  </Location>
+
+  LogLevel info
+  ErrorLog <%= @log_dir %>/<%= @site_name %>-error.log
+  CustomLog <%= @log_dir %>/<%= @site_name %>-access.log combined
+</VirtualHost>

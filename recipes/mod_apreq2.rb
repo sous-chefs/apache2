@@ -23,14 +23,17 @@ case node['platform_family']
 when 'debian'
   package 'libapache2-mod-apreq2'
 when 'suse'
-  package 'apache2-mod_apreq2' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+  with_run_context :root do
+    package 'apache2-mod_apreq2' do
+      notifies :run, 'execute[generate-module-list]', :immediately
+    end
   end
 when 'rhel', 'fedora', 'amazon'
-  package 'libapreq2' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+  with_run_context :root do
+    package 'libapreq2' do
+      notifies :run, 'execute[generate-module-list]', :immediately
+    end
   end
-
   # seems that the apreq lib is weirdly broken or something - it needs to be
   # loaded as 'apreq', but on RHEL & derivitatives the file needs a symbolic
   # link to mod_apreq.so.

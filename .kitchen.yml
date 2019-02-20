@@ -1,5 +1,6 @@
+---
 driver:
-   name: vagrant
+  name: vagrant
 
 provisioner:
   name: chef_solo
@@ -13,16 +14,12 @@ verifier:
   name: inspec
 
 platforms:
-  - name: amazonlinux
-    driver_config:
-      box: mvbcoding/awslinux
   - name: amazonlinux-2
     driver_config:
       box: ywatase/amzn2
   - name: centos-7
   - name: debian-8
   - name: debian-9
-  - name: fedora-latest
   - name: opensuse-leap-15
   - name: ubuntu-16.04
   - name: ubuntu-18.04
@@ -30,7 +27,10 @@ platforms:
 suites:
   - name: default
     run_list:
-    - recipe[test::default]
-  # - name: ssl
-  #   run_list:
-  #   - recipe[test::mod_ssl]
+      - recipe[test::default]
+  - name: basic_site
+    run_list:
+      - recipe[test::basic_site]
+  - name: ssl
+    run_list:
+      - recipe[test::mod_ssl]

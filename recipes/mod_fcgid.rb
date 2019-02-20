@@ -21,7 +21,9 @@ if platform_family?('debian')
   package 'libapache2-mod-fcgid'
 elsif platform_family?('rhel', 'fedora', 'amazon')
   package 'mod_fcgid' do
-    notifies :run, 'execute[generate-module-list]', :immediately
+    with_run_context :root do
+      notifies :run, 'execute[generate-module-list]', :immediately
+    end
   end
 
   file "#{apache_dir}/conf.d/fcgid.conf" do

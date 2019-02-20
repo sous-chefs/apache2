@@ -17,7 +17,7 @@ describe 'apache2_mod_auth_cas' do
 
     it do
       stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
-      stub_command('test -f /usr/lib/apache2/modules/mod_auth_cas.so').and_return('bar')
+      stub_command('test -f /usr/lib/apache2/modules/mod_auth_cas.so').and_return('0')
 
       is_expected.to install_package('libapache2-mod-auth-cas')
       is_expected.not_to install_package('mod_auth_cas')
