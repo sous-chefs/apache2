@@ -6,13 +6,12 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 See UPGRADING.md for upgrading.
 
-### Behaviour Changes
+### v6 - Behaviour Changes
 
-- Default recipe now calls the install resource!
+- Default recipe now calls the install resource
 - Add helpers: for a full list see `libraries/helpers.rb`
 - Remove all `mpm_` recipes. Move mpm setup to the install resource
 - Allow user to set the mpm mode no matter what platform they're on
-- Remove MPM setup as it breaks things, just leave it alone for now
 - Remove FreeBSD, openSuse & Fedora Kitchen testing
 - `mod_` recipes now call `apache2_module_`
 - Mod templates are now more configurable when calling the resources directly
@@ -23,22 +22,21 @@ See UPGRADING.md for upgrading.
 - Remove the web_app resource as it was very perscriptive
 - Add mod_ssl
 
-### Testing/CI
+### v6 - Testing/CI
 
 - Add CircleCI and remove Travis
 - Add CircleCI Orbs
 - Rename test cookbook name to test
-- Include apache2 hardening inspec tests
 - Cleanup test integration directory
-- Specs added for most helpers.
-- Make sysconfig paramters configurable via the install resource
+- Specs added for most helpers
+- Make sysconfig parameters configurable via the install resource
 
-### Misc Updates & Improvements
+### v6 - Misc Updates & Improvements
 
-- Update README
-- Add dev-sec/apache-baseline tests and set cookbook defaults to secure defaults
+- Update README with new instructions on installing
 - Set the server to listen on ports 80 and 443 by default
 - Fix Options allowed in alias.conf
+- Add resource documentation to documentation directory
 
 ## v5.2.1 (04-09-2018)
 
