@@ -55,12 +55,18 @@ examples/*
 Guardfile
 Procfile
 .kitchen*
-.rubocop.yml
+kitchen*
+*.yml
+.circleci/*.yml
+.delivery/project.toml
+.github/*
+documentation/*
 spec/*
 Rakefile
-.travis.yml
 .foodcritic
-.codeclimate.yml
+.mdlrc
+Dangerfile
+
 
 # SCM #
 #######

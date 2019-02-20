@@ -13,7 +13,6 @@ This helps as resource behaviours have been significantly changed to remove magi
 
 Having a module disabled is now an action on the resource:
 
-
 ```ruby
 # Old Style
 apache_module "disabled_module" do
