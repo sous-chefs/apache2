@@ -1,6 +1,27 @@
-# default_site
+# apache2_default_site
 
 Controls the default site.
+
+## Properties
+
+| Name              | Type           | Default                        | Description                                                                                                                              |
+| ----------------- | -------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| default_site_name | String         | `default-site`                 | The default site name                                                                                                                    |
+| site_action       | String, Symbol | enable                         | Enable the site. Allows you to place all the configuration on disk but not enable the site                                               |
+| port              | String         | `80`                           | Listen port                                                                                                                              |
+| cookbook          | String         | `apache2`                      | Cookbook to source the template file from                                                                                                |
+| server_admin      | String         | `root@localhost`               | Default site contact name                                                                                                                |
+| log_level         | String         | `warn`                         | Log level for apache2                                                                                                                    |
+| log_dir           | String         | `default_log_dir`              | Defaults to platform specific locations, see libraries/helpers.rb                                                                        |
+| apache_root_group | String         | `default_apache_root_group`    | 'Group that the root user on the box runs as. Defaults to platform specific locations, see libraries/helpers.rb'                         |
+| template_source   | String         | `default_site_template_source` | 'Source for the template. Defaults to #{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms' |
+
+## Actions
+
+- `:enable`
+- `:disable`
+
+## Examples
 
 ```ruby
 apache2_default_site '' do
@@ -10,69 +31,6 @@ apache2_default_site '' do
   cookbook          String
   server_admin      String
   log_level         String
+  action :enable
 end
 ```
-
-## Actions
-
-`:enable`
-`:disable`
-
-## Properties
-
-|Name|Ruby Type|Description||Default|
-|----|----|----|----|
-|default_site_name|`String`|
-|site_action|`[String, Symbol]`|
-|port|`String`|
-|cookbook|
-|server_admin|
-|log_level|
-
-### `default_site_name`
-
-| --              | --                    |
-| --------------- | --------------------- |
-| **default**     | `default_site`        |
-| **description** | The default site name |
-
-### `site_action`
-
-| --                 | --                                                                         |
-| ------------------ | -------------------------------------------------------------------------- |
-| **Ruby type**      | [String, Symbol]                                                           |
-| **default**        | `:enable`                                                                  |
-| **description**    | Allows you to place all the configuration on disk but not enable the site. |
-| **allowed vaules** | :enable, :disable                                                          |
-
-### `port`
-
-| --              | --                |
-| --------------- | ----------------- |
-| **Ruby type**   | `String`          |
-| **default**     | `80`              |
-| **description** | Port to listen on |
-
-### `cookbook`
-
-| --              | --                                   |
-| --------------- | ------------------------------------ |
-| **Ruby type**   | `String`                             |
-| **default**     | `apache2`                            |
-| **description** | Cookbook to source the template from |
-
-### `server_admin`
-
-| --              | --                        |
-| --------------- | ------------------------- |
-| **Ruby type**   | `String`                  |
-| **default**     | `admin@server`            |
-| **description** | Default site contact name |
-
-### `log_level`
-
-| --              | --                    |
-| --------------- | --------------------- |
-| **Ruby type**   | `String`              |
-| **default**     | `warn`                |
-| **description** | log level for apache2 |

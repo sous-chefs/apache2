@@ -2,7 +2,7 @@ include Apache2::Cookbook::Helpers
 
 property :path, String,
          default: lazy { "#{apache_dir}/conf-available" },
-         description: 'Path to the config file'
+         description: 'Path to the conf-available directory'
 
 property :root_group, String,
          default: lazy { default_apache_root_group },
