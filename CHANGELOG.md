@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
+- Add default value to apache_2_mod_proxy
+
 ## v6.0.0 (tbc)
 
 See UPGRADING.md for upgrading.
