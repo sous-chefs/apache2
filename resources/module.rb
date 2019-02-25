@@ -28,7 +28,7 @@ property :apache_service_notification, Symbol,
 action :enable do
   # Call the  apache2_mod_resource if we want it configured
   if new_resource.conf
-    mod_resource_name = "apache2_mod_#{new_resource.name}"
+    mod_resource_name = "apache2_mod_#{new_resource.name}".to_sym
 
     send(mod_resource_name, 'default')
 
