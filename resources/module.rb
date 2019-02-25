@@ -12,6 +12,10 @@ property :identifier, String,
          default: lazy { "#{name}_module" },
          description: 'String to identify the module for the `LoadModule` directive'
 
+property :mod_conf, Hash,
+        default: {},
+        description: 'Pass properties to apache2_mod_<name>'
+
 property :conf, [true, false],
          default: lazy { config_file?(name) },
          description: 'The default is set by the config_file? helper. Override to set whether the module should have a config file'
@@ -23,7 +27,27 @@ property :apache_service_notification, Symbol,
 
 action :enable do
   # Call the  apache2_mod_resource if we want it configured
-  send("apache2_mod_#{new_resource.name}", '') if new_resource.conf
+  if new_resource.conf
+    mod_resource_name = "apache2_mod_#{new_resource.name}"
+
+    send(mod_resource_name, 'default')
+
+    # pass Hash new_resource.mod_conf as properties
+    begin
+      r = resources(mod_resource_name.to_sym => 'default')
+
+      new_resource.mod_conf.each do |k, v|
+        property = k.to_sym
+        valid = r.respond_to?(property) || false
+
+        Chef::Log.warn("Ignoring unknown property \'#{property}\' for resource #{mod_resource_name}") unless valid
+
+        r.send(property, v) if valid
+      end
+    rescue Chef::Exceptions::ResourceNotFound
+      Chef::Log.warn("Failed to find resource #{mod_resource_name}, ignoring mod_conf properties.")
+    end
+  end
 
   file ::File.join(apache_dir, 'mods-available', "#{new_resource.name}.load") do
     content "LoadModule #{new_resource.identifier} #{new_resource.path}\n"
