@@ -34,7 +34,7 @@ action :enable do
 
     # pass Hash new_resource.mod_conf as properties
     begin
-      r = resources(mod_resource_name.to_sym => 'default')
+      r = resources(mod_resource_name: 'default')
 
       new_resource.mod_conf.each do |k, v|
         property = k.to_sym
