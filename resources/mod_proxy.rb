@@ -4,11 +4,11 @@ property :proxy_requests, String,
 
 property :require, String,
          default: 'all denied',
-         description: ''
+         description: '[See mod_proxy access](https://httpd.apache.org/docs/trunk/mod/mod_proxy.html#access)'
 
 property :add_default_charset, String,
          default: 'off',
-         description: ''
+         description: 'Add the default Charachter set'
 
 property :proxy_via, String,
          equal_to: %w( Off On Full Block ),
