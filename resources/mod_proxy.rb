@@ -3,7 +3,7 @@ property :proxy_requests, String,
          description: ''
 
 property :require, String,
-         default: '',
+         default: 'all denied',
          description: ''
 
 property :add_default_charset, String,
