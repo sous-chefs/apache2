@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Use `declare_resource` in `apache2_module`
 - Add default value to apache_2_mod_proxy
 
 ## v6.0.0 (tbc)
