@@ -26,26 +26,11 @@ property :apache_service_notification, Symbol,
          description: 'Service notifcation for apache2 service, accepts reload or restart.'
 
 action :enable do
-  # Call the  apache2_mod_resource if we want it configured
+  # Create apache2_mod_resource if we want it configured
+
   if new_resource.conf
-    mod_resource_name = "apache2_mod_#{new_resource.name}".to_sym
-
-    send(mod_resource_name, 'default')
-
-    # pass Hash new_resource.mod_conf as properties
-    begin
-      r = resources(mod_resource_name: 'default')
-
-      new_resource.mod_conf.each do |k, v|
-        property = k.to_sym
-        valid = r.respond_to?(property) || false
-
-        Chef::Log.warn("Ignoring unknown property \'#{property}\' for resource #{mod_resource_name}") unless valid
-
-        r.send(property, v) if valid
-      end
-    rescue Chef::Exceptions::ResourceNotFound
-      Chef::Log.warn("Failed to find resource #{mod_resource_name}, ignoring mod_conf properties.")
+    declare_resource("apache2_mod_#{new_resource.name}".to_sym, 'default') do
+      new_resource.mod_conf.each { |k, v| send(k, v) }
     end
   end
 
