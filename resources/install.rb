@@ -78,7 +78,7 @@ property :run_dir, String,
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :access_file_name, String,
-         defualt: '.htaccess',
+         default: '.htaccess',
          description: 'Access filename'
 
 property :timeout, [Integer, String],
