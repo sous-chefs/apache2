@@ -27,7 +27,6 @@ property :apache_service_notification, Symbol,
 
 action :enable do
   # Create apache2_mod_resource if we want it configured
-
   if new_resource.conf
     declare_resource("apache2_mod_#{new_resource.name}".to_sym, 'default') do
       new_resource.mod_conf.each { |k, v| send(k, v) }

@@ -1,3 +1,5 @@
+include Apache2::Cookbook::Helpers
+
 property :apache_user, String,
          default: lazy { default_apache_user },
          description: ''
