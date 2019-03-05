@@ -1,3 +1,5 @@
+include Apache2::Cookbook::Helpers
+
 property :default_site_name, String,
          default: 'default-site',
          description: 'The default site name'
