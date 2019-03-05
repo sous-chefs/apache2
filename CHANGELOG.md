@@ -4,12 +4,14 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+## 7.0.0 (05-03-2019)
+
 - Remove all recipes
 - Use `declare_resource` in `apache2_module`
 - Add default value to `apache_2_mod_proxy`
 - Fix spelling of `default` in `access_file_name` property in `install.rb`
 
-## v6.0.0 (tbc)
+## v6.0.0 (25-02-2019)
 
 See UPGRADING.md for upgrading.
 
