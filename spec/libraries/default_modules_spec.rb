@@ -5,6 +5,9 @@ describe '#default_modules' do
     automatic_attributes['init_package'] = 'systemd'
 
     recipe do
+      Chef::Recipe.include(Apache2::Cookbook::Helpers)
+      Chef::Resource.include(Apache2::Cookbook::Helpers)
+
       log default_modules
     end
 
@@ -48,6 +51,9 @@ describe '#default_modules' do
     automatic_attributes['init_package'] = 'sysv'
 
     recipe do
+      Chef::Recipe.include(Apache2::Cookbook::Helpers)
+      Chef::Resource.include(Apache2::Cookbook::Helpers)
+
       log default_modules
     end
 
