@@ -50,18 +50,29 @@ Apache2.4 support for Centos 6 is not officially supported.
 
 It is recommended to create a project or organization specific [wrapper cookbook](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/) and add the desired custom resources to the run list of a node. Depending on your environment, you may have multiple roles that use different recipes from this cookbook. Adjust any attributes as desired.
 
-Example wrapper cookbooks can be found in the `test/cookbooks/test` folder.
+```ruby
+# service['apache2'] is defined in the apache2_default_install resource but other resources are currently unable to reference it.  To work around this issue, define the following helper in your cookbook:
+service 'apache2' do
+  extend Apache2::Cookbook::Helpers
+  service_name lazy { apache_platform_service_name }
+  supports restart: true, status: true, reload: true
+  action :nothing
+end
 
-## Recipes
+apache2_install 'default_install'
+apache2_module 'headers'
+apache2_module 'ssl'
 
-This cookbook comes with recipes as a way of maintaining backwards compatibility.
-It is recommended to use custom resources directly for more control.
+apache2_default_site 'foo' do
+  default_site_name 'my_site'
+  cookbook 'my_cookbook'
+  port '443'
+  template_source 'my_site.conf.erb'
+  action :enable
+end
+```
 
-On RHEL Family distributions, certain modules ship with a config file with the package. The recipes here may delete those configuration files to ensure they don't conflict with the settings from the cookbook, which will use per-module configuration in `/etc/httpd/mods-enabled`.
-
-## default
-
-The default recipe simply includes the `apache2_install` resource, using all the default values. The `apache2_install` resource is more flexible and should be used in favour of the default recipe.
+Example wrapper cookbooks can also be found in the `test/cookbooks/test` folder.
 
 ## Resources
 
