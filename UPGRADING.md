@@ -27,7 +27,7 @@ apache2_module "disabled_module" do
 end
 ```
 
-## Where did the apache2 recipes go?
+## Where did the apache2 recipes go
 
 Recipes are now modules, so your cookbook pattern will go from
 
@@ -37,7 +37,9 @@ include_recipe 'apache2::mod_proxy'
 include_recipe 'apache2::mod_proxy_http'
 include_recipe 'apache2::mod_ssl'
 ```
+
 to
+
 ```ruby
 apache2_install 'default_install'
 apache2_module 'headers'
@@ -62,6 +64,7 @@ It is recommended that you manage your template and call the `apache2_site` reso
 This leads to a simpler system, and you get more control over the variables and values you pass to the template.
 
 Here are the modifications you will need to make:
+
 ```ruby
 web_app 'ssl_redirect' do
   server_name node['hostname']
@@ -71,7 +74,9 @@ web_app 'ssl_redirect' do
   notifies :restart, 'service[apache2]', :delayed
 end
 ```
+
 to
+
 ```ruby
 apache2_default_site 'ssl_redirect' do
   default_site_name 'ssl_redirect'
@@ -86,9 +91,10 @@ A further example of this behaviour can be seen in the `apache2_default_site` re
 
 ## The service resource
 
-whilst `service['apache2']` is defined in the `apache2_install` resource, due to the notification system of nested resources, we are unable to notify or subscribe directly to it. 
+whilst `service['apache2']` is defined in the `apache2_install` resource, due to the notification system of nested resources, we are unable to notify or subscribe directly to it.
 
 To work around this issue, define the following helper in your cookbook:
+
 ```ruby
 service 'apache2' do
   extend Apache2::Cookbook::Helpers
