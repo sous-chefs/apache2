@@ -72,7 +72,9 @@ apache2_default_site 'foo' do
 end
 ```
 
-Example wrapper cookbooks can also be found in the `test/cookbooks/test` folder.
+Example wrapper cookbooks:
+[basic site](https://github.com/sous-chefs/apache2/blob/master/test/cookbooks/test/recipes/basic_site.rb)
+[ssl site](https://github.com/sous-chefs/apache2/blob/master/test/cookbooks/test/recipes/mod_ssl.rb)
 
 ## Resources
 

@@ -59,8 +59,9 @@ The `apache2_web_app` resource was a wrapper around the template resource and `a
 
 It is recommended that you manage your template and call the `apache2_site` resource directly.
 
-This leads to a simpler system, and you get more control over the variables and values you pass to the template.  Note that the variables passed to the template have also changed.
+This leads to a simpler system, and you get more control over the variables and values you pass to the template.
 
+Here are the modifications you will need to make:
 ```ruby
 web_app 'ssl_redirect' do
   server_name node['hostname']
@@ -81,12 +82,13 @@ apache2_default_site 'ssl_redirect' do
 end
 ```
 
-An further example of this behaviour can be seen in the `apache2_default_site` resource.
+A further example of this behaviour can be seen in the `apache2_default_site` resource.
 
-## One last thing...
+## The service resource
 
-`service['apache2']` is defined in the apache2_default_install resource but other resources are currently unable to reference it.  To work around this issue, define the following helper in your cookbook:
+whilst `service['apache2']` is defined in the `apache2_install` resource, due to the notification system of nested resources, we are unable to notify or subscribe directly to it. 
 
+To work around this issue, define the following helper in your cookbook:
 ```ruby
 service 'apache2' do
   extend Apache2::Cookbook::Helpers
