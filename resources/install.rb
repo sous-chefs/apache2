@@ -50,6 +50,18 @@ property :mpm, String,
          description: 'Multi-processing Module.'\
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
+property :mpm_conf, Hash,
+         default: { },
+         description: 'Multi-processing Module configuration options.'
+
+property :modules, [String, Array],
+         default: lazy { default_modules },
+         description: 'List of default modules activated.'
+
+property :mod_conf, Hash,
+         default: { },
+         description: 'other default modules optional configuration, passed with an Hash of Hash using the module name as key.'
+
 property :listen, [String, Array],
          default: %w(80 443),
          description: 'Port to listen on. Defaults to both 80 & 443'
@@ -282,6 +294,7 @@ action :install do
       end
 
       apache2_module 'mpm_event' do
+        mod_conf new_resource.mpm_conf || new_resource.mod_conf[:mpm_event]
         apache_service_notification :restart
       end
     end
@@ -301,6 +314,7 @@ action :install do
       end
 
       apache2_module 'mpm_prefork' do
+        mod_conf new_resource.mpm_conf || new_resource.mod_conf[:mpm_prefork]
         apache_service_notification :restart
       end
     end
@@ -320,13 +334,16 @@ action :install do
       end
 
       apache2_module 'mpm_worker' do
+        mod_conf new_resource.mpm_conf || new_resource.mod_conf[:mpm_worker]
         apache_service_notification :restart
       end
     end
   end
 
-  default_modules.each do |mod|
-    apache2_module mod
+  new_resource.modules.each do |mod|
+    apache2_module mod do
+      mod_conf new_resource.mod_conf[mod.to_sym]
+    end
   end
 
   service 'apache2' do
