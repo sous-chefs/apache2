@@ -1,5 +1,5 @@
-property :info_allow_list, String,
-         default: '127.0.0.1 ::1',
+property :info_allow_list, [String, Array],
+         default: %w(127.0.0.1 ::1),
          description: ''
 
 action :create do
