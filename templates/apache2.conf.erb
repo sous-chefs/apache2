@@ -74,11 +74,11 @@ ErrorLog <%= @log_dir %>/error.log
 # It is also possible to configure the log level for particular modules, e.g.
 # "LogLevel info ssl:warn"
 #
-LogLevel warn
+LogLevel <%= @log_level %>
 
 # Include module configuration:
-IncludeOptional mods-enabled/*.load
-IncludeOptional mods-enabled/*.conf
+IncludeOptional <%= @apache_dir %>/mods-enabled/*.load
+IncludeOptional <%= @apache_dir %>/mods-enabled/*.conf
 
 # Include list of ports to listen on
 Include ports.conf
@@ -126,17 +126,6 @@ AccessFileName <%= @access_file_name %>
 <FilesMatch "^\.ht">
         Require all denied
 </FilesMatch>
-
-#
-# LogLevel: Control the number of messages logged to the error_log.
-# Possible values include: debug, info, notice, warn, error, crit,
-# alert, emerg.
-#
-LogLevel <%= @log_level %>
-
-# Include module configuration:
-IncludeOptional <%= @apache_dir %>/mods-enabled/*.load
-IncludeOptional <%= @apache_dir %>/mods-enabled/*.conf
 
 <% if node['platform_family'] =~ /freebsd/ -%>
 <IfDefine NOHTTPACCEPT>
