@@ -51,7 +51,7 @@ property :mpm, String,
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :mpm_conf, Hash,
-         default: { },
+         default: {},
          description: 'Multi-processing Module configuration options.'
 
 property :modules, [String, Array],
@@ -59,7 +59,7 @@ property :modules, [String, Array],
          description: 'List of default modules activated.'
 
 property :mod_conf, Hash,
-         default: { },
+         default: {},
          description: 'other default modules optional configuration, passed with an Hash of Hash using the module name as key.'
 
 property :listen, [String, Array],

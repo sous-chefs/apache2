@@ -10,6 +10,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Use `declare_resource` in `apache2_module`
 - Add default value to `apache_2_mod_proxy`
 - Fix spelling of `default` in `access_file_name` property in `install.rb`
+- Allow users to set / alter the default module list
+- Allow users to alter the default modules configuration
+- Allow users to alter the mpm configuration
 
 ## v6.0.0 (25-02-2019)
 

@@ -40,7 +40,7 @@ end
 apache2_install 'default' do
   listen [ 80 ]
   mpm 'worker'
-  mpm_conf( 
+  mpm_conf(
            startservers: 10,
            serverlimit: 64,
            #maxclients    4096
