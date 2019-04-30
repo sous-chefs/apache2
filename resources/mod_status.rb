@@ -2,7 +2,7 @@ property :location, String,
          default: '/server-status',
          description: ''
 
-property :status_allow_list, Array,
+property :status_allow_list, [String, Array],
          default: %w(127.0.0.1 ::1),
          description: 'Clients in the specified IP address ranges can access the resource.
 For full description see https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require'
@@ -23,7 +23,7 @@ action :create do
     cookbook 'apache2'
     variables(
       location: new_resource.location,
-      status_allow_list: new_resource.status_allow_list,
+      status_allow_list: Array(new_resource.status_allow_list),
       extended_status: new_resource.extended_status,
       proxy_status: new_resource.proxy_status
     )
