@@ -12,6 +12,9 @@ Installs apache2.
 | log_dir                     | String          | `default_log_dir`                   | Log directory location. Defaults to platform specific locations, see libraries/helpers.rb                      |
 | error_log                   | String          | `default_error_log`                 | Error log location. Defaults to platform specific locations, see libraries/helpers.rb                          |
 | mpm                         | String          | `default_mpm`                       | Multi-processing Module. Defaults to platform specific locations, see libraries/helpers.rb                     |
+| mpm_conf                    | Hash            | `{}`                                | Configuration parameters for the MPM.                                                                          |
+| modules                     | [String, Array] | `default_modules`                   | Defaults modules, defaults to platform specific values, see libraries/helpers.rb                               |
+| mod_conf                    | Hash            | `{}`                                | Configuration parameters for the defaults modules, as an Hash of Hash.                                         |
 | docroot_dir                 | String          | `default_docroot_dir`               | Apache document root. Defaults to platform specific locations, see libraries/helpers.rb                        |
 | run_dir                     | String          | `default_run_dir`                   | Location for APACHE_RUN_DIR. Defaults to platform specific locations, see libraries/helpers.rb                 |
 | log_level                   | String          | `warn`                              | log level for apache2                                                                                          |
@@ -30,5 +33,31 @@ Installs apache2.
 ```ruby
 apache2_install 'custom' do
   status_url 'status.site.org'
+end
+```
+
+```ruby
+apache2_install 'default' do
+  listen [ 80 ]
+  mpm 'worker'
+  mpm_conf(
+           startservers: 10,
+           serverlimit: 64,
+           #maxclients    4096
+           minsparethreads: 64,
+           maxsparethreads: 256,
+           threadsperchild: 64,
+           #maxrequestsperchild 1024
+           maxrequestworkers: 4096,
+           maxconnectionsperchild: 1024
+          )
+  mod_conf(
+    status: {
+      status_allow_list: %w(127.0.0.1 ::1 1.2.3.0/24),
+      extended_status: 'On',
+      proxy_status: 'Off'
+    }
+  )
+  modules lazy { default_modules.delete_if { |x| x=='autoindex' } }
 end
 ```
