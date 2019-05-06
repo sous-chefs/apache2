@@ -94,7 +94,8 @@ This project exists thanks to all the people who [contribute.](https://opencolle
 
 ### Backers
 
-Thank you to all our backers! 🙏 [Become a backer](https://opencollective.com/sous-chefs#backer)
+Thank you to all our backers!
+
 ![https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=890)
 
 ### Sponsors
