@@ -254,10 +254,6 @@ module Apache2
         end
       end
 
-      def default_apache_root_group
-        node['platform_family'] == 'freebsd' ? 'wheel' : 'root'
-      end
-
       def default_modules
         default_modules = %w(status alias auth_basic authn_core authn_file authz_core authz_groupfile
                              authz_host authz_user autoindex deflate dir env mime negotiation setenvif)

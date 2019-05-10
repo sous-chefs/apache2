@@ -6,7 +6,7 @@ Installs apache2.
 
 | Name                        | Type            | Default                             | Description                                                                                                    | Allowed Values |
 | --------------------------- | --------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------- |
-| root_group                  | String          | `default_apache_root_group`         | Group that the root user on the box runs as. Defaults to platform specific locations, see libraries/helpers.rb |
+| root_group                  | String          | `node['root_group']`                | Group that the root user on the box runs as. Defaults to platform specific value from ohai root_group          |
 | apache_user                 | String          | `default_apache_user`               | Set to override the default apache2 user. Defaults to platform specific locations, see libraries/helpers.rb    |
 | apache_group                | String          | `default_apache_group`              | Set to override the default apache2 user. Defaults to platform specific locations, see libraries/helpers.rb    |
 | log_dir                     | String          | `default_log_dir`                   | Log directory location. Defaults to platform specific locations, see libraries/helpers.rb                      |
