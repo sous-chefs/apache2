@@ -253,7 +253,7 @@ module Apache2
       end
 
       def default_apache_root_group
-        node['platform_family'] == 'freebsd' ? 'wheel' : 'root'
+        node['root_group']
       end
 
       def default_modules
