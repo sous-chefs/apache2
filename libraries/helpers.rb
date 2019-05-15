@@ -120,7 +120,7 @@ module Apache2
         end
       end
 
-      def apache_pkg
+      def default_apache_pkg
         case node['platform_family']
         when 'amazon'
           if node['platform_version'] == '2'

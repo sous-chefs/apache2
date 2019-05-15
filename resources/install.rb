@@ -1,5 +1,15 @@
 include Apache2::Cookbook::Helpers
 
+property :apache_pkg, String,
+         default: lazy { default_apache_pkg },
+         description: 'Name of the apache package to install.
+Defaults to platform specific names, see libraries/helpers.rb'
+
+property :apache_version, String,
+         default: '',
+         description: 'Version of the apache package to install.
+Defaults to the newest available.'
+
 property :root_group, String,
          default: lazy { default_apache_root_group },
          description: 'Group that the root user on the box runs as.
@@ -102,7 +112,9 @@ property :sysconfig_additional_params, Hash,
          description: 'Hash of additional sysconfig parameters to apply to the system'
 
 action :install do
-  package [apache_pkg, perl_pkg]
+  package [new_resource.apache_pkg, perl_pkg] do
+    version [new_resource.apache_version, nil] unless new_resource.apache_version.empty?
+  end
   # Disabling for now as we don't have Fedora support (right now)
   # package 'perl-Getopt-Long-Descriptive' if platform?('fedora')
 
