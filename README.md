@@ -2,7 +2,9 @@
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg)](https://supermarket.chef.io/cookbooks/apache2)
 [![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/apache2/master.svg)](https://circleci.com/gh/sous-chefs/apache2)
-[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
+[![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
+[![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD configuration. Non-Debian based distributions such as Red Hat/CentOS, ArchLinux and others supported by this cookbook will have a configuration that mimics Debian/Ubuntu style as it is easier to manage with Chef.
 
@@ -50,41 +52,63 @@ Apache2.4 support for Centos 6 is not officially supported.
 
 It is recommended to create a project or organization specific [wrapper cookbook](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/) and add the desired custom resources to the run list of a node. Depending on your environment, you may have multiple roles that use different recipes from this cookbook. Adjust any attributes as desired.
 
-Example wrapper cookbooks can be found in the `test/cookbooks/test` folder.
+```ruby
+# service['apache2'] is defined in the apache2_default_install resource but other resources are currently unable to reference it.  To work around this issue, define the following helper in your cookbook:
+service 'apache2' do
+  extend Apache2::Cookbook::Helpers
+  service_name lazy { apache_platform_service_name }
+  supports restart: true, status: true, reload: true
+  action :nothing
+end
 
-## Recipes
+apache2_install 'default_install'
+apache2_module 'headers'
+apache2_module 'ssl'
 
-This cookbook comes with recipes as a way of maintaining backwards compatibility.
-It is recommended to use custom resources directly for more control.
+apache2_default_site 'foo' do
+  default_site_name 'my_site'
+  cookbook 'my_cookbook'
+  port '443'
+  template_source 'my_site.conf.erb'
+  action :enable
+end
+```
 
-On RHEL Family distributions, certain modules ship with a config file with the package. The recipes here may delete those configuration files to ensure they don't conflict with the settings from the cookbook, which will use per-module configuration in `/etc/httpd/mods-enabled`.
-
-## default
-
-The default recipe simply includes the `apache2_install` resource, using all the default values. The `apache2_install` resource is more flexible and should be used in favour of the default recipe.
+Example wrapper cookbooks:
+[basic site](https://github.com/sous-chefs/apache2/blob/master/test/cookbooks/test/recipes/basic_site.rb)
+[ssl site](https://github.com/sous-chefs/apache2/blob/master/test/cookbooks/test/recipes/mod_ssl.rb)
 
 ## Resources
 
-- [install](documentation/resource_apache2_install.md)
-- [default_site](documentation/resource_apache2_default_site.md)
-- [site](documentation/resource_apache2_site.md)
-- [conf](documentation/resource_apache2_conf.md)
-- [config](documentation/resource_apache2_config.md)
-- [mod](documentation/resource_apache2_mod.md)
-- [module](documentation/resource_apache2_module.md)
+- [install](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_install.md)
+- [default_site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_default_site.md)
+- [site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_site.md)
+- [conf](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_conf.md)
+- [config](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_config.md)
+- [mod](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod.md)
+- [module](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_module.md)
 
-## License
+## Contributors
 
-```text
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+This project exists thanks to all the people who [contribute.](https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false)
 
-    http://www.apache.org/licenses/LICENSE-2.0
+### Backers
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+Thank you to all our backers!
+
+![https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40)
+
+### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
+
+![https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100)
