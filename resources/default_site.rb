@@ -70,7 +70,7 @@ action :disable do
     path "#{apache_dir}/sites-available/#{new_resource.default_site_name}.conf"
     source 'default-site.conf.erb'
     owner 'root'
-    group apache_root_group
+    group new_resource.apache_root_group
     mode '0644'
     cookbook new_resource.cookbook
     action :delete
