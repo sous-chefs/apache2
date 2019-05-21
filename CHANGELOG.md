@@ -9,6 +9,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Allow users to set / alter the default module list
 - Allow users to alter the default modules configuration without rewrites
 - Allow users to alter the mpm configuration without rewrites
+- Fix error when passing ports as a String
 - Uniform way to pass IP's in mod_info and mod_status
 
 ## 7.0.0 (05-03-2019)
