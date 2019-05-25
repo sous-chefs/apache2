@@ -19,6 +19,10 @@ Debian-style Apache configuration uses scripts to manage modules and sites (vhos
 
 This cookbook ships with templates of these scripts for non-Debian based platforms.
 
+## Maintainers
+
+This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of Chef cookbook maintainers working together to maintain important cookbooks. If you’d like to know more please visit [sous-chefs.org](https://sous-chefs.org/) or come chat with us on the Chef Community Slack in [#sous-chefs](https://chefcommunity.slack.com/messages/C2V7B88SF).
+
 ## Cookbooks
 
 Depending on your OS configuration and security policy, you may need additional recipes or cookbooks for this cookbook's recipes to converge on the node. In particular, the following Operating System settings may affect the behavior of this cookbook:

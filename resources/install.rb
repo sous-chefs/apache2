@@ -286,7 +286,7 @@ action :install do
     path     "#{apache_dir}/ports.conf"
     cookbook 'apache2'
     mode     '0644'
-    variables(listen: new_resource.listen)
+    variables(listen: Array(new_resource.listen))
   end
 
   # MPM Support Setup
