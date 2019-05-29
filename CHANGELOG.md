@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+## 7.1.0 (29-05-2019)
+
 - Add upgrading examples in UPGRADING.md
 - Remove references to recipes in README.md and add a simple example
 - Allow users to set / alter the default module list
