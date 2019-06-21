@@ -1,8 +1,3 @@
-yum_repository 'codeit' do
-  baseurl "https://repo.codeit.guru/packages/centos/#{node['platform_version'].to_i}/$basearch"
-  gpgkey 'https://repo.codeit.guru/RPM-GPG-KEY-codeit'
-end
-
 apt_update 'update'
 
 apache2_install 'default_install'
