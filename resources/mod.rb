@@ -8,14 +8,14 @@ property :root_group, String,
          default: lazy { default_apache_root_group },
          description: 'Set to override the platforms default root group for the template file'
 
-property :cookbook, String,
+property :template_cookbook, String,
         default: 'apache2',
         description: 'Cookbook containing the template file'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', "#{new_resource.template}.conf") do
     source "mods/#{new_resource.template}.conf.erb"
-    cookbook new_resource.cookbook
+    cookbook new_resource.template_cookbook
     owner 'root'
     group new_resource.root_group
     mode '0644'
