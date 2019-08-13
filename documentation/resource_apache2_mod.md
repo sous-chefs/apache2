@@ -10,6 +10,7 @@ This will use a template resource to write the module's configuration file in th
 | ------------ | ------ | --------------------------- | ---------------------------------------------------------------------- |
 | `template`   | String |                             | Name of the template                                                   |
 | `root_group` | String | `default_apache_root_group` | Set to override the platforms default root group for the template file |
+| `template_cookbook`   | String | `apache2`                   | Cookbook containing the template file
 
 ## Examples
 
