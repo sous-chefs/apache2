@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+## 7.1.1 (2019-08-07)
+
+Allow overwriting cookbook for apache2_mod templates using `template_cookbook` property.
+
 ## 7.1.0 (29-05-2019)
 
 - Add upgrading examples in UPGRADING.md
