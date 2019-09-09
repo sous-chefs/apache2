@@ -27,31 +27,26 @@ workflows:
       # Test default config
       - kitchen/dokken-single:
           name: default-centos-7
-          platform: centos-7
           suite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-debian-8
-          platform: debian-8
           suite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-debian-9
-          platform: debian-9
           suite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-ubuntu-16.04
-          platform: ubuntu-1604
           suite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-ubuntu-18.04
-          platform: ubuntu-1804
           suite: default
           requires:
             *lint_and_unit
@@ -59,53 +54,43 @@ workflows:
       # Basic Site Tests
       - kitchen/dokken-single:
           name: basic-centos-7
-          platform: centos-7
-          suite: basic-site
+          uite: basic-site
           requires: [default-centos-7]
       - kitchen/dokken-single:
           name: basic-debian-8
-          platform: debian-8
-          suite: basic-site
+          uite: basic-site
           requires: [default-debian-8]
       - kitchen/dokken-single:
           name: basic-debian-9
-          platform: debian-9
-          suite: basic-site
+          uite: basic-site
           requires: [default-debian-9]
       - kitchen/dokken-single:
           name: basic-ubuntu-16.04
-          platform: ubuntu-1604
-          suite: basic-site
+          uite: basic-site
           requires: [default-ubuntu-16.04]
       - kitchen/dokken-single:
           name: basic-ubuntu-18.04
-          platform: ubuntu-1804
-          suite: basic-site
+          uite: basic-site
           requires: [default-ubuntu-18.04]
 
       # SSL Site Tests
       - kitchen/dokken-single:
           name: ssl-centos-7
-          platform: centos-7
           suite: ssl
           requires: [basic-centos-7]
       - kitchen/dokken-single:
           name: ssl-debian-8
-          platform: debian-8
           suite: ssl
           requires: [basic-debian-8]
       - kitchen/dokken-single:
           name: ssl-debian-9
-          platform: debian-9
           suite: ssl
           requires: [basic-debian-9]
       - kitchen/dokken-single:
           name: ssl-ubuntu-16.04
-          platform: ubuntu-1604
           suite: ssl
           requires: [basic-ubuntu-16.04]
       - kitchen/dokken-single:
           name: ssl-ubuntu-18.04
-          platform: ubuntu-1804
           suite: ssl
           requires: [basic-ubuntu-18.04]
