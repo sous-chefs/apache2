@@ -27,70 +27,70 @@ workflows:
       # Test default config
       - kitchen/dokken-single:
           name: default-centos-7
-          suite: default
+          ssuite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-debian-8
-          suite: default
+          ssuite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-debian-9
-          suite: default
+          ssuite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-ubuntu-16.04
-          suite: default
+          ssuite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-ubuntu-18.04
-          suite: default
+          ssuite: default
           requires:
             *lint_and_unit
 
       # Basic Site Tests
       - kitchen/dokken-single:
           name: basic-centos-7
-          uite: basic-site
+          suite: basic-site
           requires: [default-centos-7]
       - kitchen/dokken-single:
           name: basic-debian-8
-          uite: basic-site
+          suite: basic-site
           requires: [default-debian-8]
       - kitchen/dokken-single:
           name: basic-debian-9
-          uite: basic-site
+          suite: basic-site
           requires: [default-debian-9]
       - kitchen/dokken-single:
           name: basic-ubuntu-16.04
-          uite: basic-site
+          suite: basic-site
           requires: [default-ubuntu-16.04]
       - kitchen/dokken-single:
           name: basic-ubuntu-18.04
-          uite: basic-site
+          suite: basic-site
           requires: [default-ubuntu-18.04]
 
       # SSL Site Tests
       - kitchen/dokken-single:
           name: ssl-centos-7
-          suite: ssl
+          ssuite: ssl
           requires: [basic-centos-7]
       - kitchen/dokken-single:
           name: ssl-debian-8
-          suite: ssl
+          ssuite: ssl
           requires: [basic-debian-8]
       - kitchen/dokken-single:
           name: ssl-debian-9
-          suite: ssl
+          ssuite: ssl
           requires: [basic-debian-9]
       - kitchen/dokken-single:
           name: ssl-ubuntu-16.04
-          suite: ssl
+          ssuite: ssl
           requires: [basic-ubuntu-16.04]
       - kitchen/dokken-single:
           name: ssl-ubuntu-18.04
-          suite: ssl
+          ssuite: ssl
           requires: [basic-ubuntu-18.04]
