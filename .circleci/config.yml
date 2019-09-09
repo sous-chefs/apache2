@@ -27,27 +27,27 @@ workflows:
       # Test default config
       - kitchen/dokken-single:
           name: default-centos-7
-          ssuite: default
+          suite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-debian-8
-          ssuite: default
+          suite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-debian-9
-          ssuite: default
+          suite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-ubuntu-16.04
-          ssuite: default
+          suite: default
           requires:
             *lint_and_unit
       - kitchen/dokken-single:
           name: default-ubuntu-18.04
-          ssuite: default
+          suite: default
           requires:
             *lint_and_unit
 
@@ -76,21 +76,21 @@ workflows:
       # SSL Site Tests
       - kitchen/dokken-single:
           name: ssl-centos-7
-          ssuite: ssl
+          suite: ssl
           requires: [basic-centos-7]
       - kitchen/dokken-single:
           name: ssl-debian-8
-          ssuite: ssl
+          suite: ssl
           requires: [basic-debian-8]
       - kitchen/dokken-single:
           name: ssl-debian-9
-          ssuite: ssl
+          suite: ssl
           requires: [basic-debian-9]
       - kitchen/dokken-single:
           name: ssl-ubuntu-16.04
-          ssuite: ssl
+          suite: ssl
           requires: [basic-ubuntu-16.04]
       - kitchen/dokken-single:
           name: ssl-ubuntu-18.04
-          ssuite: ssl
+          suite: ssl
           requires: [basic-ubuntu-18.04]
