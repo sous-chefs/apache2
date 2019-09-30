@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+Latest Cookstyle changes in cookstyle 5.6.2
+
 ## 7.1.1 (2019-08-07)
 
 Allow overwriting cookbook for apache2_mod templates using `template_cookbook` property.
