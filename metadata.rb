@@ -6,7 +6,6 @@ maintainer_email 'help@sous-chefs.org'
 chef_version     '>= 13.9'
 license          'Apache-2.0'
 description      'Installs and configures apache2'
-
 version          '7.1.1'
 
 supports 'debian'
