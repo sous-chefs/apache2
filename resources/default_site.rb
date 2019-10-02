@@ -45,7 +45,6 @@ property :template_source, String,
          description: 'Source for the template.'\
 'defaults to #{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms'
 
-
 action :enable do
   template "#{new_resource.default_site_name}.conf" do
     source new_resource.template_source
