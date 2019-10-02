@@ -30,6 +30,11 @@ property :log_dir, String,
          default: lazy { default_log_dir },
          description: 'Default Apache2 log directory'
 
+property :docroot_dir, String,
+         default: lazy { default_docroot_dir },
+         description: 'Apache document root.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :apache_root_group, String,
          default: lazy { default_apache_root_group },
          description: 'Group that the root user on the box runs as.'\
@@ -39,6 +44,7 @@ property :template_source, String,
          default: lazy { default_site_template_source },
          description: 'Source for the template.'\
 'defaults to #{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms'
+
 
 action :enable do
   template "#{new_resource.default_site_name}.conf" do
@@ -51,7 +57,7 @@ action :enable do
     variables(
       access_log: default_access_log,
       cgibin_dir: default_cgibin_dir,
-      docroot_dir: default_docroot_dir,
+      docroot_dir: new_resource.docroot_dir,
       error_log: default_error_log,
       log_dir: default_log_dir,
       log_level: new_resource.log_level,
