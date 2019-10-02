@@ -29,7 +29,7 @@ control 'welcome-page' do
   desc 'Apache2 Welcome Pages Displayed'
 
   case os[:family]
-  when 'debian', 'suse'
+  when 'debian'
     describe http('localhost') do
       its('status') { should eq 200 }
       its('body') { should cmp /This is the default welcome page/ }
@@ -38,6 +38,12 @@ control 'welcome-page' do
     describe http('localhost') do
       its('status') { should eq 200 }
       its('body') { should_not cmp /Forbidden/ }
+    end
+  when 'suse'
+    describe http('localhost') do
+      its('status') { should eq 403 }
+      its('body') { should cmp /Forbidden/ }
+      its('body') { should cmp /Apache Server/ }
     end
   else
     describe http('localhost') do

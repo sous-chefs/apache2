@@ -6,6 +6,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 - Latest Cookstyle changes in cookstyle 5.6.2
 - Fixed bug with freebsd and suse modules adding an array to an array
+- Fixed mod_ssl for suse
+- Fixed docroot paths for suse
 
 ## 7.1.1 (2019-08-07)
 
