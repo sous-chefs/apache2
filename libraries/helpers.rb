@@ -266,9 +266,9 @@ module Apache2
           default_modules.concat %w(systemd) if node['init_package'] == 'systemd'
           default_modules
         when 'arch', 'freebsd'
-          default_modules << %w(log_config logio unixd)
+          default_modules.concat %w(log_config logio unixd)
         when 'suse'
-          default_modules << %w(log_config logio)
+          default_modules.concat %w(log_config logio)
         else
           default_modules
         end
