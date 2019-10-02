@@ -13,6 +13,7 @@ Controls the default site.
 | server_admin      | String         | `root@localhost`               | Default site contact name                                                                                                                |
 | log_level         | String         | `warn`                         | Log level for apache2                                                                                                                    |
 | log_dir           | String         | `default_log_dir`              | Defaults to platform specific locations, see libraries/helpers.rb                                                                        |
+| docroot_dir                 | String          | `default_docroot_dir`               | Apache document root. Defaults to platform specific locations, see libraries/helpers.rb                        |
 | apache_root_group | String         | `default_apache_root_group`    | 'Group that the root user on the box runs as. Defaults to platform specific locations, see libraries/helpers.rb'                         |
 | template_source   | String         | `default_site_template_source` | 'Source for the template. Defaults to #{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms' |
 

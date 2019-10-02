@@ -35,14 +35,14 @@ action :create do
     source 'mods/mpm_event.conf.erb'
     cookbook 'apache2'
     variables(
-      startservers:  new_resource.startservers,
-      serverlimit:  new_resource.serverlimit,
-      minsparethreads:  new_resource.minsparethreads,
-      maxsparethreads:  new_resource.maxsparethreads,
-      threadlimit:  new_resource.threadlimit,
-      threadsperchild:  new_resource.threadsperchild,
-      maxrequestworkers:  new_resource.maxrequestworkers,
-      maxconnectionsperchild:  new_resource.maxconnectionsperchild
+      startservers: new_resource.startservers,
+      serverlimit: new_resource.serverlimit,
+      minsparethreads: new_resource.minsparethreads,
+      maxsparethreads: new_resource.maxsparethreads,
+      threadlimit: new_resource.threadlimit,
+      threadsperchild: new_resource.threadsperchild,
+      maxrequestworkers: new_resource.maxrequestworkers,
+      maxconnectionsperchild: new_resource.maxconnectionsperchild
     )
   end
 end
