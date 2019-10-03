@@ -60,7 +60,7 @@ action :create do
     with_run_context :root do
       package 'mod_ssl' do
         notifies :run, 'execute[generate-module-list]', :immediately
-        only_if { platform_family?('rhel', 'fedora', 'suse', 'amazon') }
+        only_if { platform_family?('rhel', 'fedora', 'amazon') }
       end
     end
   end

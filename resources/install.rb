@@ -211,7 +211,7 @@ action :install do
 
   directory lock_dir do
     mode '0750'
-    if node['platform_family'] == 'debian'
+    if platform_family?('debian')
       owner new_resource.apache_user
     else
       owner 'root'

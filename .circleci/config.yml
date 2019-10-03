@@ -4,15 +4,12 @@ lint_and_unit: &lint_and_unit
   - danger
   - lint-yaml
   - lint-markdown
-
 version: 2.1
 orbs:
   kitchen: sous-chefs/kitchen@2
-
 workflows:
   kitchen:
     jobs:
-      # Lint and Unit Test
       - kitchen/yamllint:
           name: lint-yaml
       - kitchen/mdlint:
@@ -22,75 +19,115 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
-
-      # Use dokken-single as we don't support CentOS-6
-      # Test default config
-      - kitchen/dokken-single:
-          name: default-centos-7
-          suite: default
-          requires:
-            *lint_and_unit
+    #   - kitchen/dokken-single:
+    #       name: default-amazonlinux-2
+    #       suite: default-amazonlinux-2
+    #       requires: *lint_and_unit
       - kitchen/dokken-single:
           name: default-debian-8
-          suite: default
-          requires:
-            *lint_and_unit
+          suite: default-debian-8
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: default-debian-9
-          suite: default
-          requires:
-            *lint_and_unit
+          suite: default-debian-9
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: default-ubuntu-16.04
-          suite: default
-          requires:
-            *lint_and_unit
+          name: default-centos-7
+          suite: default-centos-7
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: default-ubuntu-18.04
-          suite: default
-          requires:
-            *lint_and_unit
-
-      # Basic Site Tests
+          name: default-ubuntu-1604
+          suite: default-ubuntu-1604
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: basic-centos-7
-          suite: basic-site
-          requires: [default-centos-7]
+          name: default-ubuntu-1804
+          suite: default-ubuntu-1804
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: basic-debian-8
-          suite: basic-site
-          requires: [default-debian-8]
+          name: default-opensuse-leap-15
+          suite: default-opensuse-leap-15
+          requires: *lint_and_unit
+    #   - kitchen/dokken-single:
+    #       name: basic-site-amazonlinux-2
+    #       suite: basic-site-amazonlinux-2
+    #       requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: basic-debian-9
-          suite: basic-site
-          requires: [default-debian-9]
+          name: basic-site-debian-8
+          suite: basic-site-debian-8
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: basic-ubuntu-16.04
-          suite: basic-site
-          requires: [default-ubuntu-16.04]
+          name: basic-site-debian-9
+          suite: basic-site-debian-9
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: basic-ubuntu-18.04
-          suite: basic-site
-          requires: [default-ubuntu-18.04]
-
-      # SSL Site Tests
+          name: basic-site-centos-7
+          suite: basic-site-centos-7
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: ssl-centos-7
-          suite: ssl
-          requires: [basic-centos-7]
+          name: basic-site-ubuntu-1604
+          suite: basic-site-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: basic-site-ubuntu-1804
+          suite: basic-site-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: basic-site-opensuse-leap-15
+          suite: basic-site-opensuse-leap-15
+          requires: *lint_and_unit
+    #   - kitchen/dokken-single:
+    #       name: ssl-amazonlinux-2
+    #       suite: ssl-amazonlinux-2
+    #       requires: *lint_and_unit
       - kitchen/dokken-single:
           name: ssl-debian-8
-          suite: ssl
-          requires: [basic-debian-8]
+          suite: ssl-debian-8
+          requires: *lint_and_unit
       - kitchen/dokken-single:
           name: ssl-debian-9
-          suite: ssl
-          requires: [basic-debian-9]
+          suite: ssl-debian-9
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: ssl-ubuntu-16.04
-          suite: ssl
-          requires: [basic-ubuntu-16.04]
+          name: ssl-centos-7
+          suite: ssl-centos-7
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: ssl-ubuntu-18.04
-          suite: ssl
-          requires: [basic-ubuntu-18.04]
+          name: ssl-ubuntu-1604
+          suite: ssl-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: ssl-ubuntu-1804
+          suite: ssl-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: ssl-opensuse-leap-15
+          suite: ssl-opensuse-leap-15
+          requires: *lint_and_unit
+    #   - kitchen/dokken-single:
+    #       name: ports-amazonlinux-2
+    #       suite: ports-amazonlinux-2
+    #       requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: ports-debian-8
+          suite: ports-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: ports-debian-9
+          suite: ports-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: ports-centos-7
+          suite: ports-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: ports-ubuntu-1604
+          suite: ports-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: ports-ubuntu-1804
+          suite: ports-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: ports-opensuse-leap-15
+          suite: ports-opensuse-leap-15
+          requires: *lint_and_unit
