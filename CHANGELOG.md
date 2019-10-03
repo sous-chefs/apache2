@@ -4,12 +4,25 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Latest Cookstyle changes in cookstyle 5.6.2
+- Fixed bug with freebsd and suse modules adding an array to an array
+- Fixed mod_ssl for suse
+- Fixed docroot paths for suse
+- Defer implementation of root group selection to ohai
+
+## 7.1.1 (2019-08-07)
+
+- Allow overwriting cookbook for apache2_mod templates using `template_cookbook` property.
+
+## 7.1.0 (29-05-2019)
+
 - Add upgrading examples in UPGRADING.md
 - Remove references to recipes in README.md and add a simple example
 - Allow users to set / alter the default module list
 - Allow users to alter the default modules configuration without rewrites
 - Allow users to alter the mpm configuration without rewrites
-- Defer implementation of root group selection to ohai
+- Fix error when passing ports as a String
+- Uniform way to pass IP's in mod_info and mod_status
 
 ## 7.0.0 (05-03-2019)
 

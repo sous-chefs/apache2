@@ -34,3 +34,6 @@ suites:
   - name: ssl
     run_list:
       - recipe[test::mod_ssl]
+  - name: ports
+    run_list:
+      - recipe[test::ports]

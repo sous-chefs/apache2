@@ -211,7 +211,7 @@ action :install do
 
   directory lock_dir do
     mode '0750'
-    if node['platform_family'] == 'debian'
+    if platform_family?('debian')
       owner new_resource.apache_user
     else
       owner 'root'
@@ -274,7 +274,7 @@ action :install do
     path     "#{apache_dir}/ports.conf"
     cookbook 'apache2'
     mode     '0644'
-    variables(listen: new_resource.listen)
+    variables(listen: Array(new_resource.listen))
   end
 
   # MPM Support Setup

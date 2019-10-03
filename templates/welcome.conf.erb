@@ -6,10 +6,10 @@
 # NOTE: if this file is removed, it will be restored on upgrades.
 #
 
-DocumentRoot "/var/www/html"
+DocumentRoot "<%= @docroot_dir %>"
 
 # Further relax access to the default document root:
-<Directory "/var/www/html">
+<Directory "<%= @docroot_dir %>">
     #
     # Possible values for the Options directive are "None", "All",
     # or any combination of:
