@@ -11,7 +11,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ### Breaking Changes
 
-- Renamed `:cookbook` property for `default-site` resource to `:template_cookbook`.
+- Renamed `:cookbook` property for `apache2_default_site` resource to `:template_cookbook`.
 
 ## 7.1.1 (2019-08-07)
 
