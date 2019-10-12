@@ -14,7 +14,7 @@ property :port, String,
          default: '80',
          description: 'Listen port'
 
-property :cookbook, String,
+property :template_cookbook, String,
          default: 'apache2',
          description: 'Cookbook to source the template file from'
 
@@ -52,7 +52,7 @@ action :enable do
     owner 'root'
     group new_resource.apache_root_group
     mode '0644'
-    cookbook new_resource.cookbook
+    cookbook new_resource.template_cookbook
     variables(
       access_log: default_access_log,
       cgibin_dir: default_cgibin_dir,
@@ -77,7 +77,7 @@ action :disable do
     owner 'root'
     group new_resource.apache_root_group
     mode '0644'
-    cookbook new_resource.cookbook
+    cookbook new_resource.template_cookbook
     action :delete
   end
 
