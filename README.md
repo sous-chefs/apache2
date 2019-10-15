@@ -71,7 +71,7 @@ apache2_module 'ssl'
 
 apache2_default_site 'foo' do
   default_site_name 'my_site'
-  cookbook 'my_cookbook'
+  template_cookbook 'my_cookbook'
   port '443'
   template_source 'my_site.conf.erb'
   action :enable
