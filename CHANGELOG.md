@@ -9,6 +9,10 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Fixed mod_ssl for suse
 - Fixed docroot paths for suse
 
+### Breaking Changes
+
+- Renamed `:cookbook` property for `apache2_default_site` resource to `:template_cookbook`.
+
 ## 7.1.1 (2019-08-07)
 
 - Allow overwriting cookbook for apache2_mod templates using `template_cookbook` property.
