@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+## 8.0.0 (2019-11-13)
+
 - Fix cache_dir permission so that modules can write in their cache_dir/module/ storage space
 - Latest Cookstyle changes in cookstyle 5.6.2
 - Fixed bug with freebsd and suse modules adding an array to an array
