@@ -204,7 +204,7 @@ action :install do
   end
 
   directory cache_dir do
-    mode '0750'
+    mode '0755'
     owner 'root'
     group new_resource.root_group
   end
