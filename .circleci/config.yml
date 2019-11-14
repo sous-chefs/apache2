@@ -1,4 +1,12 @@
 ---
+jobs:
+  final:
+    docker:
+      - image: bash:latest
+    steps:
+      - run:
+          name: Finish cooking
+          command: echo "Finished cooking"
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
@@ -19,10 +27,6 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
-    #   - kitchen/dokken-single:
-    #       name: default-amazonlinux-2
-    #       suite: default-amazonlinux-2
-    #       requires: *lint_and_unit
       - kitchen/dokken-single:
           name: default-debian-8
           suite: default-debian-8
@@ -47,10 +51,6 @@ workflows:
           name: default-opensuse-leap-15
           suite: default-opensuse-leap-15
           requires: *lint_and_unit
-    #   - kitchen/dokken-single:
-    #       name: basic-site-amazonlinux-2
-    #       suite: basic-site-amazonlinux-2
-    #       requires: *lint_and_unit
       - kitchen/dokken-single:
           name: basic-site-debian-8
           suite: basic-site-debian-8
@@ -75,10 +75,6 @@ workflows:
           name: basic-site-opensuse-leap-15
           suite: basic-site-opensuse-leap-15
           requires: *lint_and_unit
-    #   - kitchen/dokken-single:
-    #       name: ssl-amazonlinux-2
-    #       suite: ssl-amazonlinux-2
-    #       requires: *lint_and_unit
       - kitchen/dokken-single:
           name: ssl-debian-8
           suite: ssl-debian-8
@@ -103,10 +99,6 @@ workflows:
           name: ssl-opensuse-leap-15
           suite: ssl-opensuse-leap-15
           requires: *lint_and_unit
-    #   - kitchen/dokken-single:
-    #       name: ports-amazonlinux-2
-    #       suite: ports-amazonlinux-2
-    #       requires: *lint_and_unit
       - kitchen/dokken-single:
           name: ports-debian-8
           suite: ports-debian-8
@@ -131,3 +123,29 @@ workflows:
           name: ports-opensuse-leap-15
           suite: ports-opensuse-leap-15
           requires: *lint_and_unit
+      - final:
+          requires:
+            - default-debian-8
+            - default-debian-9
+            - default-centos-7
+            - default-ubuntu-1604
+            - default-ubuntu-1804
+            - default-opensuse-leap-15
+            - basic-site-debian-8
+            - basic-site-debian-9
+            - basic-site-centos-7
+            - basic-site-ubuntu-1604
+            - basic-site-ubuntu-1804
+            - basic-site-opensuse-leap-15
+            - ssl-debian-8
+            - ssl-debian-9
+            - ssl-centos-7
+            - ssl-ubuntu-1604
+            - ssl-ubuntu-1804
+            - ssl-opensuse-leap-15
+            - ports-debian-8
+            - ports-debian-9
+            - ports-centos-7
+            - ports-ubuntu-1604
+            - ports-ubuntu-1804
+            - ports-opensuse-leap-15
