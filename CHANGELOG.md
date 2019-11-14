@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
+- Fix not reloading service when changes in port.conf / apache2.conf
 
 ## 8.0.0 (2019-11-13)
 

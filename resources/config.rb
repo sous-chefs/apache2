@@ -92,6 +92,7 @@ action :create do
       timeout: new_resource.timeout,
       server_name: new_resource.server_name
     )
+    notifies :restart, 'service[apache2]', :delayed
   end
 end
 
