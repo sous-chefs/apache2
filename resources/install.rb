@@ -275,6 +275,7 @@ action :install do
     cookbook 'apache2'
     mode     '0644'
     variables(listen: Array(new_resource.listen))
+    notifies :restart, 'service[apache2]', :delayed
   end
 
   # MPM Support Setup
