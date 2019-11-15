@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- default_apache_root_group: replace with ohai root_group
+
 ## 8.0.1
 
 - Fix not reloading service when changes in port.conf / apache2.conf
