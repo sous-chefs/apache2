@@ -4,7 +4,7 @@
 
 | name                    | Type            | Default                     | Description                                                                                                    |
 | ----------------------- | --------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| root_group              | String          | `default_apache_root_group` | Group that the root user on the box runs as. Defaults to platform specific locations, see libraries/helpers.rb |
+| root_group              | String          | `node['root_group']`        | Group that the root user on the box runs as. Defaults to platform specific value from ohai root_group          |
 | access_file_name        | String          | `.htaccess`                 | Access filename                                                                                                |
 | log_dir                 | String          | `default_log_dir`           | Log directory location. Defaults to platform specific locations, see libraries/helpers.rb                      |
 | error_log               | String          | `default_error_log`         | Error log location. Defaults to platform specific locations, see libraries/helpers.rb                          |

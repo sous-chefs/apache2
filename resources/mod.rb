@@ -5,7 +5,7 @@ property :template, String,
          description: 'Name of the template '
 
 property :root_group, String,
-         default: lazy { default_apache_root_group },
+         default: lazy { node['root_group'] },
          description: 'Set to override the platforms default root group for the template file'
 
 property :template_cookbook, String,

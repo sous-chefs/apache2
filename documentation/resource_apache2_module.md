@@ -7,7 +7,7 @@ Enable or disable an Apache module in `#{node['apache']['dir']}/mods-available` 
 | Name              | Type    | Default                   | Description                                                                                                 |
 | ----------------- | ------- | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | name              | String  |                           | Name of the module enabled or disabled with the `a2enmod` or `a2dismod` scripts.                            |
-| identifier        | String  | default_apache_root_group | `#{name}_module`                                                                                            |
+| identifier        | String  | `#{name}_module`          | String to identify the module for the `LoadModule` directive                                                |
 | template_cookbook | String  | apache2                   | Cookbook to source the template from.  Override this to provide your own template.                          |
 | conf              | Boolean | has_config?               | The default is set by the config_file? helper. Override to set whether the module should have a config file |
 

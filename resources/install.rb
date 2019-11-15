@@ -1,7 +1,7 @@
 include Apache2::Cookbook::Helpers
 
 property :root_group, String,
-         default: lazy { default_apache_root_group },
+         default: lazy { node['root_group'] },
          description: 'Group that the root user on the box runs as.
 Defaults to platform specific locations, see libraries/helpers.rb'
 
@@ -275,6 +275,7 @@ action :install do
     cookbook 'apache2'
     mode     '0644'
     variables(listen: Array(new_resource.listen))
+    notifies :restart, 'service[apache2]', :delayed
   end
 
   # MPM Support Setup

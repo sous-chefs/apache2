@@ -1,7 +1,7 @@
 include Apache2::Cookbook::Helpers
 
 property :root_group, String,
-         default: lazy { default_apache_root_group },
+         default: lazy { node['root_group'] },
          description: 'Group that the root user on the box runs as. Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :access_file_name, String,
@@ -92,6 +92,7 @@ action :create do
       timeout: new_resource.timeout,
       server_name: new_resource.server_name
     )
+    notifies :restart, 'service[apache2]', :delayed
   end
 end
 

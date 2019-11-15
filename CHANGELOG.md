@@ -4,6 +4,14 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+## 8.0.2
+
+- default_apache_root_group: replace with ohai root_group
+
+## 8.0.1
+
+- Fix not reloading service when changes in port.conf / apache2.conf
+
 ## 8.0.0 (2019-11-13)
 
 - Fix cache_dir permission so that modules can write in their cache_dir/module/ storage space

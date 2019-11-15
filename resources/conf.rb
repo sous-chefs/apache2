@@ -5,7 +5,7 @@ property :path, String,
          description: 'Path to the conf-available directory'
 
 property :root_group, String,
-         default: lazy { default_apache_root_group },
+         default: lazy { node['root_group'] },
          description: ''
 
 property :template_cookbook, String,
