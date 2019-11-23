@@ -23,7 +23,7 @@ Enable the php5 module, which has a different filename than the module default:
 
 ```ruby
 apache2_module "php5" do
-  filename "libphp5.so"
+  mod_name "libphp5.so"
 end
 ```
 

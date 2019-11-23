@@ -51,6 +51,7 @@ apache2_install 'default' do
            maxrequestworkers: 4096,
            maxconnectionsperchild: 1024
           )
+  modules %w(status)
   mod_conf(
     status: {
       status_allow_list: %w(127.0.0.1 ::1 1.2.3.0/24),
