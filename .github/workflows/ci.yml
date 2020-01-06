@@ -48,7 +48,7 @@ jobs:
           - 'opensuse-leap-15'
         suite:
           - 'default'
-          - 'basic'
+          - 'basic-site'
           - 'ssl'
           - 'ports'
       fail-fast: false
