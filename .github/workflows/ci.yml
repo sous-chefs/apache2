@@ -67,9 +67,9 @@ jobs:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
 
-          final:
-            needs: [dokken]
-            runs-on: ubuntu-latest
-            steps:
-              - name: Check out code
-                uses: actions/checkout@master
+    final:
+      needs: [dokken]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Check out code
+          uses: actions/checkout@master
