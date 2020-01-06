@@ -286,7 +286,7 @@ describe 'apache2_install' do
       is_expected.to render_file('/etc/apache2/mods-available/actions.conf')
 
       is_expected.not_to render_file('/etc/apache2/mods-available/actions.conf')
-        .with_content(/	Action /)
+        .with_content(/^\s+Action\s+/)
     end
   end
 

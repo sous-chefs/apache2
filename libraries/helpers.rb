@@ -82,8 +82,7 @@ module Apache2
       end
 
       def libexec_dir
-        case node['platform_family']
-        when 'freebsd', 'suse'
+        if platform_family?('freebsd') || platform_family?('suse')
           lib_dir
         else
           File.join(lib_dir, 'modules')
@@ -168,8 +167,7 @@ module Apache2
       end
 
       def default_cache_root
-        case node['platform_family']
-        when 'debian', 'suse', 'freebsd'
+        if platform_family?('debian') || platform_family?('suse') || platform_family?('freebsd')
           ::File.join(cache_dir, 'proxy')
         else
           ::File.join(cache_dir, 'mod_cache_disk')

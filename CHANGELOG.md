@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Migrated to Github Actions for testing
+- Removed circleci testing
+
 ## 8.0.2
 
 - default_apache_root_group: replace with ohai root_group

@@ -10,6 +10,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
   describe '#default_cache_root' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
     end
 
     context 'with rhel family' do
