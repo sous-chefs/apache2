@@ -61,7 +61,8 @@ jobs:
       - name: Dokken
         uses: actionshub/kitchen-dokken@master
         env:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
