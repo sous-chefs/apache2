@@ -14,7 +14,7 @@ property :identifier, String,
 
 property :mod_conf, Hash,
         default: {},
-        description: 'Pass properties to apache2_mod_<name>'
+        description: 'Pass properties to apache2_mod_<name> and config file template'
 
 property :conf, [true, false],
          default: lazy { config_file?(name) },
@@ -22,7 +22,7 @@ property :conf, [true, false],
 
 property :template_cookbook, String,
          default: '',
-         description: 'Cookbook to source the config template file from'
+         description: 'Cookbook to source the config file template from'
 
 property :apache_service_notification, Symbol,
          equal_to: %i( reload restart ),
