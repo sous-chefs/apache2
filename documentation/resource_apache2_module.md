@@ -4,12 +4,12 @@ Enable or disable an Apache module in `#{node['apache']['dir']}/mods-available` 
 
 ## Properties
 
-| Name              | Type    | Default                   | Description                                                                                                 |
-| ----------------- | ------- | ------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| name              | String  |                           | Name of the module enabled or disabled with the `a2enmod` or `a2dismod` scripts.                            |
-| identifier        | String  | `#{name}_module`          | String to identify the module for the `LoadModule` directive                                                |
-| template_cookbook | String  | apache2                   | Cookbook to source the template from.  Override this to provide your own template.                          |
-| conf              | Boolean | has_config?               | The default is set by the config_file? helper. Override to set whether the module should have a config file |
+| Name              | Type    | Default                   | Description                                                                                                  |
+| ----------------- | ------- | ------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| name              | String  |                           | Name of the module enabled or disabled with the `a2enmod` or `a2dismod` scripts.                             |
+| identifier        | String  | `#{name}_module`          | String to identify the module for the `LoadModule` directive.                                                |
+| template_cookbook | String  | apache2                   | Cookbook to source the template from.  Override this to provide your own template.                           |
+| conf              | Boolean | has_config?               | The default is set by the config_file? helper. Override to set whether the module should have a config file. |
 
 ## Examples
 
@@ -32,6 +32,14 @@ Disable a module:
 ```ruby
 apache2_module "disabled_module" do
   action :disable
+end
+```
+
+Enable a module with a custom template from the `foo` cookbook:
+```ruby
+apache2_module "module_name" do
+  conf true
+  template_cookbook 'foo'
 end
 ```
 
