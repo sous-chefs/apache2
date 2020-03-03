@@ -8,7 +8,6 @@ service 'apache2' do
 end
 
 apache2_module 'info' do
-
-	conf true
-	template_cookbook 'test'
+  conf true
+  template_cookbook 'test'
 end
