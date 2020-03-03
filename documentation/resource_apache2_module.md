@@ -38,6 +38,7 @@ end
 ```
 
 Enable a module with a custom template from the `foo` cookbook:
+
 ```ruby
 apache2_module "module_name" do
   conf true
