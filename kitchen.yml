@@ -37,3 +37,6 @@ suites:
   - name: ports
     run_list:
       - recipe[test::ports]
+  - name: module_template
+    run_list:
+      - recipe[test::module_template]
