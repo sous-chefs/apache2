@@ -51,6 +51,7 @@ jobs:
           - 'basic-site'
           - 'ssl'
           - 'ports'
+          - 'module-template'
       fail-fast: false
 
     steps:
