@@ -18,6 +18,7 @@ platforms:
     driver_config:
       box: ywatase/amzn2
   - name: centos-7
+  - name: centos-8
   - name: debian-8
   - name: debian-9
   - name: opensuse-leap-15
