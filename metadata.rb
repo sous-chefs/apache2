@@ -6,7 +6,7 @@ maintainer_email 'help@sous-chefs.org'
 chef_version     '>= 13.9'
 license          'Apache-2.0'
 description      'Installs and configures apache2'
-version          '8.0.2'
+version          '8.1.0'
 
 supports 'debian'
 supports 'ubuntu'

@@ -2,20 +2,30 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## [8.1.0] - 2020-03-06
 
+### Added
+
+- Add 'template_cookbook' property to apache2_module
 - Migrated to Github Actions for testing
+
+### Fixed
+
+- Cookstyle fixes
+
+### Removed
+
 - Removed circleci testing
 
-## 8.0.2
+## [8.0.2] - 2019-11-15
 
 - default_apache_root_group: replace with ohai root_group
 
-## 8.0.1
+## [8.0.1] - 2019-11-15
 
 - Fix not reloading service when changes in port.conf / apache2.conf
 
-## 8.0.0 (2019-11-13)
+## [8.0.0] - 2019-11-13
 
 - Fix cache_dir permission so that modules can write in their cache_dir/module/ storage space
 - Latest Cookstyle changes in cookstyle 5.6.2
@@ -27,11 +37,11 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 - Renamed `:cookbook` property for `apache2_default_site` resource to `:template_cookbook`.
 
-## 7.1.1 (2019-08-07)
+## [7.1.1] - 2019-08-07
 
 - Allow overwriting cookbook for apache2_mod templates using `template_cookbook` property.
 
-## 7.1.0 (29-05-2019)
+## [7.1.0] - 29-05-2019
 
 - Add upgrading examples in UPGRADING.md
 - Remove references to recipes in README.md and add a simple example
@@ -41,14 +51,14 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Fix error when passing ports as a String
 - Uniform way to pass IP's in mod_info and mod_status
 
-## 7.0.0 (05-03-2019)
+## [7.0.0] - 05-03-2019
 
 - Remove all recipes
 - Use `declare_resource` in `apache2_module`
 - Add default value to `apache_2_mod_proxy`
 - Fix spelling of `default` in `access_file_name` property in `install.rb`
 
-## v6.0.0 (25-02-2019)
+## [6.0.0] - 25-02-2019
 
 See UPGRADING.md for upgrading.
 
@@ -84,11 +94,11 @@ See UPGRADING.md for upgrading.
 - Fix Options allowed in alias.conf
 - Add resource documentation to documentation directory
 
-## v5.2.1 (04-09-2018)
+## [5.2.1] - 04-09-2018
 
 - Revert ports.conf fix (ports.conf that gets installed by package conflicts.
 
-## v5.2.0 (26-08-2018)
+## [5.2.0] - 26-08-2018
 
 - Drop Chef 12 support
 - Add Danger and CircleCI support
@@ -98,7 +108,7 @@ See UPGRADING.md for upgrading.
 - Fix ports.conf location and how its set up (#550, skadz)
 - Allow httpd -t timeout to be configurable (#547, skadz)
 
-## v5.0.1 (2017-09-01)
+## [5.0.1] - 2017-09-01
 
 - Test using dokken-images in kitchen-dokken
 - Fix readme section for mod_php
@@ -106,7 +116,7 @@ See UPGRADING.md for upgrading.
 - Fix mod_ldap failing on non-RHEL platforms
 - Fix mod_dav_svn to install the correct packages on Debian 8/9
 
-## v5.0.0 (2017-07-13)
+## [5.0.0] - 2017-07-13
 
 ### Breaking changes
 
@@ -116,7 +126,7 @@ See UPGRADING.md for upgrading.
 
 - Fixed openSUSE support in multiple places and added integration testing for openSUSE in Travis
 
-## v4.0.0 (2017-07-10)
+## [4.0.0] - 2017-07-10
 
 - This cookbook now requires Chef 12.1 or later
 - Support for Apache 2.2 on FreeBSD has been removed
