@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 ## Unreleased
 
 - Add CentOS 8 to CI pipeline
+- Add Debian 10 / Remove Debian 8 from CI pipeline
 
 ## [8.1.0] - 2020-03-06
 
