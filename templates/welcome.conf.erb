@@ -47,8 +47,16 @@ DocumentRoot "<%= @docroot_dir %>"
     Require all granted
 </Directory>
 
+<% if node['platform_version'].to_i == 8 -%>
+Alias /.noindex.html /usr/share/httpd/noindex/index.html.en-US
+Alias /noindex/css/bootstrap.min.css /usr/share/httpd/noindex/common/css/bootstrap.min.css
+Alias /noindex/css/open-sans.css /usr/share/httpd/noindex/common/css/styles.css
+Alias /noindex/common/images/pb-apache.png /usr/share/httpd/noindex/common/images/pb-apache.png
+Alias /noindex/common/images/pb-centos.png /usr/share/httpd/noindex/common/images/pb-centos.png
+<% else -%>
 Alias /.noindex.html /usr/share/httpd/noindex/index.html
 Alias /noindex/css/bootstrap.min.css /usr/share/httpd/noindex/css/bootstrap.min.css
 Alias /noindex/css/open-sans.css /usr/share/httpd/noindex/css/open-sans.css
 Alias /images/apache_pb.gif /usr/share/httpd/noindex/images/apache_pb.gif
 Alias /images/poweredby.png /usr/share/httpd/noindex/images/poweredby.png
+<% end -%>

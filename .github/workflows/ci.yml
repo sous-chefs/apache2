@@ -43,6 +43,7 @@ jobs:
           - 'debian-8'
           - 'debian-9'
           - 'centos-7'
+          - 'centos-8'
           - 'ubuntu-1604'
           - 'ubuntu-1804'
           - 'opensuse-leap-15'
