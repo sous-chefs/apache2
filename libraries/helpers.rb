@@ -81,7 +81,7 @@ module Apache2
         end
       end
 
-      def libexec_dir
+      def apache_libexec_dir
         if platform_family?('freebsd') || platform_family?('suse')
           lib_dir
         else
