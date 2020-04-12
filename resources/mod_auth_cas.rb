@@ -41,7 +41,7 @@ action :install do
     execute 'compile mod_auth_cas' do
       command './configure && make && make install'
       cwd '/tmp/mod_auth_cas'
-      not_if "test -f #{libexec_dir}/mod_auth_cas.so"
+      not_if "test -f #{apache_libexec_dir}/mod_auth_cas.so"
     end
 
     template "#{apache_dir}/mods-available/auth_cas.load" do
