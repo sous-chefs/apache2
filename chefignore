@@ -55,18 +55,12 @@ examples/*
 Guardfile
 Procfile
 .kitchen*
-kitchen*
-*.yml
-.circleci/*.yml
-.delivery/project.toml
-.github/*
-documentation/*
+.rubocop.yml
 spec/*
 Rakefile
+.travis.yml
 .foodcritic
-.mdlrc
-Dangerfile
-
+.codeclimate.yml
 
 # SCM #
 #######
@@ -88,12 +82,16 @@ Berksfile.lock
 cookbooks/*
 tmp
 
+# Policyfile #
+##############
+Policyfile.rb
+Policyfile.lock.json
+
 # Cookbooks #
 #############
 CONTRIBUTING*
 CHANGELOG*
 TESTING*
-MAINTAINERS.toml
 
 # Strainer #
 ############
