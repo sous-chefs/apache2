@@ -82,7 +82,7 @@ module Apache2
       end
 
       def apache_libexec_dir
-        if platform_family?('freebsd') || platform_family?('suse')
+        if platform_family?('freebsd', 'suse')
           lib_dir
         else
           File.join(lib_dir, 'modules')
@@ -112,7 +112,7 @@ module Apache2
       end
 
       def perl_pkg
-        if node['platform_family'] == 'freebsd'
+        if platform_family?('freebsd')
           'perl5'
         else
           'perl'
@@ -122,13 +122,13 @@ module Apache2
       def apache_pkg
         case node['platform_family']
         when 'amazon'
-          if node['platform_version'] == '2'
+          if node['platform_version'].to_i == 2
             'httpd'
           else
             'httpd24'
           end
         when 'rhel'
-          if node['platform_version'] < '7'
+          if node['platform_version'].to_i < 7
             'httpd24'
           else
             'httpd'
@@ -200,8 +200,6 @@ module Apache2
 
       def default_cgibin_dir
         case node['platform_family']
-        when 'debian'
-          '/usr/www/cgi-bin'
         when 'arch'
           '/usr/share/httpd/cgi-bin'
         when 'freebsd'
@@ -401,13 +399,7 @@ module Apache2
       end
 
       def pagespeed_url
-        suffix = ''
-        case node['platform_family']
-        when 'rhel'
-          suffix = 'rpm'
-        when 'debian'
-          suffix = 'deb'
-        end
+        suffix = platform_family?('rhel', 'fedora', 'amazon') ? 'rpm' : 'deb'
 
         if node['kernel']['machine'] =~ /^i[36']86$/
           "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.#{suffix}"
@@ -417,7 +409,7 @@ module Apache2
       end
 
       def default_site_template_source
-        node['platform_family'] == 'debian' ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
+        platform_family?('debian') ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
       end
     end
   end
