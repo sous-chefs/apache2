@@ -193,7 +193,7 @@ module Apache2
           '/usr/local/www/apache24/data'
         when 'suse'
           '/srv/www/htdocs'
-        when 'opensuseleap'
+        when 'suse'
           '/srv/www/htdocs'
         else
           '/var/www/html'
