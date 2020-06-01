@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
+- Enable unified_mode for all resources
+  - This deprecates support for Chef 14 and below
+
 ## [8.1.1] - 2020-04-12
 
 ### Added
