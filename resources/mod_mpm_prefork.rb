@@ -1,3 +1,5 @@
+unified_mode true
+
 property :startservers, Integer,
          default: 16,
          description: 'number of server processes to start'

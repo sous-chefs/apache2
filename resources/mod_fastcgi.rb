@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :fast_cgi_wrapper, String,
          default: '',

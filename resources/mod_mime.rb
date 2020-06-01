@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :types_config, String,
          default: lazy { default_types_config },

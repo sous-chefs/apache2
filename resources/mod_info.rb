@@ -1,3 +1,5 @@
+unified_mode true
+
 property :info_allow_list, [String, Array],
          default: %w(127.0.0.1 ::1),
          description: ''

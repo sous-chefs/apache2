@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :root_group, String,
          default: lazy { node['root_group'] },
@@ -92,6 +93,7 @@ action :create do
       timeout: new_resource.timeout,
       server_name: new_resource.server_name
     )
+    notifies :enable, 'service[apache2]', :delayed
     notifies :restart, 'service[apache2]', :delayed
   end
 end

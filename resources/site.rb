@@ -1,3 +1,5 @@
+unified_mode true
+
 property :site_name, String,
          name_property: true,
          description: 'Name of the site to enable/disable'

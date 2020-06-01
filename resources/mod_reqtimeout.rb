@@ -1,3 +1,5 @@
+unified_mode true
+
 property :request_read_timeout, Hash,
          default: {
            '1': 'header=20-40,minrate=500',

@@ -1,3 +1,5 @@
+unified_mode true
+
 property :actions, Hash,
          default: {},
          description: 'A hash of actions, key: action-type value: cgi-script e.g. { news-handler:  \'"/cgi-bin/news.cgi" virtual\' } '

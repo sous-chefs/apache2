@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :index_options, Array,
          default: %w(FancyIndexing VersionSort HTMLTable NameWidth=* DescriptionWidth=* Charset=UTF-8),
