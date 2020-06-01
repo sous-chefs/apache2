@@ -1,3 +1,5 @@
+unified_mode true
+
 property :add_output_filter_by_type, Hash,
          default: {
            1 => 'DEFLATE text/html text/plain text/xml',

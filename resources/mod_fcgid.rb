@@ -1,3 +1,5 @@
+unified_mode true
+
 property :add_handler, Hash,
          default: { 1 => 'fcgid-script .fcgi' },
          description: 'A key ordered hash of handlers'

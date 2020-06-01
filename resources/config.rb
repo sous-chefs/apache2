@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :root_group, String,
          default: lazy { node['root_group'] },

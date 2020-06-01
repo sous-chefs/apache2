@@ -1,3 +1,5 @@
+unified_mode true
+
 property :language_priority, Array,
          default: %w( en ca cs da de el eo es et fr he hr it ja ko ltz nl nn no pl pt pt-BR ru sv tr zh-CN zh-TW),
          description: ''

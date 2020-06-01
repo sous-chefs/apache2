@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :install_method, String,
          equal_to: %w( source package ),

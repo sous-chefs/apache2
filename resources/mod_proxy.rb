@@ -1,3 +1,5 @@
+unified_mode true
+
 property :proxy_requests, String,
          default: 'Off',
          description: ''

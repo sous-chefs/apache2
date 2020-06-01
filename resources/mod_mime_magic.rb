@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :mime_magic_file, String,
          default: lazy { default_mime_magic_file },

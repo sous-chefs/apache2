@@ -1,3 +1,5 @@
+unified_mode true
+
 property :browser_match, Array,
          default: [
            '"Mozilla/2" nokeepalive',

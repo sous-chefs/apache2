@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :pass_phrase_dialog, String,
          default: lazy { default_pass_phrase_dialog },

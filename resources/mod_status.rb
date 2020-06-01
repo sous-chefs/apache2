@@ -1,3 +1,5 @@
+unified_mode true
+
 property :location, String,
          default: '/server-status',
          description: ''
