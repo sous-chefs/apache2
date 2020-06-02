@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 8.1.2 - 2020-06-02
 
 - resolved cookstyle error: libraries/helpers.rb:196:14 refactor: `ChefCorrectness/InvalidPlatformFamilyInCase`
 - Enable unified_mode for all resources
@@ -20,8 +20,6 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Rename libexec_dir to apache_libexec_dir
 
 ## [8.1.0] - 2020-03-06
-
-### Added
 
 - Add 'template_cookbook' property to apache2_module
 - Migrated to Github Actions for testing
