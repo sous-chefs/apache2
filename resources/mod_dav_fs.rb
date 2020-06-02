@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :dav_lock_db, String,
          default: lazy { ::File.join(lock_dir, 'DAVLock') },

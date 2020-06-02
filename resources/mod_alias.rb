@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :options, Array,
          default: %w(Indexes MultiViews SymLinksIfOwnerMatch),

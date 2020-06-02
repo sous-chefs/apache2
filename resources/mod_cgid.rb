@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :script_sock, String,
          default: lazy { ::File.join(default_run_dir, 'cgisock') }

@@ -1,3 +1,5 @@
+unified_mode true
+
 property :directory_index, Array,
          default: %w(
            index.html

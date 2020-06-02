@@ -1,3 +1,5 @@
+unified_mode true
+
 property :proxy_ftp_dir_charset, String,
          default: 'UTF-8',
          description: ''
