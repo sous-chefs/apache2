@@ -10,13 +10,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## [8.1.1] - 2020-04-12
 
-### Added
-
 - Add CentOS 8 to CI pipeline
 - Add Debian 10 / Remove Debian 8 from CI pipeline
-
-### Changed
-
 - Rename libexec_dir to apache_libexec_dir
 
 ## [8.1.0] - 2020-03-06
@@ -50,7 +45,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ### Breaking Changes
 
-- Renamed `:cookbook` property for `apache2_default_site` resource to `:template_cookbook`.
+- Renamed `:cookbook` property for `apache2_default_site` resource### Added
 
 ## [7.1.1] - 2019-08-07
 
@@ -61,9 +56,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Add upgrading examples in UPGRADING.md
 - Remove references to recipes in README.md and add a simple example
 - Allow users to set / alter the default module list
-- Allow users to alter the default modules configuration without rewrites
-- Allow users to alter the mpm configuration without rewrites
-- Fix error when passing ports as a String
+- Allow users to alter the default modules configuration without re### Added
+
 - Uniform way to pass IP's in mod_info and mod_status
 
 ## [7.0.0] - 05-03-2019
