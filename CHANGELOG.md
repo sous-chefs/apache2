@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- resolved cookstyle error: libraries/helpers.rb:196:14 refactor: `ChefCorrectness/InvalidPlatformFamilyInCase`
 - Enable unified_mode for all resources
   - This deprecates support for Chef 14 and below
 
