@@ -112,7 +112,7 @@ module Apache2
       end
 
       def perl_pkg
-        if node['platform_family'] == 'freebsd'
+        if platform_family?('freebsd')
           'perl5'
         else
           'perl'
@@ -348,7 +348,7 @@ module Apache2
       end
 
       def default_pass_phrase_dialog
-        node['platform'] == 'ubuntu' ? 'exec:/usr/share/apache2/ask-for-passphrase' : 'builtin'
+        platform?('ubuntu') ? 'exec:/usr/share/apache2/ask-for-passphrase' : 'builtin'
       end
 
       def default_session_cache
@@ -417,7 +417,7 @@ module Apache2
       end
 
       def default_site_template_source
-        node['platform_family'] == 'debian' ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
+        platform_family?('debian') ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
       end
     end
   end

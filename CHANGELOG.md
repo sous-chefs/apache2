@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## UNRELEASED
+
+- Use platform helpers to simplify the libraries
+
 ## 8.1.2 - 2020-06-02
 
 - resolved cookstyle error: libraries/helpers.rb:196:14 refactor: `ChefCorrectness/InvalidPlatformFamilyInCase`
