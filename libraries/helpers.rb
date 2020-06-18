@@ -167,7 +167,7 @@ module Apache2
       end
 
       def default_cache_root
-        if platform_family?('debian') || platform_family?('suse') || platform_family?('freebsd')
+        if platform_family?('debian', 'suse', 'freebsd')
           ::File.join(cache_dir, 'proxy')
         else
           ::File.join(cache_dir, 'mod_cache_disk')
@@ -200,6 +200,8 @@ module Apache2
 
       def default_cgibin_dir
         case node['platform_family']
+        when 'debian'
+          '/usr/www/cgi-bin'
         when 'arch'
           '/usr/share/httpd/cgi-bin'
         when 'freebsd'
@@ -278,19 +280,11 @@ module Apache2
       end
 
       def default_error_log
-        if platform_family?('freebsd')
-          'httpd-error.log'
-        else
-          'error.log'
-        end
+        platform_family?('freebsd') ? 'httpd-error.log' : 'error.log'
       end
 
       def default_access_log
-        if platform_family?('freebsd')
-          'httpd-access.log'
-        else
-          'access.log'
-        end
+        platform_family?('freebsd') ? 'httpd-access.log' : 'access.log'
       end
 
       def default_mime_magic_file
