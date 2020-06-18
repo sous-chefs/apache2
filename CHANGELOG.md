@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## UNRELEASED
+## 8.2.0 (2020-06-18)
 
 - Updated helpers to use platform_family? when possible to simplify code
 - Fixed incorrect platform version comparison logic in the helpers
