@@ -1,7 +1,7 @@
 ---
 driver:
   name: dokken
-  # because Docker and SystemD/Upstart
+  # because Docker and SystemD
   privileged: true
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
   env: [CHEF_LICENSE=accept]
@@ -47,6 +47,13 @@ platforms:
   - name: ubuntu-18.04
     driver:
       image: dokken/ubuntu-18.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+
+  - name: ubuntu-20.04
+    driver:
+      image: dokken/ubuntu-20.04
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update

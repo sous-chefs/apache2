@@ -7,16 +7,13 @@ provisioner:
   product_name: chef
   enforce_idempotency: true
   multiple_converge: 2
-  solo_rb:
-    treat_deprecation_warnings_as_errors: true
+  deprecations_as_errors: true
 
 verifier:
   name: inspec
 
 platforms:
   - name: amazonlinux-2
-    driver_config:
-      box: ywatase/amzn2
   - name: centos-7
   - name: centos-8
   - name: debian-9
@@ -24,6 +21,7 @@ platforms:
   - name: opensuse-leap-15
   - name: ubuntu-16.04
   - name: ubuntu-18.04
+  - name: ubuntu-20.04
 
 suites:
   - name: default

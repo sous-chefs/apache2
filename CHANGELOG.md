@@ -2,11 +2,18 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## UNRELEASED
+
+- Updated helpers to use platform_family? when possible to simplify code
+- Fixed incorrect platform version comparison logic in the helpers
+- Add new platforms to the Kitchen configs
+- Remove logic in the Linux helpers that checked for systemd vs. non-systemd since we only support systemd platforms now
+
 ## 8.1.2 - 2020-06-02
 
 - resolved cookstyle error: libraries/helpers.rb:196:14 refactor: `ChefCorrectness/InvalidPlatformFamilyInCase`
 - Enable unified_mode for all resources
-  - This deprecates support for Chef 14 and below
+  - This deprecates support for Chef Infra Client 14 and below
 
 ## [8.1.1] - 2020-04-12
 
