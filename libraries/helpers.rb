@@ -112,11 +112,7 @@ module Apache2
       end
 
       def perl_pkg
-        if platform_family?('freebsd')
-          'perl5'
-        else
-          'perl'
-        end
+        platform_family?('freebsd') ? 'perl5' : 'perl'
       end
 
       def apache_pkg
