@@ -252,9 +252,7 @@ module Apache2
 
         case node['platform_family']
         when 'rhel', 'fedora', 'amazon'
-          default_modules.concat %w(log_config logio unixd)
-          default_modules.concat %w(systemd) if node['init_package'] == 'systemd'
-          default_modules
+          default_modules.concat %w(log_config logio unixd systemd)
         when 'arch', 'freebsd'
           default_modules.concat %w(log_config logio unixd)
         when 'suse'

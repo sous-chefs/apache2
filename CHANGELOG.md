@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Updated helpers to use platform_family? when possible to simplify code
 - Fixed incorrect platform version comparison logic in the helpers
 - Add new platforms to the Kitchen configs
+- Remove logic in the Linux helpers that checked for systemd vs. non-systemd since we only support systemd platforms now
 
 ## 8.1.2 - 2020-06-02
 
