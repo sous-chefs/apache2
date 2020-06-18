@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :apache_pkg, String,
          default: lazy { default_apache_pkg },
@@ -11,7 +12,7 @@ property :apache_version, String,
 Defaults to the newest available.'
 
 property :root_group, String,
-         default: lazy { default_apache_root_group },
+         default: lazy { node['root_group'] },
          description: 'Group that the root user on the box runs as.
 Defaults to platform specific locations, see libraries/helpers.rb'
 
@@ -74,6 +75,7 @@ property :mod_conf, Hash,
 
 property :listen, [String, Array],
          default: %w(80 443),
+         coerce: proc { |p| p.is_a?(Array) ? p : Array(p) },
          description: 'Port to listen on. Defaults to both 80 & 443'
 
 property :keep_alive, String,
@@ -216,14 +218,14 @@ action :install do
   end
 
   directory cache_dir do
-    mode '0750'
+    mode '0755'
     owner 'root'
     group new_resource.root_group
   end
 
   directory lock_dir do
     mode '0750'
-    if node['platform_family'] == 'debian'
+    if platform_family?('debian')
       owner new_resource.apache_user
     else
       owner 'root'
@@ -264,6 +266,13 @@ action :install do
     only_if { platform_family?('debian') }
   end
 
+  service 'apache2' do
+    service_name apache_platform_service_name
+    supports [:start, :restart, :reload, :status, :graceful, :reload]
+    action [:enable]
+    only_if "#{apachectl} -t", environment: { 'APACHE_LOG_DIR' => new_resource.log_dir }, timeout: new_resource.httpd_t_timeout
+  end
+
   apache2_config 'apache2.conf' do
     access_file_name new_resource.access_file_name
     log_dir new_resource.log_dir
@@ -286,7 +295,8 @@ action :install do
     path     "#{apache_dir}/ports.conf"
     cookbook 'apache2'
     mode     '0644'
-    variables(listen: Array(new_resource.listen))
+    variables(listen: new_resource.listen)
+    notifies :restart, 'service[apache2]', :delayed
   end
 
   # MPM Support Setup
@@ -356,13 +366,6 @@ action :install do
     apache2_module mod do
       mod_conf new_resource.mod_conf[mod.to_sym]
     end
-  end
-
-  service 'apache2' do
-    service_name apache_platform_service_name
-    supports [:start, :restart, :reload, :status, :graceful, :reload]
-    action [:enable, :start]
-    only_if "#{apachectl} -t", environment: { 'APACHE_LOG_DIR' => new_resource.log_dir }, timeout: new_resource.httpd_t_timeout
   end
 end
 

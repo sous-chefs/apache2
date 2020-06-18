@@ -1,3 +1,5 @@
+unified_mode true
+
 property :status_location, String,
          default: '/balancer-manager',
          description: ''

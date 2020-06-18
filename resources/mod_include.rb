@@ -1,3 +1,5 @@
+unified_mode true
+
 property :add_type, Hash,
          default: { 1 => 'text/html .shtml' },
          description: ''

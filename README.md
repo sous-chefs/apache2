@@ -1,7 +1,7 @@
 # apache2 Cookbook
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/apache2.svg)](https://supermarket.chef.io/cookbooks/apache2)
-[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/apache2/master.svg)](https://circleci.com/gh/sous-chefs/apache2)
+[![CI State](https://github.com/sous-chefs/apache2/workflows/ci/badge.svg)](https://github.com/sous-chefs/apache2/actions?query=workflow%3Aci)
 [![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -43,7 +43,7 @@ On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also n
 The following platforms and versions are tested and supported using [test-kitchen](http://kitchen.ci/)
 
 - Ubuntu 16.04 / 18.04
-- Debian 8/9
+- Debian 9/10
 - CentOS 7+
 - Fedora Latest
 - OpenSUSE Leap
@@ -71,7 +71,7 @@ apache2_module 'ssl'
 
 apache2_default_site 'foo' do
   default_site_name 'my_site'
-  cookbook 'my_cookbook'
+  template_cookbook 'my_cookbook'
   port '443'
   template_source 'my_site.conf.erb'
   action :enable

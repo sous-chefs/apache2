@@ -1,11 +1,12 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :mod_name, String,
          default: lazy { "mod_#{name}.so" },
          description: 'The full name of the file'
 
 property :path, String,
-         default: lazy { "#{libexec_dir}/#{mod_name}" },
+         default: lazy { "#{apache_libexec_dir}/#{mod_name}" },
          description: ''
 
 property :identifier, String,
@@ -14,11 +15,15 @@ property :identifier, String,
 
 property :mod_conf, Hash,
         default: {},
-        description: 'Pass properties to apache2_mod_<name>'
+        description: 'Pass properties to apache2_mod_<name> and config file template'
 
 property :conf, [true, false],
          default: lazy { config_file?(name) },
          description: 'The default is set by the config_file? helper. Override to set whether the module should have a config file'
+
+property :template_cookbook, String,
+         default: '',
+         description: 'Cookbook to source the config file template from'
 
 property :apache_service_notification, Symbol,
          equal_to: %i( reload restart ),
@@ -28,8 +33,17 @@ property :apache_service_notification, Symbol,
 action :enable do
   # Create apache2_mod_resource if we want it configured
   if new_resource.conf
-    declare_resource("apache2_mod_#{new_resource.name}".to_sym, 'default') do
-      new_resource.mod_conf.each { |k, v| send(k, v) }
+    # manage template directly if using template from external cookbook since no mod_ resource for it, probably
+    if !new_resource.template_cookbook.empty?
+      template ::File.join(apache_dir, 'mods-available', "#{new_resource.name}.conf") do
+        source "mods/#{new_resource.name}.conf.erb"
+        cookbook new_resource.template_cookbook
+        variables new_resource.mod_conf
+      end
+    else
+      declare_resource("apache2_mod_#{new_resource.name}".to_sym, 'default') do
+        new_resource.mod_conf.each { |k, v| send(k, v) }
+      end
     end
   end
 

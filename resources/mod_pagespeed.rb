@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :apache_user, String,
          default: lazy { default_apache_user },

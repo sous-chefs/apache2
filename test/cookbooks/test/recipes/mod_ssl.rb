@@ -42,7 +42,7 @@ end
 
 execute 'create-private-key' do
   command "openssl genrsa > #{ssl_cert_key_file}"
-  not_if { File.exist?(ssl_cert_key_file) }
+  not_if { ::File.exist?(ssl_cert_key_file) }
 end
 
 execute 'create-certficate' do
@@ -55,7 +55,7 @@ Chef Software, Inc
 127.0.0.1
 webmaster@example.com
 EOF)
-  not_if { File.exist?(ssl_cert_file) }
+  not_if { ::File.exist?(ssl_cert_file) }
 end
 
 # Create site template with our custom config

@@ -2,31 +2,80 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 8.2.0 (2020-06-18)
 
-## 7.1.1 (2019-08-07)
+- Updated helpers to use platform_family? when possible to simplify code
+- Fixed incorrect platform version comparison logic in the helpers
+- Add new platforms to the Kitchen configs
+- Remove logic in the Linux helpers that checked for systemd vs. non-systemd since we only support systemd platforms now
 
-Allow overwriting cookbook for apache2_mod templates using `template_cookbook` property.
+## 8.1.2 - 2020-06-02
 
-## 7.1.0 (29-05-2019)
+- resolved cookstyle error: libraries/helpers.rb:196:14 refactor: `ChefCorrectness/InvalidPlatformFamilyInCase`
+- Enable unified_mode for all resources
+  - This deprecates support for Chef Infra Client 14 and below
+
+## [8.1.1] - 2020-04-12
+
+- Add CentOS 8 to CI pipeline
+- Add Debian 10 / Remove Debian 8 from CI pipeline
+- Rename libexec_dir to apache_libexec_dir
+
+## [8.1.0] - 2020-03-06
+
+- Add 'template_cookbook' property to apache2_module
+- Migrated to Github Actions for testing
+
+### Fixed
+
+- Cookstyle fixes
+
+### Removed
+
+- Removed circleci testing
+
+## [8.0.2] - 2019-11-15
+
+- default_apache_root_group: replace with ohai root_group
+
+## [8.0.1] - 2019-11-15
+
+- Fix not reloading service when changes in port.conf / apache2.conf
+
+## [8.0.0] - 2019-11-13
+
+- Fix cache_dir permission so that modules can write in their cache_dir/module/ storage space
+- Latest Cookstyle changes in cookstyle 5.6.2
+- Fixed bug with freebsd and suse modules adding an array to an array
+- Fixed mod_ssl for suse
+- Fixed docroot paths for suse
+
+### Breaking Changes
+
+- Renamed `:cookbook` property for `apache2_default_site` resource### Added
+
+## [7.1.1] - 2019-08-07
+
+- Allow overwriting cookbook for apache2_mod templates using `template_cookbook` property.
+
+## [7.1.0] - 29-05-2019
 
 - Add upgrading examples in UPGRADING.md
 - Remove references to recipes in README.md and add a simple example
 - Allow users to set / alter the default module list
-- Allow users to alter the default modules configuration without rewrites
-- Allow users to alter the mpm configuration without rewrites
-- Fix error when passing ports as a String
+- Allow users to alter the default modules configuration without re### Added
+
 - Uniform way to pass IP's in mod_info and mod_status
 - Allow override of package name and version in `install` resource
 
-## 7.0.0 (05-03-2019)
+## [7.0.0] - 05-03-2019
 
 - Remove all recipes
 - Use `declare_resource` in `apache2_module`
 - Add default value to `apache_2_mod_proxy`
 - Fix spelling of `default` in `access_file_name` property in `install.rb`
 
-## v6.0.0 (25-02-2019)
+## [6.0.0] - 25-02-2019
 
 See UPGRADING.md for upgrading.
 
@@ -62,11 +111,11 @@ See UPGRADING.md for upgrading.
 - Fix Options allowed in alias.conf
 - Add resource documentation to documentation directory
 
-## v5.2.1 (04-09-2018)
+## [5.2.1] - 04-09-2018
 
 - Revert ports.conf fix (ports.conf that gets installed by package conflicts.
 
-## v5.2.0 (26-08-2018)
+## [5.2.0] - 26-08-2018
 
 - Drop Chef 12 support
 - Add Danger and CircleCI support
@@ -76,7 +125,7 @@ See UPGRADING.md for upgrading.
 - Fix ports.conf location and how its set up (#550, skadz)
 - Allow httpd -t timeout to be configurable (#547, skadz)
 
-## v5.0.1 (2017-09-01)
+## [5.0.1] - 2017-09-01
 
 - Test using dokken-images in kitchen-dokken
 - Fix readme section for mod_php
@@ -84,7 +133,7 @@ See UPGRADING.md for upgrading.
 - Fix mod_ldap failing on non-RHEL platforms
 - Fix mod_dav_svn to install the correct packages on Debian 8/9
 
-## v5.0.0 (2017-07-13)
+## [5.0.0] - 2017-07-13
 
 ### Breaking changes
 
@@ -94,7 +143,7 @@ See UPGRADING.md for upgrading.
 
 - Fixed openSUSE support in multiple places and added integration testing for openSUSE in Travis
 
-## v4.0.0 (2017-07-10)
+## [4.0.0] - 2017-07-10
 
 - This cookbook now requires Chef 12.1 or later
 - Support for Apache 2.2 on FreeBSD has been removed

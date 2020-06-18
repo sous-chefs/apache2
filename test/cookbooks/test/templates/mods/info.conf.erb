@@ -1,0 +1,8 @@
+<IfModule mod_info.c>
+  <Location /server-info>
+		# test cookbook custom template
+    SetHandler server-info
+    Require local
+    Require ip 127.0.0.1 ::1
+  </Location>
+</IfModule>

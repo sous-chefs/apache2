@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :cache_root, String,
          default: lazy { default_cache_root },

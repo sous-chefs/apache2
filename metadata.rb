@@ -3,11 +3,10 @@ source_url       'https://github.com/sous-chefs/apache2'
 issues_url       'https://github.com/sous-chefs/apache2/issues'
 maintainer       'Sous Chefs'
 maintainer_email 'help@sous-chefs.org'
-chef_version     '>= 13.9'
+chef_version     '>= 15'
 license          'Apache-2.0'
 description      'Installs and configures apache2'
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '7.1.1'
+version          '8.2.0'
 
 supports 'debian'
 supports 'ubuntu'

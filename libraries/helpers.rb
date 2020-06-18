@@ -81,9 +81,8 @@ module Apache2
         end
       end
 
-      def libexec_dir
-        case node['platform_family']
-        when 'freebsd', 'suse'
+      def apache_libexec_dir
+        if platform_family?('freebsd', 'suse')
           lib_dir
         else
           File.join(lib_dir, 'modules')
@@ -113,27 +112,15 @@ module Apache2
       end
 
       def perl_pkg
-        if node['platform_family'] == 'freebsd'
-          'perl5'
-        else
-          'perl'
-        end
+        platform_family?('freebsd') ? 'perl5' : 'perl'
       end
 
       def default_apache_pkg
         case node['platform_family']
         when 'amazon'
-          if node['platform_version'] == '2'
-            'httpd'
-          else
-            'httpd24'
-          end
+          'httpd'
         when 'rhel'
-          if node['platform_version'] < '7'
-            'httpd24'
-          else
-            'httpd'
-          end
+          'httpd'
         when 'debian', 'suse'
           'apache2'
         when 'arch'
@@ -168,8 +155,7 @@ module Apache2
       end
 
       def default_cache_root
-        case node['platform_family']
-        when 'debian', 'suse', 'freebsd'
+        if platform_family?('debian', 'suse', 'freebsd')
           ::File.join(cache_dir, 'proxy')
         else
           ::File.join(cache_dir, 'mod_cache_disk')
@@ -252,23 +238,17 @@ module Apache2
         end
       end
 
-      def default_apache_root_group
-        node['platform_family'] == 'freebsd' ? 'wheel' : 'root'
-      end
-
       def default_modules
         default_modules = %w(status alias auth_basic authn_core authn_file authz_core authz_groupfile
                              authz_host authz_user autoindex deflate dir env mime negotiation setenvif)
 
         case node['platform_family']
         when 'rhel', 'fedora', 'amazon'
-          default_modules.concat %w(log_config logio unixd)
-          default_modules.concat %w(systemd) if node['init_package'] == 'systemd'
-          default_modules
+          default_modules.concat %w(log_config logio unixd systemd)
         when 'arch', 'freebsd'
-          default_modules << %w(log_config logio unixd)
+          default_modules.concat %w(log_config logio unixd)
         when 'suse'
-          default_modules << %w(log_config logio)
+          default_modules.concat %w(log_config logio)
         else
           default_modules
         end
@@ -286,19 +266,11 @@ module Apache2
       end
 
       def default_error_log
-        if platform_family?('freebsd')
-          'httpd-error.log'
-        else
-          'error.log'
-        end
+        platform_family?('freebsd') ? 'httpd-error.log' : 'error.log'
       end
 
       def default_access_log
-        if platform_family?('freebsd')
-          'httpd-access.log'
-        else
-          'access.log'
-        end
+        platform_family?('freebsd') ? 'httpd-access.log' : 'access.log'
       end
 
       def default_mime_magic_file
@@ -407,13 +379,7 @@ module Apache2
       end
 
       def pagespeed_url
-        suffix = ''
-        case node['platform_family']
-        when 'rhel'
-          suffix = 'rpm'
-        when 'debian'
-          suffix = 'deb'
-        end
+        suffix = platform_family?('rhel', 'fedora', 'amazon') ? 'rpm' : 'deb'
 
         if node['kernel']['machine'] =~ /^i[36']86$/
           "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.#{suffix}"
@@ -423,7 +389,7 @@ module Apache2
       end
 
       def default_site_template_source
-        node['platform_family'] == 'debian' ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
+        platform_family?('debian') ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
       end
     end
   end

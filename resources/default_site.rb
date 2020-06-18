@@ -1,4 +1,5 @@
 include Apache2::Cookbook::Helpers
+unified_mode true
 
 property :default_site_name, String,
          default: 'default-site',
@@ -14,7 +15,7 @@ property :port, String,
          default: '80',
          description: 'Listen port'
 
-property :cookbook, String,
+property :template_cookbook, String,
          default: 'apache2',
          description: 'Cookbook to source the template file from'
 
@@ -30,8 +31,13 @@ property :log_dir, String,
          default: lazy { default_log_dir },
          description: 'Default Apache2 log directory'
 
+property :docroot_dir, String,
+         default: lazy { default_docroot_dir },
+         description: 'Apache document root.'\
+'Defaults to platform specific locations, see libraries/helpers.rb'
+
 property :apache_root_group, String,
-         default: lazy { default_apache_root_group },
+         default: lazy { node['root_group'] },
          description: 'Group that the root user on the box runs as.'\
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
@@ -47,11 +53,11 @@ action :enable do
     owner 'root'
     group new_resource.apache_root_group
     mode '0644'
-    cookbook new_resource.cookbook
+    cookbook new_resource.template_cookbook
     variables(
       access_log: default_access_log,
       cgibin_dir: default_cgibin_dir,
-      docroot_dir: default_docroot_dir,
+      docroot_dir: new_resource.docroot_dir,
       error_log: default_error_log,
       log_dir: default_log_dir,
       log_level: new_resource.log_level,
@@ -72,7 +78,7 @@ action :disable do
     owner 'root'
     group new_resource.apache_root_group
     mode '0644'
-    cookbook new_resource.cookbook
+    cookbook new_resource.template_cookbook
     action :delete
   end
 
