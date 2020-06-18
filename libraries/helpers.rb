@@ -118,17 +118,9 @@ module Apache2
       def apache_pkg
         case node['platform_family']
         when 'amazon'
-          if node['platform_version'].to_i == 2
-            'httpd'
-          else
-            'httpd24'
-          end
+          'httpd'
         when 'rhel'
-          if node['platform_version'].to_i < 7
-            'httpd24'
-          else
-            'httpd'
-          end
+          'httpd'
         when 'debian', 'suse'
           'apache2'
         when 'arch'

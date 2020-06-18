@@ -83,15 +83,8 @@ describe '#apache_pkg' do
   end
 
   context 'with amazon family' do
-    context 'on amazon-1' do
-      platform 'amazon', '2018'
-      it { is_expected.to write_log('httpd24') }
-    end
-
-    context 'on amazon-2' do
-      platform 'amazon', '2'
-      it { is_expected.to write_log('httpd') }
-    end
+    platform 'amazon', '2'
+    it { is_expected.to write_log('httpd') }
   end
 
   context 'with SUSE family' do
