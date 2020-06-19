@@ -360,6 +360,7 @@ module Apache2
               mime
               negotiation
               pagespeed
+              php
               proxy_balancer
               proxy_ftp
               proxy
@@ -390,6 +391,23 @@ module Apache2
 
       def default_site_template_source
         platform_family?('debian') ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
+      end
+
+      def apache_default_php_version
+        case node['platform_family']
+        when 'debian'
+          if platform?('ubuntu') && node['platform_version'].to_f >= 16.04
+            '7'
+          elsif platform?('debian') && node['platform_version'].to_f >= 9
+            '7'
+          else
+            '5'
+          end
+        when 'rhel'
+          node['platform_version'] >= 8 ? '7' : '5'
+        else
+          '5'
+        end
       end
     end
   end
