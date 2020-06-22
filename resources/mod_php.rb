@@ -23,7 +23,7 @@ action :create do
 
   directory '/var/lib/php/session' do
     owner 'root'
-    group 'apache'
+    group default_apache_group
     mode '0770'
   end
 
