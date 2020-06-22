@@ -4,7 +4,7 @@ end
 
 control 'hello-world' do
   impact 1
-  desc 'Hello World page sgould be visible'
+  desc 'Hello World page should be visible'
 
   describe http('localhost') do
     its('status') { should eq 200 }

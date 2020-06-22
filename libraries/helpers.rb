@@ -360,7 +360,6 @@ module Apache2
               mime
               negotiation
               pagespeed
-              php
               proxy_balancer
               proxy_ftp
               proxy

@@ -4,7 +4,6 @@ driver:
 
 provisioner:
   name: chef_solo
-  product_name: chef
   enforce_idempotency: true
   multiple_converge: 2
   deprecations_as_errors: true
@@ -39,3 +38,6 @@ suites:
   - name: module_template
     run_list:
       - recipe[test::module_template]
+  - name: mod_php
+    run_list:
+      - recipe[test::php]
