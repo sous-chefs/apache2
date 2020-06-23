@@ -10,14 +10,14 @@ property :so_filename, String,
          description: 'Filename for the module executable.'
 
 action :create do
-  template ::File.join(apache_dir, 'mods-available', "php.conf") do
+  template ::File.join(apache_dir, 'mods-available', 'php.conf') do
     source 'mods/php.conf.erb'
     cookbook 'apache2'
     notifies :reload, 'service[apache2]', :delayed
   end
 
-  link ::File.join(apache_dir, 'mods-enabled', "php.conf") do
-    to ::File.join(apache_dir, 'mods-available', "php.conf")
+  link ::File.join(apache_dir, 'mods-enabled', 'php.conf') do
+    to ::File.join(apache_dir, 'mods-available', 'php.conf')
     notifies :reload, 'service[apache2]', :delayed
   end
 
