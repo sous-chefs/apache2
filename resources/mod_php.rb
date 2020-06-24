@@ -10,6 +10,7 @@ property :so_filename, String,
          description: 'Filename for the module executable.'
 
 action :create do
+  # manually manage conf file since filename is different than module
   template ::File.join(apache_dir, 'mods-available', 'php.conf') do
     source 'mods/php.conf.erb'
     cookbook 'apache2'
@@ -24,7 +25,7 @@ action :create do
   directory '/var/lib/php/session' do
     owner 'root'
     group default_apache_group
-    mode '0770'
+    mode '770'
   end
 
   apache2_module "php#{node['php']['version'].to_i}" do
