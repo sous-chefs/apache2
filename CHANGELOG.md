@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
+- Add missing lib_dir variable to `a2enmod` template
+
 ## 8.2.0 (2020-06-18)
 
 - Updated helpers to use platform_family? when possible to simplify code
