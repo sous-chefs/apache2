@@ -1,3 +1,4 @@
+
 module Apache2
   module Cookbook
     module Helpers
@@ -392,20 +393,25 @@ module Apache2
         platform_family?('debian') ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
       end
 
-      def apache_default_php_version
+      def apache_mod_php_package
         case node['platform_family']
         when 'debian'
-          if platform?('ubuntu') && node['platform_version'].to_f >= 16.04
-            '7'
-          elsif platform?('debian') && node['platform_version'].to_f >= 9
-            '7'
-          else
-            '5'
-          end
+          "libapache2-mod-php#{node['php']['version'].to_f}"
+        when 'rhel', 'fedora'
+          'mod_php'
+        when 'suse'
+          "apache2-mod_php#{node['php']['version'].to_i}"
+        end
+      end
+
+      def apache_mod_php_filename
+        case node['platform_family']
         when 'rhel'
-          node['platform_version'] >= 8 ? '7' : '5'
+          "libphp#{node['php']['version'].to_i}.so"
+        when 'debian'
+          "libphp#{node['php']['version'].to_f}.so"
         else
-          '5'
+          "libphp#{node['php']['version'].to_i}.so"
         end
       end
     end

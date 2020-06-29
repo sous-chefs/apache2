@@ -6,10 +6,13 @@ property :module_name, String,
          description: 'Module name for the Apache PHP module.'
 
 property :so_filename, String,
-         default: lazy { "libphp#{node['php']['version'].to_i}.so" },
+         default: lazy { apache_mod_php_filename },
          description: 'Filename for the module executable.'
 
 action :create do
+  # install mod_php package
+  package apache_mod_php_package unless apache_mod_php_package.nil?
+
   # manually manage conf file since filename is different than module
   template ::File.join(apache_dir, 'mods-available', 'php.conf') do
     source 'mods/php.conf.erb'

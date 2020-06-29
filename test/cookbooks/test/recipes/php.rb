@@ -6,7 +6,9 @@ end
 
 include_recipe 'php'
 
-apache2_install 'default'
+apache2_install 'default' do
+  mpm 'prefork'
+end
 
 service 'apache2' do
   extend Apache2::Cookbook::Helpers
@@ -22,3 +24,5 @@ file "#{default_docroot_dir}/info.php" do
 end
 
 apache2_default_site 'php_test'
+
+package 'curl' if platform?('debian')
