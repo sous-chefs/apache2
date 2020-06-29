@@ -144,7 +144,8 @@ action :install do
     owner 'root'
     variables(
       apachectl: apachectl,
-      apache_dir: apache_dir
+      apache_dir: apache_dir,
+      lib_dir: lib_dir
     )
     group new_resource.root_group
     action :create
