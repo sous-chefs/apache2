@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe 'apache2_mod_php' do
   step_into :apache2_install, :apache2_mod_php, :apache2_module
+  default_attributes['php']['version'] = '7.2.31'
+
   platform 'ubuntu'
 
   context 'Setup and enable php module' do
-    default_attributes['php']['version'] = '7.0.4'
-
     recipe do
       apache2_install 'phptest'
       apache2_mod_php 'phptest'
@@ -37,7 +37,7 @@ describe 'apache2_mod_php' do
     it do
       is_expected.to enable_apache2_module('php7').with(
         identifier: 'php7_module',
-        mod_name: 'libphp7.0.so'
+        mod_name: 'libphp7.so'
       )
     end
   end
