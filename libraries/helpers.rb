@@ -396,19 +396,32 @@ module Apache2
       def apache_mod_php_package
         case node['platform_family']
         when 'debian'
-          "libapache2-mod-php#{node['php']['version'].to_f}"
+          'libapache2-mod-php'
         when 'rhel', 'fedora'
           'mod_php'
         when 'suse'
-          "apache2-mod_php#{node['php']['version'].to_i}"
+          'apache2-mod_php7'
         end
       end
 
       def apache_mod_php_filename
-        if platform_family?('debian')
-          "libphp#{node['php']['version'].to_f}.so" # libphp7.2.so
+        case platform_family?
+        when 'debian'
+          if platform?('debian') && node['platform_version'].to_i >= 10
+            'libphp7.3.so'
+          elsif platform?('ubuntu') && node['platform_version'].to_f == 18.04
+            'libphp7.2.so'
+          elsif platform?('ubuntu') && node['platform_version'].to_f >= 20.04
+            'libphp7.4.so'
+          else
+            'libphp7.0.so'
+          end
         else
-          "libphp#{node['php']['version'].to_i}.so" # libphp7.so
+          if (platform_family?('rhel') && node['platform_version'].to_i == 7) || platform?('amazon')
+            'libphp5.so'
+          else
+            'libphp7.so'
+          end
         end
       end
     end
