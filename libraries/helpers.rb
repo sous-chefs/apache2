@@ -405,13 +405,10 @@ module Apache2
       end
 
       def apache_mod_php_filename
-        case node['platform_family']
-        when 'rhel'
-          "libphp#{node['php']['version'].to_i}.so"
-        when 'debian'
-          "libphp#{node['php']['version'].to_f}.so"
+        if platform_family?('debian')
+          "libphp#{node['php']['version'].to_f}.so" # libphp7.2.so
         else
-          "libphp#{node['php']['version'].to_i}.so"
+          "libphp#{node['php']['version'].to_i}.so" # libphp7.so
         end
       end
     end

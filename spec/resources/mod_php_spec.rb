@@ -37,7 +37,7 @@ describe 'apache2_mod_php' do
     it do
       is_expected.to enable_apache2_module('php7').with(
         identifier: 'php7_module',
-        mod_name: 'libphp7.so'
+        mod_name: 'libphp7.0.so'
       )
     end
   end
