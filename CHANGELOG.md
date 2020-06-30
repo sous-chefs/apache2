@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
+- Add `mod_php` resource
+
 ## 8.2.1 (2020-06-29)
 
 - Add missing lib_dir variable to `a2enmod` template
