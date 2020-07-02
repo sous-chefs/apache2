@@ -1,9 +1,5 @@
 ::Chef::Recipe.include Apache2::Cookbook::Helpers
 
-if platform_family?('rhel') && (node['platform_version'].to_i >= 8)
-  node.default['php']['version'] = '7.0.4'
-end
-
 include_recipe 'php'
 
 apache2_install 'default' do

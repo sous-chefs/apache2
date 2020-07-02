@@ -10,7 +10,7 @@ This resource will call `_module` with the correct identifiers for you.
 
 ## Properties
 
-| Name         | Type   | Default                                     | Description                         |
-| ------------ | ------ | ------------------------------------------- | ----------------------------------- |
-| module_name  | String | `php#{node['php']['version'].to_i}_module`  | The name of the php module.         |
-| so_filename  | String | `apache_mod_php_filename`                   | The filename of the module object.  |
+| Name         | Type   | Default                      | Description                         |
+| ------------ | ------ | ---------------------------- | ----------------------------------- |
+| module_name  | String | `apache_mod_php_modulename`  | The name of the php module.         |
+| so_filename  | String | `apache_mod_php_filename`    | The filename of the module object.  |

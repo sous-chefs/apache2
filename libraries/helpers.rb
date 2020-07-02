@@ -404,6 +404,21 @@ module Apache2
         end
       end
 
+      def apache_mod_php_modulename
+        case node['platform_family']
+        when 'amazon'
+          'php5_module'
+        when 'rhel'
+          if node['platform_version'].to_i >= 8
+            'php7_module'
+          else
+            'php5_module'
+          end
+        else
+          'php7_module'
+        end
+      end
+
       def apache_mod_php_filename
         case node['platform_family']
         when 'debian'

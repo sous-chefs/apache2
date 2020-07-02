@@ -2,7 +2,7 @@ include Apache2::Cookbook::Helpers
 unified_mode true
 
 property :module_name, String,
-         default: lazy { "php#{node['php']['version'].to_i}_module" },
+         default: lazy { apache_mod_php_modulename },
          description: 'Module name for the Apache PHP module.'
 
 property :so_filename, String,
@@ -31,7 +31,7 @@ action :create do
     mode '770'
   end
 
-  apache2_module "php#{node['php']['version'].to_i}" do
+  apache2_module 'php' do
     identifier new_resource.module_name
     mod_name new_resource.so_filename
     notifies :reload, 'service[apache2]', :immediately

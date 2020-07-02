@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'apache2_mod_php' do
   step_into :apache2_install, :apache2_mod_php, :apache2_module
-  default_attributes['php']['version'] = '7.2.31'
 
   platform 'ubuntu'
 
@@ -35,9 +34,9 @@ describe 'apache2_mod_php' do
     end
 
     it do
-      is_expected.to enable_apache2_module('php7').with(
+      is_expected.to enable_apache2_module('php').with(
         identifier: 'php7_module',
-        mod_name: 'libphp7.so'
+        mod_name: 'libphp7.4.so'
       )
     end
   end
