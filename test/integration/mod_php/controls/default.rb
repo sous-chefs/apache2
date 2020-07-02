@@ -6,7 +6,7 @@ control 'PHP module enabled & running' do
   impact 1
   desc 'php module should be enabled with config'
 
-  describe command('apachectl -M | grep php') do
+  describe command('apachectl -M') do
     its('stdout') { should match(/php/) }
   end
 

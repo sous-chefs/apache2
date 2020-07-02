@@ -405,7 +405,7 @@ module Apache2
       end
 
       def apache_mod_php_filename
-        case platform_family?
+        case node['platform_family']
         when 'debian'
           if platform?('debian') && node['platform_version'].to_i >= 10
             'libphp7.3.so'
@@ -416,12 +416,16 @@ module Apache2
           else
             'libphp7.0.so'
           end
-        else
-          if (platform_family?('rhel') && node['platform_version'].to_i == 7) || platform?('amazon')
-            'libphp5.so'
-          else
+        when 'rhel'
+          if node['platform_version'].to_i >= 8
             'libphp7.so'
+          else
+            'libphp5.so'
           end
+        when 'amazon'
+          'libphp5.so'
+        else
+          'libphp7.so'
         end
       end
     end
