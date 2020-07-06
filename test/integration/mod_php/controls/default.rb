@@ -28,7 +28,7 @@ control 'PHP module enabled & running' do
     end
   end
 
-  describe http('localhost/info.php', enable_remote_worker: true) do
+  describe http('localhost/info.php') do
     its('status') { should eq 200 }
     its('body') { should match /PHP Version/ }
   end
