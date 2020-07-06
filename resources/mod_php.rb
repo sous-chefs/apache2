@@ -28,11 +28,6 @@ action :create do
     notifies :reload, 'service[apache2]', :delayed
   end
 
-  link ::File.join(apache_dir, 'mods-enabled', 'php.conf') do
-    to ::File.join(apache_dir, 'mods-available', 'php.conf')
-    notifies :reload, 'service[apache2]', :delayed
-  end
-
   directory '/var/lib/php/session' do
     owner 'root'
     group default_apache_group

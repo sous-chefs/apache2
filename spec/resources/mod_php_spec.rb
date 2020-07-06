@@ -24,12 +24,6 @@ describe 'apache2_mod_php' do
     end
 
     it do
-      is_expected.to create_link('/etc/apache2/mods-enabled/php.conf').with(
-        to: '/etc/apache2/mods-available/php.conf'
-      )
-    end
-
-    it do
       is_expected.to create_directory('/var/lib/php/session').with(
         owner: 'root',
         group: 'www-data',
