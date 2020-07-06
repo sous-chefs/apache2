@@ -10,7 +10,9 @@ This resource will call `_module` with the correct identifiers for you.
 
 ## Properties
 
-| Name         | Type   | Default                      | Description                         |
-| ------------ | ------ | ---------------------------- | ----------------------------------- |
-| module_name  | String | `apache_mod_php_modulename`  | The name of the php module.         |
-| so_filename  | String | `apache_mod_php_filename`    | The filename of the module object.  |
+| Name             | Type   | Default                      | Description                                                                                                     |
+| ---------------- | ------ | ---------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| module_name      | String | `apache_mod_php_modulename`  | The name of the php module.                                                                                     |
+| so_filename      | String | `apache_mod_php_filename`    | The filename of the module object.                                                                              |
+| package_name     | String | `apache_mod_php_package`     | The package that contains the PHP module itself, which is sometimes not included with the default PHP packages. |
+| install_package  | Bool   | `false`                      | Whether to install the PHP module package.                                                                      |
