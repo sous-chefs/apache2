@@ -439,8 +439,8 @@ module Apache2
           end
         when 'amazon'
           'libphp5.so'
-        else
-          'libphp7.so'
+        when 'suse'
+          'mod_php7.so'
         end
       end
     end

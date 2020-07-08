@@ -18,7 +18,7 @@ property :install_package, [true, false],
          description: 'Whether to install the Apache PHP module package'
 
 action :create do
-  # install mod_php package
+  # install mod_php package (if requested)
   package new_resource.package_name if new_resource.install_package
 
   # manually manage conf file since filename is different than module
@@ -26,12 +26,6 @@ action :create do
     source 'mods/php.conf.erb'
     cookbook 'apache2'
     notifies :reload, 'service[apache2]', :delayed
-  end
-
-  directory '/var/lib/php/session' do
-    owner 'root'
-    group default_apache_group
-    mode '770'
   end
 
   apache2_module 'php' do

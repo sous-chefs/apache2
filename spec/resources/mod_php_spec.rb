@@ -24,14 +24,6 @@ describe 'apache2_mod_php' do
     end
 
     it do
-      is_expected.to create_directory('/var/lib/php/session').with(
-        owner: 'root',
-        group: 'www-data',
-        mode: '770'
-      )
-    end
-
-    it do
       is_expected.to enable_apache2_module('php').with(
         identifier: 'php7_module',
         mod_name: 'libphp7.4.so'
