@@ -17,7 +17,7 @@ platforms:
     driver:
       mage: dokken/amazonlinux-2
       pid_one_command: /usr/lib/systemd/systemd
-                  
+
   - name: debian-9
     driver:
       image: dokken/debian-9
