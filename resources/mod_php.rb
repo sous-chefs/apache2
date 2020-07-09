@@ -23,8 +23,8 @@ action :create do
   # install mod_php package (if requested)
   package new_resource.package_name do
     only_if { new_resource.install_package }
-    notifies :delete, 'directory[purge distro conf.modules.d]'
-    notifies :delete, 'directory[purge distro conf.d]'
+    notifies :delete, 'directory[purge distro conf.modules.d]', :immediately
+    notifies :delete, 'directory[purge distro conf.d]', :immediately
   end
 
   directory 'purge distro conf.modules.d' do
@@ -44,6 +44,6 @@ action :create do
     mod_name new_resource.so_filename
     conf true
     template_cookbook 'apache2'
-    notifies :reload, 'service[apache2]', :immediately
+    notifies :restart, 'service[apache2]'
   end
 end
