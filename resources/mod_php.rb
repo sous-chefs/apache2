@@ -1,6 +1,8 @@
 include Apache2::Cookbook::Helpers
 unified_mode true
 
+property :name, String, default: ''
+
 property :module_name, String,
          default: lazy { apache_mod_php_modulename },
          description: 'Module name for the Apache PHP module.'
@@ -9,7 +11,7 @@ property :so_filename, String,
          default: lazy { apache_mod_php_filename },
          description: 'Filename for the module executable.'
 
-property :package_name, String,
+property :package_name, [String, Array],
          default: lazy { apache_mod_php_package },
          description: 'Package that contains the Apache PHP module itself'
 
@@ -19,18 +21,29 @@ property :install_package, [true, false],
 
 action :create do
   # install mod_php package (if requested)
-  package new_resource.package_name if new_resource.install_package
+  package new_resource.package_name do
+    only_if { new_resource.install_package }
+    notifies :delete, 'directory[purge distro conf.modules.d]'
+    notifies :delete, 'directory[purge distro conf.d]'
+  end
 
-  # manually manage conf file since filename is different than module
-  template ::File.join(apache_dir, 'mods-available', 'php.conf') do
-    source 'mods/php.conf.erb'
-    cookbook 'apache2'
-    notifies :reload, 'service[apache2]', :delayed
+  directory 'purge distro conf.modules.d' do
+    path "#{apache_dir}/conf.modules.d"
+    recursive true
+    action :nothing
+  end
+
+  directory 'purge distro conf.d' do
+    path "#{apache_dir}/conf.d"
+    recursive true
+    action :nothing
   end
 
   apache2_module 'php' do
     identifier new_resource.module_name
     mod_name new_resource.so_filename
+    conf true
+    template_cookbook 'apache2'
     notifies :reload, 'service[apache2]', :immediately
   end
 end

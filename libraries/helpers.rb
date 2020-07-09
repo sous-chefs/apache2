@@ -397,7 +397,7 @@ module Apache2
         case node['platform_family']
         when 'debian'
           'libapache2-mod-php'
-        when 'rhel', 'fedora'
+        when 'rhel', 'fedora', 'amazon'
           'mod_php'
         when 'suse'
           'apache2-mod_php7'
