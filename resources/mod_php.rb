@@ -1,5 +1,4 @@
 include Apache2::Cookbook::Helpers
-unified_mode true
 
 property :name, String, default: ''
 
