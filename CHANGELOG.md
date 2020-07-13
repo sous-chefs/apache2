@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 8.3.0 (2020-07-13)
 
 - Add `mod_php` resource
 
