@@ -53,6 +53,7 @@ jobs:
           - 'ssl'
           - 'ports'
           - 'module-template'
+          - 'mod-php'
       fail-fast: false
 
     steps:

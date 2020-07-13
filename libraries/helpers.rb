@@ -1,3 +1,4 @@
+
 module Apache2
   module Cookbook
     module Helpers
@@ -390,6 +391,57 @@ module Apache2
 
       def default_site_template_source
         platform_family?('debian') ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
+      end
+
+      def apache_mod_php_package
+        case node['platform_family']
+        when 'debian'
+          'libapache2-mod-php'
+        when 'rhel', 'fedora', 'amazon'
+          'mod_php'
+        when 'suse'
+          'apache2-mod_php7'
+        end
+      end
+
+      def apache_mod_php_modulename
+        case node['platform_family']
+        when 'amazon'
+          'php5_module'
+        when 'rhel'
+          if node['platform_version'].to_i >= 8
+            'php7_module'
+          else
+            'php5_module'
+          end
+        else
+          'php7_module'
+        end
+      end
+
+      def apache_mod_php_filename
+        case node['platform_family']
+        when 'debian'
+          if platform?('debian') && node['platform_version'].to_i >= 10
+            'libphp7.3.so'
+          elsif platform?('ubuntu') && node['platform_version'].to_f == 18.04
+            'libphp7.2.so'
+          elsif platform?('ubuntu') && node['platform_version'].to_f >= 20.04
+            'libphp7.4.so'
+          else
+            'libphp7.0.so'
+          end
+        when 'rhel'
+          if node['platform_version'].to_i >= 8
+            'libphp7.so'
+          else
+            'libphp5.so'
+          end
+        when 'amazon'
+          'libphp5.so'
+        when 'suse'
+          'mod_php7.so'
+        end
       end
     end
   end
