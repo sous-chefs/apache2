@@ -1,4 +1,4 @@
-::Chef::Recipe.include Apache2::Cookbook::Helpers
+::Chef::DSL::Recipe.include Apache2::Cookbook::Helpers
 
 apache2_install 'default' do
   mpm 'prefork'
