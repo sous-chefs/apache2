@@ -2,6 +2,18 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: test/cookbooks/test/recipes/php.rb:1:1 refactor: `ChefCorrectness/IncorrectLibraryInjection`
+
+## 8.3.0 (2020-07-13)
+
+- Add `mod_php` resource
+
+## 8.2.1 (2020-06-29)
+
+- Add missing lib_dir variable to `a2enmod` template
+
 ## 8.2.0 (2020-06-18)
 
 - Updated helpers to use platform_family? when possible to simplify code

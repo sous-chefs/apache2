@@ -39,3 +39,6 @@ suites:
   - name: module_template
     run_list:
       - recipe[test::module_template]
+  - name: mod_php
+    run_list:
+      - recipe[test::php]
