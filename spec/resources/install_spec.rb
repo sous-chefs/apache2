@@ -32,5 +32,3 @@ describe 'apache2_install' do
         timeout: '300'
       )
     end
-  end
-end
