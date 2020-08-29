@@ -1,6 +1,10 @@
 include Apache2::Cookbook::Helpers
 unified_mode true
 
+property :mod_ssl_pkg, String,
+         default: 'mod_ssl',
+         description: ''
+
 property :pass_phrase_dialog, String,
          default: lazy { default_pass_phrase_dialog },
          description: ''
@@ -59,7 +63,7 @@ property :directives, Hash,
 action :create do
   if platform_family?('rhel', 'fedora', 'suse', 'amazon')
     with_run_context :root do
-      package 'mod_ssl' do
+      package new_resource.mod_ssl_pkg do
         notifies :run, 'execute[generate-module-list]', :immediately
         only_if { platform_family?('rhel', 'fedora', 'amazon') }
       end

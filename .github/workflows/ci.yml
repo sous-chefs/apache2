@@ -54,6 +54,20 @@ jobs:
           - 'ports'
           - 'module-template'
           - 'mod-php'
+          - 'pkg-name'
+        exclude:
+          - os: debian-9
+            suite: pkg-name
+          - os: debian-10
+            suite: pkg-name
+          - os: centos-8
+            suite: pkg-name
+          - os: ubuntu-1604
+            suite: pkg-name
+          - os: ubuntu-1804
+            suite: pkg-name
+          - os: opensuse-leap-15
+            suite: pkg-name
       fail-fast: false
 
     steps:
