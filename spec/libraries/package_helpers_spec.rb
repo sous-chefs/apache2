@@ -67,9 +67,9 @@ RSpec.describe Apache2::Cookbook::Helpers do
   end
 end
 
-describe '#apache_pkg' do
+describe '#default_apache_pkg' do
   recipe do
-    log apache_pkg
+    log default_apache_pkg
   end
 
   context 'on centos-7' do

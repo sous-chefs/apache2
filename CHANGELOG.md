@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 ## Unreleased
 
 - resolved cookstyle error: test/cookbooks/test/recipes/php.rb:1:1 refactor: `ChefCorrectness/IncorrectLibraryInjection`
+- Allow override of package name and version in `install` resource
 
 ## 8.3.0 (2020-07-13)
 

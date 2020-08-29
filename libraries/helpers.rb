@@ -116,7 +116,7 @@ module Apache2
         platform_family?('freebsd') ? 'perl5' : 'perl'
       end
 
-      def apache_pkg
+      def default_apache_pkg
         case node['platform_family']
         when 'amazon'
           'httpd'
