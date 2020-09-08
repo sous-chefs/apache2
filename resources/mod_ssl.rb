@@ -3,7 +3,7 @@ unified_mode true
 
 property :mod_ssl_pkg, String,
          default: 'mod_ssl',
-         description: ''
+         description: 'The name of the mod_ssl package'
 
 property :pass_phrase_dialog, String,
          default: lazy { default_pass_phrase_dialog },
