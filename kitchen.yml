@@ -42,3 +42,8 @@ suites:
   - name: mod_php
     run_list:
       - recipe[test::php]
+  - name: pkg_name
+    run_list:
+      - recipe[test::pkg_name]
+    includes:
+      - centos-7
