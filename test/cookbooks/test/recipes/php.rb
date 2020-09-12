@@ -1,11 +1,8 @@
-::Chef::DSL::Recipe.include Apache2::Cookbook::Helpers
-
 apache2_install 'default' do
   mpm 'prefork'
 end
 
 service 'apache2' do
-  extend Apache2::Cookbook::Helpers
   service_name lazy { apache_platform_service_name }
   supports restart: true, status: true, reload: true
   action [:start, :enable]

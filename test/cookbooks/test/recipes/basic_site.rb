@@ -1,7 +1,6 @@
 apache2_install 'default'
 
 service 'apache2' do
-  extend Apache2::Cookbook::Helpers
   service_name lazy { apache_platform_service_name }
   supports restart: true, status: true, reload: true
   action [:start, :enable]
@@ -18,13 +17,11 @@ end
 
 file "#{app_dir}/index.html" do
   content 'Hello World'
-  extend  Apache2::Cookbook::Helpers
   owner   lazy { default_apache_user }
   group   lazy { default_apache_group }
 end
 
 template 'basic_site' do
-  extend  Apache2::Cookbook::Helpers
   source 'basic_site.conf.erb'
   path "#{apache_dir}/sites-available/basic_site.conf"
   variables(

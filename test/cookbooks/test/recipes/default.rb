@@ -11,7 +11,6 @@ apache2_default_site '' do
 end
 
 service 'apache2' do
-  extend Apache2::Cookbook::Helpers
   service_name lazy { apache_platform_service_name }
   supports restart: true, status: true, reload: true
   action :nothing

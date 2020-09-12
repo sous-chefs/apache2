@@ -1,4 +1,3 @@
-
 module Apache2
   module Cookbook
     module Helpers
@@ -446,3 +445,6 @@ module Apache2
     end
   end
 end
+
+Chef::DSL::Recipe.include Apache2::Cookbook::Helpers
+Chef::Resource.include Apache2::Cookbook::Helpers
