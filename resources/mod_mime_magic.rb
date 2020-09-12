@@ -1,4 +1,3 @@
-include Apache2::Cookbook::Helpers
 unified_mode true
 
 property :mime_magic_file, String,

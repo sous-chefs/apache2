@@ -1,5 +1,3 @@
-include Apache2::Cookbook::Helpers
-
 property :name, String, default: ''
 
 property :module_name, String,

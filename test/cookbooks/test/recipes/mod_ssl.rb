@@ -6,7 +6,6 @@ app_dir           = '/var/www/basic_site'
 apache2_install 'default'
 
 service 'apache2' do
-  extend Apache2::Cookbook::Helpers
   service_name lazy { apache_platform_service_name }
   supports restart: true, status: true, reload: true
   action [:start, :enable]
@@ -20,14 +19,12 @@ apache2_mod_ssl ''
 
 # Create Certificates
 directory '/home/apache2' do
-  extend    Apache2::Cookbook::Helpers
   owner     lazy { default_apache_user }
   group     lazy { default_apache_group }
   recursive true
 end
 
 directory app_dir do
-  extend    Apache2::Cookbook::Helpers
   owner     lazy { default_apache_user }
   group     lazy { default_apache_group }
   recursive true
@@ -35,7 +32,6 @@ end
 
 file "#{app_dir}/index.html" do
   content 'Hello World'
-  extend  Apache2::Cookbook::Helpers
   owner   lazy { default_apache_user }
   group   lazy { default_apache_group }
 end
@@ -62,7 +58,6 @@ end
 site_name = 'ssl_site'
 
 template site_name do
-  extend Apache2::Cookbook::Helpers
   source 'ssl.conf.erb'
   path "#{apache_dir}/sites-available/#{site_name}.conf"
   variables(

@@ -1,4 +1,3 @@
-include Apache2::Cookbook::Helpers
 unified_mode true
 
 property :types_config, String,
