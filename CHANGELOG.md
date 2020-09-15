@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: spec/libraries/default_modules_spec.rb:8:7 refactor: `ChefCorrectness/IncorrectLibraryInjection`
+
 ## 8.4.0 (2020-09-09)
 
 - resolved cookstyle error: test/cookbooks/test/recipes/php.rb:1:1 refactor: `ChefCorrectness/IncorrectLibraryInjection`
