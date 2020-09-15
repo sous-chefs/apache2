@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 ## Unreleased
 
 - resolved cookstyle error: spec/libraries/default_modules_spec.rb:8:7 refactor: `ChefCorrectness/IncorrectLibraryInjection`
+- Cookstyle Bot Auto Corrections with Cookstyle 6.17.7
 
 ## 8.4.0 (2020-09-09)
 

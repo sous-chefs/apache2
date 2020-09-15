@@ -327,7 +327,7 @@ module Apache2
       end
 
       def default_pass_phrase_dialog
-        node['platform'] == 'ubuntu' ? 'exec:/usr/share/apache2/ask-for-passphrase' : 'builtin'
+        platform?('ubuntu') ? 'exec:/usr/share/apache2/ask-for-passphrase' : 'builtin'
       end
 
       def default_session_cache
