@@ -9,7 +9,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
 
   describe '#default_pass_phrase_dialog' do
     before do
-      allow(subject).to receive(:[]).with('platform').and_return(platform)
+      allow(subject).to receive(:[]).with(:platform).and_return(platform)
     end
 
     context 'with rhel family' do
