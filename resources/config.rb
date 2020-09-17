@@ -60,6 +60,10 @@ property :run_dir, String,
          description: ' Sets the DefaultRuntimeDir directive.'\
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
+property :template_cookbook, String,
+         default: 'apache2',
+         description: 'Cookbook containing the template file'
+
 action :create do
   template 'apache2.conf' do
     if platform_family?('debian')
@@ -69,7 +73,7 @@ action :create do
     end
     action :create
     source 'apache2.conf.erb'
-    cookbook 'apache2'
+    cookbook new_resource.template_cookbook
     owner 'root'
     group new_resource.root_group
     mode '0640'
