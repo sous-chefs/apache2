@@ -18,6 +18,7 @@
 | timeout                 | Integer, String | 300                         | The number of seconds before receives and sends time out                                                       |
 | server_name             | String          | `localhost`                 | Sets the ServerName directive                                                                                  |
 | run_dir                 | String          | `default_run_dir`           | Sets the DefaultRuntimeDir directive. Defaults to platform specific locations, see libraries/helpers.rb'       |
+| template_cookbook       | String          | `apache2`                   | Cookbook to source the template file from                                                                      |
 
 ## Examples
 
