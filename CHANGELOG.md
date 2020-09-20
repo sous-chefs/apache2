@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - resolved cookstyle error: spec/libraries/default_modules_spec.rb:8:7 refactor: `ChefCorrectness/IncorrectLibraryInjection`
 - Cookstyle Bot Auto Corrections with Cookstyle 6.17.7
 - Directly include Apache2::Cookbook::Helpers in recipes and resources by default
+- `config` has now `template_cookbook` property to use an external template
 
 ## 8.4.0 (2020-09-09)
 
