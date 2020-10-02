@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
+- Add apache namespace for `site_available?` and `site_enabled?` helper methods
+
 ## 8.5.0 (2020-09-22)
 
 - resolved cookstyle error: spec/libraries/default_modules_spec.rb:8:7 refactor: `ChefCorrectness/IncorrectLibraryInjection`

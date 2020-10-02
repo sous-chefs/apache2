@@ -298,11 +298,11 @@ module Apache2
         ::File.symlink?("#{apache_dir}/mods-enabled/#{new_resource.name}.load")
       end
 
-      def site_enabled?(site_name)
+      def apache_site_enabled?(site_name)
         ::File.symlink?("#{apache_dir}/sites-enabled/#{site_name}.conf")
       end
 
-      def site_available?(site_name)
+      def apache_site_available?(site_name)
         ::File.exist?("#{apache_dir}/sites-available/#{site_name}.conf")
       end
 
