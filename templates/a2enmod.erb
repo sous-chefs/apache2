@@ -16,13 +16,15 @@ my $quiet;
 my $force;
 my $maintmode;
 my $purge;
+my $delete;
 
 Getopt::Long::Configure('bundling');
 GetOptions(
     'quiet|q'     => \$quiet,
     'force|f'     => \$force,
     'maintmode|m' => \$maintmode,
-    'purge|p'     => \$purge
+    'purge|p'     => \$purge,
+    'd'           => \$delete
 ) or exit 2;
 
 my $basename = basename($0);
@@ -76,6 +78,13 @@ my $linkdir = File::Spec->abs2rel( $availdir, $enabldir );
 my $request_reload = 0;
 
 my $rc = 0;
+
+# Fix backwards compatibility for SUSE
+if ( -e "/usr/bin/zypper" ) {
+  if ( $quiet || $delete ) {
+    exit 0
+  }
+}
 
 if ( !scalar @ARGV ) {
     my @choices = myglob('*');
