@@ -392,6 +392,7 @@ module Apache2
         platform_family?('debian') ? "#{default_site_name}.conf.erb" : 'welcome.conf.erb'
       end
 
+      # mod_php
       def apache_mod_php_package
         case node['platform_family']
         when 'debian'
@@ -440,6 +441,32 @@ module Apache2
           'libphp5.so'
         when 'suse'
           'mod_php7.so'
+        end
+      end
+
+      # mod_wsgi
+      def apache_mod_wsgi_package
+        case node['platform_family']
+        when 'debian'
+          'libapache2-mod-wsgi-py3'
+        when 'amazon'
+          'mod_wsgi'
+        when 'rhel'
+          if node['platform_version'].to_i >= 8
+            'python3-mod_wsgi'
+          else
+            'mod_wsgi'
+          end
+        when 'suse'
+          'apache2-mod_wsgi-python3'
+        end
+      end
+
+      def apache_mod_wsgi_filename
+        if platform_family?('rhel') && node['platform_version'].to_i >= 8
+          'mod_wsgi_python3.so'
+        else
+          'mod_wsgi.so'
         end
       end
     end

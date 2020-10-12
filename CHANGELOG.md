@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
+- Add `apache2_mod_wsgi` resource
+
 ## 8.5.1 (2020-10-02)
 
 - Add apache namespace for `site_available?` and `site_enabled?` helper methods
