@@ -2,7 +2,7 @@
 
 Enables apache2 module `mod_wsgi`.
 
-This resource will install and enable the Apache WSGI module. See `apache_mod_wsgi_package` for the platform-specific module package. By default it installs WSGI for Python 3 if available for the platform, otherwise falls back to Python 2. If installing Python and mod_wsgi outside of this resource, you should set `install_package` to `false` to avoid a possible version conflicts.
+This resource will install and enable the Apache WSGI module. See `apache_mod_wsgi_package` for the platform-specific module package. By default it installs WSGI for Python 3 if available for the platform, otherwise falls back to Python 2. If installing Python and mod_wsgi outside of this resource, you should set `install_package` to `false` to avoid a possible version conflict.
 
 **Note: call this resource directly, not through `apache2_module`!**
 This resource will call `_module` with the correct identifiers for you.
