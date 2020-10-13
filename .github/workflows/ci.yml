@@ -54,6 +54,7 @@ jobs:
           - 'ports'
           - 'module-template'
           - 'mod-php'
+          - 'mod-wsgi'
           - 'pkg-name'
         exclude:
           - os: debian-9
