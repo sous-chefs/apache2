@@ -1,3 +1,7 @@
+[back to resource list](https://github.com/sous-chefs/apache2#resources)
+
+---
+
 # apache2_mod_wsgi
 
 Enables apache2 module `mod_wsgi`.
@@ -6,6 +10,10 @@ This resource will install and enable the Apache WSGI module. See `apache_mod_ws
 
 **Note: call this resource directly, not through `apache2_module`!**
 This resource will call `_module` with the correct identifiers for you.
+
+## Actions
+
+- `:create`
 
 ## Properties
 
