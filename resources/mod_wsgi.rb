@@ -32,7 +32,6 @@ action :create do
   apache2_module 'wsgi' do
     identifier new_resource.module_name
     mod_name new_resource.so_filename
-    template_cookbook 'apache2'
     notifies :restart, 'service[apache2]'
   end
 end
