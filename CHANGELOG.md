@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 8.6.0 (2020-10-13)
 
 - Add `apache2_mod_wsgi` resource
 - Fix backwards compatibility for SUSE with `a2enmod`
