@@ -111,7 +111,11 @@ property :timeout, [Integer, String],
 
 property :sysconfig_additional_params, Hash,
          description: 'Hash of additional sysconfig parameters to apply to the system'
-
+           
+property :template_cookbook, String,
+         default: 'apache2',
+         description: 'Cookbook to source the template from. Override this to provide your own template'
+           
 action :install do
   package [new_resource.apache_pkg, perl_pkg] do
     version [new_resource.apache_version, nil] unless new_resource.apache_version.empty?
@@ -286,6 +290,7 @@ action :install do
     docroot_dir new_resource.docroot_dir
     timeout new_resource.timeout
     server_name new_resource.server_name
+    template_cookbook new_resource.template_cookbook
   end
 
   apache2_conf 'security'
