@@ -27,12 +27,14 @@ Installs apache2.
 | keep_alive_timeout          | Integer         | `5`                                 | KeepAliveTimeout                                                                                               |
 | access_file_name            | String          | `.htaccess`                         | Access filename                                                                                                |
 | sysconfig_additional_params | Hash            | `{}`                                | Hash of additional sysconfig parameters to apply to the system                                                 |
+| template_cookbook           | String          | `apache2`                           | Cookbook to source the apache2.conf template from                                                              |
 
 ## Examples
 
 ```ruby
 apache2_install 'custom' do
   status_url 'status.site.org'
+  template_cookbook 'my_cookbook'
 end
 ```
 

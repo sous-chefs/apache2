@@ -27,6 +27,9 @@ suites:
   - name: default
     run_list:
       - recipe[test::default]
+  - name: custom_template
+    run_list:
+      - recipe[test::custom_template]
   - name: basic_site
     run_list:
       - recipe[test::basic_site]
