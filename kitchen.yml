@@ -24,29 +24,32 @@ platforms:
   - name: ubuntu-20.04
 
 suites:
-  - name: default
-    run_list:
-      - recipe[test::default]
-  - name: basic_site
-    run_list:
-      - recipe[test::basic_site]
-  - name: ssl
-    run_list:
-      - recipe[test::mod_ssl]
-  - name: ports
-    run_list:
-      - recipe[test::ports]
-  - name: module_template
-    run_list:
-      - recipe[test::module_template]
-  - name: mod_php
-    run_list:
-      - recipe[test::php]
-  - name: pkg_name
-    run_list:
-      - recipe[test::pkg_name]
-    includes:
-      - centos-7
-  - name: mod_wsgi
-    run_list:
-      - recipe[test::wsgi]
+   - name: default
+     run_list:
+       - recipe[test::default]
+   - name: custom_template
+     run_list:
+       - recipe[test::custom_template]
+   - name: basic_site
+     run_list:
+       - recipe[test::basic_site]
+   - name: ssl
+     run_list:
+       - recipe[test::mod_ssl]
+   - name: ports
+     run_list:
+       - recipe[test::ports]
+   - name: module_template
+     run_list:
+       - recipe[test::module_template]
+   - name: mod_php
+     run_list:
+       - recipe[test::php]
+   - name: pkg_name
+     run_list:
+       - recipe[test::pkg_name]
+     includes:
+       - centos-7
+   - name: mod_wsgi
+     run_list:
+       - recipe[test::wsgi]
