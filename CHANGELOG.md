@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
 ## 8.7.0 - *2020-11-20*
 
 - Add `template_cookbook` property to `install`
