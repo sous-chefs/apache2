@@ -27,7 +27,7 @@ action :enable do
     group new_resource.root_group
     backup false
     mode '0644'
-    variables new_resource.options.merge({apache_dir: apache_dir})
+    variables new_resource.options.merge({ apache_dir: apache_dir })
     notifies :restart, 'service[apache2]', :delayed
   end
 
