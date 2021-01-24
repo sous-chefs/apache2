@@ -79,6 +79,35 @@ control 'template-render' do
   end
 end
 
+control 'custom-conf' do
+  case os[:family]
+  when 'debian'
+    describe file('/etc/apache2/conf-enabled/custom.conf') do
+      it { should exist }
+      its('content') { should include 'IndexIgnore . .secret *.gen' }
+      its('content') { should include 'IndexOptions Charset=UTF-8' }
+    end
+  when 'suse'
+    describe file('/etc/apache2/conf-enabled/custom.conf') do
+      it { should exist }
+      its('content') { should include 'IndexIgnore . .secret *.gen' }
+      its('content') { should include 'IndexOptions Charset=UTF-8' }
+    end
+  when 'freebsd'
+    describe file('/usr/local/etc/apache2/conf-enabled/custom.conf') do
+      it { should exist }
+      its('content') { should include 'IndexIgnore . .secret *.gen' }
+      its('content') { should include 'IndexOptions Charset=UTF-8' }
+    end
+  else
+    describe file('/etc/httpd/conf/conf-enabled/custom.conf') do
+      it { should exist }
+      its('content') { should include 'IndexIgnore . .secret *.gen' }
+      its('content') { should include 'IndexOptions Charset=UTF-8' }
+    end
+  end
+end
+
 #  Disable until all platforms are pukka
 # include_controls 'dev-sec/apache-baseline' do
 #   skip_control 'apache-05' # We don't have hardening.conf
