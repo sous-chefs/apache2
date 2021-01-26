@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 8.8.0 - *2021-01-26*
 
 - Remove support and testing for Ubuntu 16.04
 
