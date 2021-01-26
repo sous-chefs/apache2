@@ -42,7 +42,7 @@ On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also n
 
 The following platforms and versions are tested and supported using [test-kitchen](http://kitchen.ci/)
 
-- Ubuntu 16.04 / 18.04
+- Ubuntu 18.04 / 20.04
 - Debian 9/10
 - CentOS 7+
 - Fedora Latest
