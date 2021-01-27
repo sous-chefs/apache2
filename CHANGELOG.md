@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 8.9.0 - *2021-01-27*
 
 - Enable `options` property to pass arbitrary variables to the conf template
 
