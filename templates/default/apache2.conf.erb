@@ -238,8 +238,6 @@ ServerTokens Prod
 
 <IfModule mod_headers.c>
       Header unset ETag
-      Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
-      Header set Expires "Sat, 05 Nov 1955 00:00:00 GMT"
       Header set X-XSS-Protection "1; mode=block"
 </IfModule>
 
