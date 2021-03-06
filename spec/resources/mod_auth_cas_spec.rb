@@ -2,33 +2,36 @@ require 'spec_helper'
 
 describe 'apache2_mod_auth_cas' do
   step_into :apache2_install, :apache2_mod_auth_cas
-  platform 'ubuntu'
+  recipe do
+    apache2_install 'package'
 
-  context 'install mod auth cas' do
-    recipe do
-      apache2_install 'package'
+    apache2_mod_auth_cas
+  end
+  context 'ubuntu' do
+    platform 'ubuntu'
 
-      apache2_mod_auth_cas 'package_install'
+    before do
+      stub_command('/usr/sbin/apache2ctl -t').and_return(true)
+    end
 
-      apache2_mod_auth_cas 'source_install' do
-        install_method 'source'
-      end
+    it { is_expected.to install_package('libapache2-mod-auth-cas') }
+
+    it do
+      is_expected.to enable_apache2_module('auth_cas').with(
+        template_cookbook: 'apache2',
+        mod_conf: {
+          cache_dir: '/var/cache/apache2',
+          login_url: 'https://login.example.org/cas/login',
+          validate_url: 'https://login.example.org/cas/serviceValidate',
+        }
+      )
     end
 
     it do
-      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
-      stub_command('test -f /usr/lib/apache2/modules/mod_auth_cas.so').and_return('0')
-
-      is_expected.to install_package('libapache2-mod-auth-cas')
-      is_expected.not_to install_package('mod_auth_cas')
-    end
-
-    it 'Creates the load template with the correct cach directory' do
-      stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
-      stub_command('test -f /usr/lib/apache2/modules/mod_auth_cas.so').and_return('bar')
-
-      is_expected.to create_template('/etc/apache2/mods-available/auth_cas.load').with_variables(
-        cache_dir: '/var/cache/apache2'
+      is_expected.to create_directory('/var/cache/apache2/mod_auth_cas').with(
+        owner: 'www-data',
+        group: 'www-data',
+        mode: '0700'
       )
     end
   end

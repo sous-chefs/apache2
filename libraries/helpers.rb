@@ -320,6 +320,8 @@ module Apache2
           else
             'apache2-dev'
           end
+        when 'suse'
+          'apache2-devel'
         else
           'httpd-devel'
         end
@@ -467,6 +469,24 @@ module Apache2
           'mod_wsgi_python3.so'
         else
           'mod_wsgi.so'
+        end
+      end
+
+      def apache_mod_auth_cas_install_method
+        if (platform_family?('rhel') && node['platform_version'].to_i >= 8) || platform_family?('suse')
+          'source'
+        else
+          'package'
+        end
+      end
+
+      def apache_mod_auth_cas_devel_packages
+        if platform_family?('rhel', 'amazon')
+          %w(openssl-devel libcurl-devel pcre-devel libtool)
+        elsif platform_family?('debian')
+          %w(libssl-dev libcurl4-openssl-dev libpcre++-dev libtool)
+        elsif platform_family?('suse')
+          %w(libopenssl-devel libcurl-devel pcre-devel libtool)
         end
       end
     end
