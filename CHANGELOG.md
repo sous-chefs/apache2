@@ -9,7 +9,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Fix `libexec_dir` variable in `auth_cas.load` template
 - Add Integration tests for `apache2_mod_auth_cas` resource
 - Add docs for `apache2_mod_auth_cas`
-- Add `:source_checksum`, `:login_url`, `:validate_url` properties to `apache2_mod_auth_cas` resource
+- Add `:source_checksum`, `:login_url`, `:validate_url`, `:directives` properties to `apache2_mod_auth_cas` resource
 - Allow `apache2_mod_auth_cas` resource to be nameless
 - Update `mod_auth_cas` source version to 1.2 and other various updates for source installations
 - Install `mod_auth_cas` by source on CentOS 8 and SUSE platforms (distro package is not currently available)

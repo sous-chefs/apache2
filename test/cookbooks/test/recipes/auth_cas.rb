@@ -8,4 +8,8 @@ service 'apache2' do
   action [:start, :enable]
 end
 
-apache2_mod_auth_cas
+apache2_mod_auth_cas 'default' do
+  directives(
+    'CASCookiePath' => "#{cache_dir}/mod_auth_cas/"
+  )
+end

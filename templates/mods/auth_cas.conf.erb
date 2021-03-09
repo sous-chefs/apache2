@@ -1,3 +1,8 @@
 CASCookiePath <%= @cache_dir %>/mod_auth_cas/
 CASLoginURL <%= @login_url %>
 CASValidateURL <%= @validate_url %>
+<% unless @directives.nil? -%>
+<% @directives.sort_by { |key, val| key }.each do |directive, value| -%>
+<%= directive %> <%= value %>
+<% end -%>
+<% end -%>

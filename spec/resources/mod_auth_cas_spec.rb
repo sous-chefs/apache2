@@ -23,6 +23,7 @@ describe 'apache2_mod_auth_cas' do
           cache_dir: '/var/cache/apache2',
           login_url: 'https://login.example.org/cas/login',
           validate_url: 'https://login.example.org/cas/serviceValidate',
+          directives: nil,
         }
       )
     end

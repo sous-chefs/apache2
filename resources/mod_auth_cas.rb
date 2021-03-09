@@ -42,6 +42,9 @@ property :mpm, String,
          default: lazy { default_mpm },
          description: 'Apache2 MPM: used to determine which devel package to install on Debian'
 
+property :directives, Hash,
+        description: 'Hash of optional directives to pass to the mod_auth_cas module configuration'
+
 action :install do
   if new_resource.install_method.eql? 'source'
     package [apache_devel_package(new_resource.mpm), apache_mod_auth_cas_devel_packages].flatten
@@ -112,7 +115,8 @@ action :install do
     mod_conf(
       cache_dir: cache_dir,
       login_url: new_resource.login_url,
-      validate_url: new_resource.validate_url
+      validate_url: new_resource.validate_url,
+      directives: new_resource.directives
     )
   end
 
