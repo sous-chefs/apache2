@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe 'apache2_mod_auth_cas' do
-  step_into :apache2_install, :apache2_mod_auth_cas
+  step_into :apache2_install, :apache2_mod_auth_cas, :apache2_module
   recipe do
     apache2_install 'package'
 
-    apache2_mod_auth_cas
+    apache2_mod_auth_cas 'default' do
+      directives(CASDebug: 'Off')
+    end
   end
   context 'ubuntu' do
     platform 'ubuntu'
@@ -23,7 +25,9 @@ describe 'apache2_mod_auth_cas' do
           cache_dir: '/var/cache/apache2',
           login_url: 'https://login.example.org/cas/login',
           validate_url: 'https://login.example.org/cas/serviceValidate',
-          directives: nil,
+          directives: {
+            'CASDebug': 'Off',
+          },
         }
       )
     end
@@ -34,6 +38,15 @@ describe 'apache2_mod_auth_cas' do
         group: 'www-data',
         mode: '0700'
       )
+    end
+
+    [
+      %r{^CASCookiePath /var/cache/apache2/mod_auth_cas/$},
+      %r{^CASLoginURL https://login.example.org/cas/login$},
+      %r{^CASValidateURL https://login.example.org/cas/serviceValidate$},
+      /^CASDebug Off$/,
+    ].each do |line|
+      it { is_expected.to render_file('/etc/apache2/mods-available/auth_cas.conf').with_content(line) }
     end
   end
 end
