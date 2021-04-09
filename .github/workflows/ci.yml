@@ -40,21 +40,22 @@ jobs:
     strategy:
       matrix:
         os:
-          - 'debian-9'
-          - 'debian-10'
           - 'centos-7'
           - 'centos-8'
-          - 'ubuntu-1804'
+          - 'debian-9'
+          - 'debian-10'
           - 'opensuse-leap-15'
+          - 'ubuntu-1804'
         suite:
-          - 'default'
           - 'basic-site'
-          - 'ssl'
-          - 'ports'
-          - 'module-template'
+          - 'default'
+          - 'mod-auth-cas'
           - 'mod-php'
+          - 'module-template'
           - 'mod-wsgi'
           - 'pkg-name'
+          - 'ports'
+          - 'ssl'
         exclude:
           - os: debian-9
             suite: pkg-name

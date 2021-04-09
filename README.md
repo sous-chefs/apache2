@@ -92,6 +92,7 @@ Example wrapper cookbooks:
 - [module](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_module.md)
 - [mod_php](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod_php.md)
 - [mod_wsgi](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod_wsgi.md)
+- [mod_auth_cas](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod_auth_cas.md)
 
 ## Contributors
 

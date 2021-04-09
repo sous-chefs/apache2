@@ -4,7 +4,20 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Fix `apache2_mod_auth_cas` resource for all supported platforms
+- Fix apache devel package name on SUSE platforms
+- Fix `libexec_dir` variable in `auth_cas.load` template
+- Add Integration tests for `apache2_mod_auth_cas` resource
+- Add docs for `apache2_mod_auth_cas`
+- Add `:source_checksum`, `:login_url`, `:validate_url`, `:directives` properties to `apache2_mod_auth_cas` resource
+- Allow `apache2_mod_auth_cas` resource to be nameless
+- Update `mod_auth_cas` source version to 1.2 and other various updates for source installations
+- Install `mod_auth_cas` by source on CentOS 8 and SUSE platforms (distro package is not currently available)
+- Include yum-epel recipe on RHEL/Amazon platforms
+
 ## 8.9.1 - *2021-03-03*
+
+- Fix url in README
 
 ## 8.9.0 - *2021-01-27*
 

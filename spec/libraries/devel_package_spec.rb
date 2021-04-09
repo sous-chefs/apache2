@@ -28,7 +28,7 @@ describe '#apache_devel_package' do
 
   context 'suse' do
     platform 'suse'
-    it { is_expected.to write_log('httpd-devel') }
+    it { is_expected.to write_log('apache2-devel') }
   end
 
   context 'freebsd' do
