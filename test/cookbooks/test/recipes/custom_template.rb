@@ -4,6 +4,12 @@ apache2_install 'default_install' do
   template_cookbook 'test'
 end
 
+service 'apache2' do
+  service_name lazy { apache_platform_service_name }
+  supports restart: true, status: true, reload: true
+  action :nothing
+end
+
 apache2_site '000-default' do
   action :disable
 end
@@ -20,8 +26,6 @@ apache2_conf 'custom' do
   )
 end
 
-service 'apache2' do
-  service_name lazy { apache_platform_service_name }
-  supports restart: true, status: true, reload: true
-  action :nothing
-end
+
+# /etc/apache2/conf-enabled/custom.conf
+# /etc/httpd/conf-available/custom.conf

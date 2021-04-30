@@ -118,7 +118,7 @@ action :install do
       validate_url: new_resource.validate_url,
       directives: new_resource.directives
     )
-    notifies :reload, 'service[apache2]'
+    notifies :reload, 'service[apache2]', :delayed
   end
 
   directory "#{cache_dir}/mod_auth_cas" do

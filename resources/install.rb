@@ -270,13 +270,6 @@ action :install do
     only_if { platform_family?('debian') }
   end
 
-  service 'apache2' do
-    service_name apache_platform_service_name
-    supports [:start, :restart, :reload, :status, :graceful, :reload]
-    action [:enable]
-    only_if "#{apachectl} -t", environment: { 'APACHE_LOG_DIR' => new_resource.log_dir }, timeout: new_resource.httpd_t_timeout
-  end
-
   apache2_config 'apache2.conf' do
     access_file_name new_resource.access_file_name
     log_dir new_resource.log_dir
