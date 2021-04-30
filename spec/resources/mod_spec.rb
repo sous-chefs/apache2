@@ -33,6 +33,12 @@ describe 'apache2_install' do
 
   context 'mod_setenvif' do
     recipe do
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_mod_setenvif ''
     end
 

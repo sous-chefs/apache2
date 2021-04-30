@@ -7,6 +7,13 @@ describe 'apache2_install' do
   context 'Enable the default site' do
     recipe do
       apache2_install 'default'
+
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_default_site ''
     end
 

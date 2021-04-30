@@ -7,7 +7,14 @@ describe 'apache2_mod_wsgi' do
 
   context 'Setup and enable WSGI module' do
     recipe do
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_install 'wsgitest'
+
       apache2_mod_wsgi 'wsgitest'
     end
 
@@ -30,6 +37,13 @@ describe 'apache2_mod_wsgi' do
   context 'Enable WSGI module with custom properties' do
     recipe do
       apache2_install 'wsgicustom'
+
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_mod_wsgi 'wsgicustom' do
         module_name 'wsgitest_module'
         so_filename 'libwsgitest.so'
@@ -56,6 +70,13 @@ describe 'apache2_mod_wsgi' do
   context 'Do not install module package' do
     recipe do
       apache2_install 'wsgicustom'
+
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_mod_wsgi 'wsgicustom' do
         package_name 'mod_wsgitest'
         install_package false

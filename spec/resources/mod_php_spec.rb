@@ -8,6 +8,13 @@ describe 'apache2_mod_php' do
   context 'Setup and enable PHP module' do
     recipe do
       apache2_install 'phptest'
+
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_mod_php 'phptest'
     end
 
@@ -34,6 +41,13 @@ describe 'apache2_mod_php' do
   context 'Enable PHP module with custom properties' do
     recipe do
       apache2_install 'phpcustom'
+
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_mod_php 'phpcustom' do
         module_name 'phptest_module'
         so_filename 'libphptest.so'
@@ -60,6 +74,13 @@ describe 'apache2_mod_php' do
   context 'Do not install module package' do
     recipe do
       apache2_install 'phpcustom'
+
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_mod_php 'phpcustom' do
         package_name 'mod_phptest'
         install_package false

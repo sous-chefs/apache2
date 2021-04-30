@@ -7,6 +7,13 @@ describe 'apache2_install' do
   context 'install an apache2_module with default properties' do
     recipe do
       apache2_install 'default'
+
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_module 'test'
     end
 
@@ -22,6 +29,13 @@ describe 'apache2_install' do
 
     recipe do
       apache2_install 'default'
+
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+
       apache2_module 'proxy' do
         mod_conf add_default_charset: 'utf-8'
       end
