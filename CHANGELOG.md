@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Add missing unified_mode from mod_php and mod_wscgi
+
 ## 8.10.0 - *2021-04-09*
 
 - Fix `apache2_mod_auth_cas` resource for all supported platforms
