@@ -26,6 +26,5 @@ apache2_conf 'custom' do
   )
 end
 
-
 # /etc/apache2/conf-enabled/custom.conf
 # /etc/httpd/conf-available/custom.conf
