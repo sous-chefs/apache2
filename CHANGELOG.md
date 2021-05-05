@@ -6,6 +6,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 - Add missing unified_mode from mod_php and mod_wscgi
 - Fix service resource restarting the service every run
+- Bump minimum Chef version to 15.3 to support unified_mode
 
 ## 8.10.0 - *2021-04-09*
 
