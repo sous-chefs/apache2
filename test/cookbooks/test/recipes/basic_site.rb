@@ -1,9 +1,15 @@
 apache2_install 'default'
 
+# service 'apache2' do
+#   service_name lazy { apache_platform_service_name }
+#   supports restart: true, status: true, reload: true
+#   action [:start, :enable]
+# end
+
 service 'apache2' do
   service_name lazy { apache_platform_service_name }
   supports restart: true, status: true, reload: true
-  action [:start, :enable]
+  action :nothing
 end
 
 apache2_module 'deflate'
@@ -13,6 +19,8 @@ app_dir = '/var/www/basic_site'
 
 directory app_dir do
   recursive true
+  owner lazy { default_apache_user }
+  group lazy { default_apache_group }
 end
 
 file "#{app_dir}/index.html" do

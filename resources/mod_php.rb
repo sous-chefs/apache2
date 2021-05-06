@@ -1,3 +1,5 @@
+unified_mode true
+
 property :name, String, default: ''
 
 property :module_name, String,
