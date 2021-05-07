@@ -19,8 +19,8 @@ platforms:
   - name: debian-9
   - name: debian-10
   - name: opensuse-leap-15
-  - name: ubuntu-18.04
   - name: ubuntu-20.04
+  - name: ubuntu-21.04
 
 suites:
   - name: default

@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Drop Ubuntu 18.04 testing
+- Add Ubuntu 21.04 testing
+
 ## 8.11.0 - *2021-05-06*
 
 - Add missing unified_mode from mod_php and mod_wscgi
