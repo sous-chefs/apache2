@@ -29,9 +29,10 @@ file "#{app_dir}/index.html" do
   group   lazy { default_apache_group }
 end
 
-template 'basic_site' do
-  source 'basic_site.conf.erb'
-  path "#{apache_dir}/sites-available/basic_site.conf"
+apache2_default_site 'basic_site' do
+  default_site_name 'basic_site'
+  template_cookbook 'test'
+  template_source 'basic_site.conf.erb'
   variables(
     server_name: '127.0.0.1',
     document_root: app_dir,
@@ -39,8 +40,6 @@ template 'basic_site' do
     site_name: 'basic_site'
   )
 end
-
-apache2_site 'basic_site'
 
 apache2_site '000-default' do
   action :disable

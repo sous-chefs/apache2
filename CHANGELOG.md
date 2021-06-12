@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 ## Unreleased
 
 - Add `variables` property to `default_site` resource
+- Convert test suites `basic_site` and `mod_wsgi` to use updated `default_site` resource
 
 ## 8.11.1 - *2021-06-01*
 
