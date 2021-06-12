@@ -71,7 +71,7 @@ action :enable do
   end
 
   apache2_site new_resource.default_site_name do
-    action :enable
+    action new_resource.site_action
   end
 end
 
