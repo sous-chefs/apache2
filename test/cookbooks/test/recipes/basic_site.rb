@@ -41,6 +41,18 @@ apache2_default_site 'basic_site' do
   )
 end
 
+apache2_default_site 'disabled_site' do
+  default_site_name 'disabled_site'
+  site_action :disable
+  template_cookbook 'test'
+  template_source 'basic_site.conf.erb'
+  variables(
+    server_name: '127.0.0.1',
+    document_root: app_dir,
+    log_dir: lazy { default_log_dir }
+  )
+end
+
 apache2_site '000-default' do
   action :disable
 end

@@ -58,7 +58,7 @@ apache2_default_site site_name do
     document_root: app_dir,
     log_dir: lazy { default_log_dir },
     ssl_cert_file: ssl_cert_file,
-    ssl_cert_key_file: ssl_cert_key_file,
+    ssl_cert_key_file: ssl_cert_key_file
   )
 end
 
