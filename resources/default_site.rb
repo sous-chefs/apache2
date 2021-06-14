@@ -43,7 +43,7 @@ property :apache_root_group, String,
 property :template_source, String,
          default: lazy { default_site_template_source },
          description: 'Source for the template.'\
-'defaults to #{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms'
+"defaults to \#{new_resource.default_site_name}.conf on Debian flavours and welcome.conf on all other platforms"
 
 property :variables, Hash,
          default: {},
