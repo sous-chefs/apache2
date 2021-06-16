@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+Fixed error with delivery where it was expecting string interpolation incorrectly
+
 ## 8.11.1 - *2021-06-01*
 
 ## 8.11.0 - *2021-05-06*
