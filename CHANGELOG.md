@@ -8,6 +8,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## 8.11.1 - *2021-06-01*
 
+- Standardise files with files in sous-chefs/repo-management
+
 ## 8.11.0 - *2021-05-06*
 
 - Add missing unified_mode from mod_php and mod_wscgi
