@@ -48,11 +48,8 @@ DocumentRoot "<%= @docroot_dir %>"
 </Directory>
 
 <% if node['platform_version'].to_i == 8 -%>
-Alias /.noindex.html /usr/share/httpd/noindex/index.html.en-US
-Alias /noindex/css/bootstrap.min.css /usr/share/httpd/noindex/common/css/bootstrap.min.css
-Alias /noindex/css/open-sans.css /usr/share/httpd/noindex/common/css/styles.css
-Alias /noindex/common/images/pb-apache.png /usr/share/httpd/noindex/common/images/pb-apache.png
-Alias /noindex/common/images/pb-centos.png /usr/share/httpd/noindex/common/images/pb-centos.png
+Alias /.noindex.html /usr/share/httpd/noindex/index.html
+Alias /poweredby.png /usr/share/httpd/icons/apache_pb2.png
 <% else -%>
 Alias /.noindex.html /usr/share/httpd/noindex/index.html
 Alias /noindex/css/bootstrap.min.css /usr/share/httpd/noindex/css/bootstrap.min.css
