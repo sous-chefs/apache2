@@ -11,3 +11,23 @@ control 'hello-world' do
     its('body') { should cmp /Hello World/ }
   end
 end
+
+control 'disabled-site' do
+  impact 1
+  desc 'Site config should be installed, but disabled'
+
+  apache_dir = case os[:family]
+               when 'debian', 'suse'
+                 '/etc/apache2'
+               else
+                 '/etc/httpd'
+               end
+
+  describe file("#{apache_dir}/sites-available/disabled_site.conf") do
+    it { should exist }
+  end
+
+  describe file("#{apache_dir}/sites-enabled/disabled_site.conf") do
+    it { should_not exist }
+  end
+end

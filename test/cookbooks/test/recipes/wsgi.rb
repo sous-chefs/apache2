@@ -28,9 +28,10 @@ cookbook_file "#{wsgi_dir}/test.wsgi" do
   notifies :restart, 'service[apache2]'
 end
 
-template 'wsgi_site' do
-  source 'wsgi_site.conf.erb'
-  path "#{apache_dir}/sites-available/wsgi_site.conf"
+apache2_default_site 'wsgi_site' do
+  default_site_name 'wsgi_site'
+  template_cookbook 'test'
+  template_source 'wsgi_site.conf.erb'
   variables(
     server_name: '127.0.0.1',
     document_root: app_dir,
