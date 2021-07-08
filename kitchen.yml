@@ -55,3 +55,6 @@ suites:
   - name: mod_auth_cas
     run_list:
       - recipe[test::auth_cas]
+  - name: install_override
+    run_list:
+      - recipe[test::install_override]

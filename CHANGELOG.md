@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Add `default_charset`, `server_signature`, `server_tokens`, and `trace_enable` to `install` resource
+- Add `install_override` test suite
+
 ## 8.12.0 - *2021-07-08*
 
 - Add `variables` property to `default_site` resource

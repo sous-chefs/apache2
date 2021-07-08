@@ -1,0 +1,11 @@
+---
+name: apache2-integration-tests
+title: Integration tests for apache2 cookbook
+summary: This InSpec profile contains integration tests for apache2 cookbook
+supports:
+  - os-family: linux
+  - os-family: bsd
+
+# depends:
+# - name:  dev-sec/apache-baseline
+#   supermarket: dev-sec/apache-baseline

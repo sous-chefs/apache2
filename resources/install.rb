@@ -51,6 +51,25 @@ property :server_name, String,
          default: 'localhost',
          description: 'Sets the ServerName directive'
 
+property :server_signature, String,
+         equal_to: %w(On Off EMail),
+         default: 'On',
+         description: 'Sets the ServerSignature directive'
+
+property :server_tokens, String,
+         equal_to: %w(Major Minor Min Minimal Prod ProductOnly OS Full),
+         default: 'Prod',
+         description: 'Sets the ServerTokens directive'
+
+property :trace_enable, String,
+         equal_to: %w(On Off extended),
+         default: 'Off',
+         description: 'Sets the TraceEnable directive'
+
+property :default_charset, [String, Array],
+         coerce: proc { |p| p.is_a?(Array) ? p : Array(p) },
+         description: 'Sets the AddDefaultCharset directive for each element provided'
+
 property :httpd_t_timeout, Integer,
          default: 10,
          description: 'Service timeout setting. Defaults to 10 seconds'
@@ -286,8 +305,19 @@ action :install do
     template_cookbook new_resource.template_cookbook
   end
 
-  apache2_conf 'security'
-  apache2_conf 'charset'
+  apache2_conf 'security' do
+    options(
+      server_signature: new_resource.server_signature,
+      server_tokens: new_resource.server_tokens,
+      trace_enable: new_resource.trace_enable
+    )
+  end
+
+  apache2_conf 'charset' do
+    options(
+      default_charset: new_resource.default_charset
+    )
+  end
 
   template 'ports.conf' do
     path     "#{apache_dir}/ports.conf"
