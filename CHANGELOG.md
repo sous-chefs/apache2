@@ -7,7 +7,14 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Add `variables` property to `default_site` resource
 - Convert test suites `basic_site` and `mod_wsgi` to use updated `default_site` resource
 
+## 8.11.2 - *2021-07-06*
+
+- Fixed error with delivery where it was expecting string interpolation incorrectly
+- Fix EL8 welcome page
+
 ## 8.11.1 - *2021-06-01*
+
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.11.0 - *2021-05-06*
 
