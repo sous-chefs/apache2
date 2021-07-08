@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
 ## 8.12.0 - *2021-07-08*
 
 - Add `variables` property to `default_site` resource
