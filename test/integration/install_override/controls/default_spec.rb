@@ -43,13 +43,13 @@ control 'welcome-page' do
     describe http('localhost') do
       its('status') { should eq 403 }
       its('body') { should cmp /Forbidden/ }
-      its('body') { should cmp /Apache Server/ }
+      its('body') { should cmp /Apache.* Server/ }
     end
   else
     describe http('localhost') do
       its('status') { should eq 403 }
       its('body') { should_not cmp /Forbidden/ }
-      its('body') { should cmp /powered by CentOS/ }
+      its('body') { should cmp /powered by (the Apache|CentOS)/ }
     end
   end
 end
@@ -67,8 +67,8 @@ control 'install-override' do
 
   describe file("#{apache_dir}/conf-enabled/security.conf") do
     it { should exist }
-    its('content') { should cmp /ServerTokens Full/ }
-    its('content') { should cmp /ServerSignature Off/ }
+    its('content') { should cmp /ServerTokens Minimal/ }
+    its('content') { should cmp /ServerSignature On/ }
     its('content') { should cmp /TraceEnable On/ }
   end
 

@@ -1,8 +1,8 @@
 apt_update 'update'
 
 apache2_install 'default_install' do
-  server_signature 'Off'
-  server_tokens 'Full'
+  server_signature 'On'
+  server_tokens 'Minimal'
   trace_enable 'On'
   default_charset 'utf-8'
 end
