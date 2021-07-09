@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
 ## 8.13.0 - *2021-07-09*
 
 - Add `default_charset`, `server_signature`, `server_tokens`, and `trace_enable` to `install` resource
