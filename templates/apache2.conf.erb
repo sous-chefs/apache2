@@ -5,6 +5,13 @@
 ServerRoot "<%= @apache_dir %>"
 
 #
+# Hostname and port that the server uses to identify itself
+#
+<% unless @server_name.nil? %>
+ServerName <%= @server_name %>
+<% end %>
+
+#
 # The accept serialization lock file MUST BE STORED ON A LOCAL DISK.
 #
 Mutex file:<%= @lock_dir %> default

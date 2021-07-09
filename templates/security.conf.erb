@@ -9,7 +9,9 @@
 # Set to one of:  Full | OS | Minimal | Minor | Major | Prod
 # where Full conveys the most information, and Prod the least.
 #
+<% unless @server_tokens.nil? %>
 ServerTokens <%= @server_tokens %>
+<% end %>
 
 #
 # Optionally add a line containing the server version and virtual host
@@ -19,7 +21,9 @@ ServerTokens <%= @server_tokens %>
 # Set to "EMail" to also include a mailto: link to the ServerAdmin.
 # Set to one of:  On | Off | EMail
 #
+<% unless @server_signature.nil? %>
 ServerSignature <%= @server_signature %>
+<% end %>
 
 #
 # Allow TRACE method
@@ -29,4 +33,6 @@ ServerSignature <%= @server_signature %>
 #
 # Set to one of:  On | Off | extended
 #
+<% unless @trace_enable.nil? %>
 TraceEnable <%= @trace_enable %>
+<% end %>
