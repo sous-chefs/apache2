@@ -82,4 +82,24 @@ describe 'apache2_install' do
         .with_content(/Use template_cookbook property in apache2_config or apache2_install to provide your own apache2.conf/)
     end
   end
+  context 'install apache2 with custom envvars' do
+    recipe do
+      apache2_install 'custom' do
+        envvars_additional_params(
+          FOO: 'bar'
+        )
+      end
+
+      service 'apache2' do
+        service_name lazy { apache_platform_service_name }
+        supports restart: true, status: true, reload: true
+        action :nothing
+      end
+    end
+
+    it 'has a custom envvar set' do
+      is_expected.to render_file('/etc/apache2/envvars')
+        .with_content(/FOO=bar/)
+    end
+  end
 end

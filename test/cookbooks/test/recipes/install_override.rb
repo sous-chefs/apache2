@@ -5,6 +5,9 @@ apache2_install 'default_install' do
   server_tokens 'Minimal'
   trace_enable 'On'
   default_charset 'utf-8'
+  envvars_additional_params(
+    FOO: 'bar'
+  )
 end
 
 apache2_site '000-default' do

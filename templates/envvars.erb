@@ -43,3 +43,9 @@ export LANG
 #export APACHE2_MAINTSCRIPT_DEBUG=1
 
 APACHE_STATUSURL=<%= @status_url %>
+
+<% unless @envvars_additional_params.nil? %>
+<% @envvars_additional_params.each do |k,v| %>
+<%= "#{k}=#{v}" %>
+<% end -%>
+<% end -%>

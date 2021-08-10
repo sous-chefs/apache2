@@ -76,6 +76,11 @@ control 'install-override' do
     it { should exist }
     its('content') { should cmp /AddDefaultCharset utf-8/ }
   end
+
+  describe file("#{apache_dir}/envvars") do
+    it { should exist }
+    its('content') { should cmp /FOO=bar/ }
+  end
 end
 
 #  Disable until all platforms are pukka
