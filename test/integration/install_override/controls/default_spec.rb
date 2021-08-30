@@ -65,6 +65,13 @@ control 'install-override' do
                  '/etc/httpd'
                end
 
+  apache_platform_service_name = case os[:family]
+                                 when 'debian', 'suse'
+                                   'apache2'
+                                 else
+                                   'httpd'
+                                 end
+
   describe file("#{apache_dir}/conf-enabled/security.conf") do
     it { should exist }
     its('content') { should cmp /ServerTokens Minimal/ }
@@ -77,9 +84,17 @@ control 'install-override' do
     its('content') { should cmp /AddDefaultCharset utf-8/ }
   end
 
-  describe file("#{apache_dir}/envvars") do
-    it { should exist }
-    its('content') { should cmp /FOO=bar/ }
+  case os[:family]
+  when 'debian'
+    describe file("#{apache_dir}/envvars") do
+      it { should exist }
+      its('content') { should cmp /FOO=bar/ }
+    end
+  when 'redhat', 'suse'
+    describe file("/etc/sysconfig/#{apache_platform_service_name}") do
+      it { should exist }
+      its('content') { should cmp /FOO=bar/ }
+    end
   end
 end
 
