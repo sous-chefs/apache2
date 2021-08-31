@@ -128,6 +128,9 @@ property :timeout, [Integer, String],
          default: 300,
          description: 'The number of seconds before receives and sends time out'
 
+property :envvars_additional_params, Hash,
+         description: 'Hash of additional environment variables to add to the envvars file'
+
 property :sysconfig_additional_params, Hash,
          description: 'Hash of additional sysconfig parameters to apply to the system'
 
@@ -284,7 +287,8 @@ action :install do
       pid_file: apache_pid_file,
       apache_locale: new_resource.apache_locale,
       status_url: new_resource.status_url,
-      run_dir: new_resource.run_dir
+      run_dir: new_resource.run_dir,
+      envvars_additional_params: new_resource.envvars_additional_params
     )
     only_if { platform_family?('debian') }
   end

@@ -5,6 +5,12 @@ apache2_install 'default_install' do
   server_tokens 'Minimal'
   trace_enable 'On'
   default_charset 'utf-8'
+  envvars_additional_params(
+    FOO: 'bar'
+  ) if platform_family?('debian')
+  sysconfig_additional_params(
+    FOO: 'bar'
+  ) if platform_family?('rhel', 'amazon', 'fedora', 'suse')
 end
 
 apache2_site '000-default' do
