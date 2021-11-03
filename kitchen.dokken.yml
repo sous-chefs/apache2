@@ -42,6 +42,11 @@ platforms:
       image: dokken/centos-8
       pid_one_command: /usr/lib/systemd/systemd
 
+  - name: centos-stream-8
+    driver:
+      image: dokken/centos-stream-8
+      pid_one_command: /usr/lib/systemd/systemd
+
   - name: ubuntu-18.04
     driver:
       image: dokken/ubuntu-18.04

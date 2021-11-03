@@ -42,6 +42,7 @@ jobs:
         os:
           - 'centos-7'
           - 'centos-8'
+          - 'centos-stream-8'
           - 'debian-9'
           - 'debian-10'
           - 'opensuse-leap-15'
@@ -63,6 +64,8 @@ jobs:
           - os: debian-10
             suite: pkg-name
           - os: centos-8
+            suite: pkg-name
+          - os: centos-stream-8
             suite: pkg-name
           - os: ubuntu-1804
             suite: pkg-name
