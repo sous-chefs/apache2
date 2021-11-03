@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Add CentOS Stream 8 to CI pipeline
+
 ## 8.14.0 - *2021-08-31*
 
 - Add `envvars_additional_params` property to install resource
