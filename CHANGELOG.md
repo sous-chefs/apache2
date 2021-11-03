@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
 ## 8.14.1 - *2021-11-03*
 
 - Add CentOS Stream 8 to CI pipeline
