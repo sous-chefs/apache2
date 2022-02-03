@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Update tested platforms
   - removed: CentOS 8, Debian 9
   - added: Rocky / Alma 8, Debian 11
+- Fix mod_php on Debian 11
 
 ## 8.14.1 - *2021-11-03*
 

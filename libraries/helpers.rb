@@ -424,8 +424,10 @@ module Apache2
       def apache_mod_php_filename
         case node['platform_family']
         when 'debian'
-          if platform?('debian') && node['platform_version'].to_i >= 10
+          if platform?('debian') && node['platform_version'].to_i == 10
             'libphp7.3.so'
+          elsif platform?('debian') && node['platform_version'].to_i >= 11
+            'libphp7.4.so'
           elsif platform?('ubuntu') && node['platform_version'].to_f == 18.04
             'libphp7.2.so'
           elsif platform?('ubuntu') && node['platform_version'].to_f >= 20.04
