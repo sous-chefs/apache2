@@ -399,7 +399,7 @@ module Apache2
         case node['platform_family']
         when 'debian'
           'libapache2-mod-php'
-        when 'rhel', 'fedora', 'amazon'
+        when 'rhel', 'amazon'
           'mod_php'
         when 'suse'
           'apache2-mod_php7'
@@ -424,8 +424,10 @@ module Apache2
       def apache_mod_php_filename
         case node['platform_family']
         when 'debian'
-          if platform?('debian') && node['platform_version'].to_i >= 10
+          if platform?('debian') && node['platform_version'].to_i == 10
             'libphp7.3.so'
+          elsif platform?('debian') && node['platform_version'].to_i >= 11
+            'libphp7.4.so'
           elsif platform?('ubuntu') && node['platform_version'].to_f == 18.04
             'libphp7.2.so'
           elsif platform?('ubuntu') && node['platform_version'].to_f >= 20.04
@@ -453,7 +455,7 @@ module Apache2
           'libapache2-mod-wsgi-py3'
         when 'amazon'
           'mod_wsgi'
-        when 'rhel'
+        when 'rhel', 'fedora'
           if node['platform_version'].to_i >= 8
             'python3-mod_wsgi'
           else
@@ -465,7 +467,7 @@ module Apache2
       end
 
       def apache_mod_wsgi_filename
-        if platform_family?('rhel') && node['platform_version'].to_i >= 8
+        if platform_family?('rhel', 'fedora') && node['platform_version'].to_i >= 8
           'mod_wsgi_python3.so'
         else
           'mod_wsgi.so'
@@ -473,7 +475,8 @@ module Apache2
       end
 
       def apache_mod_auth_cas_install_method
-        if (platform_family?('rhel') && node['platform_version'].to_i >= 8) || platform_family?('suse')
+        if (platform_family?('rhel') && node['platform_version'].to_i >= 8) \
+          || platform_family?('suse') || platform_family?('fedora')
           'source'
         else
           'package'
@@ -481,7 +484,7 @@ module Apache2
       end
 
       def apache_mod_auth_cas_devel_packages
-        if platform_family?('rhel', 'amazon')
+        if platform_family?('rhel', 'amazon', 'fedora')
           %w(openssl-devel libcurl-devel pcre-devel libtool)
         elsif platform_family?('debian')
           %w(libssl-dev libcurl4-openssl-dev libpcre++-dev libtool)

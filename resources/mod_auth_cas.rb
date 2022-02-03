@@ -85,7 +85,7 @@ action :install do
     when 'rhel', 'fedora', 'amazon'
       include_recipe 'yum-epel' unless platform_family?('fedora')
 
-      yum_package 'mod_auth_cas' do
+      package 'mod_auth_cas' do
         notifies :run, 'execute[generate-module-list]', :immediately
         notifies :delete, 'directory[purge distro conf.modules.d]', :immediately
         notifies :delete, 'directory[purge distro conf.d]', :immediately
