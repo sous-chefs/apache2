@@ -455,7 +455,7 @@ module Apache2
           'libapache2-mod-wsgi-py3'
         when 'amazon'
           'mod_wsgi'
-        when 'rhel'
+        when 'rhel', 'fedora'
           if node['platform_version'].to_i >= 8
             'python3-mod_wsgi'
           else
@@ -467,7 +467,7 @@ module Apache2
       end
 
       def apache_mod_wsgi_filename
-        if platform_family?('rhel') && node['platform_version'].to_i >= 8
+        if platform_family?('rhel', 'fedora') && node['platform_version'].to_i >= 8
           'mod_wsgi_python3.so'
         else
           'mod_wsgi.so'
