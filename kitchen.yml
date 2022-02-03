@@ -46,6 +46,8 @@ suites:
   - name: mod_php
     run_list:
       - recipe[test::php]
+    excludes:
+      - fedora-latest
   - name: pkg_name
     run_list:
       - recipe[test::pkg_name]

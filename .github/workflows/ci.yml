@@ -54,6 +54,8 @@ jobs:
             suite: pkg-name
           - os: fedora-latest
             suite: pkg-name
+          - os: fedora-latest
+            suite: mod-php
           - os: ubuntu-1804
             suite: pkg-name
           - os: ubuntu-2004
