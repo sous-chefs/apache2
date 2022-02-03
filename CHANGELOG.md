@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 8.14.2 - *2022-02-03*
 
 - Remove delivery and switch to using reusable CI workflow
 - Update tested platforms
