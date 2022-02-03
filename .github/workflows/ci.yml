@@ -40,6 +40,8 @@ jobs:
           - ssl
           - install-override
         exclude:
+          - os: amazonlinux-2
+            suite: pkg-name
           - os: debian-10
             suite: pkg-name
           - os: debian-11
