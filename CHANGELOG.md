@@ -4,6 +4,11 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Remove delivery and switch to using reusable CI workflow
+- Update tested platforms
+  - removed: CentOS 8, Debian 9
+  - added: Rocky / Alma 8, Debian 11
+
 ## 8.14.1 - *2021-11-03*
 
 - Add CentOS Stream 8 to CI pipeline
