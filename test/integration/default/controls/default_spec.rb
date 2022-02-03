@@ -49,7 +49,7 @@ control 'welcome-page' do
     describe http('localhost') do
       its('status') { should eq 403 }
       its('body') { should_not cmp /Forbidden/ }
-      its('body') { should cmp /Powered by (CentOS|Alma|Rocky|Apache)/ }
+      its('body') { should cmp /Powered by (CentOS|Alma|Rocky|Fedora|Apache)/ }
     end
   end
 end

@@ -475,7 +475,8 @@ module Apache2
       end
 
       def apache_mod_auth_cas_install_method
-        if (platform_family?('rhel') && node['platform_version'].to_i >= 8) || platform_family?('suse')
+        if (platform_family?('rhel') && node['platform_version'].to_i >= 8) \
+          || platform_family?('suse') || platform_family?('fedora')
           'source'
         else
           'package'
@@ -483,7 +484,7 @@ module Apache2
       end
 
       def apache_mod_auth_cas_devel_packages
-        if platform_family?('rhel', 'amazon')
+        if platform_family?('rhel', 'amazon', 'fedora')
           %w(openssl-devel libcurl-devel pcre-devel libtool)
         elsif platform_family?('debian')
           %w(libssl-dev libcurl4-openssl-dev libpcre++-dev libtool)
