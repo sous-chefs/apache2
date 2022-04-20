@@ -3,7 +3,7 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_infra
   product_name: chef
   enforce_idempotency: true
   multiple_converge: 2
@@ -13,13 +13,14 @@ verifier:
   name: inspec
 
 platforms:
+  - name: almalinux-8
   - name: amazonlinux-2
   - name: centos-7
-  - name: centos-8
   - name: centos-stream-8
-  - name: debian-9
   - name: debian-10
+  - name: debian-11
   - name: opensuse-leap-15
+  - name: rockylinux-8
   - name: ubuntu-18.04
   - name: ubuntu-20.04
 
@@ -45,6 +46,8 @@ suites:
   - name: mod_php
     run_list:
       - recipe[test::php]
+    excludes:
+      - fedora-latest
   - name: pkg_name
     run_list:
       - recipe[test::pkg_name]

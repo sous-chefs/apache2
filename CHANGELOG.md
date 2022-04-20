@@ -6,7 +6,17 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
+## 8.14.2 - *2022-02-03*
+
+- Remove delivery and switch to using reusable CI workflow
+- Update tested platforms
+  - removed: CentOS 8, Debian 9
+  - added: Rocky / Alma 8, Debian 11
+- Fix mod_php on Debian 11
+- Fedora fixes
+  - mod-auth-cas
+  - mod-wsgi
+  - Drop support for mod_php
 
 ## 8.14.1 - *2021-11-03*
 

@@ -49,7 +49,7 @@ control 'welcome-page' do
     describe http('localhost') do
       its('status') { should eq 403 }
       its('body') { should_not cmp /Forbidden/ }
-      its('body') { should cmp /powered by CentOS/ }
+      its('body') { should cmp /Powered by (CentOS|Alma|Rocky|Fedora|Apache)/ }
     end
   end
 end
@@ -100,7 +100,7 @@ control 'custom-conf' do
       its('content') { should include 'IndexOptions Charset=UTF-8' }
     end
   else
-    describe file('/etc/httpd/conf/conf-enabled/custom.conf') do
+    describe file('/etc/httpd/conf-enabled/custom.conf') do
       it { should exist }
       its('content') { should include 'IndexIgnore . .secret *.gen' }
       its('content') { should include 'IndexOptions Charset=UTF-8' }
