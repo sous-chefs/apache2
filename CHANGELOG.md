@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
 ## 8.14.3 - *2022-04-20*
 
 Standardise files with files in sous-chefs/repo-management
