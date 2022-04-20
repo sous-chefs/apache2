@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 8.14.2 - *2022-02-03*
 
 - Remove delivery and switch to using reusable CI workflow
