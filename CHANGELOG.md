@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
 ## 8.14.4 - *2022-05-16*
 
 - Fix GitHub workflow permissions
