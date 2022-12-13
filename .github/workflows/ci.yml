@@ -4,12 +4,11 @@ name: ci
 "on":
   pull_request:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@update-actions
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@0.1.0
     permissions:
       actions: write
       checks: write
