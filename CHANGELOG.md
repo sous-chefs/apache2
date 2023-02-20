@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 8.15.3 - *2023-02-20*
 
 Standardise files with files in sous-chefs/repo-management
 
