@@ -1,8 +1,6 @@
-[back to resource list](https://github.com/sous-chefs/apache2#resources)
-
----
-
 # apache2_mod_wsgi
+
+[back to resource list](https://github.com/sous-chefs/apache2#resources)
 
 Enables apache2 module `mod_wsgi`.
 
@@ -17,9 +15,9 @@ This resource will call `_module` with the correct identifiers for you.
 
 ## Properties
 
-| Name             | Type   | Default                      | Description                                       |
-| ---------------- | ------ | ---------------------------- | ------------------------------------------------- |
-| module_name      | String | `wsgi_module`                | The name of the wsgi module.                      |
-| so_filename      | String | `apache_mod_wsgi_filename`   | The filename of the module object.                |
-| package_name     | String | `apache_mod_wsgi_package`    | The package that contains the WSGI module itself. |
-| install_package  | Bool   | `true`                       | Whether to install the WSGI module package.       |
+| Name            | Type   | Default                    | Description                                       |
+| --------------- | ------ | -------------------------- | ------------------------------------------------- |
+| module_name     | String | `wsgi_module`              | The name of the wsgi module.                      |
+| so_filename     | String | `apache_mod_wsgi_filename` | The filename of the module object.                |
+| package_name    | String | `apache_mod_wsgi_package`  | The package that contains the WSGI module itself. |
+| install_package | Bool   | `true`                     | Whether to install the WSGI module package.       |
