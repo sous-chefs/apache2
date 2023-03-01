@@ -1,6 +1,6 @@
 driver:
   name: dokken
-  privileged: true  # because Docker and SystemD
+  privileged: true # because Docker and SystemD
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
 
 transport:
@@ -14,6 +14,11 @@ platforms:
   - name: almalinux-8
     driver:
       image: dokken/almalinux-8
+      pid_one_command: /usr/lib/systemd/systemd
+
+  - name: amazonlinux-2022
+    driver:
+      image: dokken/amazonlinux-2022
       pid_one_command: /usr/lib/systemd/systemd
 
   - name: amazonlinux-2
