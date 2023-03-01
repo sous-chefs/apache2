@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Update workflows to 2.0.1
+- Remove mdl and replace with markdownlint-cli2
+
 ## 8.15.4 - *2023-02-28*
 
 ## 8.15.3 - *2023-02-20*
