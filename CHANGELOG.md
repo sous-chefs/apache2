@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
 ## 8.15.5 - *2023-03-02*
 
 - Update workflows to 2.0.1
