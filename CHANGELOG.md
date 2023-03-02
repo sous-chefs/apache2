@@ -9,9 +9,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## 8.15.4 - *2023-02-28*
 
-## 8.15.3 - *2023-02-20*
-
 Standardise files with files in sous-chefs/repo-management
+
+## 8.15.3 - *2023-02-20*
 
 Standardise files with files in sous-chefs/repo-management
 
@@ -23,13 +23,19 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 8.15.0 - *2023-02-13*
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 8.14.7 - *2023-02-13*
+
+Standardise files with files in sous-chefs/repo-management
 
 ## 8.14.6 - *2022-12-13*
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 8.14.5 - *2022-12-08*
 
-- Standardise files with files in sous-chefs/repo-management
+Standardise files with files in sous-chefs/repo-management
 
 ## 8.14.4 - *2022-05-16*
 
