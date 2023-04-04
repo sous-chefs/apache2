@@ -11,7 +11,7 @@
   <% end -%>
   <% end -%>
 
-  <% unless @set_env_if_no_cases.nil? %>  
+  <% unless @set_env_if_no_cases.nil? %>
   <% @set_env_if_no_cases.each do |match| %>
   SetEnvIfNoCase <%= match %>
   <% end -%>
