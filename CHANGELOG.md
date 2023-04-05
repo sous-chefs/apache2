@@ -2,11 +2,12 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 8.15.6 - *2023-04-01*
 
-Standardise files with files in sous-chefs/repo-management
-
-Standardise files with files in sous-chefs/repo-management
+- Update workflows to 2.0.2
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.15.5 - *2023-03-02*
 
