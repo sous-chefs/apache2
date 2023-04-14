@@ -19,6 +19,8 @@ property :install_package, [true, false],
          description: 'Whether to install the Apache WSGI module package'
 
 action :create do
+  raise 'apache2_mod_wsgi resource is not supported on amazonlinux' if platform?('amazon')
+
   # install mod_wsgi package (if requested)
   package new_resource.package_name do
     only_if { new_resource.install_package }
@@ -34,6 +36,5 @@ action :create do
   apache2_module 'wsgi' do
     identifier new_resource.module_name
     mod_name new_resource.so_filename
-    notifies :restart, 'service[apache2]'
   end
 end

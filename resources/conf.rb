@@ -28,12 +28,10 @@ action :enable do
     backup false
     mode '0644'
     variables new_resource.options.merge({ apache_dir: apache_dir })
-    notifies :restart, 'service[apache2]', :delayed
   end
 
   execute "a2enconf #{new_resource.name}" do
     command "/usr/sbin/a2enconf #{new_resource.name}"
-    notifies :restart, 'service[apache2]', :delayed
     not_if { conf_enabled?(new_resource) }
   end
 end
@@ -41,7 +39,6 @@ end
 action :disable do
   execute "a2disconf #{new_resource.name}" do
     command "/usr/sbin/a2disconf #{new_resource.name}"
-    notifies :reload, 'service[apache2]', :delayed
     only_if { conf_enabled?(new_resource) }
   end
 end

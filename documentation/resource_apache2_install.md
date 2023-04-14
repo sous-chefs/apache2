@@ -1,5 +1,7 @@
 # apache2_install
 
+[Back to resource list](../README.md#resources)
+
 Installs apache2.
 
 ## Properties

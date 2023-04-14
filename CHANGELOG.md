@@ -4,18 +4,29 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- *Breaking Change:* Create `apache2_service` resource for managing the Apache service and remove all internal
+  references to reloading `service[apache2]`.
+- Update to modern platforms
+  - *Breaking Change:* Remove Amazon Linux 2
+  - Add Amazon Linux 2023, EL9, Debian 12 and Ubuntu 22.04
+- Deprecate `apache2_mod_php` for EL9, Fedora and Amazon Linux
+- Deprecate `apache2_mod_wsgi` for Amazon Linux
+
 ## 8.15.10 - *2023-04-17*
+
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.15.9 - *2023-04-07*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
+## 8.15.9 - *2023-04-07*
+
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.15.6 - *2023-04-01*
 
-Standardise files with files in sous-chefs/repo-management
-
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.15.5 - *2023-03-02*
 
@@ -24,33 +35,35 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 8.15.4 - *2023-02-28*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.15.3 - *2023-02-20*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.15.2 - *2023-02-15*
 
+- Update actions/stale action to v7
+
 ## 8.15.1 - *2023-02-14*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.15.0 - *2023-02-13*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.14.7 - *2023-02-13*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.14.6 - *2022-12-13*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.14.5 - *2022-12-08*
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
 
 ## 8.14.4 - *2022-05-16*
 

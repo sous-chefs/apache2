@@ -328,7 +328,6 @@ action :install do
     cookbook 'apache2'
     mode     '0644'
     variables(listen: new_resource.listen)
-    notifies :restart, 'service[apache2]', :delayed
   end
 
   # MPM Support Setup
@@ -349,7 +348,6 @@ action :install do
 
       apache2_module 'mpm_event' do
         mod_conf new_resource.mpm_conf || new_resource.mod_conf[:mpm_event]
-        apache_service_notification :restart
       end
     end
 
@@ -369,7 +367,6 @@ action :install do
 
       apache2_module 'mpm_prefork' do
         mod_conf new_resource.mpm_conf || new_resource.mod_conf[:mpm_prefork]
-        apache_service_notification :restart
       end
     end
 
@@ -389,7 +386,6 @@ action :install do
 
       apache2_module 'mpm_worker' do
         mod_conf new_resource.mpm_conf || new_resource.mod_conf[:mpm_worker]
-        apache_service_notification :restart
       end
     end
   end

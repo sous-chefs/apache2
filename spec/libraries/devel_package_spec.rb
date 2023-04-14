@@ -17,12 +17,7 @@ describe '#apache_devel_package' do
   end
 
   context 'amazon' do
-    platform 'amazon', '2018.03'
-    it { is_expected.to write_log('httpd24-devel') }
-  end
-
-  context 'amazon-2' do
-    platform 'amazon', '2'
+    platform 'amazon'
     it { is_expected.to write_log('httpd-devel') }
   end
 

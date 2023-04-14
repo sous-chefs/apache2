@@ -14,34 +14,40 @@ RSpec.describe Apache2::Cookbook::Helpers do
       allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
     end
 
+    context 'redhat 9' do
+      let(:platform_family) { 'rhel' }
+      let(:platform_version) { '9' }
+      it { expect(subject.apache_mod_auth_cas_install_method).to eq 'source' }
+    end
+
     context 'redhat 8' do
       let(:platform_family) { 'rhel' }
-      let(:platform_version) { '8.2.2004' }
+      let(:platform_version) { '8' }
       it { expect(subject.apache_mod_auth_cas_install_method).to eq 'source' }
     end
 
     context 'redhat 7' do
       let(:platform_family) { 'rhel' }
-      let(:platform_version) { '7.7.1908' }
+      let(:platform_version) { '7' }
       it { expect(subject.apache_mod_auth_cas_install_method).to eq 'package' }
     end
 
     context 'debian' do
       let(:platform_family) { 'debian' }
-      let(:platform_version) { '10' }
+      let(:platform_version) { '11' }
       it { expect(subject.apache_mod_auth_cas_install_method).to eq 'package' }
     end
 
     context 'ubuntu' do
       let(:platform_family) { 'debian' }
-      let(:platform_version) { '20.04' }
+      let(:platform_version) { '22.04' }
       it { expect(subject.apache_mod_auth_cas_install_method).to eq 'package' }
     end
 
     context 'amazonlinux' do
       let(:platform_family) { 'amazon' }
-      let(:platform_version) { '2018.03' }
-      it { expect(subject.apache_mod_auth_cas_install_method).to eq 'package' }
+      let(:platform_version) { '2023' }
+      it { expect(subject.apache_mod_auth_cas_install_method).to eq 'source' }
     end
 
     context 'suse' do
@@ -60,31 +66,31 @@ RSpec.describe Apache2::Cookbook::Helpers do
 
     context 'redhat 8' do
       let(:platform_family) { 'rhel' }
-      let(:platform_version) { '8.2.2004' }
+      let(:platform_version) { '8' }
       it { expect(subject.apache_mod_auth_cas_devel_packages).to eq %w(openssl-devel libcurl-devel pcre-devel libtool) }
     end
 
     context 'redhat 7' do
       let(:platform_family) { 'rhel' }
-      let(:platform_version) { '7.7.1908' }
+      let(:platform_version) { '7' }
       it { expect(subject.apache_mod_auth_cas_devel_packages).to eq %w(openssl-devel libcurl-devel pcre-devel libtool) }
     end
 
     context 'debian' do
       let(:platform_family) { 'debian' }
-      let(:platform_version) { '10' }
+      let(:platform_version) { '11' }
       it { expect(subject.apache_mod_auth_cas_devel_packages).to eq %w(libssl-dev libcurl4-openssl-dev libpcre++-dev libtool) }
     end
 
     context 'ubuntu' do
       let(:platform_family) { 'debian' }
-      let(:platform_version) { '20.04' }
+      let(:platform_version) { '22.04' }
       it { expect(subject.apache_mod_auth_cas_devel_packages).to eq %w(libssl-dev libcurl4-openssl-dev libpcre++-dev libtool) }
     end
 
     context 'amazonlinux' do
       let(:platform_family) { 'amazon' }
-      let(:platform_version) { '2018.03' }
+      let(:platform_version) { '2023' }
       it { expect(subject.apache_mod_auth_cas_devel_packages).to eq %w(openssl-devel libcurl-devel pcre-devel libtool) }
     end
 

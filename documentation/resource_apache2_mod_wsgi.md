@@ -1,6 +1,6 @@
 # apache2_mod_wsgi
 
-[back to resource list](https://github.com/sous-chefs/apache2#resources)
+[Back to resource list](../README.md#resources)
 
 Enables apache2 module `mod_wsgi`.
 

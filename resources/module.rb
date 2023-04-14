@@ -53,7 +53,6 @@ action :enable do
 
   execute "a2enmod #{new_resource.name}" do
     command "/usr/sbin/a2enmod #{new_resource.name}"
-    notifies new_resource.apache_service_notification, 'service[apache2]', :delayed
     not_if { mod_enabled?(new_resource) }
   end
 end
@@ -61,7 +60,6 @@ end
 action :disable do
   execute "a2dismod #{new_resource.name}" do
     command "/usr/sbin/a2dismod #{new_resource.name}"
-    notifies new_resource.apache_service_notification, 'service[apache2]', :delayed
     only_if { mod_enabled?(new_resource) }
   end
 end

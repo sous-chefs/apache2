@@ -1,19 +1,22 @@
 apache2_install 'default' do
   mpm 'prefork'
+  notifies :restart, 'apache2_service[default]'
 end
 
-service 'apache2' do
-  service_name lazy { apache_platform_service_name }
-  supports restart: true, status: true, reload: true
-  action :nothing
+apache2_mod_php '' do
+  notifies :reload, 'apache2_service[default]'
 end
-
-apache2_mod_php
 
 file "#{default_docroot_dir}/info.php" do
   content "<?php\nphpinfo();\n?>"
 end
 
-apache2_default_site 'php_test'
+apache2_default_site 'php_test' do
+  notifies :reload, 'apache2_service[default]'
+end
 
 package 'curl' if platform?('debian')
+
+apache2_service 'default' do
+  action %i(enable start)
+end

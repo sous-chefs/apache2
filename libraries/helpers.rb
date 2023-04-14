@@ -308,12 +308,6 @@ module Apache2
 
       def apache_devel_package(mpm)
         case node['platform_family']
-        when 'amazon'
-          if node['platform_version'].to_i == 2
-            'httpd-devel'
-          else
-            'httpd24-devel'
-          end
         when 'debian'
           if mpm == 'prefork'
             'apache2-prefork-dev'
@@ -395,11 +389,22 @@ module Apache2
       end
 
       # mod_php
+      def apache_mod_php_supported?
+        case node['platform_family']
+        when 'amazon', 'fedora'
+          false
+        when 'rhel'
+          node['platform_version'].to_i < 9
+        else
+          true
+        end
+      end
+
       def apache_mod_php_package
         case node['platform_family']
         when 'debian'
           'libapache2-mod-php'
-        when 'rhel', 'amazon'
+        when 'rhel'
           'mod_php'
         when 'suse'
           'apache2-mod_php7'
@@ -409,12 +414,20 @@ module Apache2
       def apache_mod_php_modulename
         case node['platform_family']
         when 'amazon'
-          'php5_module'
+          'php8_module'
         when 'rhel'
           if node['platform_version'].to_i >= 8
             'php7_module'
           else
             'php5_module'
+          end
+        when 'debian'
+          if platform?('debian') && node['platform_version'].to_i >= 12
+            'php_module'
+          elsif platform?('ubuntu') && node['platform_version'].to_f >= 22.04
+            'php_module'
+          else
+            'php7_module'
           end
         else
           'php7_module'
@@ -426,12 +439,16 @@ module Apache2
         when 'debian'
           if platform?('debian') && node['platform_version'].to_i == 10
             'libphp7.3.so'
-          elsif platform?('debian') && node['platform_version'].to_i >= 11
+          elsif platform?('debian') && node['platform_version'].to_i == 11
             'libphp7.4.so'
+          elsif platform?('debian') && node['platform_version'].to_i >= 12
+            'libphp8.2.so'
           elsif platform?('ubuntu') && node['platform_version'].to_f == 18.04
             'libphp7.2.so'
-          elsif platform?('ubuntu') && node['platform_version'].to_f >= 20.04
+          elsif platform?('ubuntu') && node['platform_version'].to_f == 20.04
             'libphp7.4.so'
+          elsif platform?('ubuntu') && node['platform_version'].to_f >= 22.04
+            'libphp8.1.so'
           else
             'libphp7.0.so'
           end
@@ -441,8 +458,6 @@ module Apache2
           else
             'libphp5.so'
           end
-        when 'amazon'
-          'libphp5.so'
         when 'suse'
           'mod_php7.so'
         end
@@ -453,8 +468,6 @@ module Apache2
         case node['platform_family']
         when 'debian'
           'libapache2-mod-wsgi-py3'
-        when 'amazon'
-          'mod_wsgi'
         when 'rhel', 'fedora'
           if node['platform_version'].to_i >= 8
             'python3-mod_wsgi'
@@ -475,8 +488,7 @@ module Apache2
       end
 
       def apache_mod_auth_cas_install_method
-        if (platform_family?('rhel') && node['platform_version'].to_i >= 8) \
-          || platform_family?('suse') || platform_family?('fedora')
+        if (platform_family?('rhel') && node['platform_version'].to_i >= 8) || platform_family?('suse', 'fedora', 'amazon')
           'source'
         else
           'package'

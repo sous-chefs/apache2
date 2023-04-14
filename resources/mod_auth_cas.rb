@@ -60,7 +60,6 @@ action :install do
 
     archive_file mod_auth_cas_tarball do
       destination "#{Chef::Config[:file_cache_path]}/mod_auth_cas"
-      notifies :run, 'execute[compile mod_auth_cas]', :immediately
     end
 
     execute 'compile mod_auth_cas' do
@@ -118,7 +117,6 @@ action :install do
       validate_url: new_resource.validate_url,
       directives: new_resource.directives
     )
-    notifies :reload, 'service[apache2]', :delayed
   end
 
   directory "#{cache_dir}/mod_auth_cas" do

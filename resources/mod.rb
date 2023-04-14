@@ -20,7 +20,6 @@ action :create do
     group new_resource.root_group
     mode '0644'
     variables(apache_dir: apache_dir)
-    notifies :reload, 'service[apache2]', :delayed
     action :create
   end
 end

@@ -28,6 +28,8 @@ control 'welcome-page' do
   impact 1
   desc 'Apache2 Welcome Pages Displayed'
 
+  os_name = os.name
+
   case os[:family]
   when 'debian'
     describe http('localhost') do
@@ -45,11 +47,20 @@ control 'welcome-page' do
       its('body') { should cmp /Forbidden/ }
       its('body') { should cmp /Apache.* Server/ }
     end
+  when 'rhel'
+    describe http('localhost') do
+      its('status') { should eq 403 }
+      its('body') { should_not cmp /Forbidden/ }
+      if os_name == 'amazon'
+        its('body') { should cmp /It works!/ }
+      else
+        its('body') { should cmp /Powered by (CentOS|Alma|Rocky|Fedora|Apache)/ }
+      end
+    end
   else
     describe http('localhost') do
       its('status') { should eq 403 }
       its('body') { should_not cmp /Forbidden/ }
-      its('body') { should cmp /Powered by (CentOS|Alma|Rocky|Fedora|Apache)/ }
     end
   end
 end
