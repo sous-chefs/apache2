@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
 ## 9.0.0 - *2023-04-24*
 
 - *Breaking Change:* Create `apache2_service` resource for managing the Apache service and remove all internal
