@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Remove random trailing white spaces from files
+- Remove md-links. This is now taken care of by lint-unit.yml@2.0.2
+
 ## 9.0.0 - *2023-04-24*
 
 - *Breaking Change:* Create `apache2_service` resource for managing the Apache service and remove all internal
