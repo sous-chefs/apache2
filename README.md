@@ -42,31 +42,29 @@ On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also n
 
 The following platforms and versions are tested and supported using [test-kitchen](http://kitchen.ci/)
 
-- Ubuntu 18.04 / 20.04
-- Debian 10 / 11
+- Amazon Linux 2023
 - CentOS 7+ (incl. Rocky & Alma)
+- Debian 10+
 - Fedora latest
-- OpenSUSE Leap
-
-### Notes for RHEL Family
-
-Apache2.4 support for Centos 6 is not officially supported.
+- OpenSUSE Leap 15
+- Ubuntu 18.04+
 
 ## Usage
 
 It is recommended to create a project or organization specific [wrapper cookbook](https://blog.chef.io/doing-wrapper-cookbooks-right) and add the desired custom resources to the run list of a node. Depending on your environment, you may have multiple roles that use different recipes from this cookbook. Adjust any attributes as desired.
 
 ```ruby
-# service['apache2'] is defined in the apache2_default_install resource but other resources are currently unable to reference it.  To work around this issue, define the following helper in your cookbook:
-service 'apache2' do
-  service_name lazy { apache_platform_service_name }
-  supports restart: true, status: true, reload: true
-  action :nothing
+apache2_install 'default_install' do
+  notifies :restart, 'apache2_service[default]'
 end
 
-apache2_install 'default_install'
-apache2_module 'headers'
-apache2_module 'ssl'
+apache2_module 'headers' do
+  notifies :reload, 'apache2_service[default]'
+end
+
+apache2_module 'ssl' do
+  notifies :reload, 'apache2_service[default]'
+end
 
 apache2_default_site 'foo' do
   default_site_name 'my_site'
@@ -74,25 +72,31 @@ apache2_default_site 'foo' do
   port '443'
   template_source 'my_site.conf.erb'
   action :enable
+  notifies :reload, 'apache2_service[default]'
+end
+
+apache2_service 'default' do
+  action [:enable, :start]
 end
 ```
 
 Example wrapper cookbooks:
-[basic site](https://github.com/sous-chefs/apache2/blob/master/test/cookbooks/test/recipes/basic_site.rb)
-[ssl site](https://github.com/sous-chefs/apache2/blob/master/test/cookbooks/test/recipes/mod_ssl.rb)
+[basic site](test/cookbooks/test/recipes/basic_site.rb)
+[ssl site](test/cookbooks/test/recipes/mod_ssl.rb)
 
 ## Resources
 
-- [install](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_install.md)
-- [default_site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_default_site.md)
-- [site](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_site.md)
-- [conf](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_conf.md)
-- [config](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_config.md)
-- [mod](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod.md)
-- [module](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_module.md)
-- [mod_php](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod_php.md)
-- [mod_wsgi](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod_wsgi.md)
-- [mod_auth_cas](https://github.com/sous-chefs/apache2/blob/master/documentation/resource_apache2_mod_auth_cas.md)
+- [install](documentation/resource_apache2_install.md)
+- [service](documentation/resource_apache2_service.md)
+- [default_site](documentation/resource_apache2_default_site.md)
+- [site](documentation/resource_apache2_site.md)
+- [conf](documentation/resource_apache2_conf.md)
+- [config](documentation/resource_apache2_config.md)
+- [mod](documentation/resource_apache2_mod.md)
+- [module](documentation/resource_apache2_module.md)
+- [mod_php](documentation/resource_apache2_mod_php.md)
+- [mod_wsgi](documentation/resource_apache2_mod_wsgi.md)
+- [mod_auth_cas](documentation/resource_apache2_mod_auth_cas.md)
 
 ## Contributors
 

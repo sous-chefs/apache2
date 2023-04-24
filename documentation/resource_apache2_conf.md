@@ -1,5 +1,7 @@
 # apache2_conf
 
+[Back to resource list](../README.md#resources)
+
 Writes conf files to the `conf-available` folder, and passes enabled values to `apache2_config`.
 
 ## Properties

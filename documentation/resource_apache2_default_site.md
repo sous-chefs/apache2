@@ -1,5 +1,7 @@
 # apache2_default_site
 
+[Back to resource list](../README.md#resources)
+
 Controls the default site.
 
 ## Properties

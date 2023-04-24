@@ -2,10 +2,9 @@ apt_update 'update'
 
 apache2_install 'default_install' do
   listen '8080'
+  notifies :restart, 'apache2_service[default]'
 end
 
-service 'apache2' do
-  service_name lazy { apache_platform_service_name }
-  supports restart: true, status: true, reload: true
-  action :nothing
+apache2_service 'default' do
+  action %i(enable start)
 end

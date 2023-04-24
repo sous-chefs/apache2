@@ -2,20 +2,22 @@ include_controls 'apache2-integration-tests' do
   skip_control 'welcome-page'
 end
 
-os_family = os.family
+httpd_command =
+  case os.family
+  when 'fedora'
+    'httpd -M'
+  when 'redhat'
+    os.release.to_i >= 9 ? 'httpd -M' : 'apachectl -M'
+  else
+    'apachectl -M'
+  end
 
 control 'WSGI module enabled & running' do
   impact 1
   desc 'wsgi module should be enabled with config'
 
-  if os_family == 'fedora'
-    describe command('httpd -M') do
-      its('stdout') { should match(/wsgi_module/) }
-    end
-  else
-    describe command('apachectl -M') do
-      its('stdout') { should match(/wsgi_module/) }
-    end
+  describe command httpd_command do
+    its('stdout') { should match(/wsgi_module/) }
   end
 
   describe http('localhost') do

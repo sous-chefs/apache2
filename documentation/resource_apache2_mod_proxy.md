@@ -1,5 +1,7 @@
 # apache2_mod_proxy
 
+[Back to resource list](../README.md#resources)
+
 Installs apache2 module `mod_proxy`.
 
 See [mod_proxy](https://httpd.apache.org/docs/trunk/mod/mod_proxy.html) for further documentation.

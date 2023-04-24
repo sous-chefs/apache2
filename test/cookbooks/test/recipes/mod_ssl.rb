@@ -2,19 +2,25 @@ ssl_cert_file     = "#{apache_dir}/ssl/server.crt"
 ssl_cert_key_file = "#{apache_dir}/ssl/server.key"
 app_dir           = '/var/www/basic_site'
 
-apache2_install 'default'
-
-service 'apache2' do
-  service_name lazy { apache_platform_service_name }
-  supports restart: true, status: true, reload: true
-  action :nothing
+apache2_install 'default' do
+  notifies :restart, 'apache2_service[default]'
 end
 
-apache2_module 'deflate'
-apache2_module 'headers'
-apache2_module 'ssl'
+apache2_module 'deflate' do
+  notifies :reload, 'apache2_service[default]'
+end
 
-apache2_mod_ssl ''
+apache2_module 'headers' do
+  notifies :reload, 'apache2_service[default]'
+end
+
+apache2_module 'ssl' do
+  notifies :reload, 'apache2_service[default]'
+end
+
+apache2_mod_ssl '' do
+  notifies :reload, 'apache2_service[default]'
+end
 
 directory app_dir do
   owner     lazy { default_apache_user }
@@ -60,6 +66,13 @@ apache2_default_site site_name do
     ssl_cert_file: ssl_cert_file,
     ssl_cert_key_file: ssl_cert_key_file
   )
+  notifies :reload, 'apache2_service[default]'
 end
 
-apache2_site site_name
+apache2_site site_name do
+  notifies :reload, 'apache2_service[default]'
+end
+
+apache2_service 'default' do
+  action %i(enable start)
+end

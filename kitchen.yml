@@ -14,15 +14,20 @@ verifier:
 
 platforms:
   - name: almalinux-8
-  - name: amazonlinux-2
+  - name: almalinux-9
+  - name: amazonlinux-2023
   - name: centos-7
   - name: centos-stream-8
+  - name: centos-stream-9
   - name: debian-10
   - name: debian-11
+  - name: debian-12
   - name: opensuse-leap-15
   - name: rockylinux-8
+  - name: rockylinux-9
   - name: ubuntu-18.04
   - name: ubuntu-20.04
+  - name: ubuntu-22.04
 
 suites:
   - name: default
@@ -47,7 +52,12 @@ suites:
     run_list:
       - recipe[test::php]
     excludes:
+      - almalinux-9
+      - amazonlinux-2023
+      - centos-stream-9
       - fedora-latest
+      - oraclelinux-9
+      - rockylinux-9
   - name: pkg_name
     run_list:
       - recipe[test::pkg_name]
@@ -56,6 +66,8 @@ suites:
   - name: mod_wsgi
     run_list:
       - recipe[test::wsgi]
+    excludes:
+      - amazonlinux-2023
   - name: mod_auth_cas
     run_list:
       - recipe[test::auth_cas]

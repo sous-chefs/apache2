@@ -1,5 +1,7 @@
 # apache2_config
 
+[Back to resource list](../README.md#resources)
+
 ## Properties
 
 | name                    | Type            | Default                     | Description                                                                                                    |

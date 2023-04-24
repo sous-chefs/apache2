@@ -1,19 +1,14 @@
-apache2_install 'default'
-
-# service 'apache2' do
-#   service_name lazy { apache_platform_service_name }
-#   supports restart: true, status: true, reload: true
-#   action [:start, :enable]
-# end
-
-service 'apache2' do
-  service_name lazy { apache_platform_service_name }
-  supports restart: true, status: true, reload: true
-  action :nothing
+apache2_install 'default' do
+  notifies :restart, 'apache2_service[default]'
 end
 
-apache2_module 'deflate'
-apache2_module 'headers'
+apache2_module 'deflate' do
+  notifies :reload, 'apache2_service[default]'
+end
+
+apache2_module 'headers' do
+  notifies :reload, 'apache2_service[default]'
+end
 
 app_dir = '/var/www/basic_site'
 
@@ -39,6 +34,7 @@ apache2_default_site 'basic_site' do
     log_dir: lazy { default_log_dir },
     site_name: 'basic_site'
   )
+  notifies :reload, 'apache2_service[default]'
 end
 
 apache2_default_site 'disabled_site' do
@@ -51,8 +47,14 @@ apache2_default_site 'disabled_site' do
     document_root: app_dir,
     log_dir: lazy { default_log_dir }
   )
+  notifies :reload, 'apache2_service[default]'
 end
 
 apache2_site '000-default' do
   action :disable
+  notifies :reload, 'apache2_service[default]'
+end
+
+apache2_service 'default' do
+  action %i(enable start)
 end

@@ -1,14 +1,11 @@
 apache2_install 'default' do
   mpm 'prefork'
+  notifies :restart, 'apache2_service[default]'
 end
 
-service 'apache2' do
-  service_name lazy { apache_platform_service_name }
-  supports restart: true, status: true, reload: true
-  action :nothing
+apache2_mod_wsgi '' do
+  notifies :reload, 'apache2_service[default]'
 end
-
-apache2_mod_wsgi
 
 # Required for hello world on suse
 package 'python3-webencodings' if platform_family?('suse')
@@ -25,7 +22,7 @@ directory wsgi_dir do
 end
 
 cookbook_file "#{wsgi_dir}/test.wsgi" do
-  notifies :restart, 'service[apache2]'
+  notifies :reload, 'apache2_service[default]'
 end
 
 apache2_default_site 'wsgi_site' do
@@ -39,13 +36,18 @@ apache2_default_site 'wsgi_site' do
     log_dir: lazy { default_log_dir },
     site_name: 'wsgi_site'
   )
-  notifies :restart, 'service[apache2]'
+  notifies :reload, 'apache2_service[default]'
 end
 
 apache2_site 'wsgi_site' do
-  notifies :restart, 'service[apache2]'
+  notifies :reload, 'apache2_service[default]'
 end
 
 apache2_site '000-default' do
+  notifies :reload, 'apache2_service[default]'
   action :disable
+end
+
+apache2_service 'default' do
+  action %i(enable start)
 end

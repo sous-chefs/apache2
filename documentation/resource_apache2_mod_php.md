@@ -1,5 +1,7 @@
 # apache2_mod_php
 
+[Back to resource list](../README.md#resources)
+
 Enables apache2 module `mod_php`.
 
 This resource will install and enable the Apache PHP module. See `apache_mod_php_package` for the platform-specific module package.
