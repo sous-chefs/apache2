@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Update lint-unit workflow to 2.0.4
+- Require a final step in the CI workflow after the matrix job
+  - This allows us to add a required check on results
+
 ## 9.0.1 - *2023-04-24*
 
 - Remove random trailing white spaces from files
