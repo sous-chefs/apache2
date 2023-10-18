@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Fix issue when using apache2_mod_ssl resource instead a wrapper resource
+
 ## 9.0.5 - *2023-09-28*
 
 ## 9.0.4 - *2023-09-04*
