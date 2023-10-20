@@ -61,11 +61,9 @@ property :directives, Hash,
 
 action :create do
   if platform_family?('rhel', 'fedora', 'suse', 'amazon')
-    with_run_context :root do
-      package new_resource.mod_ssl_pkg do
-        notifies :run, 'execute[generate-module-list]', :immediately
-        only_if { platform_family?('rhel', 'fedora', 'amazon') }
-      end
+    package new_resource.mod_ssl_pkg do
+      notifies :run, 'execute[generate-module-list]', :immediately
+      only_if { platform_family?('rhel', 'fedora', 'amazon') }
     end
   end
 
