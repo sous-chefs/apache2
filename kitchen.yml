@@ -51,13 +51,6 @@ suites:
   - name: mod_php
     run_list:
       - recipe[test::php]
-    excludes:
-      - almalinux-9
-      - amazonlinux-2023
-      - centos-stream-9
-      - fedora-latest
-      - oraclelinux-9
-      - rockylinux-9
   - name: pkg_name
     run_list:
       - recipe[test::pkg_name]

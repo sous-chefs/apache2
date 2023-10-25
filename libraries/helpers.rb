@@ -416,11 +416,8 @@ module Apache2
         when 'amazon'
           'php8_module'
         when 'rhel'
-          if node['platform_version'].to_i >= 8
-            'php7_module'
-          else
-            'php5_module'
-          end
+          # TODO: Remove when we no longer support RHEL 7
+          node['platform_version'].to_i >= 8 ? 'php7_module' : 'php5_module'
         when 'debian'
           if platform?('debian') && node['platform_version'].to_i >= 12
             'php_module'
@@ -453,11 +450,8 @@ module Apache2
             'libphp7.0.so'
           end
         when 'rhel'
-          if node['platform_version'].to_i >= 8
-            'libphp7.so'
-          else
-            'libphp5.so'
-          end
+          # TODO: Remove when we no longer support RHEL 7
+          node['platform_version'].to_i >= 8 ? 'libphp7.so' : 'libphp5.so'
         when 'suse'
           'mod_php7.so'
         end
@@ -469,11 +463,8 @@ module Apache2
         when 'debian'
           'libapache2-mod-wsgi-py3'
         when 'rhel', 'fedora'
-          if node['platform_version'].to_i >= 8
-            'python3-mod_wsgi'
-          else
-            'mod_wsgi'
-          end
+          # TODO: Remove when we no longer support RHEL 7
+          node['platform_version'].to_i >= 8 ? 'python3-mod_wsgi' : 'mod_wsgi'
         when 'suse'
           'apache2-mod_wsgi-python3'
         end
@@ -488,6 +479,7 @@ module Apache2
       end
 
       def apache_mod_auth_cas_install_method
+        # TODO: Simplify when we no longer support RHEL 7
         if (platform_family?('rhel') && node['platform_version'].to_i >= 8) || platform_family?('suse', 'fedora', 'amazon')
           'source'
         else
