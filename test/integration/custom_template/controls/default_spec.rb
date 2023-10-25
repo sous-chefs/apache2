@@ -109,10 +109,3 @@ control 'custom-conf' do
     end
   end
 end
-
-#  Disable until all platforms are pukka
-# include_controls 'dev-sec/apache-baseline' do
-#   skip_control 'apache-05' # We don't have hardening.conf
-#   skip_control 'apache-10' # We don't have hardening.conf
-#   skip_control 'apache-13' # We don't enable SSL by default (yet)
-# end
