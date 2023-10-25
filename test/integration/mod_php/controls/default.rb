@@ -1,4 +1,6 @@
-include_controls 'apache2-default'
+include_controls 'apache2-default' do
+  skip_control 'welcome-page'
+end
 
 control 'PHP module enabled & running' do
   impact 1

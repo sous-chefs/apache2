@@ -1,4 +1,6 @@
-include_controls 'apache2-default'
+include_controls 'apache2-default' do
+  skip_control 'welcome-page'
+end
 
 control 'custom template' do
   impact 1
