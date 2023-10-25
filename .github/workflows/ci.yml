@@ -55,6 +55,17 @@ jobs:
           # TODO: disabled due to https://github.com/chef/chef/pull/13691
           - os: opensuse-leap-15
             suite: mod-wsgi
+          # mod_php is considered old. PHP-FPM is the new hotness.
+          - os: amazonlinux-2023
+            suite: mod-php
+          - os: almalinux-9
+            suite: mod-php
+          - os: centos-stream-9
+            suite: mod-php
+          - os: fedora-latest
+            suite: mod-php
+          - os: rockylinux-9
+            suite: mod-php
     steps:
       - name: Check out code
         uses: actions/checkout@v4
