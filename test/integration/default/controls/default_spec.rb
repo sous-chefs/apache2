@@ -81,7 +81,7 @@ control 'pid file' do
   when 'debian'
     describe file("#{apache_dir}/envvars") do
       it { should exist }
-      its('content') { should match Regexp.escape('PIDFILE=/var/run/apache2/apache2.pid') }
+      its('content') { should cmp 'PIDFILE=/var/run/apache2/apache2.pid' }
     end
   when 'redhat', 'suse'
     describe file("/etc/sysconfig/#{apache_platform_service_name}") do
