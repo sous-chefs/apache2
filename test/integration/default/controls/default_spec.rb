@@ -60,9 +60,19 @@ control 'welcome-page' do
   end
 end
 
-#  Disable until all platforms are pukka
-# include_controls 'dev-sec/apache-baseline' do
-#   skip_control 'apache-05' # We don't have hardening.conf
-#   skip_control 'apache-10' # We don't have hardening.conf
-#   skip_control 'apache-13' # We don't enable SSL by defauly (yet)
-# end
+control 'pid file' do
+  impact 1
+  desc 'PID file should be setup correctly'
+  case os[:family]
+  when 'debian'
+    describe file("#{apache_dir}/envvars") do
+      it { should exist }
+      its('content') { should cmp Regexp.excape('PIDFILE=/var/run/apache2/apache2.pid/') }
+    end
+  when 'redhat', 'suse'
+    describe file("/etc/sysconfig/#{apache_platform_service_name}") do
+      it { should exist }
+      its('content') { should cmp Regexp.excape('PIDFILE=/var/run/httpd/httpd.pid') }
+    end
+  end
+end

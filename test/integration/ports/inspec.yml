@@ -1,12 +1,10 @@
 ---
-
-name: apache2-integration-tests-port
+name: apache2-ports
 title: Integration tests for apache2 cookbook
 summary: This InSpec profile contains integration tests for apache2 cookbook
 supports:
   - os-family: linux
   - os-family: bsd
-
 depends:
-  - name: apache2-integration-tests
+  - name: apache2-default
     path: test/integration/default
