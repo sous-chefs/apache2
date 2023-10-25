@@ -4,6 +4,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Tidy CI steps
+- Tidy Helpers. Switching to ternary operators where sensible
+
 ## 9.0.6 - *2023-10-20*
 
 - Fix issue when using apache2_mod_ssl resource instead a wrapper resource
