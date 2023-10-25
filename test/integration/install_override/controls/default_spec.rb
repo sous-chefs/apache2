@@ -41,7 +41,7 @@ control 'install-override' do
     describe file("/etc/sysconfig/#{apache_platform_service_name}") do
       it { should exist }
       its('content') { should cmp /FOO=bar/ }
-      its('content') { should cmp Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
+      its('content') { should match Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
     end
   end
 end
