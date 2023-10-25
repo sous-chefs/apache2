@@ -61,21 +61,30 @@ control 'welcome-page' do
 end
 
 control 'pid file' do
+  apache_dir = case os[:family]
+               when 'debian', 'suse'
+                 '/etc/apache2'
+               else
+                 '/etc/httpd'
+               end
+
+  apache_platform_service_name = case os[:family]
+                                 when 'debian', 'suse'
+                                   'apache2'
+                                 else
+                                   'httpd'
+                                 end
+
   impact 1
   desc 'PID file should be setup correctly'
   case os[:family]
   when 'debian'
-    describe file('/etc/apache2/envvars') do
+    describe file("#{apache_dir}/envvars") do
       it { should exist }
       its('content') { should match Regexp.escape('PIDFILE=/var/run/apache2/apache2.pid') }
     end
-  when 'redhat'
-    describe file('/etc/sysconfig/httpd') do
-      it { should exist }
-      its('content') { should match Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
-    end
-  when 'suse'
-    describe file('/etc/sysconfig/apache2') do
+  when 'redhat', 'suse'
+    describe file("/etc/sysconfig/#{apache_platform_service_name}") do
       it { should exist }
       its('content') { should match Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
     end
