@@ -1,5 +1,5 @@
 ---
-name: apache2-integration-tests
+name: apache2-default
 title: Integration tests for apache2 cookbook
 summary: This InSpec profile contains integration tests for apache2 cookbook
 supports:

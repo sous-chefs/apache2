@@ -1,6 +1,4 @@
-include_controls 'apache2-integration-tests' do
-  skip_control 'welcome-page'
-end
+include_controls 'apache2-default'
 
 control 'responds on 8080' do
   impact 1

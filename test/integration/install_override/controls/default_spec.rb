@@ -1,4 +1,5 @@
-include_controls
+include_controls 'apache2-default'
+
 control 'install-override' do
   impact 1
   desc 'Apache2 override install settings'

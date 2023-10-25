@@ -1,3 +1,5 @@
+include_controls 'apache2-default'
+
 control 'service' do
   impact 1
   desc 'Apache2 service is running'
