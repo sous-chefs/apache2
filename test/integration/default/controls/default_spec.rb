@@ -65,14 +65,19 @@ control 'pid file' do
   desc 'PID file should be setup correctly'
   case os[:family]
   when 'debian'
-    describe file("#{apache_dir}/envvars") do
+    describe file('/etc/apache2/envvars') do
       it { should exist }
-      its('content') { should cmp Regexp.excape('PIDFILE=/var/run/apache2/apache2.pid/') }
+      its('content') { should cmp Regexp.escape('PIDFILE=/var/run/apache2/apache2.pid/') }
     end
-  when 'redhat', 'suse'
-    describe file("/etc/sysconfig/#{apache_platform_service_name}") do
+  when 'redhat'
+    describe file('/etc/sysconfig/httpd') do
       it { should exist }
-      its('content') { should cmp Regexp.excape('PIDFILE=/var/run/httpd/httpd.pid') }
+      its('content') { should cmp Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
+    end
+  when 'suse'
+    describe file('/etc/sysconfig/apache2') do
+      it { should exist }
+      its('content') { should cmp Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
     end
   end
 end

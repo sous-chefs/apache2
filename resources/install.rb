@@ -267,7 +267,8 @@ action :install do
     mode '0644'
     variables(
       apache_binary: apache_binary,
-      apache_dir: apache_dir,
+      apache_locale: new_resource.apache_locale,
+      apache_pid_file: new_resource.apache_pid_file,
       sysconfig_additional_params: new_resource.sysconfig_additional_params
     )
     only_if { platform_family?('rhel', 'amazon', 'fedora', 'suse') }

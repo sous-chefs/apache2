@@ -35,13 +35,13 @@ control 'install-override' do
     describe file("#{apache_dir}/envvars") do
       it { should exist }
       its('content') { should cmp /FOO=bar/ }
-      its('content') { should cmp Regexp.excape('PIDFILE=/var/run/apache2/apache2.pid/') }
+      its('content') { should cmp Regexp.escape('PIDFILE=/var/run/apache2/apache2.pid/') }
     end
   when 'redhat', 'suse'
     describe file("/etc/sysconfig/#{apache_platform_service_name}") do
       it { should exist }
       its('content') { should cmp /FOO=bar/ }
-      its('content') { should cmp Regexp.excape('PIDFILE=/var/run/httpd/httpd.pid') }
+      its('content') { should cmp Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
     end
   end
 end
