@@ -67,17 +67,17 @@ control 'pid file' do
   when 'debian'
     describe file('/etc/apache2/envvars') do
       it { should exist }
-      its('content') { should cmp Regexp.escape('PIDFILE=/var/run/apache2/apache2.pid/') }
+      its('content') { should match Regexp.escape('PIDFILE=/var/run/apache2/apache2.pid') }
     end
   when 'redhat'
     describe file('/etc/sysconfig/httpd') do
       it { should exist }
-      its('content') { should cmp Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
+      its('content') { should match Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
     end
   when 'suse'
     describe file('/etc/sysconfig/apache2') do
       it { should exist }
-      its('content') { should cmp Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
+      its('content') { should match Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
     end
   end
 end
