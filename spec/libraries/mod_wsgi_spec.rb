@@ -84,7 +84,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
 
     context 'amazonlinux' do
       let(:platform_family) { 'amazon' }
-      let(:platform_version) { '2018.03' }
+      let(:platform_version) { '2' }
       it { expect(subject.apache_mod_wsgi_filename).to eq 'mod_wsgi.so' }
     end
 
