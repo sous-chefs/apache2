@@ -83,10 +83,15 @@ control 'pid file' do
       it { should exist }
       its('content') { should cmp 'PIDFILE=/var/run/apache2/apache2.pid' }
     end
-  when 'redhat', 'suse'
+  when 'redhat'
     describe file("/etc/sysconfig/#{apache_platform_service_name}") do
       it { should exist }
       its('content') { should match Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
+    end
+  when 'suse'
+    describe file("/etc/sysconfig/#{apache_platform_service_name}") do
+      it { should exist }
+      its('content') { should match Regexp.escape('PIDFILE=/var/run/httpd2.pid') }
     end
   end
 end
