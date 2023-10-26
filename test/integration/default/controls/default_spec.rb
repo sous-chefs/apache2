@@ -79,9 +79,10 @@ control 'pid file' do
   desc 'PID file should be setup correctly'
   case os[:family]
   when 'debian'
+    # Debian doesn't use /etc/sysconfig instead it relies on /etc/apache2/envvars
     describe file("#{apache_dir}/envvars") do
       it { should exist }
-      its('content') { should cmp 'PIDFILE=/var/run/apache2/apache2.pid' }
+      its('content') { should cmp 'PidFile /var/run/apache2/apache2.pid' }
     end
   when 'redhat'
     describe file("/etc/sysconfig/#{apache_platform_service_name}") do
