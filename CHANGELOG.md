@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 9.1.1 - *2023-10-31*
 
 ## 9.1.0 - *2023-10-25*
 
