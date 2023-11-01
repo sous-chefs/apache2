@@ -4,7 +4,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
-- Change ServerSpec to InSpec
+- Change InSpec test names and include the default profile in more places
 
 ## 9.1.1 - *2023-10-31*
 
