@@ -4,6 +4,12 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Change InSpec test names and include the default profile in more places
+- Remove CentOS 7 from the test matrix
+- Remove pkg name test
+  - This is no longer needed as we're no longer testing on CentOS 7
+- Update tests, switching cmp for match there relevant
+
 ## 9.1.1 - *2023-10-31*
 
 ## 9.1.0 - *2023-10-25*

@@ -60,9 +60,39 @@ control 'welcome-page' do
   end
 end
 
-#  Disable until all platforms are pukka
-# include_controls 'dev-sec/apache-baseline' do
-#   skip_control 'apache-05' # We don't have hardening.conf
-#   skip_control 'apache-10' # We don't have hardening.conf
-#   skip_control 'apache-13' # We don't enable SSL by defauly (yet)
-# end
+control 'pid file' do
+  apache_dir = case os[:family]
+               when 'debian', 'suse'
+                 '/etc/apache2'
+               else
+                 '/etc/httpd'
+               end
+
+  apache_platform_service_name = case os[:family]
+                                 when 'debian', 'suse'
+                                   'apache2'
+                                 else
+                                   'httpd'
+                                 end
+
+  impact 1
+  desc 'PID file should be setup correctly'
+  case os[:family]
+  when 'debian'
+    # Debian doesn't use /etc/sysconfig instead it relies on /etc/apache2/envvars
+    describe file("#{apache_dir}/envvars") do
+      it { should exist }
+      its('content') { should match %r{APACHE_PID_FILE=/var/run/apache2/apache2.pid} }
+    end
+  when 'redhat'
+    describe file("/etc/sysconfig/#{apache_platform_service_name}") do
+      it { should exist }
+      its('content') { should match Regexp.escape('PIDFILE=/var/run/httpd/httpd.pid') }
+    end
+  when 'suse'
+    describe file("/etc/sysconfig/#{apache_platform_service_name}") do
+      it { should exist }
+      its('content') { should match Regexp.escape('PIDFILE=/var/run/httpd2.pid') }
+    end
+  end
+end

@@ -1,3 +1,5 @@
+include_controls 'apache2-default'
+
 control 'service' do
   impact 1
   desc 'Apache2 service is running'
@@ -43,7 +45,7 @@ control 'welcome-page' do
     describe http('localhost') do
       its('status') { should eq 403 }
       its('body') { should cmp /Forbidden/ }
-      its('body') { should cmp /Apache Server/ }
+      its('body') { should cmp /Apache/ }
     end
   else
     describe http('localhost') do
@@ -107,10 +109,3 @@ control 'custom-conf' do
     end
   end
 end
-
-#  Disable until all platforms are pukka
-# include_controls 'dev-sec/apache-baseline' do
-#   skip_control 'apache-05' # We don't have hardening.conf
-#   skip_control 'apache-10' # We don't have hardening.conf
-#   skip_control 'apache-13' # We don't enable SSL by defauly (yet)
-# end

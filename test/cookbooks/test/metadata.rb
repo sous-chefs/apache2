@@ -8,4 +8,4 @@ version           '0.0.1'
 
 depends           'apache2'
 depends           'apt'
-depends           'yum-ius'
+# depends           'yum-ius'

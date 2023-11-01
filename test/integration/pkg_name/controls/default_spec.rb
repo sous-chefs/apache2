@@ -1,3 +1,7 @@
+include_controls 'apache2-default' do
+  skip_control 'welcome-page'
+end
+
 control 'service' do
   impact 1
   desc 'Apache2 service is running'

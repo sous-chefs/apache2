@@ -1,4 +1,4 @@
-include_controls 'apache2-integration-tests' do
+include_controls 'apache2-default' do
   skip_control 'welcome-page'
 end
 
