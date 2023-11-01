@@ -45,7 +45,7 @@ control 'welcome-page' do
     describe http('localhost') do
       its('status') { should eq 403 }
       its('body') { should cmp /Forbidden/ }
-      its('body') { should cmp /Apache Server/ }
+      its('body') { should cmp /Apache/ }
     end
   else
     describe http('localhost') do

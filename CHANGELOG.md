@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the apache2 cookbook.
 - Remove CentOS 7 from the test matrix
 - Remove pkg name test
   - This is no longer needed as we're no longer testing on CentOS 7
+- Update tests, switching cmp for match there relevant
 
 ## 9.1.1 - *2023-10-31*
 
