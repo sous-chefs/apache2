@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Change ServerSpec to InSpec
+
 ## 9.1.0 - *2023-10-25*
 
 - Tidy CI steps
