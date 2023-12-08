@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Match lock directory permissions and ownership to distribution for RHEL
+
 ## 9.2.0 - *2023-11-01*
 
 - Change InSpec test names and include the default profile in more places
