@@ -250,13 +250,20 @@ action :install do
   end
 
   directory lock_dir do
-    mode '0750'
-    if platform_family?('debian')
+    case node['platform_family']
+    when 'debian'
+      mode '0750'
       owner new_resource.apache_user
-    else
+      group new_resource.root_group
+    when 'rhel', 'fedora', 'amazon'
+      mode '0710'
       owner 'root'
+      group new_resource.apache_group
+    else
+      mode '0750'
+      owner 'root'
+      group new_resource.root_group
     end
-    group new_resource.root_group
   end
 
   template "/etc/sysconfig/#{apache_platform_service_name}" do
