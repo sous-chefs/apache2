@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
+## 9.3.0 - *2023-12-11*
 
 - Match lock directory permissions and ownership to distribution for RHEL
 
