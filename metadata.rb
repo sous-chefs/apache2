@@ -6,7 +6,7 @@ maintainer_email 'help@sous-chefs.org'
 chef_version     '>= 15.3'
 license          'Apache-2.0'
 description      'Installs and configures apache2'
-version          '9.3.2'
+version          '9.3.3'
 
 depends 'yum-epel'
 
