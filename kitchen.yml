@@ -50,13 +50,6 @@ suites:
   - name: mod_php
     run_list:
       - recipe[test::php]
-    excludes:
-      - almalinux-9
-      - amazonlinux-2023
-      - centos-stream-9
-      - fedora-latest
-      - oraclelinux-9
-      - rockylinux-9
   - name: mod_wsgi
     run_list:
       - recipe[test::wsgi]
