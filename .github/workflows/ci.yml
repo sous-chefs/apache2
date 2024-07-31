@@ -31,6 +31,8 @@ jobs:
           - debian-12
           - fedora-latest
           - opensuse-leap-15
+          - oraclelinux-8
+          - oraclelinux-9
           - rockylinux-8
           - rockylinux-9
           - ubuntu-2004
@@ -39,16 +41,16 @@ jobs:
           - basic-site
           - default
           - mod-auth-cas
-          - mod-php
+          - php
           - module-template
           - mod-wsgi
           - ports
           - ssl
           - install-override
         exclude:
+          # TODO: disabled due to https://github.com/chef/chef/pull/13691
           - os: amazonlinux-2023
             suite: mod-wsgi
-          # TODO: disabled due to https://github.com/chef/chef/pull/13691
           - os: opensuse-leap-15
             suite: mod-wsgi
     steps:
