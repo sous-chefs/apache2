@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
 ## 9.3.4 - *2024-08-02*
 
 - Add example of how to configure php fpm pool config for rhel9 and derivatives
