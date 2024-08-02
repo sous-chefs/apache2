@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
+- Add example of how to configure php fpm pool config for rhel9 and derivatives
+
 ## 9.3.3 - *2024-07-15*
 
 Standardise files with files in sous-chefs/repo-management

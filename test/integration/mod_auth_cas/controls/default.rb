@@ -4,7 +4,7 @@ end
 
 httpd_command =
   case os.family
-  when 'fedora', 'amazon'
+  when 'fedora', 'amazon', 'suse'
     'httpd -M'
   when 'redhat'
     os.release.to_i >= 9 ? 'httpd -M' : 'apachectl -M'
