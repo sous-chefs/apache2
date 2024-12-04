@@ -29,14 +29,13 @@ jobs:
           - centos-stream-9
           - debian-11
           - debian-12
-          - fedora-latest
           - opensuse-leap-15
           - oraclelinux-8
           - oraclelinux-9
           - rockylinux-8
           - rockylinux-9
-          - ubuntu-2004
           - ubuntu-2204
+          - ubuntu-2404
         suite:
           - basic-site
           - default
@@ -51,8 +50,18 @@ jobs:
           # TODO: disabled due to https://github.com/chef/chef/pull/13691
           - os: amazonlinux-2023
             suite: mod-wsgi
+          - os: ubuntu-2404
+            suite: php
+          - os: opensuse-leap-15
+            suite: mod-auth-cas
+          - os: opensuse-leap-15
+            suite: wsgi
           - os: opensuse-leap-15
             suite: mod-wsgi
+
+
+          # - os: opensuse-leap-15
+          #   suite: mod-wsgi
     steps:
       - name: Check out code
         uses: actions/checkout@v4

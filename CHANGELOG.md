@@ -4,9 +4,9 @@ This file is used to list changes made in each version of the apache2 cookbook.
 
 ## Unreleased
 
-## 9.3.5 - *2024-11-18*
+Remove Fedora from the test matrix
 
-Standardise files with files in sous-chefs/repo-management
+## 9.3.5 - *2024-11-18*
 
 Standardise files with files in sous-chefs/repo-management
 
@@ -15,8 +15,6 @@ Standardise files with files in sous-chefs/repo-management
 - Add example of how to configure php fpm pool config for rhel9 and derivatives
 
 ## 9.3.3 - *2024-07-15*
-
-Standardise files with files in sous-chefs/repo-management
 
 Standardise files with files in sous-chefs/repo-management
 
@@ -58,7 +56,7 @@ Standardise files with files in sous-chefs/repo-management
 ## 9.0.1 - *2023-04-24*
 
 - Remove random trailing white spaces from files
-- Remove md-links. This is now taken care of by lint-unit.yml@2.0.2
+- Remove md-links. This is now taken care of by `lint-unit.yml@2.0.2`
 
 ## 9.0.0 - *2023-04-24*
 
