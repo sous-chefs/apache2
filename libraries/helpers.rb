@@ -407,7 +407,11 @@ module Apache2
         when 'rhel'
           'mod_php'
         when 'suse'
-          'apache2-mod_php7'
+          if platform?('opensuse') && node['platform_version'].to_f >= 15.5
+            'apache2-mod_php8'
+          else
+            'apache2-mod_php7'
+          end
         end
       end
 
@@ -444,8 +448,10 @@ module Apache2
             'libphp7.2.so'
           elsif platform?('ubuntu') && node['platform_version'].to_f == 20.04
             'libphp7.4.so'
-          elsif platform?('ubuntu') && node['platform_version'].to_f >= 22.04
+          elsif platform?('ubuntu') && node['platform_version'].to_f >= 22.04 && node['platform_version'].to_f < 24.04
             'libphp8.1.so'
+          elsif platform?('ubuntu') && node['platform_version'].to_f >= 24.04
+            'libphp8.3.so'
           else
             'libphp7.0.so'
           end
@@ -453,7 +459,11 @@ module Apache2
           # TODO: Remove when we no longer support RHEL 7
           node['platform_version'].to_i >= 8 ? 'libphp7.so' : 'libphp5.so'
         when 'suse'
-          'mod_php7.so'
+          if platform?('opensuse') && node['platform_version'].to_f >= 15.5
+            'mod_php8.so'
+          else
+            'mod_php7.so'
+          end
         end
       end
 
