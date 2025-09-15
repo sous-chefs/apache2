@@ -15,3 +15,5 @@ jobs:
       packages: write
       attestations: write
       id-token: write
+    with:
+      token: ${{ secrets.PORTER_GITHUB_TOKEN }}
