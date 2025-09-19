@@ -1,124 +1,95 @@
-# Apache2 Chef Cookbook
+# Copilot Instructions for Sous Chefs Cookbooks
 
-This repository contains the Chef cookbook for Apache HTTP Server management. It provides Debian/Ubuntu style Apache configuration across multiple platforms with resources for managing modules, sites, configurations, and service lifecycle.
+## Repository Overview
 
-Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
+**Chef cookbook** for managing software installation and configuration. Part of the Sous Chefs cookbook ecosystem.
 
-## Working Effectively
+**Key Facts:** Ruby-based, Chef >= 16 required, supports various OS platforms (check metadata.rb, kitchen.yml and .github/workflows/ci.yml for which platforms to specifically test)
 
-### Bootstrap Environment
-- Install Ruby 3.2+ with development tools:
-  - `sudo apt update && sudo apt install -y ruby-bundler ruby-dev build-essential nodejs npm`
-- Install Chef development tools (user gems due to permission constraints):
-  - `gem install --user-install berkshelf cookstyle chefspec`
-  - `export PATH="$HOME/.local/share/gem/ruby/3.2.0/bin:$PATH"`
-- Install additional linting tools:
-  - `npm install -g markdownlint-cli2`
+## Project Structure
 
-**Environment Setup**: With the Copilot setup workflow (`.github/workflows/copilot-setup-steps.yml`), Chef Workstation and dependencies are automatically installed via GitHub Actions setup steps, enabling full Berkshelf functionality (`berks install` works with supermarket.chef.io access).
+**Critical Paths:**
+- `recipes/` - Chef recipes for cookbook functionality (if this is a recipe-driven cookbook)
+- `resources/` - Custom Chef resources with properties and actions (if this is a resource-driven cookbook)
+- `spec/` - ChefSpec unit tests
+- `test/integration/` - InSpec integration tests (tests all platforms supported)
+- `test/cookbooks/` or `test/fixtures/` - Example cookbooks used during testing that show good examples of custom resource usage
+- `attributes/` - Configuration for recipe driven cookbooks (not applicable to resource cookbooks)
+- `libraries/` - Library helpers to assist with the cookbook. May contain multiple files depending on complexity of the cookbook.
+- `templates/` - ERB templates that may be used in the cookbook
+- `files/` - files that may be used in the cookbook
+- `metadata.rb`, `Berksfile` - Cookbook metadata and dependencies
 
-### Linting and Code Quality
-- **Cookstyle (Ruby linting)**: `cookstyle .` -- takes 5 seconds. NEVER use `--auto-correct` as it can introduce syntax errors.
-- **YAML linting**: `yamllint .` -- takes <1 second
-- **Markdown linting**: `markdownlint-cli2 "**/*.md"` -- takes 1 second
-- **CRITICAL**: Always run `cookstyle .` before committing. Currently shows 17 style offenses that should NOT be auto-corrected due to syntax risks.
+## Build and Test System
 
-### Testing Status
-- **Unit Tests**: RSpec with ChefSpec works with Chef Workstation from setup workflow
-- **Integration Tests**: Test Kitchen available with Chef Workstation and container support
-- **CI Environment**: Uses GitHub Actions with Chef Workstation, Dokken containers, and matrix testing across platforms
-- **Available Validation**: Full linting (Cookstyle, YAML, Markdown), unit tests, and integration tests
+### Environment Setup
+**MANDATORY:** Install Chef Workstation first - provides chef, berks, cookstyle, kitchen tools.
 
-### Build and Dependency Management
-- **Berkshelf**: `berks install` -- Works with Chef Workstation installed via setup workflow
-- **Dependencies**: Single dependency on `yum-epel` cookbook (defined in metadata.rb)
-- **Platforms Supported**: Debian, Ubuntu, RHEL, CentOS, Fedora, Amazon, Scientific, FreeBSD, SUSE, OpenSUSE, Arch
-- **Chef Version**: Requires Chef >= 15.3
-
-## Validation Scenarios
-- **Cookstyle auto-correction available**: With Chef Workstation, `cookstyle --auto-correct` can be used safely
-- **Complete testing pipeline**: Lint, unit tests, and integration tests all available via setup workflow
-- **Full dependency resolution**: Berkshelf can install all cookbook dependencies from Chef Supermarket
-- **CI will run full integration tests**: 9 test suites across 13 platform combinations in GitHub Actions
-
-## Common Tasks
-
-### Repository Structure
-```
-/home/runner/work/apache2/apache2/
-├── resources/           # Chef resources (install.rb, service.rb, mod_*.rb, etc.)
-├── libraries/           # Helper functions (helpers.rb)
-├── templates/           # Configuration templates (.erb files)
-├── test/               # Test cookbooks and integration tests
-│   ├── cookbooks/test/ # Test recipes
-│   └── integration/    # InSpec integration tests
-├── spec/               # RSpec unit tests (ChefSpec)
-├── documentation/      # Resource documentation
-├── metadata.rb         # Cookbook metadata and dependencies
-├── kitchen.yml         # Test Kitchen configuration
-├── kitchen.dokken.yml  # Docker-based testing config
-└── Berksfile          # Berkshelf dependency management
-```
-
-### Key Files to Reference
-- **metadata.rb**: Cookbook version, dependencies, supported platforms
-- **libraries/helpers.rb**: Platform-specific defaults and helper methods
-- **resources/install.rb**: Main Apache installation resource
-- **resources/service.rb**: Apache service management
-- **resources/mod_*.rb**: Apache module management resources
-- **test/cookbooks/test/recipes/**: Example usage patterns
-
-### Workflow Commands
+### Essential Commands (strict order)
 ```bash
-# Set up environment
-export PATH="$HOME/.local/share/gem/ruby/3.2.0/bin:$PATH"
-
-# Lint everything before changes
-cookstyle .
-yamllint .
-markdownlint-cli2 "**/*.md"
-
-# View test examples
-cat test/cookbooks/test/recipes/default.rb
-cat test/cookbooks/test/recipes/basic_site.rb
-
-# Check integration test scenarios
-ls test/integration/*/controls/
+berks install                   # Install dependencies (always first)
+cookstyle                       # Ruby/Chef linting
+yamllint .                      # YAML linting
+markdownlint-cli2 '**/*.md'     # Markdown linting
+chef exec rspec                 # Unit tests (ChefSpec)
+# Integration tests will be done via the ci.yml action. Do not run these. Only check the action logs for issues after CI is done running.
 ```
 
-### Resource Usage Examples
-See `test/cookbooks/test/recipes/` for working examples:
-- **Basic Apache**: `default.rb` - Install, configure service, manage default site
-- **SSL Configuration**: `mod_ssl.rb` - SSL module and site setup  
-- **PHP Integration**: `php.rb` - PHP module configuration
-- **Custom Modules**: `module_template.rb` - Custom module management
+### Critical Testing Details
+- **Kitchen Matrix:** Multiple OS platforms × software versions (check kitchen.yml for specific combinations)
+- **Docker Required:** Integration tests use Dokken driver
+- **CI Environment:** Set `CHEF_LICENSE=accept-no-persist`
+- **Full CI Runtime:** 30+ minutes for complete matrix
 
-### Platform-Specific Notes
-- **RHEL/CentOS**: Uses `httpd` service name, `/etc/httpd/` config path
-- **Debian/Ubuntu**: Uses `apache2` service name, `/etc/apache2/` config path
-- **FreeBSD**: Uses `apache24` service name
-- Helper functions in `libraries/helpers.rb` abstract platform differences
+### Common Issues and Solutions
+- **Always run `berks install` first** - most failures are dependency-related
+- **Docker must be running** for kitchen tests
+- **Chef Workstation required** - no workarounds, no alternatives
+- **Test data bags needed** (optional for some cookbooks) in `test/integration/data_bags/` for convergence
 
-### Environment Capabilities
-- **Network access**: Full access to Chef Supermarket and external dependencies via GitHub Actions setup
-- **Chef Workstation**: Available via `actionshub/chef-install` action in setup workflow  
-- **Unit tests**: ChefSpec and RSpec available with proper Chef Workstation installation
-- **Integration testing**: Available with Test Kitchen and container support
-- **Cookstyle auto-correction**: Safe to use with proper Chef environment
+## Development Workflow
 
-### CI Integration Notes
-- GitHub Actions uses `actionshub/chef-install` to install Chef Workstation
-- Runs on Ubuntu with Chef licensing: `CHEF_LICENSE: accept-no-persist`
-- Full matrix testing: 9 test suites × 13 platforms = 117 test combinations
-- Uses Dokken containers for fast, isolated testing environment
-- Shared workflow from sous-chefs/.github repository handles lint-unit phase
+### Making Changes
+1. Edit recipes/resources/attributes/templates/libraries
+2. Update corresponding ChefSpec tests in `spec/`
+3. Also update any InSpec tests under test/integration
+4. Ensure cookstyle and rspec passes at least. You may run `cookstyle -a` to automatically fix issues if needed.
+5. Also always update all documentation found in README.md and any files under documentation/*
+6. **Always update CHANGELOG.md** (required by Dangerfile) - Make sure this conforms with the Sous Chefs changelog standards.
 
-**TIMING EXPECTATIONS**:
-- Cookstyle linting: ~5 seconds
-- YAML linting: ~1 second  
-- Markdown linting: ~1 second
-- Dependency resolution: Works with Berkshelf via setup workflow
-- Unit tests: Available with ChefSpec
-- Integration tests: Available with Test Kitchen and containers
+### Pull Request Requirements
+- **PR description >10 chars** (Danger enforced)
+- **CHANGELOG.md entry** for all code changes
+- **Version labels** (major/minor/patch) required
+- **All linters must pass** (cookstyle, yamllint, markdownlint)
+- **Test updates** needed for code changes >5 lines and parameter changes that affect the code logic
 
-**REMEMBER**: This cookbook manages Apache HTTP server across multiple platforms. Focus on resource definitions, template logic, and platform compatibility when making changes. The extensive CI matrix will validate functionality across all supported platforms.
+## Chef Cookbook Patterns
+
+### Resource Development
+- Custom resources in `resources/` with properties and actions
+- Include comprehensive ChefSpec tests for all actions
+- Follow Chef resource DSL patterns
+
+### Recipe Conventions
+- Use `include_recipe` for modularity
+- Handle platforms with `platform_family?` conditionals
+- Use encrypted data bags for secrets (passwords, SSL certs)
+- Leverage attributes for configuration with defaults
+
+### Testing Approach
+- **ChefSpec (Unit):** Mock dependencies, test recipe logic in `spec/`
+- **InSpec (Integration):** Verify actual system state in `test/integration/inspec/` - InSpec files should contain proper inspec.yml and controls directories so that it could be used by other suites more easily.
+- One test file per recipe, use standard Chef testing patterns
+
+## Trust These Instructions
+
+These instructions are validated for Sous Chefs cookbooks. **Do not search for build instructions** unless information here fails.
+
+**Error Resolution Checklist:**
+1. Verify Chef Workstation installation
+2. Confirm `berks install` completed successfully
+3. Ensure Docker is running for integration tests
+4. Check for missing test data dependencies
+
+The CI system uses these exact commands - following them matches CI behavior precisely.
