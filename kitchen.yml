@@ -54,8 +54,6 @@ suites:
   - name: mod_wsgi
     run_list:
       - recipe[test::wsgi]
-    excludes:
-      - amazonlinux-2023
   - name: mod_auth_cas
     run_list:
       - recipe[test::auth_cas]
