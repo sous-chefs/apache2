@@ -5,15 +5,15 @@ name: release-please
   push:
     branches: [main]
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  packages: write
+  attestations: write
+  id-token: write
+
 jobs:
   release-cookbook:
     uses: sous-chefs/.github/.github/workflows/release-cookbook.yml@4.1.0
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      packages: write
-      attestations: write
-      id-token: write
-    with:
-      token: ${{ secrets.PORTER_GITHUB_TOKEN }}
+    secrets: inherit
