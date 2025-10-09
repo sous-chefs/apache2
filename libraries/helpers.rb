@@ -244,11 +244,11 @@ module Apache2
 
         case node['platform_family']
         when 'rhel', 'fedora', 'amazon'
-          default_modules.concat %w(log_config logio unixd systemd)
+          default_modules.push('log_config', 'logio', 'unixd', 'systemd')
         when 'arch', 'freebsd'
-          default_modules.concat %w(log_config logio unixd)
+          default_modules.push('log_config', 'logio', 'unixd')
         when 'suse'
-          default_modules.concat %w(log_config logio)
+          default_modules.push('log_config', 'logio')
         else
           default_modules
         end
@@ -337,41 +337,37 @@ module Apache2
       end
 
       def config_file?(mod_name)
-        if %w(ldap
-              actions
-              alias
-              auth_cas
-              autoindex
-              cache_disk
-              cgid
-              dav_fs
-              deflate
-              dir
-              fastcgi
-              fcgid
-              include
-              info
-              ldap
-              mime_magic
-              mime
-              negotiation
-              pagespeed
-              proxy_balancer
-              proxy_ftp
-              proxy
-              reqtimeout
-              setenvif
-              ssl
-              status
-              userdir
-              mpm_event
-              mpm_prefork
-              mpm_worker
-        ).include?(mod_name)
-          true
-        else
-          false
-        end
+        %w(ldap
+           actions
+           alias
+           auth_cas
+           autoindex
+           cache_disk
+           cgid
+           dav_fs
+           deflate
+           dir
+           fastcgi
+           fcgid
+           include
+           info
+           ldap
+           mime_magic
+           mime
+           negotiation
+           pagespeed
+           proxy_balancer
+           proxy_ftp
+           proxy
+           reqtimeout
+           setenvif
+           ssl
+           status
+           userdir
+           mpm_event
+           mpm_prefork
+           mpm_worker
+        ).include?(mod_name) || false
       end
 
       def pagespeed_url

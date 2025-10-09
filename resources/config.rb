@@ -43,7 +43,7 @@ property :keep_alive_timeout, Integer,
 
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
-         description: 'Apache document root.'\
+         description: 'Apache document root.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :timeout, [Integer, String],
@@ -57,7 +57,7 @@ property :server_name, String,
 
 property :run_dir, String,
          default: lazy { default_run_dir },
-         description: ' Sets the DefaultRuntimeDir directive.'\
+         description: ' Sets the DefaultRuntimeDir directive.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :template_cookbook, String,

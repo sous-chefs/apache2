@@ -17,22 +17,22 @@ Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :apache_user, String,
          default: lazy { default_apache_user },
-         description: 'Set to override the default apache2 user.'\
+         description: 'Set to override the default apache2 user.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :apache_group, String,
          default: lazy { default_apache_group },
-         description: 'Set to override the default apache2 user.'\
+         description: 'Set to override the default apache2 user.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :log_dir, String,
          default: lazy { default_log_dir },
-         description: 'Log directory location.'\
+         description: 'Log directory location.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :error_log, String,
          default: lazy { default_error_log },
-         description: 'Error log location.'\
+         description: 'Error log location.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :log_level, String,
@@ -76,7 +76,7 @@ property :httpd_t_timeout, Integer,
 
 property :mpm, String,
          default: lazy { default_mpm },
-         description: 'Multi-processing Module.'\
+         description: 'Multi-processing Module.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :mpm_conf, Hash,
@@ -111,12 +111,12 @@ property :keep_alive_timeout, Integer,
 
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
-         description: 'Apache document root.'\
+         description: 'Apache document root.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :run_dir, String,
          default: lazy { default_run_dir },
-         description: 'Location for APACHE_RUN_DIR.'\
+         description: 'Location for APACHE_RUN_DIR.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :access_file_name, String,
