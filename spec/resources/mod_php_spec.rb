@@ -33,7 +33,7 @@ describe 'apache2_mod_php' do
     it do
       is_expected.to enable_apache2_module('php').with(
         identifier: 'php_module',
-        mod_name: 'libphp8.1.so'
+        mod_name: 'libphp8.3.so'
       )
     end
   end
