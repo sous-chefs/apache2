@@ -10,5 +10,4 @@ jobs:
     uses: sous-chefs/.github/.github/workflows/conventional-commits.yml@5.0.1
     permissions:
       pull-requests: read
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+    secrets: inherit
