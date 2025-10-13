@@ -10,6 +10,15 @@ Standardise files with files in sous-chefs/repo-management
 
 Standardise files with files in sous-chefs/repo-management
 
+## [9.3.8](https://github.com/sous-chefs/apache2/compare/9.3.7...v9.3.8) (2025-10-13)
+
+
+### Bug Fixes
+
+* Adds release workflow ([#828](https://github.com/sous-chefs/apache2/issues/828)) ([492a2f0](https://github.com/sous-chefs/apache2/commit/492a2f01445694772987eb58332ab2b1891065fc))
+* **ci:** Fix workflows so they actually pass the secrets correctly ([#835](https://github.com/sous-chefs/apache2/issues/835)) ([e970e0f](https://github.com/sous-chefs/apache2/commit/e970e0ff90ed3aec9bc259739329438b45ad7ac6))
+* Inputs ([#831](https://github.com/sous-chefs/apache2/issues/831)) ([7cb152d](https://github.com/sous-chefs/apache2/commit/7cb152d76502ef57a6cc3407edc547ca0f3932db))
+
 ## 9.3.7 - *2025-09-04*
 
 Standardise files with files in sous-chefs/repo-management
