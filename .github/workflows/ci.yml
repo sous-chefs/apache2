@@ -59,7 +59,8 @@ jobs:
             suite: wsgi
           - os: opensuse-leap-15
             suite: mod-wsgi
-
+          - os: debian-13
+            suite: php
 
           # - os: opensuse-leap-15
           #   suite: mod-wsgi
