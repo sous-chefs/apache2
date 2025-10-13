@@ -17,3 +17,5 @@ jobs:
   release-cookbook:
     uses: sous-chefs/.github/.github/workflows/release-cookbook.yml@4.1.0
     secrets: inherit
+    with:
+      token: ${{ secrets.PORTER_GITHUB_TOKEN }}
