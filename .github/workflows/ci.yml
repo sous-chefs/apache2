@@ -28,8 +28,8 @@ jobs:
           - almalinux-9
           - amazonlinux-2023
           - centos-stream-9
-          - debian-11
           - debian-12
+          - debian-13
           - opensuse-leap-15
           - oraclelinux-8
           - oraclelinux-9
@@ -59,7 +59,8 @@ jobs:
             suite: wsgi
           - os: opensuse-leap-15
             suite: mod-wsgi
-
+          - os: debian-13
+            suite: php
 
           # - os: opensuse-leap-15
           #   suite: mod-wsgi
