@@ -2,14 +2,6 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
-## Unreleased
-
-Standardise files with files in sous-chefs/repo-management
-
-Standardise files with files in sous-chefs/repo-management
-
-Standardise files with files in sous-chefs/repo-management
-
 ## [9.3.8](https://github.com/sous-chefs/apache2/compare/9.3.7...v9.3.8) (2025-10-13)
 
 ### Bug Fixes
