@@ -13,10 +13,8 @@ name: 'Copilot Setup Steps'
 jobs:
   copilot-setup-steps:
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
-
     steps:
       - name: Check out code
         uses: actions/checkout@v5
