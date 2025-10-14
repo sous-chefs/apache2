@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## [9.3.9](https://github.com/sous-chefs/apache2/compare/v9.3.8...v9.3.9) (2025-10-14)
+
+
+### Bug Fixes
+
+* **ci:** Remove Debian 11 & add Debian 13 in the test matrix ([#837](https://github.com/sous-chefs/apache2/issues/837)) ([d37847c](https://github.com/sous-chefs/apache2/commit/d37847c984d118dcc577ce78808fb286ad8078bf))
+
 ## [9.3.8](https://github.com/sous-chefs/apache2/compare/9.3.7...v9.3.8) (2025-10-13)
 
 ### Bug Fixes
