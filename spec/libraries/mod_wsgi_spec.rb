@@ -41,7 +41,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
     context 'amazonlinux' do
       let(:platform_family) { 'amazon' }
       let(:platform_version) { '2023' }
-      it { expect(subject.apache_mod_wsgi_package).to eq nil }
+      it { expect(subject.apache_mod_wsgi_package).to eq 'python3-mod_wsgi' }
     end
 
     context 'suse' do
@@ -82,10 +82,10 @@ RSpec.describe Apache2::Cookbook::Helpers do
       it { expect(subject.apache_mod_wsgi_filename).to eq 'mod_wsgi.so' }
     end
 
-    context 'amazonlinux' do
+    context 'amazonlinux 2023' do
       let(:platform_family) { 'amazon' }
-      let(:platform_version) { '2' }
-      it { expect(subject.apache_mod_wsgi_filename).to eq 'mod_wsgi.so' }
+      let(:platform_version) { '2023' }
+      it { expect(subject.apache_mod_wsgi_filename).to eq 'mod_wsgi_python3.so' }
     end
 
     context 'suse' do

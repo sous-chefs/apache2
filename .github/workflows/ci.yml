@@ -51,18 +51,21 @@ jobs:
           - ssl
           - install-override
         exclude:
+          # mod_auth_cas requires PCRE1 (libpcre) which is not available on RHEL 10+
+          # See: https://github.com/apereo/mod_auth_cas - needs update to support PCRE2
+          - os: almalinux-10
+            suite: mod-auth-cas
+          - os: centos-stream-10
+            suite: mod-auth-cas
+          - os: rockylinux-10
+            suite: mod-auth-cas
+          # mod_wsgi package not available on Amazon Linux 2023
+          # See: https://github.com/amazonlinux/amazon-linux-2023/issues/532
           - os: amazonlinux-2023
             suite: mod-wsgi
-          - os: ubuntu-2404
-            suite: php
-          - os: opensuse-leap-15
-            suite: mod-auth-cas
-          - os: opensuse-leap-15
-            suite: wsgi
+          # mod_wsgi idempotency issue on openSUSE Leap 15 - package reinstalls on second run
           - os: opensuse-leap-15
             suite: mod-wsgi
-          - os: debian-13
-            suite: php
 
     steps:
       - name: Check out code
