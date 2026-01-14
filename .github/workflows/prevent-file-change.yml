@@ -1,5 +1,5 @@
 ---
-name: 'Prevent file change'
+name: "Prevent file change"
 
 "on":
   pull_request_target:
@@ -7,15 +7,8 @@ name: 'Prevent file change'
 
 jobs:
   prevent-file-change:
-    uses: sous-chefs/.github/.github/workflows/prevent-file-change.yml@5.0.3
+    uses: sous-chefs/.github/.github/workflows/prevent-file-change.yml@main
     permissions:
       pull-requests: write
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
-    # with:
-      # metadata_pattern: metadata.rb
-      # metadata_trusted_authors: bmhughes,damacus,kitchen-porter,MarkGibbons,ramereth,Stromweld,xorima
-      # workflow_pattern: .github/workflows
-      # workflow_trusted_authors: bmhughes,damacus,kitchen-porter,MarkGibbons,ramereth,Stromweld,xorima
-      # workflow_close_pr: true
-      # workflow_allow_new_files: false
