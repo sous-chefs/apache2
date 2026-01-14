@@ -26,7 +26,7 @@ describe '#mpm_support' do
 
   context 'debian' do
     platform 'debian'
-    it { is_expected.to write_log('worker') }
+    it { is_expected.to write_log('event') }
   end
 
   context 'arch' do
