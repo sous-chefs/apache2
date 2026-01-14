@@ -256,9 +256,7 @@ module Apache2
 
       def default_mpm
         case node['platform']
-        when 'debian'
-          'worker'
-        when 'linuxmint', 'ubuntu'
+        when 'debian', 'linuxmint', 'ubuntu'
           'event'
         else
           'prefork'
