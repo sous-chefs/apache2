@@ -26,8 +26,10 @@ jobs:
         os:
           - almalinux-8
           - almalinux-9
+          - almalinux-10
           - amazonlinux-2023
           - centos-stream-9
+          - centos-stream-10
           - debian-12
           - debian-13
           - opensuse-leap-15
@@ -35,6 +37,7 @@ jobs:
           - oraclelinux-9
           - rockylinux-8
           - rockylinux-9
+          - rockylinux-10
           - ubuntu-2204
           - ubuntu-2404
         suite:
@@ -48,7 +51,6 @@ jobs:
           - ssl
           - install-override
         exclude:
-          # TODO: disabled due to https://github.com/chef/chef/pull/13691
           - os: amazonlinux-2023
             suite: mod-wsgi
           - os: ubuntu-2404
@@ -62,8 +64,6 @@ jobs:
           - os: debian-13
             suite: php
 
-          # - os: opensuse-leap-15
-          #   suite: mod-wsgi
     steps:
       - name: Check out code
         uses: actions/checkout@v5
