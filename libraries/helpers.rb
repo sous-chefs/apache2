@@ -499,11 +499,11 @@ module Apache2
 
       def apache_mod_auth_cas_devel_packages
         if platform_family?('rhel', 'amazon', 'fedora')
-          %w(openssl-devel libcurl-devel pcre2-devel libtool)
+          %w(openssl-devel libcurl-devel pcre-devel libtool)
         elsif platform_family?('debian')
-          %w(libssl-dev libcurl4-openssl-dev libpcre2-dev libtool)
+          %w(libssl-dev libcurl4-openssl-dev libpcre++-dev libtool)
         elsif platform_family?('suse')
-          %w(libopenssl-devel libcurl-devel pcre2-devel libtool)
+          %w(libopenssl-devel libcurl-devel pcre-devel libtool)
         end
       end
     end
