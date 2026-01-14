@@ -59,6 +59,13 @@ jobs:
             suite: mod-auth-cas
           - os: rockylinux-10
             suite: mod-auth-cas
+          # mod_wsgi package not available on Amazon Linux 2023
+          # See: https://github.com/amazonlinux/amazon-linux-2023/issues/532
+          - os: amazonlinux-2023
+            suite: mod-wsgi
+          # mod_wsgi idempotency issue on openSUSE Leap 15 - package reinstalls on second run
+          - os: opensuse-leap-15
+            suite: mod-wsgi
 
     steps:
       - name: Check out code
