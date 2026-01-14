@@ -64,15 +64,15 @@ RSpec.describe Apache2::Cookbook::Helpers do
       allow(subject).to receive(:[]).with('platform_version').and_return(platform_version)
     end
 
-    context 'redhat 8' do
+    context 'redhat 9' do
       let(:platform_family) { 'rhel' }
-      let(:platform_version) { '8' }
+      let(:platform_version) { '9' }
       it { expect(subject.apache_mod_auth_cas_devel_packages).to eq %w(openssl-devel libcurl-devel pcre-devel libtool) }
     end
 
-    context 'redhat 7' do
+    context 'redhat 8' do
       let(:platform_family) { 'rhel' }
-      let(:platform_version) { '7' }
+      let(:platform_version) { '8' }
       it { expect(subject.apache_mod_auth_cas_devel_packages).to eq %w(openssl-devel libcurl-devel pcre-devel libtool) }
     end
 
