@@ -2,6 +2,15 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## [9.3.10](https://github.com/sous-chefs/apache2/compare/v9.3.9...v9.3.10) (2026-01-14)
+
+
+### Bug Fixes
+
+* change Debian default MPM from worker to event ([#858](https://github.com/sous-chefs/apache2/issues/858)) ([6fe6903](https://github.com/sous-chefs/apache2/commit/6fe690311197a023c4d1353f4ec9a66d8c8613ce)), closes [#821](https://github.com/sous-chefs/apache2/issues/821)
+* failing suites ([#861](https://github.com/sous-chefs/apache2/issues/861)) ([42329cd](https://github.com/sous-chefs/apache2/commit/42329cdd7698795f09983c043eee48e108a04e48))
+* **modernize:** EOL platforms and update tooling ([#857](https://github.com/sous-chefs/apache2/issues/857)) ([1696299](https://github.com/sous-chefs/apache2/commit/1696299fc2a40b1f06d6a2c58fb45f806e91526a))
+
 ## [9.3.9](https://github.com/sous-chefs/apache2/compare/v9.3.8...v9.3.9) (2025-10-14)
 
 
