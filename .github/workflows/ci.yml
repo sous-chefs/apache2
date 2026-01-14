@@ -50,19 +50,6 @@ jobs:
           - ports
           - ssl
           - install-override
-        exclude:
-          - os: amazonlinux-2023
-            suite: mod-wsgi
-          - os: ubuntu-2404
-            suite: php
-          - os: opensuse-leap-15
-            suite: mod-auth-cas
-          - os: opensuse-leap-15
-            suite: wsgi
-          - os: opensuse-leap-15
-            suite: mod-wsgi
-          - os: debian-13
-            suite: php
 
     steps:
       - name: Check out code
