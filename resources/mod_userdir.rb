@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_userdir
 unified_mode true
 
 property :public_html_dir, String,
@@ -22,4 +25,8 @@ action :create do
       options: new_resource.options
     )
   end
+end
+
+action_class do
+  include Apache2::Cookbook::Helpers
 end

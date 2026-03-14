@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_php
 unified_mode true
 
 property :name, String, default: ''
@@ -46,4 +49,8 @@ action :create do
     conf true
     template_cookbook 'apache2'
   end
+end
+
+action_class do
+  include Apache2::Cookbook::Helpers
 end
