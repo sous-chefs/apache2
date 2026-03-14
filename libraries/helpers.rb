@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Apache2
   module Cookbook
     module Helpers
@@ -255,8 +257,7 @@ module Apache2
       end
 
       def default_mpm
-        case node['platform']
-        when 'debian', 'linuxmint', 'ubuntu'
+        if platform?('debian', 'linuxmint', 'ubuntu')
           'event'
         else
           'prefork'
