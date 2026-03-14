@@ -1,16 +1,13 @@
+# frozen_string_literal: true
+
+provides :apache2_conf
 unified_mode true
+
+use '_partial/_common'
 
 property :path, String,
          default: lazy { "#{apache_dir}/conf-available" },
          description: 'Path to the conf-available directory'
-
-property :root_group, String,
-         default: lazy { node['root_group'] },
-         description: ''
-
-property :template_cookbook, String,
-         default: 'apache2',
-         description: 'Cookbook to source the template from. Override this to provide your own template'
 
 property :options, Hash,
          default: {
@@ -41,4 +38,8 @@ action :disable do
     command "/usr/sbin/a2disconf #{new_resource.name}"
     only_if { conf_enabled?(new_resource) }
   end
+end
+
+action_class do
+  include Apache2::Cookbook::Helpers
 end

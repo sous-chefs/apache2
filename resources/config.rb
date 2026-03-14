@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
+provides :apache2_config
 unified_mode true
 
-property :root_group, String,
-         default: lazy { node['root_group'] },
-         description: 'Group that the root user on the box runs as. Defaults to platform specific locations, see libraries/helpers.rb'
+use '_partial/_common'
 
 property :access_file_name, String,
          default: '.htaccess',

@@ -1,4 +1,9 @@
+# frozen_string_literal: true
+
+provides :apache2_install
 unified_mode true
+
+use '_partial/_common'
 
 property :apache_pkg, String,
          default: lazy { default_apache_pkg },
@@ -9,11 +14,6 @@ property :apache_version, String,
          default: '',
          description: 'Version of the apache package to install.
 Defaults to the newest available.'
-
-property :root_group, String,
-         default: lazy { node['root_group'] },
-         description: 'Group that the root user on the box runs as.
-Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :apache_user, String,
          default: lazy { default_apache_user },
@@ -133,10 +133,6 @@ property :envvars_additional_params, Hash,
 
 property :sysconfig_additional_params, Hash,
          description: 'Hash of additional sysconfig parameters to apply to the system'
-
-property :template_cookbook, String,
-         default: 'apache2',
-         description: 'Cookbook to source the template from. Override this to provide your own template'
 
 action :install do
   package [new_resource.apache_pkg, perl_pkg] do

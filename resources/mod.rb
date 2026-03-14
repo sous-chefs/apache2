@@ -1,16 +1,13 @@
+# frozen_string_literal: true
+
+provides :apache2_mod
 unified_mode true
+
+use '_partial/_common'
 
 property :template, String,
          name_property: true,
          description: 'Name of the template '
-
-property :root_group, String,
-         default: lazy { node['root_group'] },
-         description: 'Set to override the platforms default root group for the template file'
-
-property :template_cookbook, String,
-        default: 'apache2',
-        description: 'Cookbook containing the template file'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', "#{new_resource.template}.conf") do
