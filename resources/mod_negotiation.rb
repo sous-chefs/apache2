@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_negotiation
 unified_mode true
 
 property :language_priority, Array,

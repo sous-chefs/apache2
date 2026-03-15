@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_pagespeed
 unified_mode true
 
 property :apache_user, String,

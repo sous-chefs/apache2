@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_fastcgi
 unified_mode true
 
 property :fast_cgi_wrapper, String,

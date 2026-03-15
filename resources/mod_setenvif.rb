@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_setenvif
 unified_mode true
 
 property :browser_match, Array,

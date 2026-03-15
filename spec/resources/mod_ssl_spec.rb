@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 # TODO: Fix
 # resource apt_package[mod_ssl] is configured to notify resource execute[generate-module-list] with action run
 # Commenting out due to some notification bug.
-# require 'spec_helper'
+
+require 'spec_helper'
 
 # describe 'apache2_mod_ssl' do
 #   step_into :apache2_install, :apache2_mod_ssl

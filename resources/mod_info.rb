@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_info
 unified_mode true
 
 property :info_allow_list, [String, Array],

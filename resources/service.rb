@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_service
 unified_mode true
 
 include Apache2::Cookbook::Helpers

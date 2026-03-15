@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_cache_disk
 unified_mode true
 
 property :cache_root, String,

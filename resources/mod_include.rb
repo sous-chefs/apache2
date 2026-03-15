@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_include
 unified_mode true
 
 property :add_type, Hash,

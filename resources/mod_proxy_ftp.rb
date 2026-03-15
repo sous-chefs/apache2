@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_proxy_ftp
 unified_mode true
 
 property :proxy_ftp_dir_charset, String,

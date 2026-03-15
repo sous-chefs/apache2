@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_ssl
 unified_mode true
 
 property :mod_ssl_pkg, String,
