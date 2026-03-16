@@ -119,10 +119,6 @@ module Apache2
 
       def default_apache_pkg
         case node['platform_family']
-        when 'amazon'
-          'httpd'
-        when 'rhel'
-          'httpd'
         when 'debian', 'suse'
           'apache2'
         when 'arch'
@@ -336,41 +332,37 @@ module Apache2
       end
 
       def config_file?(mod_name)
-        if %w(ldap
-              actions
-              alias
-              auth_cas
-              autoindex
-              cache_disk
-              cgid
-              dav_fs
-              deflate
-              dir
-              fastcgi
-              fcgid
-              include
-              info
-              ldap
-              mime_magic
-              mime
-              negotiation
-              pagespeed
-              proxy_balancer
-              proxy_ftp
-              proxy
-              reqtimeout
-              setenvif
-              ssl
-              status
-              userdir
-              mpm_event
-              mpm_prefork
-              mpm_worker
+        %w(ldap
+           actions
+           alias
+           auth_cas
+           autoindex
+           cache_disk
+           cgid
+           dav_fs
+           deflate
+           dir
+           fastcgi
+           fcgid
+           include
+           info
+           ldap
+           mime_magic
+           mime
+           negotiation
+           pagespeed
+           proxy_balancer
+           proxy_ftp
+           proxy
+           reqtimeout
+           setenvif
+           ssl
+           status
+           userdir
+           mpm_event
+           mpm_prefork
+           mpm_worker
         ).include?(mod_name)
-          true
-        else
-          false
-        end
       end
 
       def pagespeed_url
@@ -419,8 +411,7 @@ module Apache2
         when 'amazon'
           'php8_module'
         when 'rhel'
-          # TODO: Remove when we no longer support RHEL 7
-          node['platform_version'].to_i >= 8 ? 'php7_module' : 'php5_module'
+          'php7_module'
         when 'debian'
           if platform?('debian') && node['platform_version'].to_i >= 12
             'php_module'
@@ -437,28 +428,21 @@ module Apache2
       def apache_mod_php_filename
         case node['platform_family']
         when 'debian'
-          if platform?('debian') && node['platform_version'].to_i == 10
-            'libphp7.3.so'
-          elsif platform?('debian') && node['platform_version'].to_i == 11
+          if platform?('debian') && node['platform_version'].to_i == 11
             'libphp7.4.so'
           elsif platform?('debian') && node['platform_version'].to_i == 12
             'libphp8.2.so'
           elsif platform?('debian') && node['platform_version'].to_i >= 13
             'libphp8.4.so'
-          elsif platform?('ubuntu') && node['platform_version'].to_f == 18.04
-            'libphp7.2.so'
-          elsif platform?('ubuntu') && node['platform_version'].to_f == 20.04
-            'libphp7.4.so'
-          elsif platform?('ubuntu') && node['platform_version'].to_f >= 22.04 && node['platform_version'].to_f < 24.04
-            'libphp8.1.so'
           elsif platform?('ubuntu') && node['platform_version'].to_f >= 24.04
             'libphp8.3.so'
+          elsif platform?('ubuntu') && node['platform_version'].to_f >= 22.04
+            'libphp8.1.so'
           else
             'libphp7.0.so'
           end
         when 'rhel'
-          # TODO: Remove when we no longer support RHEL 7
-          node['platform_version'].to_i >= 8 ? 'libphp7.so' : 'libphp5.so'
+          'libphp7.so'
         when 'suse'
           if platform?('opensuse') && node['platform_version'].to_f >= 15.5
             'mod_php8.so'
@@ -474,15 +458,14 @@ module Apache2
         when 'debian'
           'libapache2-mod-wsgi-py3'
         when 'rhel', 'fedora', 'amazon'
-          # TODO: Remove when we no longer support RHEL 7
-          node['platform_version'].to_i >= 8 ? 'python3-mod_wsgi' : 'mod_wsgi'
+          'python3-mod_wsgi'
         when 'suse'
           'apache2-mod_wsgi-python3'
         end
       end
 
       def apache_mod_wsgi_filename
-        if platform_family?('rhel', 'fedora', 'amazon') && node['platform_version'].to_i >= 8
+        if platform_family?('rhel', 'fedora', 'amazon')
           'mod_wsgi_python3.so'
         else
           'mod_wsgi.so'
@@ -490,8 +473,7 @@ module Apache2
       end
 
       def apache_mod_auth_cas_install_method
-        # TODO: Simplify when we no longer support RHEL 7
-        if (platform_family?('rhel') && node['platform_version'].to_i >= 8) || platform_family?('suse', 'fedora', 'amazon')
+        if platform_family?('rhel', 'suse', 'fedora', 'amazon')
           'source'
         else
           'package'
