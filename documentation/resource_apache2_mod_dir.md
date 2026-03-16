@@ -7,13 +7,13 @@ Manages the Apache `mod_dir` configuration file.
 ## Actions
 
 | Action  | Description               |
-| ------- | ------------------------- |
+|---------|---------------------------|
 | :create | Create the configuration. |
 
 ## Properties
 
-| Name            | Type  | Default                                                           | Description                       |
-| --------------- | ----- | ----------------------------------------------------------------- | --------------------------------- |
+| Name            | Type  | Default                                                                            | Description                                        |
+|-----------------|-------|------------------------------------------------------------------------------------|----------------------------------------------------|
 | directory_index | Array | `['index.html', 'index.cgi', 'index.pl', 'index.php', 'index.xhtml', 'index.htm']` | Ordered list of files to serve as directory index. |
 
 ## Examples

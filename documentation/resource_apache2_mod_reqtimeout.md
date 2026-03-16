@@ -6,15 +6,15 @@ Manages the Apache `mod_reqtimeout` configuration file.
 
 ## Actions
 
-| Action | Description |
-| ------ | ----------- |
+| Action  | Description               |
+|---------|---------------------------|
 | :create | Create the configuration. |
 
 ## Properties
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| request_read_timeout | Hash | `{ '1': 'header=20-40,minrate=500', '2': 'body=10,minrate=500' }` | Ordered hash of RequestReadTimeout directives. See https://httpd.apache.org/docs/2.4/mod/mod_reqtimeout.html |
+| Name                 | Type | Default                                                           | Description                                                                                                    |
+|----------------------|------|-------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| request_read_timeout | Hash | `{ '1': 'header=20-40,minrate=500', '2': 'body=10,minrate=500' }` | Ordered hash of RequestReadTimeout directives. See <https://httpd.apache.org/docs/2.4/mod/mod_reqtimeout.html> |
 
 ## Examples
 
