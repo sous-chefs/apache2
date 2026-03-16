@@ -1,3 +1,5 @@
+apt_update 'update'
+
 apache2_install 'default' do
   mpm 'prefork'
   notifies :restart, 'apache2_service[default]'
