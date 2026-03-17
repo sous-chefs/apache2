@@ -20,12 +20,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
       it { expect(subject.apache_mod_wsgi_package).to eq 'python3-mod_wsgi' }
     end
 
-    context 'redhat 7' do
-      let(:platform_family) { 'rhel' }
-      let(:platform_version) { '7' }
-      it { expect(subject.apache_mod_wsgi_package).to eq 'mod_wsgi' }
-    end
-
     context 'debian' do
       let(:platform_family) { 'debian' }
       let(:platform_version) { '11' }
@@ -64,21 +58,15 @@ RSpec.describe Apache2::Cookbook::Helpers do
       it { expect(subject.apache_mod_wsgi_filename).to eq 'mod_wsgi_python3.so' }
     end
 
-    context 'redhat 7' do
-      let(:platform_family) { 'rhel' }
-      let(:platform_version) { '7.7.1908' }
-      it { expect(subject.apache_mod_wsgi_filename).to eq 'mod_wsgi.so' }
-    end
-
     context 'debian' do
       let(:platform_family) { 'debian' }
-      let(:platform_version) { '10' }
+      let(:platform_version) { '12' }
       it { expect(subject.apache_mod_wsgi_filename).to eq 'mod_wsgi.so' }
     end
 
     context 'ubuntu' do
       let(:platform_family) { 'debian' }
-      let(:platform_version) { '20.04' }
+      let(:platform_version) { '24.04' }
       it { expect(subject.apache_mod_wsgi_filename).to eq 'mod_wsgi.so' }
     end
 

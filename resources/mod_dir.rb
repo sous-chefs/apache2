@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_dir
 unified_mode true
 
 property :directory_index, Array,

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_module
 unified_mode true
 
 property :mod_name, String,

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_dav_fs
 unified_mode true
 
 property :dav_lock_db, String,

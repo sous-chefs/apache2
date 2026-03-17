@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_proxy_balancer
 unified_mode true
 
 property :status_location, String,

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_autoindex
 unified_mode true
 
 property :index_options, Array,

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_site
 unified_mode true
 
 property :site_name, String,

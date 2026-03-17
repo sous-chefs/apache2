@@ -26,12 +26,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
       it { expect(subject.apache_mod_auth_cas_install_method).to eq 'source' }
     end
 
-    context 'redhat 7' do
-      let(:platform_family) { 'rhel' }
-      let(:platform_version) { '7' }
-      it { expect(subject.apache_mod_auth_cas_install_method).to eq 'package' }
-    end
-
     context 'debian' do
       let(:platform_family) { 'debian' }
       let(:platform_version) { '11' }

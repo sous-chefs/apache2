@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_mpm_prefork
 unified_mode true
 
 property :startservers, Integer,

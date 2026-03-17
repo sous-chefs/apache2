@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_fcgid
 unified_mode true
 
 property :add_handler, Hash,

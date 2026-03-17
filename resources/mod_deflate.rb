@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_deflate
 unified_mode true
 
 property :add_output_filter_by_type, Hash,

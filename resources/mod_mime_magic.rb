@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_mime_magic
 unified_mode true
 
 property :mime_magic_file, String,

@@ -1,3 +1,5 @@
+apt_update 'update'
+
 ssl_cert_file     = "#{apache_dir}/ssl/server.crt"
 ssl_cert_key_file = "#{apache_dir}/ssl/server.key"
 app_dir           = '/var/www/basic_site'

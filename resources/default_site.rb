@@ -1,4 +1,9 @@
+# frozen_string_literal: true
+
+provides :apache2_default_site
 unified_mode true
+
+use '_partial/_common'
 
 property :default_site_name, String,
          default: 'default-site',
@@ -13,10 +18,6 @@ property :site_action, [String, Symbol],
 property :port, String,
          default: '80',
          description: 'Listen port'
-
-property :template_cookbook, String,
-         default: 'apache2',
-         description: 'Cookbook to source the template file from'
 
 property :server_admin, String,
          default: 'root@localhost',

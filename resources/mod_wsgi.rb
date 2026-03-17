@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_wsgi
 unified_mode true
 
 property :name, String, default: ''
@@ -35,4 +38,8 @@ action :create do
     identifier new_resource.module_name
     mod_name new_resource.so_filename
   end
+end
+
+action_class do
+  include Apache2::Cookbook::Helpers
 end

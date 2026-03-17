@@ -1,26 +1,20 @@
-# TODO: Fix
-# resource apt_package[mod_ssl] is configured to notify resource execute[generate-module-list] with action run
-# Commenting out due to some notification bug.
-# require 'spec_helper'
+# frozen_string_literal: true
 
-# describe 'apache2_mod_ssl' do
-#   step_into :apache2_install, :apache2_mod_ssl
-#   platform 'ubuntu'
+require 'spec_helper'
 
-#   context 'mod_ssl' do
-#     recipe do
-#       apache2_install 'package'
-#       apache2_mod_ssl 'default'
-#     end
+describe 'apache2_mod_ssl' do
+  step_into :apache2_mod_ssl
+  platform 'ubuntu'
 
-#     it 'outputs template correctly' do
-#       stub_command('/usr/sbin/apache2ctl -t').and_return('OK')
+  context 'mod_ssl default' do
+    recipe do
+      apache2_mod_ssl 'default'
+    end
 
-#       is_expected.not_to render_file('/etc/apache2/mods-available/ssl.conf')
-#         .with_content(/SSLStrictSNIVHostCheck Off/)
+    before do
+      stub_command('/usr/sbin/apache2ctl -t').and_return('OK')
+    end
 
-#       is_expected.to render_file('/etc/apache2/mods-available/ssl.conf')
-#         .with_content(/SSLProtocol TLSv1.2/)
-#     end
-#   end
-# end
+    it { is_expected.to create_template('/etc/apache2/mods-available/ssl.conf') }
+  end
+end

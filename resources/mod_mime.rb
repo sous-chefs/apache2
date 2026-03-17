@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_mime
 unified_mode true
 
 property :types_config, String,

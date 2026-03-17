@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_cgid
 unified_mode true
 
 property :script_sock, String,

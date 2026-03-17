@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_reqtimeout
 unified_mode true
 
 property :request_read_timeout, Hash,

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+provides :apache2_mod_auth_cas
 unified_mode true
 
 property :name, String, default: ''
