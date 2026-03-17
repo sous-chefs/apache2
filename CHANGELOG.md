@@ -2,6 +2,13 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## [9.3.11](https://github.com/sous-chefs/apache2/compare/v9.3.10...v9.3.11) (2026-03-17)
+
+
+### Bug Fixes
+
+* update kitchen.ci link to use HTTPS ([#863](https://github.com/sous-chefs/apache2/issues/863)) ([734a927](https://github.com/sous-chefs/apache2/commit/734a9271896037125970c94ec0551604e8fa25d7))
+
 ## [9.3.10](https://github.com/sous-chefs/apache2/compare/v9.3.9...v9.3.10) (2026-01-14)
 
 
