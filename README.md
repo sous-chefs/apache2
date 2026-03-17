@@ -40,7 +40,7 @@ On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also n
 
 ## Platforms
 
-The following platforms and versions are tested and supported using [test-kitchen](http://kitchen.ci/)
+The following platforms and versions are tested and supported using [test-kitchen](https://kitchen.ci/)
 
 - Amazon Linux 2023
 - CentOS 7+ (incl. Rocky & Alma)
