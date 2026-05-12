@@ -242,11 +242,11 @@ module Apache2
 
         case node['platform_family']
         when 'rhel', 'fedora', 'amazon'
-          default_modules.concat %w(log_config logio unixd systemd)
+          default_modules.push('log_config', 'logio', 'unixd', 'systemd')
         when 'arch', 'freebsd'
-          default_modules.concat %w(log_config logio unixd)
+          default_modules.push('log_config', 'logio', 'unixd')
         when 'suse'
-          default_modules.concat %w(log_config logio)
+          default_modules.push('log_config', 'logio')
         else
           default_modules
         end

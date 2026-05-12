@@ -42,12 +42,15 @@ On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also n
 
 The following platforms and versions are tested and supported using [test-kitchen](https://kitchen.ci/)
 
+- AlmaLinux 8+
 - Amazon Linux 2023
-- CentOS 7+ (incl. Rocky & Alma)
-- Debian 10+
+- CentOS Stream 9+
+- Debian 12+
 - Fedora latest
-- OpenSUSE Leap 15
-- Ubuntu 18.04+
+- OpenSUSE Leap 16+
+- Oracle Linux 8+
+- Rocky Linux 8+
+- Ubuntu 22.04+
 
 ## Usage
 

@@ -33,12 +33,12 @@ property :log_dir, String,
 
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
-         description: 'Apache document root.'\
+         description: 'Apache document root.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :apache_root_group, String,
          default: lazy { node['root_group'] },
-         description: 'Group that the root user on the box runs as.'\
+         description: 'Group that the root user on the box runs as.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :template_source, String,
@@ -57,7 +57,7 @@ action :enable do
     group new_resource.apache_root_group
     mode '0644'
     cookbook new_resource.template_cookbook
-    variables new_resource.variables.merge({
+    variables new_resource.variables.merge(
       access_log: default_access_log,
       cgibin_dir: default_cgibin_dir,
       docroot_dir: new_resource.docroot_dir,
@@ -66,8 +66,8 @@ action :enable do
       log_level: new_resource.log_level,
       port: new_resource.port,
       server_admin: new_resource.server_admin,
-      site_name: new_resource.default_site_name,
-    })
+      site_name: new_resource.default_site_name
+    )
   end
 
   apache2_site new_resource.default_site_name do

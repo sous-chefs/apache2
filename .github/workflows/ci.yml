@@ -8,7 +8,7 @@ name: ci
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@main
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@6.0.0
     permissions:
       actions: write
       checks: write
@@ -32,7 +32,8 @@ jobs:
           - centos-stream-10
           - debian-12
           - debian-13
-          - opensuse-leap-15
+          - fedora-latest
+          - opensuse-leap-160
           - oraclelinux-8
           - oraclelinux-9
           - rockylinux-8
@@ -63,17 +64,17 @@ jobs:
           # See: https://github.com/amazonlinux/amazon-linux-2023/issues/532
           - os: amazonlinux-2023
             suite: mod-wsgi
-          # mod_wsgi idempotency issue on openSUSE Leap 15 - package reinstalls on second run
-          - os: opensuse-leap-15
+          # mod_wsgi idempotency issue on openSUSE Leap - package reinstalls on second run
+          - os: opensuse-leap-160
             suite: mod-wsgi
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v5
-      - name: Install Chef
-        uses: actionshub/chef-install@main
+        uses: actions/checkout@v6
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@6.0.0
       - name: Dokken
-        uses: actionshub/test-kitchen@main
+        uses: actionshub/test-kitchen@3.0.0
         env:
           CHEF_LICENSE: accept-no-persist
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
@@ -91,4 +92,4 @@ jobs:
     runs-on: ubuntu-latest
     needs: [integration]
     steps:
-      - run: echo ${{needs.integration.outputs}}
+      - run: echo "Integration complete"

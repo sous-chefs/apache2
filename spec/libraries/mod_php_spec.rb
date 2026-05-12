@@ -44,10 +44,10 @@ RSpec.describe Apache2::Cookbook::Helpers do
       it { expect(subject.apache_mod_php_filename).to eq 'libphp8.3.so' }
     end
 
-    context 'opensuse 15.5' do
+    context 'opensuse 16.0' do
       let(:platform_family) { 'suse' }
       let(:platform) { 'opensuse' }
-      let(:platform_version) { '15.5' }
+      let(:platform_version) { '16.0' }
       it { expect(subject.apache_mod_php_filename).to eq 'mod_php8.so' }
     end
   end
