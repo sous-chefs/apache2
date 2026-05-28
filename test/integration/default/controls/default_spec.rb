@@ -84,6 +84,35 @@ control 'secure tuned defaults' do
   end
 end
 
+control 'httpd tmpfiles idempotency' do
+  impact 1
+  desc 'On EL the log/cache dir modes match the vendor tmpfiles.d so they survive a systemd-tmpfiles --create instead of flip-flopping between converges'
+
+  only_if('EL-only; Debian/SUSE ship no conflicting tmpfiles entry') do
+    %w(redhat fedora amazon).include?(os[:family])
+  end
+
+  # Re-stamp tmpfiles the way boot or a package transaction would; with the
+  # cookbook matching the vendor modes this is a no-op rather than a revert.
+  describe command('systemd-tmpfiles --create httpd.conf') do
+    its('exit_status') { should eq 0 }
+  end
+
+  describe file('/var/log/httpd') do
+    it { should be_directory }
+    it { should be_owned_by 'root' }
+    its('group') { should eq 'root' }
+    its('mode') { should cmp '0700' }
+  end
+
+  describe file('/var/cache/httpd') do
+    it { should be_directory }
+    it { should be_owned_by 'apache' }
+    its('group') { should eq 'apache' }
+    its('mode') { should cmp '0700' }
+  end
+end
+
 control 'pid file' do
   apache_dir = case os[:family]
                when 'debian', 'suse'

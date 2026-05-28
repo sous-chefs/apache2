@@ -103,5 +103,42 @@ describe 'apache2_install' do
       is_expected.to render_file('/etc/apache2/envvars')
         .with_content(/FOO=bar/)
     end
+
+    it 'creates the log and cache dirs with the Debian cookbook modes' do
+      is_expected.to create_directory('/var/log/apache2').with(mode: '0750')
+      is_expected.to create_directory('/var/cache/apache2').with(
+        mode: '0755',
+        owner: 'root',
+        group: 'root'
+      )
+    end
+  end
+end
+
+describe 'apache2_install on EL' do
+  step_into :apache2_install, :apache2_config
+  platform 'redhat', '9'
+
+  before do
+    stub_command('/usr/sbin/apachectl -t').and_return('foo')
+  end
+
+  recipe do
+    apache2_install 'package'
+  end
+
+  # The EL httpd package's /usr/lib/tmpfiles.d/httpd.conf enforces these modes at
+  # boot and on every package transaction; matching them here keeps a second
+  # converge idempotent instead of fighting systemd-tmpfiles.
+  it 'creates the log dir matching the vendor tmpfiles mode' do
+    is_expected.to create_directory('/var/log/httpd').with(mode: '0700')
+  end
+
+  it 'creates the cache dir matching the vendor tmpfiles mode and ownership' do
+    is_expected.to create_directory('/var/cache/httpd').with(
+      mode: '0700',
+      owner: 'apache',
+      group: 'apache'
+    )
   end
 end
