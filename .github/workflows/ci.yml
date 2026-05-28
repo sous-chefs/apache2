@@ -98,4 +98,5 @@ jobs:
     runs-on: ubuntu-latest
     needs: [integration]
     steps:
-      - run: echo '${{ toJSON(needs.integration.outputs) }}'
+      - run: |
+          echo "Integration result: ${{ needs.integration.result }}"
