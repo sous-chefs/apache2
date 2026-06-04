@@ -7,6 +7,8 @@ Enables apache2 module `mod_php`.
 This resource will install and enable the Apache PHP module. See `apache_mod_php_package` for the platform-specific module package.
 If installing PHP outside of this resource (i.e. with the [`php` cookbook](https://github.com/sous-chefs/php)), you should set `install_package` to false to avoid a possible version conflict.
 
+The default Apache MPM is `event`. If your platform still supports Apache `mod_php`, set `mpm 'prefork'` on `apache2_install` before enabling this resource.
+
 **Note: call this resource directly, not through `apache2_module`!**
 This resource will call `_module` with the correct identifiers for you.
 

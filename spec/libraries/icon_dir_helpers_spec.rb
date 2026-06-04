@@ -10,6 +10,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
   describe '#icon_dir' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
     end
 
     context 'with rhel family' do
@@ -48,20 +49,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
       let(:platform_family) { 'debian' }
       it 'returns the correct path' do
         expect(subject.icon_dir).to eq '/usr/share/apache2/icons'
-      end
-    end
-
-    context 'with arch' do
-      let(:platform_family) { 'arch' }
-      it 'returns the correct path' do
-        expect(subject.icon_dir).to eq '/usr/share/httpd/icons'
-      end
-    end
-
-    context 'with freebsd' do
-      let(:platform_family) { 'freebsd' }
-      it 'returns the correct path' do
-        expect(subject.icon_dir).to eq '/usr/local/www/apache24/icons'
       end
     end
   end

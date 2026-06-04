@@ -1,4 +1,10 @@
+extend Apache2::Cookbook::Helpers
+
 apt_update 'update'
+
+apache_user = default_apache_user
+apache_group = default_apache_group
+docroot_dir = default_docroot_dir
 
 apache2_install 'default' do
   mpm 'prefork'
@@ -20,10 +26,10 @@ else
     notifies :reload, 'apache2_service[default]'
   end
   php_fpm_pool 'nagios' do
-    user default_apache_user
-    group default_apache_group
-    listen_user default_apache_user
-    listen_group default_apache_group
+    user apache_user
+    group apache_group
+    listen_user apache_user
+    listen_group apache_group
     notifies :install, 'apache2_install[default]'
   end
   apache2_conf 'custom_php_pool' do
@@ -35,7 +41,7 @@ else
   end
 end
 
-file "#{default_docroot_dir}/info.php" do
+file "#{docroot_dir}/info.php" do
   content "<?php\nphpinfo();\n?>"
 end
 

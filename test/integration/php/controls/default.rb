@@ -32,11 +32,6 @@ control 'PHP module enabled & running' do
       it { should exist }
       its('content') { should match %r{SetHandler application/x-httpd-php} }
     end
-  when 'freebsd'
-    describe file('/usr/local/etc/apache24/mods-available/php.conf') do
-      it { should exist }
-      its('content') { should match %r{SetHandler application/x-httpd-php} }
-    end
   when 'redhat', 'fedora'
     if os['release'].to_i >= 9
       describe service('php-fpm') do

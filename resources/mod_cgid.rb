@@ -2,6 +2,7 @@
 
 provides :apache2_mod_cgid
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :script_sock, String,
          default: lazy { ::File.join(default_run_dir, 'cgisock') }

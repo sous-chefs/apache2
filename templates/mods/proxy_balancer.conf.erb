@@ -2,7 +2,7 @@
   # Balancer manager enables dynamic update of balancer members (needs mod_status)
   #
   <IfModule mod_status.c>
-     <Location <%= @status_location %>>
+     <Location "<%= @status_location %>"> <%# nosemgrep: ruby.rails.security.audit.xss.templates.unquoted-attribute.unquoted-attribute %>
        SetHandler <%= @set_handler %>
        Require <%= @require %>
      </Location>

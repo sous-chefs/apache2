@@ -11,10 +11,6 @@ control 'custom template' do
     describe file('/etc/apache2/mods-available/info.conf') do
       its('content') { should match(/# test cookbook custom template/) }
     end
-  when 'freebsd'
-    describe file('/usr/local/etc/apache24/mods-available/info.conf') do
-      its('content') { should match(/# test cookbook custom template/) }
-    end
   else
     describe file('/etc/httpd/mods-available/info.conf') do
       its('content') { should match(/# test cookbook custom template/) }

@@ -2,6 +2,7 @@
 
 provides :apache2_mod_dav_fs
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :dav_lock_db, String,
          default: lazy { ::File.join(lock_dir, 'DAVLock') },

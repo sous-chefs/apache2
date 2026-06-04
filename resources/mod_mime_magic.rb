@@ -2,6 +2,7 @@
 
 provides :apache2_mod_mime_magic
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :mime_magic_file, String,
          default: lazy { default_mime_magic_file },

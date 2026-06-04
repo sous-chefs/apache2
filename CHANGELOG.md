@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the apache2 cookbook.
 
+## Unreleased
+
+* Migrate dependency workflow from Berkshelf to Policyfile.
+* Default generated Apache configuration to `ServerSignature Off`, `Timeout 60`, `KeepAliveTimeout 2`, `MaxKeepAliveRequests 1000`, and event MPM.
+* Remove stale unsupported-platform helper/spec branches and document current platform constraints in `AGENTS.md`.
+
 ## [9.3.11](https://github.com/sous-chefs/apache2/compare/v9.3.10...v9.3.11) (2026-03-17)
 
 

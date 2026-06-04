@@ -9,12 +9,6 @@ control 'service' do
       it { should be_enabled }
       it { should be_running }
     end
-  when 'freebsd'
-    describe service('apache24') do
-      it { should be_installed }
-      it { should be_enabled }
-      it { should be_running }
-    end
   else
     describe service('httpd') do
       it { should be_installed }
@@ -36,16 +30,11 @@ control 'welcome-page' do
       its('status') { should eq 200 }
       its('body') { should cmp /This is the default welcome page/ }
     end
-  when 'freebsd'
-    describe http('localhost') do
-      its('status') { should eq 200 }
-      its('body') { should_not cmp /Forbidden/ }
-    end
   when 'suse'
     describe http('localhost') do
       its('status') { should eq 403 }
       its('body') { should cmp /Forbidden/ }
-      its('body') { should cmp /Apache.*Server/ }
+      its('body') { should_not cmp /Apache.*Server/ }
     end
   else
     describe http('localhost') do
@@ -57,6 +46,41 @@ control 'welcome-page' do
         its('body') { should cmp /Powered by (CentOS|Alma|Rocky|Fedora|Apache)/ }
       end
     end
+  end
+end
+
+control 'secure tuned defaults' do
+  impact 1
+  desc 'Apache2 defaults should render secure headers and tuned connection handling'
+
+  apache_dir = case os[:family]
+               when 'debian', 'suse'
+                 '/etc/apache2'
+               else
+                 '/etc/httpd'
+               end
+
+  apache_conf = case os[:family]
+                when 'debian'
+                  "#{apache_dir}/apache2.conf"
+                when 'suse'
+                  "#{apache_dir}/httpd.conf"
+                else
+                  "#{apache_dir}/conf/httpd.conf"
+                end
+
+  describe file("#{apache_dir}/conf-enabled/security.conf") do
+    it { should exist }
+    its('content') { should match(/^ServerSignature Off$/) }
+    its('content') { should match(/^ServerTokens Prod$/) }
+    its('content') { should match(/^TraceEnable Off$/) }
+  end
+
+  describe file(apache_conf) do
+    it { should exist }
+    its('content') { should match(/^Timeout 60$/) }
+    its('content') { should match(/^MaxKeepAliveRequests 1000$/) }
+    its('content') { should match(/^KeepAliveTimeout 2$/) }
   end
 end
 

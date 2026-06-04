@@ -9,7 +9,7 @@
 DocumentRoot "<%= @docroot_dir %>"
 
 # Further relax access to the default document root:
-<Directory "<%= @docroot_dir %>">
+<Directory "<%= @docroot_dir %>"> <%# nosemgrep: ruby.rails.security.audit.xss.templates.unquoted-attribute.unquoted-attribute %>
     #
     # Possible values for the Options directive are "None", "All",
     # or any combination of:

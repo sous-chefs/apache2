@@ -2,6 +2,7 @@
 
 provides :apache2_module
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :mod_name, String,
          default: lazy { "mod_#{name}.so" },

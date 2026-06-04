@@ -1,4 +1,4 @@
-<Location <%= @location %>>
+<Location "<%= @location %>"> <%# nosemgrep: ruby.rails.security.audit.xss.templates.unquoted-attribute.unquoted-attribute %>
    SetHandler <%= @set_handler %>
    Require <%= @require %>
 </Location>

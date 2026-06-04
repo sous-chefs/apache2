@@ -2,6 +2,7 @@
 
 provides :apache2_config
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 use '_partial/_common'
 
@@ -35,21 +36,21 @@ property :keep_alive, String,
          description: 'Persistent connection feature of HTTP/1.1 provide long-lived HTTP sessions'
 
 property :max_keep_alive_requests, Integer,
-         default: 100,
+         default: 1000,
          description: 'MaxKeepAliveRequests'
 
 property :keep_alive_timeout, Integer,
-         default: 5,
+         default: 2,
          description: 'KeepAliveTimeout'
 
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
-         description: 'Apache document root.'\
+         description: 'Apache document root.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :timeout, [Integer, String],
          coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m },
-         default: 300,
+         default: 60,
          description: 'The number of seconds before receives and sends time out'
 
 property :server_name, String,
@@ -58,7 +59,7 @@ property :server_name, String,
 
 property :run_dir, String,
          default: lazy { default_run_dir },
-         description: ' Sets the DefaultRuntimeDir directive.'\
+         description: ' Sets the DefaultRuntimeDir directive.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :template_cookbook, String,

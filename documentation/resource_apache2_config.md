@@ -2,6 +2,12 @@
 
 [Back to resource list](../README.md#resources)
 
+Renders the primary Apache configuration file. The defaults are tuned for secure, persistent HTTP serving:
+
+- `Timeout 60`
+- `KeepAliveTimeout 2`
+- `MaxKeepAliveRequests 1000`
+
 ## Properties
 
 | name                    | Type            | Default                     | Description                                                                                                    |
@@ -14,10 +20,10 @@
 | apache_user             | String          | `default_apache_user`       | Set to override the default apache2 user. Defaults to platform specific locations, see libraries/helpers.rb    |
 | apache_group            | String          | `default_apache_group`      | Set to override the default apache2 user. Defaults to platform specific locations, see libraries/helpers.rb    |
 | keep_alive              | String          | On                          | Persistent connection feature of HTTP/1.1 provide long-lived HTTP sessions                                     |
-| max_keep_alive_requests | Integer         | 100                         | MaxKeepAliveRequests                                                                                           |
-| keep_alive_timeout      | Integer         | 5                           | KeepAliveTimeout                                                                                               |
+| max_keep_alive_requests | Integer         | 1000                        | MaxKeepAliveRequests                                                                                           |
+| keep_alive_timeout      | Integer         | 2                           | KeepAliveTimeout                                                                                               |
 | docroot_dir             | String          | `default_docroot_dir`       | Apache document root. Defaults to platform specific locations, see libraries/helpers.rb                        |
-| timeout                 | Integer, String | 300                         | The number of seconds before receives and sends time out                                                       |
+| timeout                 | Integer, String | 60                          | The number of seconds before receives and sends time out                                                       |
 | server_name             | String          | `localhost`                 | Sets the ServerName directive                                                                                  |
 | run_dir                 | String          | `default_run_dir`           | Sets the DefaultRuntimeDir directive. Defaults to platform specific locations, see libraries/helpers.rb'       |
 | template_cookbook       | String          | `apache2`                   | Cookbook to source the template file from                                                                      |

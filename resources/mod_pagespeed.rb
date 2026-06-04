@@ -2,6 +2,7 @@
 
 provides :apache2_mod_pagespeed
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :apache_user, String,
          default: lazy { default_apache_user },

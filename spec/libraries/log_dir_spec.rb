@@ -29,14 +29,4 @@ describe '#log_dir' do
     platform 'debian'
     it { is_expected.to write_log('/var/log/apache2') }
   end
-
-  context 'with arch' do
-    platform 'arch'
-    it { is_expected.to write_log('/var/log/httpd') }
-  end
-
-  context 'with freebsd' do
-    platform 'freebsd'
-    it { is_expected.to write_log('/var/log') }
-  end
 end
