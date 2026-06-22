@@ -3,11 +3,12 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_infra
-  product_name: chef
+  name: policyfile_zero
+  product_name: cinc
   enforce_idempotency: true
   multiple_converge: 2
   deprecations_as_errors: true
+  policyfile: Policyfile.rb
 
 verifier:
   name: inspec
@@ -33,32 +34,39 @@ platforms:
 
 suites:
   - name: default
-    run_list:
-      - recipe[test::default]
+    provisioner:
+      named_run_list: default
   - name: custom_template
-    run_list:
-      - recipe[test::custom_template]
+    provisioner:
+      named_run_list: custom_template
   - name: basic_site
-    run_list:
-      - recipe[test::basic_site]
+    provisioner:
+      named_run_list: basic_site
   - name: ssl
-    run_list:
-      - recipe[test::mod_ssl]
+    provisioner:
+      named_run_list: mod_ssl
   - name: ports
-    run_list:
-      - recipe[test::ports]
+    provisioner:
+      named_run_list: ports
   - name: module_template
-    run_list:
-      - recipe[test::module_template]
+    provisioner:
+      named_run_list: module_template
   - name: php
-    run_list:
-      - recipe[test::php]
+    provisioner:
+      named_run_list: php
   - name: mod_wsgi
-    run_list:
-      - recipe[test::wsgi]
+    provisioner:
+      named_run_list: wsgi
+    excludes:
+      - amazonlinux-2023
+      - opensuse-leap-15
   - name: mod_auth_cas
-    run_list:
-      - recipe[test::auth_cas]
+    provisioner:
+      named_run_list: auth_cas
+    excludes:
+      - almalinux-10
+      - centos-stream-10
+      - rockylinux-10
   - name: install_override
-    run_list:
-      - recipe[test::install_override]
+    provisioner:
+      named_run_list: install_override

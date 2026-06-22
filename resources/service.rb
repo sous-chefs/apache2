@@ -2,7 +2,6 @@
 
 provides :apache2_service
 unified_mode true
-
 include Apache2::Cookbook::Helpers
 
 property :service_name, String,

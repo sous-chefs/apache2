@@ -5,7 +5,7 @@
   # Uncomment and change the ".example.com" to allow
   # access from other hosts.
   #
-  <Location <%= @location %>>
+  <Location "<%= @location %>"> <%# nosemgrep: ruby.rails.security.audit.xss.templates.unquoted-attribute.unquoted-attribute %>
     SetHandler server-status
     Require local
     Require ip <%= @status_allow_list.join(' ') %>

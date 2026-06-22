@@ -1,4 +1,8 @@
+extend Apache2::Cookbook::Helpers
+
 apt_update 'update'
+
+apache_helpers = self
 
 apache2_install 'default' do
   mpm 'prefork'
@@ -35,7 +39,7 @@ apache2_default_site 'wsgi_site' do
     server_name: '127.0.0.1',
     document_root: app_dir,
     wsgi_root: wsgi_dir,
-    log_dir: lazy { default_log_dir },
+    log_dir: lazy { apache_helpers.default_log_dir },
     site_name: 'wsgi_site'
   )
   notifies :reload, 'apache2_service[default]'

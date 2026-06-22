@@ -4,55 +4,36 @@ module Apache2
   module Cookbook
     module Helpers
       def apache_binary
-        case node['platform_family']
-        when 'debian'
+        if platform_family?('debian')
           '/usr/sbin/apache2'
-        when 'freebsd'
-          '/usr/local/sbin/httpd'
         else
           '/usr/sbin/httpd'
         end
       end
 
       def apache_platform_service_name
-        case node['platform_family']
-        when 'debian', 'suse'
+        if platform_family?('debian', 'suse')
           'apache2'
-        when 'freebsd'
-          'apache24'
         else
           'httpd'
         end
       end
 
       def default_types_config
-        case node['platform_family']
-        when 'arch'
-          "#{apache_dir}/conf/mime.types"
-        when 'freebsd'
-          "#{apache_dir}/mime.types"
-        else
-          '/etc/mime.types'
-        end
+        '/etc/mime.types'
       end
 
       def apachectl
-        case node['platform_family']
-        when 'debian', 'suse'
+        if platform_family?('debian', 'suse')
           '/usr/sbin/apache2ctl'
-        when 'freebsd'
-          '/usr/local/sbin/apachectl'
         else
           '/usr/sbin/apachectl'
         end
       end
 
       def apache_dir
-        case node['platform_family']
-        when 'debian', 'suse'
+        if platform_family?('debian', 'suse')
           '/etc/apache2'
-        when 'freebsd'
-          '/usr/local/etc/apache24'
         else
           '/etc/httpd'
         end
@@ -74,17 +55,13 @@ module Apache2
           else
             '/usr/lib/apache2'
           end
-        when 'freebsd'
-          '/usr/local/libexec/apache24'
-        when 'arch'
-          '/usr/lib/httpd'
         else
           '/usr/lib/apache2'
         end
       end
 
       def apache_libexec_dir
-        if platform_family?('freebsd', 'suse')
+        if platform_family?('suse')
           lib_dir
         else
           File.join(lib_dir, 'modules')
@@ -92,68 +69,51 @@ module Apache2
       end
 
       def apache_conf_dir
-        case node['platform_family']
-        when 'debian', 'suse'
+        if platform_family?('debian', 'suse')
           '/etc/apache2'
-        when 'freebsd'
-          '/usr/local/etc/apache24'
         else
           '/etc/httpd/conf'
         end
       end
 
       def icon_dir
-        case node['platform_family']
-        when 'debian', 'suse'
+        if platform_family?('debian', 'suse')
           '/usr/share/apache2/icons'
-        when 'freebsd'
-          '/usr/local/www/apache24/icons'
         else
           '/usr/share/httpd/icons'
         end
       end
 
       def perl_pkg
-        platform_family?('freebsd') ? 'perl5' : 'perl'
+        'perl'
       end
 
       def default_apache_pkg
-        case node['platform_family']
-        when 'debian', 'suse'
+        if platform_family?('debian', 'suse')
           'apache2'
-        when 'arch'
-          'apache'
-        when 'freebsd'
-          'apache24'
         else
           'httpd'
         end
       end
 
       def default_log_dir
-        case node['platform_family']
-        when 'debian', 'suse'
+        if platform_family?('debian', 'suse')
           '/var/log/apache2'
-        when 'freebsd'
-          '/var/log'
         else
           '/var/log/httpd'
         end
       end
 
       def cache_dir
-        case node['platform_family']
-        when 'debian', 'suse'
+        if platform_family?('debian', 'suse')
           '/var/cache/apache2'
-        when 'freebsd'
-          '/var/cache/apache24'
         else
           '/var/cache/httpd'
         end
       end
 
       def default_cache_root
-        if platform_family?('debian', 'suse', 'freebsd')
+        if platform_family?('debian', 'suse')
           ::File.join(cache_dir, 'proxy')
         else
           ::File.join(cache_dir, 'mod_cache_disk')
@@ -161,23 +121,15 @@ module Apache2
       end
 
       def lock_dir
-        case node['platform_family']
-        when 'debian'
+        if platform_family?('debian')
           '/var/lock/apache2'
-        when 'freebsd'
-          '/var/run'
         else
           '/var/run/httpd'
         end
       end
 
       def default_docroot_dir
-        case node['platform_family']
-        when 'arch'
-          '/srv/http'
-        when 'freebsd'
-          '/usr/local/www/apache24/data'
-        when 'suse'
+        if platform_family?('suse')
           '/srv/www/htdocs'
         else
           '/var/www/html'
@@ -185,24 +137,16 @@ module Apache2
       end
 
       def default_cgibin_dir
-        case node['platform_family']
-        when 'debian'
+        if platform_family?('debian')
           '/usr/www/cgi-bin'
-        when 'arch'
-          '/usr/share/httpd/cgi-bin'
-        when 'freebsd'
-          '/usr/lib/cgi-bin'
         else
           '/var/www/cgi-bin'
         end
       end
 
       def default_run_dir
-        case node['platform_family']
-        when 'debian'
+        if platform_family?('debian')
           '/var/run/apache2'
-        when 'freebsd'
-          '/var/run'
         else
           '/var/run/httpd'
         end
@@ -214,10 +158,6 @@ module Apache2
           'wwwrun'
         when 'debian'
           'www-data'
-        when 'arch'
-          'http'
-        when 'freebsd'
-          'www'
         else
           'apache'
         end
@@ -225,12 +165,10 @@ module Apache2
 
       def default_apache_group
         case node['platform_family']
-        when 'suse', 'freebsd'
+        when 'suse'
           'www'
         when 'debian'
           'www-data'
-        when 'arch'
-          'http'
         else
           'apache'
         end
@@ -242,30 +180,24 @@ module Apache2
 
         case node['platform_family']
         when 'rhel', 'fedora', 'amazon'
-          default_modules.concat %w(log_config logio unixd systemd)
-        when 'arch', 'freebsd'
-          default_modules.concat %w(log_config logio unixd)
+          default_modules.push('log_config', 'logio', 'unixd', 'systemd')
         when 'suse'
-          default_modules.concat %w(log_config logio)
+          default_modules.push('log_config', 'logio')
         else
           default_modules
         end
       end
 
       def default_mpm
-        if platform?('debian', 'linuxmint', 'ubuntu')
-          'event'
-        else
-          'prefork'
-        end
+        'event'
       end
 
       def default_error_log
-        platform_family?('freebsd') ? 'httpd-error.log' : 'error.log'
+        'error.log'
       end
 
       def default_access_log
-        platform_family?('freebsd') ? 'httpd-access.log' : 'access.log'
+        'access.log'
       end
 
       def default_mime_magic_file
@@ -278,8 +210,6 @@ module Apache2
           '/var/run/httpd2.pid'
         when 'debian'
           '/var/run/apache2/apache2.pid'
-        when 'freebsd'
-          '/var/run/httpd.pid'
         else
           '/var/run/httpd/httpd.pid'
         end
@@ -321,10 +251,7 @@ module Apache2
       end
 
       def default_session_cache
-        case node['platform_family']
-        when 'freebsd'
-          'shmcb:/var/run/ssl_scache(512000)'
-        when 'rhel', 'fedora', 'suse', 'amazon'
+        if platform_family?('rhel', 'fedora', 'suse', 'amazon')
           'shmcb:/var/cache/mod_ssl/scache(512000)'
         else
           'shmcb:/var/run/apache2/ssl_scache'
@@ -492,6 +419,3 @@ module Apache2
     end
   end
 end
-
-Chef::DSL::Recipe.include Apache2::Cookbook::Helpers
-Chef::Resource.include Apache2::Cookbook::Helpers

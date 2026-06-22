@@ -2,6 +2,7 @@
 
 provides :apache2_mod_mime
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :types_config, String,
          default: lazy { default_types_config },

@@ -29,14 +29,4 @@ describe '#apache_pid_file' do
     platform 'debian'
     it { is_expected.to write_log('/var/run/apache2/apache2.pid') }
   end
-
-  context 'with arch' do
-    platform 'arch'
-    it { is_expected.to write_log('/var/run/httpd/httpd.pid') }
-  end
-
-  context 'with freebsd' do
-    platform 'freebsd'
-    it { is_expected.to write_log('/var/run/httpd.pid') }
-  end
 end

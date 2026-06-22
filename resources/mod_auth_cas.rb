@@ -2,6 +2,7 @@
 
 provides :apache2_mod_auth_cas
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :name, String, default: ''
 

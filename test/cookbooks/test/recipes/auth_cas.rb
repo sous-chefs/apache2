@@ -1,3 +1,5 @@
+extend Apache2::Cookbook::Helpers
+
 apt_update 'update'
 
 apache2_install 'default' do

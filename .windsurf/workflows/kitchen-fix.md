@@ -66,7 +66,7 @@ Address failures by category:
 #### Converge Failures
 
 - Check recipe syntax and resource availability
-- Verify cookbook dependencies in `metadata.rb` and `Berksfile`
+- Verify cookbook dependencies in `metadata.rb` and `Policyfile.rb`
 - Review attribute precedence issues
 - Check for deprecated Chef APIs
 

@@ -2,6 +2,7 @@
 
 provides :apache2_mod_ssl
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :mod_ssl_pkg, String,
          default: 'mod_ssl',

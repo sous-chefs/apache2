@@ -2,7 +2,7 @@
 
 [Back to resource list](../README.md#resources)
 
-Manages the Apache `mod_reqtimeout` configuration file.
+Manages the Apache `mod_reqtimeout` configuration file. Use this resource to tune slow-client request timeout protection.
 
 ## Actions
 

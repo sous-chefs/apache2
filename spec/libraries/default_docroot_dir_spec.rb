@@ -10,6 +10,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
   describe '#default_docroot_dir' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
     end
 
     context 'with rhel family' do
@@ -48,20 +49,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
       let(:platform_family) { 'debian' }
       it 'returns the correct path' do
         expect(subject.default_docroot_dir).to eq '/var/www/html'
-      end
-    end
-
-    context 'with arch' do
-      let(:platform_family) { 'arch' }
-      it 'returns the correct path' do
-        expect(subject.default_docroot_dir).to eq '/srv/http'
-      end
-    end
-
-    context 'with freebsd' do
-      let(:platform_family) { 'freebsd' }
-      it 'returns the correct path' do
-        expect(subject.default_docroot_dir).to eq '/usr/local/www/apache24/data'
       end
     end
   end

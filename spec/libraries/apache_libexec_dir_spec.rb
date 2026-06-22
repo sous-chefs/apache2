@@ -40,16 +40,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
         let(:platform_family) { 'debian' }
         it { expect(subject.apache_libexec_dir).to eq '/usr/lib/apache2/modules' }
       end
-
-      context 'arch' do
-        let(:platform_family) { 'arch' }
-        it { expect(subject.apache_libexec_dir).to eq '/usr/lib/httpd/modules' }
-      end
-
-      context 'freebsd' do
-        let(:platform_family) { 'freebsd' }
-        it { expect(subject.apache_libexec_dir).to eq '/usr/local/libexec/apache24' }
-      end
     end
 
     context 'x86' do
@@ -78,16 +68,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
       context 'debian' do
         let(:platform_family) { 'debian' }
         it { expect(subject.apache_libexec_dir).to eq '/usr/lib/apache2/modules' }
-      end
-
-      context 'arch' do
-        let(:platform_family) { 'arch' }
-        it { expect(subject.apache_libexec_dir).to eq '/usr/lib/httpd/modules' }
-      end
-
-      context 'freebsd' do
-        let(:platform_family) { 'freebsd' }
-        it { expect(subject.apache_libexec_dir).to eq '/usr/local/libexec/apache24' }
       end
     end
   end

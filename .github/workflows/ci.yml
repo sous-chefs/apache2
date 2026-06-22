@@ -8,7 +8,7 @@ name: ci
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@8.0.1
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@8.0.4
     permissions:
       actions: write
       checks: write
@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 4
       matrix:
         os:
           - almalinux-8
@@ -32,6 +33,7 @@ jobs:
           - centos-stream-10
           - debian-12
           - debian-13
+          - fedora-latest
           - opensuse-leap-15
           - oraclelinux-8
           - oraclelinux-9
@@ -66,29 +68,34 @@ jobs:
           # mod_wsgi idempotency issue on openSUSE Leap 15 - package reinstalls on second run
           - os: opensuse-leap-15
             suite: mod-wsgi
-
     steps:
       - name: Check out code
         uses: actions/checkout@v5
-      - name: Install Chef
-        uses: actionshub/chef-install@main
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@8.0.4
       - name: Dokken
         uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
+          CHEF_VERSION: latest
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+          KITCHEN_PRODUCT_NAME: cinc
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
       - name: Print debug output on failure
         if: failure()
+        env:
+          CHEF_VERSION: latest
+          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+          KITCHEN_PRODUCT_NAME: cinc
         run: |
           set -x
           sudo journalctl -l --since today
-          KITCHEN_LOCAL_YAML=kitchen.dokken.yml /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
+          /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
 
   final:
     runs-on: ubuntu-latest
     needs: [integration]
     steps:
-      - run: echo ${{needs.integration.outputs}}
+      - run: echo '${{ toJSON(needs.integration.outputs) }}'

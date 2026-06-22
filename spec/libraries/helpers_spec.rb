@@ -10,6 +10,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
   describe '#apache_binary' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
     end
 
     context 'with rhel family' do
@@ -34,25 +35,12 @@ RSpec.describe Apache2::Cookbook::Helpers do
         expect(subject.apache_binary).to eq '/usr/sbin/apache2'
       end
     end
-
-    context 'with arch' do
-      let(:platform_family) { 'arch' }
-      it 'returns the correct path' do
-        expect(subject.apache_binary).to eq '/usr/sbin/httpd'
-      end
-    end
-
-    context 'with freebsd' do
-      let(:platform_family) { 'freebsd' }
-      it 'returns the correct path' do
-        expect(subject.apache_binary).to eq '/usr/local/sbin/httpd'
-      end
-    end
   end
 
   describe '#apache_platform_service_name' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
     end
 
     context 'with rhel family' do
@@ -83,20 +71,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
       let(:platform_family) { 'debian' }
       it 'returns the correct service name' do
         expect(subject.apache_platform_service_name).to eq 'apache2'
-      end
-    end
-
-    context 'with arch' do
-      let(:platform_family) { 'arch' }
-      it 'returns the correct service name' do
-        expect(subject.apache_platform_service_name).to eq 'httpd'
-      end
-    end
-
-    context 'with freebsd' do
-      let(:platform_family) { 'freebsd' }
-      it 'returns the correct service name' do
-        expect(subject.apache_platform_service_name).to eq 'apache24'
       end
     end
   end
@@ -104,6 +78,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
   describe '#apachectl binary name' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
     end
 
     context 'with rhel family' do
@@ -134,20 +109,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
       let(:platform_family) { 'debian' }
       it 'returns the correct apachectl binary' do
         expect(subject.apachectl).to eq '/usr/sbin/apache2ctl'
-      end
-    end
-
-    context 'with arch' do
-      let(:platform_family) { 'arch' }
-      it 'returns the correct apachectl binary' do
-        expect(subject.apachectl).to eq '/usr/sbin/apachectl'
-      end
-    end
-
-    context 'with freebsd' do
-      let(:platform_family) { 'freebsd' }
-      it 'returns the correct apachectl binary' do
-        expect(subject.apachectl).to eq '/usr/local/sbin/apachectl'
       end
     end
   end
@@ -155,6 +116,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
   describe '#apache_dir directory' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
     end
 
     context 'with rhel family' do
@@ -185,20 +147,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
       let(:platform_family) { 'debian' }
       it 'returns the correct apache directory' do
         expect(subject.apache_dir).to eq '/etc/apache2'
-      end
-    end
-
-    context 'with arch' do
-      let(:platform_family) { 'arch' }
-      it 'returns the correct apache directory' do
-        expect(subject.apache_dir).to eq '/etc/httpd'
-      end
-    end
-
-    context 'with freebsd' do
-      let(:platform_family) { 'freebsd' }
-      it 'returns the correct apache directory' do
-        expect(subject.apache_dir).to eq '/usr/local/etc/apache24'
       end
     end
   end
@@ -206,6 +154,7 @@ RSpec.describe Apache2::Cookbook::Helpers do
   describe '#apache configuration directory name' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+      allow(subject).to receive(:[]).with(:platform_family).and_return(platform_family)
     end
 
     context 'with rhel family' do
@@ -236,20 +185,6 @@ RSpec.describe Apache2::Cookbook::Helpers do
       let(:platform_family) { 'debian' }
       it 'returns the correct apache directory' do
         expect(subject.apache_conf_dir).to eq '/etc/apache2'
-      end
-    end
-
-    context 'with arch' do
-      let(:platform_family) { 'arch' }
-      it 'returns the correct apache directory' do
-        expect(subject.apache_conf_dir).to eq '/etc/httpd/conf'
-      end
-    end
-
-    context 'with freebsd' do
-      let(:platform_family) { 'freebsd' }
-      it 'returns the correct apache directory' do
-        expect(subject.apache_conf_dir).to eq '/usr/local/etc/apache24'
       end
     end
   end

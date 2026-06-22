@@ -32,16 +32,6 @@ describe '#lib_dir' do
       platform 'debian'
       it { is_expected.to write_log('/usr/lib/apache2') }
     end
-
-    context 'arch' do
-      platform 'arch'
-      it { is_expected.to write_log('/usr/lib/httpd') }
-    end
-
-    context 'freebsd' do
-      platform 'freebsd'
-      it { is_expected.to write_log('/usr/local/libexec/apache24') }
-    end
   end
 
   context 'x86' do
@@ -74,16 +64,6 @@ describe '#lib_dir' do
     context 'debian' do
       platform 'debian'
       it { is_expected.to write_log('/usr/lib/apache2') }
-    end
-
-    context 'arch' do
-      platform 'arch'
-      it { is_expected.to write_log('/usr/lib/httpd') }
-    end
-
-    context 'freebsd' do
-      platform 'freebsd'
-      it { is_expected.to write_log('/usr/local/libexec/apache24') }
     end
   end
 end

@@ -50,31 +50,12 @@ RSpec.describe Apache2::Cookbook::Helpers do
         expect(subject.perl_pkg).to eq 'perl'
       end
     end
-
-    context 'with arch' do
-      let(:platform_family) { 'arch' }
-      it 'returns the correct path' do
-        expect(subject.perl_pkg).to eq 'perl'
-      end
-    end
-
-    context 'with freebsd' do
-      let(:platform_family) { 'freebsd' }
-      it 'returns the correct path' do
-        expect(subject.perl_pkg).to eq 'perl5'
-      end
-    end
   end
 end
 
 describe '#default_apache_pkg' do
   recipe do
     log default_apache_pkg
-  end
-
-  context 'on centos-7' do
-    platform 'redhat', '7'
-    it { is_expected.to write_log('httpd') }
   end
 
   context 'with fedora family' do
@@ -95,15 +76,5 @@ describe '#default_apache_pkg' do
   context 'with Debian' do
     platform 'debian'
     it { is_expected.to write_log('apache2') }
-  end
-
-  context 'with arch' do
-    platform 'arch'
-    it { is_expected.to write_log('apache') }
-  end
-
-  context 'with freebsd' do
-    platform 'freebsd'
-    it { is_expected.to write_log('apache24') }
   end
 end

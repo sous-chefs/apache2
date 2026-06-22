@@ -14,7 +14,7 @@
   #
   Alias /icons/ "<%= @icondir %>/"
 
-  <Directory "<%= @icondir %>">
+<Directory "<%= @icondir %>"> <%# nosemgrep: ruby.rails.security.audit.xss.templates.unquoted-attribute.unquoted-attribute %>
     Options <%= @options.join(' ') %>
     AllowOverride <%= @allow_override.join(' ') %>
     Require <%= @require %>

@@ -1,4 +1,7 @@
-include_controls 'apache2-default'
+include_controls 'apache2-default' do
+  skip_control 'secure tuned defaults'
+  skip_control 'welcome-page'
+end
 
 control 'install-override' do
   impact 1

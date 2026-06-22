@@ -2,6 +2,7 @@
 
 provides :apache2_mod_alias
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :options, Array,
          default: %w(Indexes MultiViews SymLinksIfOwnerMatch),

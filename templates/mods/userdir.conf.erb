@@ -2,7 +2,7 @@
   UserDir public_html
   UserDir disabled root
 
-  <Directory <%= @public_html_dir %>>
+  <Directory "<%= @public_html_dir %>"> <%# nosemgrep: ruby.rails.security.audit.xss.templates.unquoted-attribute.unquoted-attribute %>
     AllowOverride <%= @allow_override %>
     Options <%= @options %>
     <Limit GET POST OPTIONS>

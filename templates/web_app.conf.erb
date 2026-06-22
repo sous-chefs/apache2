@@ -1,11 +1,11 @@
-<VirtualHost *:<%= @params[:server_port] %>>
+<VirtualHost "*:<%= @params[:server_port] %>"> <%# nosemgrep: ruby.rails.security.audit.xss.templates.unquoted-attribute.unquoted-attribute %>
   ServerName <%= @params[:server_name] %>
   <% if @params[:server_aliases] -%>
   ServerAlias <%= @params[:server_aliases].join " " %>
   <% end -%>
   DocumentRoot <%= @params[:docroot] %>
 
-  <Directory <%= @params[:docroot] %>>
+  <Directory "<%= @params[:docroot] %>"> <%# nosemgrep: ruby.rails.security.audit.xss.templates.unquoted-attribute.unquoted-attribute %>
     Options <%= [@params[:directory_options] || "FollowSymLinks" ].flatten.join " " %>
     AllowOverride <%= [@params[:allow_override] || "None" ].flatten.join " " %>
     Require all granted

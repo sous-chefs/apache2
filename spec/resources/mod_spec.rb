@@ -308,7 +308,7 @@ describe 'apache2_install' do
         .with_content(/Require ip 127.0.0.1 ::1/)
         .with_content(/ExtendedStatus Off/)
         .with_content(/ProxyStatus On/)
-        .with_content(%r{<Location /server-status>})
+        .with_content(%r{<Location "/server-status">})
     end
   end
 

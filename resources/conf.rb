@@ -2,6 +2,7 @@
 
 provides :apache2_conf
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 use '_partial/_common'
 
@@ -12,7 +13,7 @@ property :path, String,
 property :options, Hash,
          default: {
            server_tokens: 'Prod',
-           server_signature: 'On',
+           server_signature: 'Off',
            trace_enable: 'Off',
          },
          description: 'A hash to pass to the template'

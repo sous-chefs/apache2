@@ -2,6 +2,7 @@
 
 provides :apache2_install
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 use '_partial/_common'
 
@@ -17,22 +18,22 @@ Defaults to the newest available.'
 
 property :apache_user, String,
          default: lazy { default_apache_user },
-         description: 'Set to override the default apache2 user.'\
+         description: 'Set to override the default apache2 user.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :apache_group, String,
          default: lazy { default_apache_group },
-         description: 'Set to override the default apache2 user.'\
+         description: 'Set to override the default apache2 user.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :log_dir, String,
          default: lazy { default_log_dir },
-         description: 'Log directory location.'\
+         description: 'Log directory location.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :error_log, String,
          default: lazy { default_error_log },
-         description: 'Error log location.'\
+         description: 'Error log location.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :log_level, String,
@@ -53,7 +54,7 @@ property :server_name, String,
 
 property :server_signature, String,
          equal_to: %w(On Off EMail),
-         default: 'On',
+         default: 'Off',
          description: 'Sets the ServerSignature directive'
 
 property :server_tokens, String,
@@ -76,7 +77,7 @@ property :httpd_t_timeout, Integer,
 
 property :mpm, String,
          default: lazy { default_mpm },
-         description: 'Multi-processing Module.'\
+         description: 'Multi-processing Module.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :mpm_conf, Hash,
@@ -102,21 +103,21 @@ property :keep_alive, String,
          description: 'Persistent connection feature of HTTP/1.1 provide long-lived HTTP sessions'
 
 property :max_keep_alive_requests, Integer,
-         default: 100,
+         default: 1000,
          description: 'MaxKeepAliveRequests'
 
 property :keep_alive_timeout, Integer,
-         default: 5,
+         default: 2,
          description: 'KeepAliveTimeout'
 
 property :docroot_dir, String,
          default: lazy { default_docroot_dir },
-         description: 'Apache document root.'\
+         description: 'Apache document root.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :run_dir, String,
          default: lazy { default_run_dir },
-         description: 'Location for APACHE_RUN_DIR.'\
+         description: 'Location for APACHE_RUN_DIR.' \
 'Defaults to platform specific locations, see libraries/helpers.rb'
 
 property :access_file_name, String,
@@ -125,7 +126,7 @@ property :access_file_name, String,
 
 property :timeout, [Integer, String],
          coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m },
-         default: 300,
+         default: 60,
          description: 'The number of seconds before receives and sends time out'
 
 property :envvars_additional_params, Hash,
@@ -204,18 +205,6 @@ action :install do
         command "/usr/local/bin/apache2_module_conf_generate.pl #{lib_dir} #{apache_dir}/mods-available"
         action :nothing
       end
-    end
-  end
-
-  if platform_family?('freebsd')
-    directory "#{apache_dir}/Includes" do
-      action :delete
-      recursive true
-    end
-
-    directory "#{apache_dir}/extra" do
-      action :delete
-      recursive true
     end
   end
 
@@ -338,11 +327,7 @@ action :install do
   case new_resource.mpm
   when 'event'
     if platform_family?('suse')
-      package %w(apache2-prefork apache2-worker) do
-        action :remove
-      end
-
-      package 'apache2-event'
+      suse_mpm_package 'apache2-event', remove: %w(apache2-prefork apache2-worker)
     else
       %w(mpm_prefork mpm_worker).each do |mpm|
         apache2_module mpm do
@@ -357,11 +342,7 @@ action :install do
 
   when 'prefork'
     if platform_family?('suse')
-      package %w(apache2-event apache2-worker) do
-        action :remove
-      end
-
-      package 'apache2-prefork'
+      suse_mpm_package 'apache2-prefork', remove: %w(apache2-event apache2-worker)
     else
       %w(mpm_event mpm_worker).each do |mpm|
         apache2_module mpm do
@@ -376,11 +357,7 @@ action :install do
 
   when 'worker'
     if platform_family?('suse')
-      package %w(apache2-event apache2-prefork) do
-        action :remove
-      end
-
-      package 'apache2-worker'
+      suse_mpm_package 'apache2-worker', remove: %w(apache2-event apache2-prefork)
     else
       %w(mpm_prefork mpm_event).each do |mpm|
         apache2_module mpm do
@@ -403,4 +380,15 @@ end
 
 action_class do
   include Apache2::Cookbook::Helpers
+
+  def suse_mpm_package(package_name, remove:)
+    package package_name
+
+    remove.each do |old_package|
+      package old_package do
+        action :remove
+        only_if "rpm -q #{old_package}"
+      end
+    end
+  end
 end

@@ -29,7 +29,7 @@ describe 'apache2_install' do
       stub_command('/usr/sbin/apache2ctl -t').and_return('foo')
       is_expected.to render_file('/etc/apache2/conf-available/security.conf')
         .with_content(/ServerTokens Prod/)
-        .with_content(/ServerSignature On/)
+        .with_content(/ServerSignature Off/)
         .with_content(/TraceEnable Off/)
     end
 

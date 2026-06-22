@@ -2,6 +2,7 @@
 
 provides :apache2_mod_cache_disk
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :cache_root, String,
          default: lazy { default_cache_root },

@@ -2,6 +2,7 @@
 
 provides :apache2_mod_fastcgi
 unified_mode true
+include Apache2::Cookbook::Helpers
 
 property :fast_cgi_wrapper, String,
          default: '',

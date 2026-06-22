@@ -2,7 +2,19 @@
 
 [Back to resource list](../README.md#resources)
 
-Installs apache2.
+Installs apache2 and renders the default Debian-style configuration.
+
+Default generated configuration is tuned for secure, persistent HTTP serving:
+
+- `ServerSignature Off`
+- `ServerTokens Prod`
+- `TraceEnable Off`
+- `Timeout 60`
+- `KeepAliveTimeout 2`
+- `MaxKeepAliveRequests 1000`
+- `mpm 'event'`
+
+Use `apache2_mod_reqtimeout` to configure slow-client request timeout protection. If you need a module that requires prefork compatibility, such as `apache2_mod_php`, explicitly set `mpm 'prefork'`.
 
 ## Properties
 
@@ -23,16 +35,17 @@ Installs apache2.
 | apache_locale               | String          | `system`                            | Locale for apache2, defaults to the system locale                                                           |                                                             |
 | status_url                  | String          | `http://localhost:80/server-status` | URL for status checks                                                                                       |                                                             |
 | server_name                 | String          | `localhost`                         | ServerName value, set in _apache2.conf_ at the server level                                                 |                                                             |
-| server_signature            | String          | `On`                                | ServerSignature value, set in _security.conf_                                                               | `[On, Off, EMail]`                                          |
+| server_signature            | String          | `Off`                               | ServerSignature value, set in _security.conf_                                                               | `[On, Off, EMail]`                                          |
 | server_tokens               | String          | `Prod`                              | ServerTokens value, set in _security.conf_                                                                  | `[Major, Minor, Min, Minimal, Prod, ProductOnly, OS, Full]` |
 | trace_enable                | String          | `Off`                               | TraceEnable value, set in _security.conf_                                                                   | `[On, Off, extended]`                                       |
 | default_charset             | [String, Array] |                                     | AddDefaultCharset value(s), set in _charset.conf_                                                           |                                                             |
 | httpd_t_timeout             | Integer         | `10`                                | Service timeout setting in seconds. Defaults to 10 seconds                                                  |                                                             |
 | listen                      | [String, Array] | `[80, 443]`                         | Port to listen on. Defaults to both 80 & 443                                                                |                                                             |
 | keep_alive                  | String          | `On`                                | description: 'Persistent connection feature of HTTP/1.1 provide long-lived HTTP sessions'                   | `[On, Off]`                                                 |
-| max_keep_alive_requests     | Integer         | `100`                               | MaxKeepAliveRequests                                                                                        |                                                             |
-| keep_alive_timeout          | Integer         | `5`                                 | KeepAliveTimeout                                                                                            |                                                             |
+| max_keep_alive_requests     | Integer         | `1000`                              | MaxKeepAliveRequests                                                                                        |                                                             |
+| keep_alive_timeout          | Integer         | `2`                                 | KeepAliveTimeout                                                                                            |                                                             |
 | access_file_name            | String          | `.htaccess`                         | Access filename                                                                                             |                                                             |
+| timeout                     | Integer, String | `60`                                | The number of seconds before receives and sends time out                                                    |                                                             |
 | envvars_additional_params   | Hash            | `{}`                                | Hash of additional environment variables to add to the envvars file                                         |                                                             |
 | sysconfig_additional_params | Hash            | `{}`                                | Hash of additional sysconfig parameters to apply to the system                                              |                                                             |
 | template_cookbook           | String          | `apache2`                           | Cookbook to source the apache2.conf template from                                                           |                                                             |

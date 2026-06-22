@@ -6,7 +6,7 @@
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This cookbook provides a complete Debian/Ubuntu style Apache HTTPD configuration. Non-Debian based distributions such as Red Hat/CentOS, ArchLinux and others supported by this cookbook will have a configuration that mimics Debian/Ubuntu style as it is easier to manage with Chef.
+This cookbook provides a complete Debian/Ubuntu style Apache HTTPD configuration. Non-Debian based distributions supported by this cookbook have a configuration that mimics Debian/Ubuntu style because it is easier to manage with Chef.
 
 Debian-style Apache configuration uses scripts to manage modules and sites (vhosts). The scripts are:
 
@@ -25,7 +25,7 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ## Cookbooks
 
-Depending on your OS configuration and security policy, you may need additional recipes or cookbooks for this cookbook's recipes to converge on the node. In particular, the following Operating System settings may affect the behavior of this cookbook:
+Depending on your OS configuration and security policy, you may need additional cookbooks or wrapper-cookbook resources for Apache to converge and serve traffic correctly. In particular, the following operating system settings may affect the behavior of this cookbook:
 
 - SELinux enabled
 - Firewalls (such as iptables, ufw, etc.)
@@ -36,22 +36,35 @@ On RHEL, SELinux is enabled by default. The [selinux](https://supermarket.chef.i
 
 To deal with firewalls Chef Software does provide an [iptables](https://supermarket.chef.io/cookbooks/iptables) and [ufw](https://supermarket.chef.io/cookbooks/ufw) cookbook but is migrating from the approach used there to a more robust solution utilizing the general [firewall](https://supermarket.chef.io/cookbooks/firewall) cookbook to setup rules. See those cookbooks' READMEs for documentation.
 
-On ArchLinux, if you are using the `apache2::mod_auth_openid` recipe, you also need the [pacman](https://supermarket.chef.io/cookbooks/pacman) cookbook for the `pacman_aur` LWRP. Put `recipe[pacman]` on the node's expanded run list (on the node or in a role). This is not an explicit dependency because it is only required for this single recipe and platform; the pacman default recipe performs `pacman -Sy` to keep pacman's package cache updated.
-
 ## Platforms
 
-The following platforms and versions are tested and supported using [test-kitchen](https://kitchen.ci/)
+The following platforms and versions are tested and supported using [test-kitchen](https://kitchen.ci/):
 
+- AlmaLinux 8+
 - Amazon Linux 2023
-- CentOS 7+ (incl. Rocky & Alma)
-- Debian 10+
+- CentOS Stream 9+
+- Debian 12+
 - Fedora latest
-- OpenSUSE Leap 15
-- Ubuntu 18.04+
+- openSUSE Leap 15+
+- Oracle Linux 8+
+- Rocky Linux 8+
+- Ubuntu 22.04+
 
 ## Usage
 
-It is recommended to create a project or organization specific [wrapper cookbook](https://blog.chef.io/doing-wrapper-cookbooks-right) and add the desired custom resources to the run list of a node. Depending on your environment, you may have multiple roles that use different recipes from this cookbook. Adjust any attributes as desired.
+It is recommended to create a project or organization specific [wrapper cookbook](https://blog.chef.io/doing-wrapper-cookbooks-right) and use the desired custom resources from this cookbook. Depending on your environment, you may have multiple Policyfile run lists or wrapper-cookbook recipes using different resource combinations. Adjust resource properties as desired.
+
+The default install now favors secure and higher-throughput generated configuration:
+
+- `ServerSignature Off`
+- `ServerTokens Prod`
+- `TraceEnable Off`
+- `Timeout 60`
+- `KeepAliveTimeout 2`
+- `MaxKeepAliveRequests 1000`
+- `mpm 'event'`
+
+These values can still be explicitly overridden. Modules that require prefork compatibility, such as `apache2_mod_php`, should be used with `apache2_install mpm 'prefork'`.
 
 ```ruby
 apache2_install 'default_install' do
@@ -87,16 +100,44 @@ Example wrapper cookbooks:
 ## Resources
 
 - [install](documentation/resource_apache2_install.md)
-- [service](documentation/resource_apache2_service.md)
-- [default_site](documentation/resource_apache2_default_site.md)
-- [site](documentation/resource_apache2_site.md)
 - [conf](documentation/resource_apache2_conf.md)
 - [config](documentation/resource_apache2_config.md)
+- [default_site](documentation/resource_apache2_default_site.md)
 - [mod](documentation/resource_apache2_mod.md)
-- [module](documentation/resource_apache2_module.md)
-- [mod_php](documentation/resource_apache2_mod_php.md)
-- [mod_wsgi](documentation/resource_apache2_mod_wsgi.md)
+- [mod_actions](documentation/resource_apache2_mod_actions.md)
+- [mod_alias](documentation/resource_apache2_mod_alias.md)
 - [mod_auth_cas](documentation/resource_apache2_mod_auth_cas.md)
+- [mod_autoindex](documentation/resource_apache2_mod_autoindex.md)
+- [mod_cache_disk](documentation/resource_apache2_mod_cache_disk.md)
+- [mod_cgid](documentation/resource_apache2_mod_cgid.md)
+- [mod_dav_fs](documentation/resource_apache2_mod_dav_fs.md)
+- [mod_deflate](documentation/resource_apache2_mod_deflate.md)
+- [mod_dir](documentation/resource_apache2_mod_dir.md)
+- [mod_fastcgi](documentation/resource_apache2_mod_fastcgi.md)
+- [mod_fcgid](documentation/resource_apache2_mod_fcgid.md)
+- [mod_include](documentation/resource_apache2_mod_include.md)
+- [mod_info](documentation/resource_apache2_mod_info.md)
+- [mod_ldap](documentation/resource_apache2_mod_ldap.md)
+- [mod_mime](documentation/resource_apache2_mod_mime.md)
+- [mod_mime_magic](documentation/resource_apache2_mod_mime_magic.md)
+- [mod_mpm_event](documentation/resource_apache2_mod_mpm_event.md)
+- [mod_mpm_prefork](documentation/resource_apache2_mod_mpm_prefork.md)
+- [mod_mpm_worker](documentation/resource_apache2_mod_mpm_worker.md)
+- [mod_negotiation](documentation/resource_apache2_mod_negotiation.md)
+- [mod_pagespeed](documentation/resource_apache2_mod_pagespeed.md)
+- [mod_php](documentation/resource_apache2_mod_php.md)
+- [mod_proxy](documentation/resource_apache2_mod_proxy.md)
+- [mod_proxy_balancer](documentation/resource_apache2_mod_proxy_balancer.md)
+- [mod_proxy_ftp](documentation/resource_apache2_mod_proxy_ftp.md)
+- [mod_reqtimeout](documentation/resource_apache2_mod_reqtimeout.md)
+- [mod_setenvif](documentation/resource_apache2_mod_setenvif.md)
+- [mod_ssl](documentation/resource_apache2_mod_ssl.md)
+- [mod_status](documentation/resource_apache2_mod_status.md)
+- [mod_userdir](documentation/resource_apache2_mod_userdir.md)
+- [mod_wsgi](documentation/resource_apache2_mod_wsgi.md)
+- [module](documentation/resource_apache2_module.md)
+- [service](documentation/resource_apache2_service.md)
+- [site](documentation/resource_apache2_site.md)
 
 ## Contributors
 

@@ -57,19 +57,5 @@ RSpec.describe Apache2::Cookbook::Helpers do
         expect(subject.default_pass_phrase_dialog).to eq 'exec:/usr/share/apache2/ask-for-passphrase'
       end
     end
-
-    context 'with arch' do
-      let(:platform) { 'arch' }
-      it 'returns the correct path' do
-        expect(subject.default_pass_phrase_dialog).to eq 'builtin'
-      end
-    end
-
-    context 'with freebsd' do
-      let(:platform) { 'freebsd' }
-      it 'returns the correct path' do
-        expect(subject.default_pass_phrase_dialog).to eq 'builtin'
-      end
-    end
   end
 end
