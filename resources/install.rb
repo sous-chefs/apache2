@@ -167,7 +167,9 @@ action :install do
   end
 
   directory new_resource.log_dir do
-    mode '0750'
+    # On EL match the httpd package's tmpfiles.d mode (0700 root:root) so
+    # systemd-tmpfiles doesn't revert it between converges. See cache_dir below.
+    mode platform_family?('rhel', 'fedora', 'amazon') ? '0700' : '0750'
     recursive true
   end
 
@@ -229,9 +231,20 @@ action :install do
   end
 
   directory cache_dir do
-    mode '0755'
-    owner 'root'
-    group new_resource.root_group
+    # EL's httpd package ships /usr/lib/tmpfiles.d/httpd.conf, which
+    # systemd-tmpfiles re-applies at boot and during every httpd package
+    # transaction. Match its 0700 apache:apache mode here so the two don't fight
+    # and a second converge stays idempotent (this is also the layout that lets
+    # the apache worker own its cache tree).
+    if platform_family?('rhel', 'fedora', 'amazon')
+      mode '0700'
+      owner new_resource.apache_user
+      group new_resource.apache_group
+    else
+      mode '0755'
+      owner 'root'
+      group new_resource.root_group
+    end
   end
 
   directory lock_dir do
