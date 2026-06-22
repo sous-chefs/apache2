@@ -8,6 +8,26 @@ This file is used to list changes made in each version of the apache2 cookbook.
 * Default generated Apache configuration to `ServerSignature Off`, `Timeout 60`, `KeepAliveTimeout 2`, `MaxKeepAliveRequests 1000`, and event MPM.
 * Remove stale unsupported-platform helper/spec branches and document current platform constraints in `AGENTS.md`.
 
+## [10.0.0](https://github.com/sous-chefs/apache2/compare/v9.3.11...v10.0.0) (2026-06-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* modernize apache2 defaults and testing
+* modernize apache2 defaults and testing ([#886](https://github.com/sous-chefs/apache2/issues/886))
+
+### Features
+
+* modernize apache2 defaults and testing ([c76b059](https://github.com/sous-chefs/apache2/commit/c76b05939347d07b1924dda7643e2a4208515645))
+* modernize apache2 defaults and testing ([#886](https://github.com/sous-chefs/apache2/issues/886)) ([c76b059](https://github.com/sous-chefs/apache2/commit/c76b05939347d07b1924dda7643e2a4208515645))
+
+
+### Bug Fixes
+
+* pass apache fpm ownership as local values ([c76b059](https://github.com/sous-chefs/apache2/commit/c76b05939347d07b1924dda7643e2a4208515645))
+* Policyfile resolve dependencies from github ([c76b059](https://github.com/sous-chefs/apache2/commit/c76b05939347d07b1924dda7643e2a4208515645))
+* skip secure defaults & welcome page in override profile ([c76b059](https://github.com/sous-chefs/apache2/commit/c76b05939347d07b1924dda7643e2a4208515645))
+
 ## [9.3.11](https://github.com/sous-chefs/apache2/compare/v9.3.10...v9.3.11) (2026-03-17)
 
 
