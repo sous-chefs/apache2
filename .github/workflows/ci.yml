@@ -70,7 +70,7 @@ jobs:
             suite: mod-wsgi
     steps:
       - name: Check out code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
       - name: Install Cinc Workstation
         uses: sous-chefs/.github/.github/actions/install-workstation@8.0.4
       - name: Dokken
