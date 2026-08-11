@@ -8,6 +8,7 @@ apache2_install 'default' do
 end
 
 apache2_mod_auth_cas 'default' do
+  install_method 'package'
   directives(
     'CASCookiePath' => "#{cache_dir}/mod_auth_cas/"
   )

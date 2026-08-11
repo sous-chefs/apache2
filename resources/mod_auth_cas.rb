@@ -86,7 +86,7 @@ action :install do
     when 'debian'
       package 'libapache2-mod-auth-cas'
     when 'rhel', 'fedora', 'amazon'
-      include_recipe 'yum-epel' unless platform_family?('fedora')
+      yum_epel 'default' unless platform_family?('fedora')
 
       package 'mod_auth_cas' do
         notifies :run, 'execute[generate-module-list]', :immediately

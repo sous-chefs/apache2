@@ -44,6 +44,12 @@ RSpec.describe Apache2::Cookbook::Helpers do
       it { expect(subject.apache_mod_auth_cas_install_method).to eq 'source' }
     end
 
+    context 'fedora' do
+      let(:platform_family) { 'fedora' }
+      let(:platform_version) { '42' }
+      it { expect(subject.apache_mod_auth_cas_install_method).to eq 'source' }
+    end
+
     context 'suse' do
       let(:platform_family) { 'suse' }
       let(:platform_version) { '15.1' }

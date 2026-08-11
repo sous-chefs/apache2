@@ -15,6 +15,7 @@ describe 'apache2_mod_auth_cas' do
 
     apache2_mod_auth_cas 'default' do
       directives(CASDebug: 'Off')
+      install_method 'package'
     end
   end
   context 'ubuntu' do
@@ -56,5 +57,27 @@ describe 'apache2_mod_auth_cas' do
     ].each do |line|
       it { is_expected.to render_file('/etc/apache2/mods-available/auth_cas.conf').with_content(line) }
     end
+  end
+
+  context 'rocky 9 package install' do
+    platform 'rocky', '9'
+
+    it { is_expected.to create_yum_epel('default') }
+    it { is_expected.to install_package('mod_auth_cas') }
+
+    it 'enables EPEL before installing mod_auth_cas' do
+      resources = chef_run.resource_collection.all_resources
+      epel = chef_run.find_resource(:yum_epel, 'default')
+      package = chef_run.find_resource(:package, 'mod_auth_cas')
+
+      expect(resources.index(epel)).to be < resources.index(package)
+    end
+  end
+
+  context 'fedora package install' do
+    platform 'fedora', '32'
+
+    it { is_expected.to install_package('mod_auth_cas') }
+    it { is_expected.not_to create_yum_epel('default') }
   end
 end
