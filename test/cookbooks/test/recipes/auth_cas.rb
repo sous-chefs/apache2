@@ -8,7 +8,8 @@ apache2_install 'default' do
 end
 
 apache2_mod_auth_cas 'default' do
-  install_method 'package'
+  # Exercise the EPEL package path on RHEL; SUSE uses its supported source default.
+  install_method 'package' if platform_family?('rhel')
   directives(
     'CASCookiePath' => "#{cache_dir}/mod_auth_cas/"
   )
