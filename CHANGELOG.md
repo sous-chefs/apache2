@@ -8,6 +8,18 @@ This file is used to list changes made in each version of the apache2 cookbook.
 * Default generated Apache configuration to `ServerSignature Off`, `Timeout 60`, `KeepAliveTimeout 2`, `MaxKeepAliveRequests 1000`, and event MPM.
 * Remove stale unsupported-platform helper/spec branches and document current platform constraints in `AGENTS.md`.
 
+## [10.1.0](https://github.com/sous-chefs/apache2/compare/v10.0.0...v10.1.0) (2026-08-15)
+
+
+### Features
+
+* fix EL httpd log/cache dir idempotency vs systemd-tmpfiles ([#869](https://github.com/sous-chefs/apache2/issues/869)) ([38a5399](https://github.com/sous-chefs/apache2/commit/38a5399f3dd0c559bcb0a17afa84e2d9856c72ea))
+
+
+### Bug Fixes
+
+* use yum-epel resource for auth_cas ([#965](https://github.com/sous-chefs/apache2/issues/965)) ([0b90ce6](https://github.com/sous-chefs/apache2/commit/0b90ce639d6acd6c4641002c98903c21ba1eb9df))
+
 ## [10.0.0](https://github.com/sous-chefs/apache2/compare/v9.3.11...v10.0.0) (2026-06-22)
 
 
