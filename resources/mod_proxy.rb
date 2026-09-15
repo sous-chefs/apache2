@@ -5,7 +5,7 @@ unified_mode true
 
 property :proxy_requests, String,
          default: 'Off',
-         description: ''
+         description: 'Value for the Apache ProxyRequests directive.'
 
 property :require, String,
          default: 'all denied',
@@ -31,6 +31,10 @@ action :create do
       proxy_via: new_resource.proxy_via
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'proxy'
 end
 
 action_class do

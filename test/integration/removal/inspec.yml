@@ -1,0 +1,7 @@
+---
+name: apache2-removal
+title: Apache removal
+maintainer: Sous Chefs
+license: Apache-2.0
+summary: Opt-in removal cleans the installed server artifacts
+version: 1.0.0

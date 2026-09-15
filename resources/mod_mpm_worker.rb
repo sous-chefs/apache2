@@ -33,7 +33,7 @@ property :threadlimit, Integer,
 
 property :serverlimit, Integer,
          default: 16,
-         description: ''
+         description: 'Upper limit on server processes.'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'mpm_worker.conf') do
@@ -50,6 +50,10 @@ action :create do
       serverlimit: new_resource.serverlimit
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'mpm_worker'
 end
 
 action_class do

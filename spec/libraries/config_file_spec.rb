@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Apache2::Cookbook::Helpers do
@@ -8,6 +10,12 @@ RSpec.describe Apache2::Cookbook::Helpers do
   subject { DummyClass.new }
 
   describe '#config_file?' do
+    let(:mod_name) { 'pagespeed' }
+
+    it 'does not dispatch the retired PageSpeed resource' do
+      expect(subject.config_file?('pagespeed')).to be false
+    end
+
     before do
       allow(subject).to receive(:[]).with('mod_name').and_return(mod_name)
     end

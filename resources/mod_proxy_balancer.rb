@@ -5,11 +5,11 @@ unified_mode true
 
 property :status_location, String,
          default: '/balancer-manager',
-         description: ''
+         description: 'URL path for the balancer status handler.'
 
 property :set_handler, String,
          default: 'balancer-manager',
-         description: ''
+         description: 'Apache handler used for this location.'
 
 property :require, String,
          default: 'local',
@@ -25,6 +25,10 @@ action :create do
       require: new_resource.require
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'proxy_balancer'
 end
 
 action_class do

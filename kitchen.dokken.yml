@@ -56,9 +56,11 @@ platforms:
       image: dokken/fedora-latest
       pid_one_command: /usr/lib/systemd/systemd
 
-  - name: opensuse-leap-15
+  - name: opensuse-leap-16
     driver:
-      image: dokken/opensuse-leap-15
+      image: opensuse/leap:16.0
+      intermediate_instructions:
+        - RUN zypper --non-interactive install systemd gzip tar
       pid_one_command: /usr/lib/systemd/systemd
 
   - name: oraclelinux-8
@@ -95,3 +97,8 @@ platforms:
     driver:
       image: dokken/ubuntu-24.04
       pid_one_command: /bin/systemd
+
+  - name: ubuntu-26.04
+    driver:
+      image: dokken/ubuntu-26.04
+      pid_one_command: /usr/lib/systemd/systemd

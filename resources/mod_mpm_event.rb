@@ -5,35 +5,35 @@ unified_mode true
 
 property :startservers, Integer,
          default: 4,
-         description: ''
+         description: 'Number of server processes started initially.'
 
 property :serverlimit, Integer,
          default: 16,
-         description: ''
+         description: 'Upper limit on server processes.'
 
 property :minsparethreads, Integer,
          default: 64,
-         description: ''
+         description: 'Minimum number of idle worker threads.'
 
 property :maxsparethreads, Integer,
          default: 192,
-         description: ''
+         description: 'Maximum number of idle worker threads.'
 
 property :threadlimit, Integer,
          default: 192,
-         description: ''
+         description: 'Upper limit on threads per child process.'
 
 property :threadsperchild, Integer,
          default: 64,
-         description: ''
+         description: 'Number of threads in each child process.'
 
 property :maxrequestworkers, Integer,
          default: 1024,
-         description: ''
+         description: 'Maximum number of simultaneous requests.'
 
 property :maxconnectionsperchild, Integer,
          default: 0,
-         description: ''
+         description: 'Connections served before recycling a child; zero means unlimited.'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'mpm_event.conf') do
@@ -50,6 +50,10 @@ action :create do
       maxconnectionsperchild: new_resource.maxconnectionsperchild
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'mpm_event'
 end
 
 action_class do
