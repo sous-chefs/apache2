@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 name 'apache2'
 source_url       'https://github.com/sous-chefs/apache2'
 issues_url       'https://github.com/sous-chefs/apache2/issues'
@@ -14,8 +16,8 @@ supports 'almalinux', '>= 8.0'
 supports 'amazon', '>= 2023.0'
 supports 'centos_stream', '>= 9.0'
 supports 'debian', '>= 12.0'
-supports 'fedora'
-supports 'opensuseleap', '>= 15.0'
+supports 'fedora', '>= 43.0'
+supports 'opensuseleap', '>= 16.0'
 supports 'oracle', '>= 8.0'
 supports 'rocky', '>= 8.0'
 supports 'ubuntu', '>= 22.04'

@@ -92,6 +92,17 @@ action :disable do
   end
 end
 
+action :delete do
+  apache2_site new_resource.default_site_name do
+    action :delete
+  end
+
+  file ::File.join(apache_dir, 'sites-available', "#{new_resource.default_site_name}.conf") do
+    backup false
+    action :delete
+  end
+end
+
 action_class do
   include Apache2::Cookbook::Helpers
 end

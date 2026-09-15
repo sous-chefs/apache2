@@ -5,7 +5,7 @@ unified_mode true
 
 property :proxy_ftp_dir_charset, String,
          default: 'UTF-8',
-         description: ''
+         description: 'Value for the Apache ProxyFtpDirCharset directive.'
 
 property :proxy_ftp_escape_wildcards, String,
          equal_to: ['on', 'off', ''],
@@ -25,6 +25,10 @@ action :create do
       proxy_ftp_list_on_wildcard: new_resource.proxy_ftp_list_on_wildcard
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'proxy_ftp'
 end
 
 action_class do

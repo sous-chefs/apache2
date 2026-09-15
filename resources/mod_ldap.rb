@@ -5,15 +5,15 @@ unified_mode true
 
 property :location, String,
          default: '/ldap-status',
-         description: ''
+         description: 'URL path where the module handler is exposed.'
 
 property :set_handler, String,
          default: 'ldap-status',
-         description: ''
+         description: 'Apache handler used for this location.'
 
 property :require, String,
          default: 'local',
-         description: ''
+         description: 'Apache Require expression controlling access.'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'ldap.conf') do
@@ -25,6 +25,10 @@ action :create do
       require: new_resource.require
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'ldap'
 end
 
 action_class do

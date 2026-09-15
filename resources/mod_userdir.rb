@@ -5,11 +5,11 @@ unified_mode true
 
 property :public_html_dir, String,
          default: '/home/*/public_html',
-         description: ''
+         description: 'User document directory pattern.'
 
 property :options, String,
          default: 'MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec',
-         description: ''
+         description: 'Apache Options applied to user document directories.'
 
 property :allow_override, String,
          default: 'FileInfo AuthConfig Limit Indexes',
@@ -25,6 +25,10 @@ action :create do
       options: new_resource.options
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'userdir'
 end
 
 action_class do

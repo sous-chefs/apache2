@@ -17,6 +17,10 @@ action :create do
   end
 end
 
+action :delete do
+  remove_module_configuration 'mime_magic'
+end
+
 action_class do
   include Apache2::Cookbook::Helpers
 end

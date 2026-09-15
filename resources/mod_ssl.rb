@@ -10,58 +10,58 @@ property :mod_ssl_pkg, String,
 
 property :pass_phrase_dialog, String,
          default: lazy { default_pass_phrase_dialog },
-         description: ''
+         description: 'Value for the Apache SSLPassPhraseDialog directive.'
 
 property :session_cache, String,
         default: lazy { default_session_cache },
-        description: ''
+        description: 'Value for the Apache SSLSessionCache directive.'
 
 property :session_cache_timeout, String,
         default: '300',
-        description: ''
+        description: 'Value for the Apache SSLSessionCacheTimeout directive.'
 
 property :cipher_suite, String,
         default: 'EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA256:EECDH:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!IDEA:!ECDSA:kEDH:CAMELLIA128-SHA:AES128-SHA',
-        description: ''
+        description: 'Value for the Apache SSLCipherSuite directive.'
 
 property :honor_cipher_order, String,
         default: 'On',
-        description: ''
+        description: 'Value for the Apache SSLHonorCipherOrder directive.'
 
 property :protocol, String,
         default: 'TLSv1.2',
-        description: ''
+        description: 'Value for the Apache SSLProtocol directive.'
 
 property :insecure_renegotiation, String,
         default: 'Off',
-        description: ''
+        description: 'Value for the Apache SSLInsecureRenegotiation directive.'
 
 property :strict_sni_vhost_check, String,
         default: 'Off',
-        description: ''
+        description: 'Value for the Apache SSLStrictSNIVHostCheck directive.'
 
 property :compression, String,
         default: 'Off',
-        description: ''
+        description: 'Value for the Apache SSLCompression directive.'
 
 property :use_stapling, String,
         default: 'Off',
-        description: ''
+        description: 'Value for the Apache SSLUseStapling directive.'
 
 property :stapling_responder_timeout, String,
         default: '5',
-        description: ''
+        description: 'Value for the Apache SSLStaplingResponderTimeout directive.'
 
 property :stapling_return_responder_errors, String,
         default: 'Off',
-        description: ''
+        description: 'Value for the Apache SSLStaplingReturnResponderErrors directive.'
 
 property :stapling_cache, String,
         default: 'shmcb:/var/run/ocsp(128000)',
-        description: ''
+        description: 'Value for the Apache SSLStaplingCache directive.'
 
 property :directives, Hash,
-        description: ''
+        description: 'Additional SSL directives as a hash.'
 
 action :create do
   if platform_family?('rhel', 'fedora', 'suse', 'amazon')
@@ -104,6 +104,24 @@ action :create do
       recursive true
       action :delete
     end
+  end
+end
+
+action :delete do
+  remove_module_configuration 'ssl'
+
+  apache2_module 'socache_shmcb' do
+    action :delete
+  end
+
+  file "#{apache_dir}/conf.d/ssl.conf" do
+    backup false
+    action :delete
+  end
+
+  package new_resource.mod_ssl_pkg do
+    action :remove
+    only_if { platform_family?('rhel', 'fedora', 'amazon') }
   end
 end
 

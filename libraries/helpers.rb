@@ -258,6 +258,18 @@ module Apache2
         end
       end
 
+      # Configuration-only resources own the .conf file, not the module binary.
+      def remove_module_configuration(mod_name)
+        link ::File.join(apache_dir, 'mods-enabled', "#{mod_name}.conf") do
+          action :delete
+        end
+
+        file ::File.join(apache_dir, 'mods-available', "#{mod_name}.conf") do
+          backup false
+          action :delete
+        end
+      end
+
       def config_file?(mod_name)
         %w(ldap
            actions
@@ -277,7 +289,6 @@ module Apache2
            mime_magic
            mime
            negotiation
-           pagespeed
            proxy_balancer
            proxy_ftp
            proxy
@@ -290,16 +301,6 @@ module Apache2
            mpm_prefork
            mpm_worker
         ).include?(mod_name)
-      end
-
-      def pagespeed_url
-        suffix = platform_family?('rhel', 'fedora', 'amazon') ? 'rpm' : 'deb'
-
-        if node['kernel']['machine'] =~ /^i[36']86$/
-          "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_i386.#{suffix}"
-        else
-          "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.#{suffix}"
-        end
       end
 
       def default_site_template_source

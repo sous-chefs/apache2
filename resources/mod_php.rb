@@ -52,6 +52,17 @@ action :create do
   end
 end
 
+action :delete do
+  apache2_module 'php' do
+    action :delete
+  end
+
+  package new_resource.package_name do
+    action :remove
+    only_if { new_resource.install_package && !new_resource.package_name.nil? }
+  end
+end
+
 action_class do
   include Apache2::Cookbook::Helpers
 end

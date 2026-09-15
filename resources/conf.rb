@@ -41,6 +41,17 @@ action :disable do
   end
 end
 
+action :delete do
+  link ::File.join(apache_dir, 'conf-enabled', "#{new_resource.name}.conf") do
+    action :delete
+  end
+
+  file ::File.join(new_resource.path, "#{new_resource.name}.conf") do
+    backup false
+    action :delete
+  end
+end
+
 action_class do
   include Apache2::Cookbook::Helpers
 end
