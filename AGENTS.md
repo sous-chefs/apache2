@@ -80,5 +80,6 @@ Legacy Arch, FreeBSD, CentOS 7, Scientific Linux, Debian 10/11, Ubuntu 18.04/20.
 
 * Dokken has no `dokken/opensuse-leap-16` image at migration time. Use the
   official `opensuse/leap:16.0` image with systemd, gzip and tar installed.
-* The skill explicitly requires Sous Chefs workflow version 6.0.0; this migration
-  follows that baseline even though the checkout had moved to 9.0.0.
+* Sous Chefs shared workflows and actions follow the repository's current `main`
+  references so release and OCI-publishing behaviour stays aligned with the
+  maintained cookbook baseline.
