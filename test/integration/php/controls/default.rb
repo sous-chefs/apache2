@@ -30,7 +30,8 @@ control 'PHP module enabled & running' do
 
   case os['family']
   when 'debian', 'suse'
-    describe file('/etc/apache2/mods-available/php.conf') do
+    php_module = os['family'] == 'suse' ? 'php8' : 'php'
+    describe file("/etc/apache2/mods-available/#{php_module}.conf") do
       it { should exist }
       its('content') { should match %r{SetHandler application/x-httpd-php} }
     end

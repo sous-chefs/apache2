@@ -74,6 +74,12 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v7
+      - name: Disable automatic Git maintenance for Policyfile dependencies
+        # Cinc copies Git checkouts into its cookbook cache. Background maintenance
+        # can remove lock files during that copy and fail Policyfile resolution.
+        run: |
+          git config --global maintenance.auto false
+          git config --global gc.auto 0
       - name: Install Cinc Workstation
         uses: sous-chefs/.github/.github/actions/install-workstation@main
       - name: Dokken

@@ -7,6 +7,19 @@ describe 'apache2_mod_php' do
 
   platform 'ubuntu'
 
+  context 'Setup and enable PHP on openSUSE Leap 16' do
+    platform 'opensuse', '16.0'
+
+    recipe do
+      apache2_mod_php 'php'
+    end
+
+    it { is_expected.to install_package('apache2-mod_php8') }
+    it { is_expected.to create_template('/etc/apache2/mods-available/php8.conf') }
+    it { is_expected.to render_file('/etc/apache2/mods-available/php8.load').with_content('LoadModule php_module /usr/lib64/apache2/mod_php8.so') }
+    it { is_expected.not_to enable_apache2_module('php') }
+  end
+
   context 'Setup and enable PHP module' do
     recipe do
       apache2_install 'phptest'
@@ -37,6 +50,22 @@ describe 'apache2_mod_php' do
         identifier: 'php_module',
         mod_name: 'libphp8.3.so'
       )
+    end
+  end
+
+  context 'Remove PHP on openSUSE Leap 16' do
+    platform 'opensuse', '16.0'
+
+    recipe do
+      apache2_mod_php 'php' do
+        action :delete
+      end
+    end
+
+    it { is_expected.to remove_package('apache2-mod_php8') }
+    %w(conf load).each do |extension|
+      it { is_expected.to delete_file("/etc/apache2/mods-available/php8.#{extension}") }
+      it { is_expected.to delete_link("/etc/apache2/mods-enabled/php8.#{extension}") }
     end
   end
 

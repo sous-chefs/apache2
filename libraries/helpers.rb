@@ -326,7 +326,7 @@ module Apache2
         when 'rhel'
           'mod_php'
         when 'suse'
-          if platform?('opensuse') && node['platform_version'].to_f >= 15.5
+          if platform?('opensuse', 'opensuseleap') && node['platform_version'].to_f >= 15.5
             'apache2-mod_php8'
           else
             'apache2-mod_php7'
@@ -336,6 +336,8 @@ module Apache2
 
       def apache_mod_php_modulename
         case node['platform_family']
+        when 'suse'
+          apache_mod_php_package == 'apache2-mod_php8' ? 'php_module' : 'php7_module'
         when 'amazon'
           'php8_module'
         when 'rhel'
@@ -362,6 +364,8 @@ module Apache2
             'libphp8.2.so'
           elsif platform?('debian') && node['platform_version'].to_i >= 13
             'libphp8.4.so'
+          elsif platform?('ubuntu') && node['platform_version'].to_f >= 26.04
+            'libphp8.5.so'
           elsif platform?('ubuntu') && node['platform_version'].to_f >= 24.04
             'libphp8.3.so'
           elsif platform?('ubuntu') && node['platform_version'].to_f >= 22.04
@@ -372,7 +376,7 @@ module Apache2
         when 'rhel'
           'libphp7.so'
         when 'suse'
-          if platform?('opensuse') && node['platform_version'].to_f >= 15.5
+          if platform?('opensuse', 'opensuseleap') && node['platform_version'].to_f >= 15.5
             'mod_php8.so'
           else
             'mod_php7.so'

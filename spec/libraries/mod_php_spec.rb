@@ -46,6 +46,22 @@ RSpec.describe Apache2::Cookbook::Helpers do
       it { expect(subject.apache_mod_php_filename).to eq 'libphp8.3.so' }
     end
 
+    context 'ubuntu 26.04' do
+      let(:platform_family) { 'debian' }
+      let(:platform) { 'ubuntu' }
+      let(:platform_version) { '26.04' }
+      it { expect(subject.apache_mod_php_filename).to eq 'libphp8.5.so' }
+    end
+
+    context 'opensuse leap 16' do
+      let(:platform_family) { 'suse' }
+      let(:platform) { 'opensuseleap' }
+      let(:platform_version) { '16.0' }
+      it { expect(subject.apache_mod_php_package).to eq 'apache2-mod_php8' }
+      it { expect(subject.apache_mod_php_filename).to eq 'mod_php8.so' }
+      it { expect(subject.apache_mod_php_modulename).to eq 'php_module' }
+    end
+
     context 'opensuse 15.5' do
       let(:platform_family) { 'suse' }
       let(:platform) { 'opensuse' }

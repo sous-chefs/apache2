@@ -16,6 +16,10 @@
 * Dependency verification initially failed because the ignored Policyfile lock
   referenced apache2 10.0.0 while metadata declared 10.1.0. Refresh local locks
   before interpreting ChefSpec failures.
+* Git dependency caching can race with automatic Git maintenance: Cinc copies
+  transient `.git/objects/maintenance.lock` or commit-graph locks after Git has
+  removed them. Integration CI disables `maintenance.auto` and `gc.auto` before
+  resolving dependencies. Keep the Policyfile lock ignored and retain Git sources.
 * Retain distribution-provided systemd units. Service lifecycle actions must not
   replace their ExecStart, environment or security settings with generic units.
 
@@ -77,6 +81,10 @@ Legacy Arch, FreeBSD, CentOS 7, Scientific Linux, Debian 10/11, Ubuntu 18.04/20.
 * RHEL 10-family platforms do not currently provide the legacy PCRE 1 development package required by the current `mod_auth_cas` source build path.
 * `apache2_mod_wsgi` is excluded from Amazon Linux 2023 and openSUSE Leap CI because package/service behavior is currently unreliable there.
 * `apache2_mod_php` is not available on Fedora, Amazon Linux, or RHEL-family platforms newer than 8; tests use PHP-FPM fallback coverage for those platforms.
+* Leap 16 reports `opensuseleap` and uses `apache2-mod_php8` with the
+  `php_module` identifier. Its package postinstall invokes `a2enmod php8`, so
+  prepare the `php8` module entry before installing the package when the
+  cookbook's module-management helper is in place.
 
 * Dokken has no `dokken/opensuse-leap-16` image at migration time. Use the
   official `opensuse/leap:16.0` image with systemd, gzip and tar installed.
