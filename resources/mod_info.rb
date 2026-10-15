@@ -5,7 +5,7 @@ unified_mode true
 
 property :info_allow_list, [String, Array],
          default: %w(127.0.0.1 ::1),
-         description: ''
+         description: 'Client addresses permitted to access server information.'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'info.conf') do
@@ -13,6 +13,10 @@ action :create do
     cookbook 'apache2'
     variables(info_allow_list: Array(new_resource.info_allow_list))
   end
+end
+
+action :delete do
+  remove_module_configuration 'info'
 end
 
 action_class do

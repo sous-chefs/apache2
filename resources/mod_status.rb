@@ -5,7 +5,7 @@ unified_mode true
 
 property :location, String,
          default: '/server-status',
-         description: ''
+         description: 'URL path where the module handler is exposed.'
 
 property :status_allow_list, [String, Array],
          default: %w(127.0.0.1 ::1),
@@ -33,6 +33,10 @@ action :create do
       proxy_status: new_resource.proxy_status
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'status'
 end
 
 action_class do

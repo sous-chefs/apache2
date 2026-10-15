@@ -7,7 +7,6 @@ describe 'apache2_install' do
             :apache2_mod_reqtimeout,
             :apache2_mod_proxy,
             :apache2_mod_proxy_ftp,
-            :apache2_mod_pagespeed,
             :apache2_mod_negotiation,
             :apache2_mod_mime,
             :apache2_mod_mime_magic,
@@ -89,38 +88,6 @@ describe 'apache2_install' do
       is_expected.not_to render_file('/etc/apache2/mods-available/proxy_ftp.conf')
         .with_content(/ProxyFtpEscapeWildcards/)
         .with_content(/ProxyFtpListOnWildcards/)
-    end
-  end
-
-  context 'mod_pagespeed' do
-    recipe do
-      apache2_mod_pagespeed ''
-    end
-
-    it 'outputs template correctly' do
-      is_expected.to render_file('/etc/apache2/mods-available/pagespeed.conf')
-        .with_content(/ModPagespeed on/)
-        .with_content(/ModPagespeedInheritVHostConfig on/)
-        .with_content(%r{AddOutputFilterByType MOD_PAGESPEED_OUTPUT_FILTER text/html})
-        .with_content(/ModPagespeedInheritVHostConfig on/)
-        .with_content(/ModPagespeedFileCacheInodeLimit 500000/)
-
-      is_expected.not_to render_file('/etc/apache2/mods-available/pagespeed.conf')
-        .with_content(%r{AddOutputFilterByType application/xhtml+xml})
-        .with_content(/ModPagespeedRewriteLevel PassThrough/)
-        .with_content(/ModPagespeedDisableFilters/)
-        .with_content(/ModPagespeedEnableFilters/)
-        .with_content(/ModPagespeedDomain/)
-        .with_content(%r{ModPagespeedLibrary 105527 ltVVzzYxo0 //ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js})
-        .with_content(%r{ModPagespeedLibrary 92501 J8KF47pYOq //ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js})
-        .with_content(%r{ModPagespeedLibrary 141547 GKjMUuF4PK //ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js})
-        .with_content(%r{ModPagespeedLibrary 43 1o978_K0_L http://www.modpagespeed.com/rewrite_javascript.js})
-    end
-
-    it 'Creates the cache directory' do
-      is_expected.to create_directory('/var/cache/mod_pagespeed/')
-        .with_owner('www-data')
-        .with_group('www-data')
     end
   end
 

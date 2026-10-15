@@ -20,15 +20,15 @@ property :browser_match, Array,
            '"^Dreamweaver-WebDAV-SCM1" redirect-carefully',
            '"Konqueror/4" redirect-carefully',
          ],
-         description: ''
+         description: 'Value for the Apache BrowserMatch directive.'
 
 property :browser_match_nocase, Array,
          default: [],
-         description: ''
+         description: 'Value for the Apache BrowserMatchNocase directive.'
 
 property :set_env_if_no_case, Array,
          default: [],
-         description: ''
+         description: 'Value for the Apache SetEnvIfNoCase directive.'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'setenvif.conf') do
@@ -40,6 +40,10 @@ action :create do
       set_env_if_no_cases: new_resource.set_env_if_no_case
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'setenvif'
 end
 
 action_class do

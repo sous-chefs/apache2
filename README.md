@@ -10,12 +10,12 @@ This cookbook provides a complete Debian/Ubuntu style Apache HTTPD configuration
 
 Debian-style Apache configuration uses scripts to manage modules and sites (vhosts). The scripts are:
 
-- a2ensite
-- a2dissite
-- a2enmod
-- a2dismod
-- a2enconf
-- a2disconf
+* a2ensite
+* a2dissite
+* a2enmod
+* a2dismod
+* a2enconf
+* a2disconf
 
 This cookbook ships with templates of these scripts for non-Debian based platforms.
 
@@ -27,10 +27,10 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 Depending on your OS configuration and security policy, you may need additional cookbooks or wrapper-cookbook resources for Apache to converge and serve traffic correctly. In particular, the following operating system settings may affect the behavior of this cookbook:
 
-- SELinux enabled
-- Firewalls (such as iptables, ufw, etc.)
-- Compile tools
-- 3rd party repositories
+* SELinux enabled
+* Firewalls (such as iptables, ufw, etc.)
+* Compile tools
+* 3rd party repositories
 
 On RHEL, SELinux is enabled by default. The [selinux](https://supermarket.chef.io/cookbooks/selinux) cookbook contains a `permissive` recipe that can be used to set SELinux to "Permissive" state. Otherwise, additional recipes need to be created by the user to address SELinux permissions.
 
@@ -40,15 +40,15 @@ To deal with firewalls Chef Software does provide an [iptables](https://supermar
 
 The following platforms and versions are tested and supported using [test-kitchen](https://kitchen.ci/):
 
-- AlmaLinux 8+
-- Amazon Linux 2023
-- CentOS Stream 9+
-- Debian 12+
-- Fedora latest
-- openSUSE Leap 15+
-- Oracle Linux 8+
-- Rocky Linux 8+
-- Ubuntu 22.04+
+* AlmaLinux 8+
+* Amazon Linux 2023
+* CentOS Stream 9+
+* Debian 12+
+* Fedora 43+
+* openSUSE Leap 16+
+* Oracle Linux 8+
+* Rocky Linux 8+
+* Ubuntu 22.04+
 
 ## Usage
 
@@ -56,13 +56,13 @@ It is recommended to create a project or organization specific [wrapper cookbook
 
 The default install now favors secure and higher-throughput generated configuration:
 
-- `ServerSignature Off`
-- `ServerTokens Prod`
-- `TraceEnable Off`
-- `Timeout 60`
-- `KeepAliveTimeout 2`
-- `MaxKeepAliveRequests 1000`
-- `mpm 'event'`
+* `ServerSignature Off`
+* `ServerTokens Prod`
+* `TraceEnable Off`
+* `Timeout 60`
+* `KeepAliveTimeout 2`
+* `MaxKeepAliveRequests 1000`
+* `mpm 'event'`
 
 These values can still be explicitly overridden. Modules that require prefork compatibility, such as `apache2_mod_php`, should be used with `apache2_install mpm 'prefork'`.
 
@@ -99,45 +99,44 @@ Example wrapper cookbooks:
 
 ## Resources
 
-- [install](documentation/resource_apache2_install.md)
-- [conf](documentation/resource_apache2_conf.md)
-- [config](documentation/resource_apache2_config.md)
-- [default_site](documentation/resource_apache2_default_site.md)
-- [mod](documentation/resource_apache2_mod.md)
-- [mod_actions](documentation/resource_apache2_mod_actions.md)
-- [mod_alias](documentation/resource_apache2_mod_alias.md)
-- [mod_auth_cas](documentation/resource_apache2_mod_auth_cas.md)
-- [mod_autoindex](documentation/resource_apache2_mod_autoindex.md)
-- [mod_cache_disk](documentation/resource_apache2_mod_cache_disk.md)
-- [mod_cgid](documentation/resource_apache2_mod_cgid.md)
-- [mod_dav_fs](documentation/resource_apache2_mod_dav_fs.md)
-- [mod_deflate](documentation/resource_apache2_mod_deflate.md)
-- [mod_dir](documentation/resource_apache2_mod_dir.md)
-- [mod_fastcgi](documentation/resource_apache2_mod_fastcgi.md)
-- [mod_fcgid](documentation/resource_apache2_mod_fcgid.md)
-- [mod_include](documentation/resource_apache2_mod_include.md)
-- [mod_info](documentation/resource_apache2_mod_info.md)
-- [mod_ldap](documentation/resource_apache2_mod_ldap.md)
-- [mod_mime](documentation/resource_apache2_mod_mime.md)
-- [mod_mime_magic](documentation/resource_apache2_mod_mime_magic.md)
-- [mod_mpm_event](documentation/resource_apache2_mod_mpm_event.md)
-- [mod_mpm_prefork](documentation/resource_apache2_mod_mpm_prefork.md)
-- [mod_mpm_worker](documentation/resource_apache2_mod_mpm_worker.md)
-- [mod_negotiation](documentation/resource_apache2_mod_negotiation.md)
-- [mod_pagespeed](documentation/resource_apache2_mod_pagespeed.md)
-- [mod_php](documentation/resource_apache2_mod_php.md)
-- [mod_proxy](documentation/resource_apache2_mod_proxy.md)
-- [mod_proxy_balancer](documentation/resource_apache2_mod_proxy_balancer.md)
-- [mod_proxy_ftp](documentation/resource_apache2_mod_proxy_ftp.md)
-- [mod_reqtimeout](documentation/resource_apache2_mod_reqtimeout.md)
-- [mod_setenvif](documentation/resource_apache2_mod_setenvif.md)
-- [mod_ssl](documentation/resource_apache2_mod_ssl.md)
-- [mod_status](documentation/resource_apache2_mod_status.md)
-- [mod_userdir](documentation/resource_apache2_mod_userdir.md)
-- [mod_wsgi](documentation/resource_apache2_mod_wsgi.md)
-- [module](documentation/resource_apache2_module.md)
-- [service](documentation/resource_apache2_service.md)
-- [site](documentation/resource_apache2_site.md)
+* [install](documentation/apache2_install.md)
+* [conf](documentation/apache2_conf.md)
+* [config](documentation/apache2_config.md)
+* [default_site](documentation/apache2_default_site.md)
+* [mod](documentation/apache2_mod.md)
+* [mod_actions](documentation/apache2_mod_actions.md)
+* [mod_alias](documentation/apache2_mod_alias.md)
+* [mod_auth_cas](documentation/apache2_mod_auth_cas.md)
+* [mod_autoindex](documentation/apache2_mod_autoindex.md)
+* [mod_cache_disk](documentation/apache2_mod_cache_disk.md)
+* [mod_cgid](documentation/apache2_mod_cgid.md)
+* [mod_dav_fs](documentation/apache2_mod_dav_fs.md)
+* [mod_deflate](documentation/apache2_mod_deflate.md)
+* [mod_dir](documentation/apache2_mod_dir.md)
+* [mod_fastcgi](documentation/apache2_mod_fastcgi.md)
+* [mod_fcgid](documentation/apache2_mod_fcgid.md)
+* [mod_include](documentation/apache2_mod_include.md)
+* [mod_info](documentation/apache2_mod_info.md)
+* [mod_ldap](documentation/apache2_mod_ldap.md)
+* [mod_mime](documentation/apache2_mod_mime.md)
+* [mod_mime_magic](documentation/apache2_mod_mime_magic.md)
+* [mod_mpm_event](documentation/apache2_mod_mpm_event.md)
+* [mod_mpm_prefork](documentation/apache2_mod_mpm_prefork.md)
+* [mod_mpm_worker](documentation/apache2_mod_mpm_worker.md)
+* [mod_negotiation](documentation/apache2_mod_negotiation.md)
+* [mod_php](documentation/apache2_mod_php.md)
+* [mod_proxy](documentation/apache2_mod_proxy.md)
+* [mod_proxy_balancer](documentation/apache2_mod_proxy_balancer.md)
+* [mod_proxy_ftp](documentation/apache2_mod_proxy_ftp.md)
+* [mod_reqtimeout](documentation/apache2_mod_reqtimeout.md)
+* [mod_setenvif](documentation/apache2_mod_setenvif.md)
+* [mod_ssl](documentation/apache2_mod_ssl.md)
+* [mod_status](documentation/apache2_mod_status.md)
+* [mod_userdir](documentation/apache2_mod_userdir.md)
+* [mod_wsgi](documentation/apache2_mod_wsgi.md)
+* [module](documentation/apache2_module.md)
+* [service](documentation/apache2_service.md)
+* [site](documentation/apache2_site.md)
 
 ## Contributors
 
@@ -163,3 +162,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 ![https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100)
 ![https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100)
 ![https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100)
+
+## Migration
+
+See [the migration guide](migration.md) for the resource-only API, removed PageSpeed support, platform changes and opt-in removal actions.

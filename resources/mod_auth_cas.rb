@@ -130,6 +130,44 @@ action :install do
   end
 end
 
+action :remove do
+  apache2_module 'auth_cas' do
+    conf false
+    action :delete
+  end
+
+  directory "#{cache_dir}/mod_auth_cas" do
+    recursive true
+    action :delete
+  end
+
+  if new_resource.install_method == 'source'
+    file "#{apache_libexec_dir}/mod_auth_cas.so" do
+      backup false
+      action :delete
+    end
+
+    file "#{Chef::Config[:file_cache_path]}/mod_auth_cas.tar.gz" do
+      backup false
+      action :delete
+    end
+
+    directory "#{Chef::Config[:file_cache_path]}/mod_auth_cas" do
+      recursive true
+      action :delete
+    end
+  else
+    package(platform_family?('debian') ? 'libapache2-mod-auth-cas' : 'mod_auth_cas') do
+      action :remove
+    end
+  end
+
+  file "#{apache_dir}/conf.d/auth_cas.conf" do
+    backup false
+    action :delete
+  end
+end
+
 action_class do
   include Apache2::Cookbook::Helpers
 end

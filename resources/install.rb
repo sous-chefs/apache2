@@ -194,8 +194,8 @@ action :install do
   end
 
   unless platform_family?('debian')
-    cookbook_file '/usr/local/bin/apache2_module_conf_generate.pl' do
-      source 'apache2_module_conf_generate.pl'
+    template '/usr/local/bin/apache2_module_conf_generate.pl' do
+      source 'apache2_module_conf_generate.pl.erb'
       cookbook 'apache2'
       mode '0750'
       owner 'root'
@@ -387,6 +387,50 @@ action :install do
   new_resource.modules.each do |mod|
     apache2_module mod do
       mod_conf new_resource.mod_conf[mod.to_sym]
+    end
+  end
+end
+
+action :remove do
+  systemd_unit "#{apache_platform_service_name}.service" do
+    action [:stop, :disable]
+  end
+
+  Array(new_resource.modules).each do |mod|
+    apache2_module mod do
+      mod_conf new_resource.mod_conf[mod.to_sym] || {}
+      action :delete
+    end
+  end
+
+  package [new_resource.apache_pkg, perl_pkg] do
+    action :remove
+  end
+
+  if platform_family?('suse')
+    package %w(apache2-event apache2-prefork apache2-worker) do
+      action :remove
+    end
+  end
+
+  [apache_dir, new_resource.log_dir, cache_dir, lock_dir].uniq.each do |path|
+    directory path do
+      recursive true
+      action :delete
+    end
+  end
+
+  %w(a2ensite a2dissite a2dismod a2enconf a2disconf).each do |script|
+    link "/usr/sbin/#{script}" do
+      action :delete
+    end
+  end
+
+  ['/usr/sbin/a2enmod', '/usr/local/bin/apache2_module_conf_generate.pl',
+   "/etc/sysconfig/#{apache_platform_service_name}"].each do |path|
+    file path do
+      backup false
+      action :delete
     end
   end
 end

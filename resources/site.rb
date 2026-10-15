@@ -22,6 +22,12 @@ action :disable do
   end
 end
 
+action :delete do
+  link ::File.join(apache_dir, 'sites-enabled', "#{new_resource.site_name}.conf") do
+    action :delete
+  end
+end
+
 action_class do
   include Apache2::Cookbook::Helpers
 end

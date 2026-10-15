@@ -13,7 +13,7 @@ describe 'apache2_service' do
       end
     end
 
-    it { is_expected.to start_service('apache2') }
+    it { is_expected.to start_systemd_unit('apache2.service') }
   end
 
   context 'action :stop' do
@@ -23,7 +23,7 @@ describe 'apache2_service' do
       end
     end
 
-    it { is_expected.to stop_service('apache2') }
+    it { is_expected.to stop_systemd_unit('apache2.service') }
   end
 
   context 'action :restart' do
@@ -34,7 +34,7 @@ describe 'apache2_service' do
       end
     end
 
-    it { is_expected.to restart_service('apache2') }
+    it { is_expected.to restart_systemd_unit('apache2.service') }
   end
 
   context 'action :reload' do
@@ -45,7 +45,7 @@ describe 'apache2_service' do
       end
     end
 
-    it { is_expected.to reload_service('apache2') }
+    it { is_expected.to reload_systemd_unit('apache2.service') }
   end
 
   context 'action :enable' do
@@ -55,7 +55,7 @@ describe 'apache2_service' do
       end
     end
 
-    it { is_expected.to enable_service('apache2') }
+    it { is_expected.to enable_systemd_unit('apache2.service') }
   end
 
   context 'action :disable' do
@@ -65,7 +65,7 @@ describe 'apache2_service' do
       end
     end
 
-    it { is_expected.to disable_service('apache2') }
+    it { is_expected.to disable_systemd_unit('apache2.service') }
   end
 
   context 'with custom service_name' do
@@ -76,7 +76,7 @@ describe 'apache2_service' do
       end
     end
 
-    it { is_expected.to start_service('apache2').with(service_name: 'httpd') }
+    it { is_expected.to start_systemd_unit('apache2.service').with(unit_name: 'httpd.service') }
   end
 
   context 'on rhel platform' do
@@ -88,6 +88,6 @@ describe 'apache2_service' do
       end
     end
 
-    it { is_expected.to start_service('apache2') }
+    it { is_expected.to start_systemd_unit('apache2.service') }
   end
 end

@@ -17,7 +17,7 @@ property :maxspareservers, Integer,
 
 property :serverlimit, Integer,
          default: 256,
-         description: ''
+         description: 'Upper limit on server processes.'
 
 property :maxrequestworkers, Integer,
          default: 256,
@@ -25,7 +25,7 @@ property :maxrequestworkers, Integer,
 
 property :maxconnectionsperchild, Integer,
          default: 10_000,
-         description: ''
+         description: 'Connections served before recycling a child; zero means unlimited.'
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'mpm_prefork.conf') do
@@ -40,6 +40,10 @@ action :create do
       maxconnectionsperchild: new_resource.maxconnectionsperchild
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'mpm_prefork'
 end
 
 action_class do

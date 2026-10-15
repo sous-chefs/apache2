@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 apt_update 'update'
 
 apache2_install 'default_install' do
   template_cookbook 'test'
+  error_log lazy { "#{default_log_dir}/#{default_error_log}" }
   notifies :restart, 'apache2_service[default]'
 end
 

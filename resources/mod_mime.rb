@@ -6,7 +6,7 @@ include Apache2::Cookbook::Helpers
 
 property :types_config, String,
          default: lazy { default_types_config },
-         description: ''
+         description: 'Value for the Apache TypesConfig directive.'
 
 property :add_type, Hash,
          default: {
@@ -16,19 +16,19 @@ property :add_type, Hash,
            4 => 'application/x-bzip2 .bz2',
            5 => 'image/svg+xml svg svgz',
          },
-         description: ''
+         description: 'Value for the Apache AddType directive.'
 
 property :add_handler, Hash,
          default: { 1 => 'AddHandler type-map var' },
-         description: ''
+         description: 'Value for the Apache AddHandler directive.'
 
 property :add_output_filter, Hash,
          default: { 1 => 'INCLUDES .shtml' },
-         description: ''
+         description: 'Value for the Apache AddOutputFilter directive.'
 
 property :add_encoding, Hash,
          default: { 1 => 'gzip svgz' },
-         description: ''
+         description: 'Value for the Apache AddEncoding directive.'
 
 property :add_language, Hash,
          default: {},
@@ -46,6 +46,10 @@ action :create do
       add_encoding: new_resource.add_encoding
     )
   end
+end
+
+action :delete do
+  remove_module_configuration 'mime'
 end
 
 action_class do
