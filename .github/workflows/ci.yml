@@ -76,7 +76,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v7
       - name: Install Cinc Workstation
-        uses: sous-chefs/.github/.github/actions/install-workstation@9.0.1
+        uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
       - name: Dokken
         uses: actionshub/test-kitchen@main
         env:
@@ -97,6 +97,43 @@ jobs:
           set -x
           sudo journalctl -l --since today
           /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
+
+  prime-workstation-cache:
+    needs: lint-unit
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    steps:
+      - name: Prime Cinc Workstation cache
+        uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
+
+  benchmark-workstation:
+    needs: prime-workstation-cache
+    runs-on: blacksmith-2vcpu-ubuntu-2404
+    strategy:
+      matrix:
+        cache: ['true', 'false']
+        sample: [1, 2, 3]
+    steps:
+      - name: Start benchmark
+        run: echo "STARTED=$(date +%s)" >> "$GITHUB_ENV"
+      - name: Install Cinc Workstation
+        id: workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
+        with:
+          cache: ${{ matrix.cache }}
+      - name: Report benchmark
+        env:
+          CACHE_ENABLED: ${{ matrix.cache }}
+          CACHE_HIT: ${{ steps.workstation.outputs.cache-hit }}
+        run: |
+          elapsed=$(( $(date +%s) - STARTED ))
+          echo "Cache enabled=$CACHE_ENABLED hit=$CACHE_HIT elapsed=$elapsed seconds" | tee -a "$GITHUB_STEP_SUMMARY"
+          if [ "$CACHE_ENABLED" = true ] && [ "$CACHE_HIT" != true ]; then
+            echo '::error::Warm-cache benchmark did not restore an exact cache hit.'
+            exit 1
+          fi
+          cinc --version
+          chef --version
+          kitchen --version
 
   final:
     runs-on: ubuntu-slim
