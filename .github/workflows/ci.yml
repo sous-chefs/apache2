@@ -11,6 +11,23 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  changes:
+    runs-on: ubuntu-24.04
+    outputs:
+      integration: ${{ steps.changes.outputs.integration }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Test CI planning
+        run: python3 -m unittest discover -s .github/ci -p 'test_*.py'
+      - name: Classify changes
+        id: changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python3 .github/ci/integration.py changes
+
   lint-unit:
     uses: sous-chefs/.github/.github/workflows/lint-unit.yml@9.0.1
     permissions:
@@ -21,121 +38,100 @@ jobs:
       issues: write
     secrets: inherit
 
+  prepare:
+    needs: [changes, lint-unit]
+    if: needs.changes.outputs.integration == 'true'
+    runs-on: ubuntu-24.04
+    outputs:
+      grouped: ${{ steps.plan.outputs.grouped }}
+      individual: ${{ steps.plan.outputs.individual }}
+      dependencies: ${{ steps.plan.outputs.dependencies }}
+      dependency-key: ${{ steps.plan.outputs.dependency_key }}
+    env:
+      KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+      KITCHEN_PRODUCT_NAME: cinc
+    steps:
+      - uses: actions/checkout@v7
+      - name: Restore Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
+      - name: Plan identical suite coverage and dependency revisions
+        id: plan
+        run: python3 .github/ci/integration.py prepare
+
   integration:
-    needs: lint-unit
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    name: integration (${{ matrix.os }})
+    needs: [changes, prepare]
+    if: needs.changes.outputs.integration == 'true'
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       max-parallel: 8
-      matrix:
-        os:
-          - almalinux-8
-          - almalinux-9
-          - almalinux-10
-          - amazonlinux-2023
-          - centos-stream-9
-          - centos-stream-10
-          - debian-12
-          - debian-13
-          - fedora-latest
-          - opensuse-leap-15
-          - oraclelinux-8
-          - oraclelinux-9
-          - rockylinux-8
-          - rockylinux-9
-          - rockylinux-10
-          - ubuntu-2204
-          - ubuntu-2404
-        suite:
-          - basic-site
-          - default
-          - mod-auth-cas
-          - php
-          - module-template
-          - mod-wsgi
-          - ports
-          - ssl
-          - install-override
-        exclude:
-          # mod_auth_cas requires PCRE1 (libpcre) which is not available on RHEL 10+
-          # See: https://github.com/apereo/mod_auth_cas - needs update to support PCRE2
-          - os: almalinux-10
-            suite: mod-auth-cas
-          - os: centos-stream-10
-            suite: mod-auth-cas
-          - os: rockylinux-10
-            suite: mod-auth-cas
-          # mod_wsgi package not available on Amazon Linux 2023
-          # See: https://github.com/amazonlinux/amazon-linux-2023/issues/532
-          - os: amazonlinux-2023
-            suite: mod-wsgi
-          # mod_wsgi idempotency issue on openSUSE Leap 15 - package reinstalls on second run
-          - os: opensuse-leap-15
-            suite: mod-wsgi
+      matrix: ${{ fromJSON(needs.prepare.outputs.grouped) }}
+    env:
+      CHEF_LICENSE: accept-no-persist
+      CHEF_VERSION: latest
+      KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+      KITCHEN_PRODUCT_NAME: cinc
+      MULTIPLE_CONVERGE: '2'
     steps:
-      - name: Check out code
-        uses: actions/checkout@v7
-      - name: Install Cinc Workstation
-        uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
-      - name: Dokken
-        run: kitchen test "$KITCHEN_INSTANCE"
-        env:
-          KITCHEN_INSTANCE: ${{ matrix.suite }}-${{ matrix.os }}
-          CHEF_LICENSE: accept-no-persist
-          CHEF_VERSION: latest
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-          KITCHEN_PRODUCT_NAME: cinc
-      - name: Print debug output on failure
-        if: failure()
-        env:
-          CHEF_VERSION: latest
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-          KITCHEN_PRODUCT_NAME: cinc
-        run: |
-          set -x
-          sudo journalctl -l --since today
-          /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
-
-  prime-workstation-cache:
-    needs: lint-unit
-    runs-on: blacksmith-2vcpu-ubuntu-2404
-    steps:
-      - name: Prime Cinc Workstation cache
-        uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
-
-  benchmark-workstation:
-    needs: prime-workstation-cache
-    runs-on: blacksmith-2vcpu-ubuntu-2404
-    strategy:
-      matrix:
-        cache: ['true', 'false']
-        sample: [1, 2, 3]
-    steps:
-      - name: Start benchmark
-        run: echo "STARTED=$(date +%s)" >> "$GITHUB_ENV"
-      - name: Install Cinc Workstation
-        id: workstation
-        uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-integration
         with:
-          cache: ${{ matrix.cache }}
-      - name: Report benchmark
+          dependencies: ${{ needs.prepare.outputs.dependencies }}
+          dependency-key: ${{ needs.prepare.outputs.dependency-key }}
+      - name: Dokken suites with fresh containers
         env:
-          CACHE_ENABLED: ${{ matrix.cache }}
-          CACHE_HIT: ${{ steps.workstation.outputs.cache-hit }}
-        run: |
-          elapsed=$(( $(date +%s) - STARTED ))
-          echo "Cache enabled=$CACHE_ENABLED hit=$CACHE_HIT elapsed=$elapsed seconds" | tee -a "$GITHUB_STEP_SUMMARY"
-          if [ "$CACHE_ENABLED" = true ] && [ "$CACHE_HIT" != true ]; then
-            echo '::error::Warm-cache benchmark did not restore an exact cache hit.'
-            exit 1
-          fi
-          cinc --version
-          chef --version
-          kitchen --version
+          KITCHEN_INSTANCES: ${{ toJSON(matrix.instances) }}
+        run: python3 .github/ci/integration.py run
+
+  # Temporary comparison: same commit, dependency revisions and eight-job limit.
+  integration-baseline:
+    name: baseline (${{ matrix.instances[0] }})
+    needs: [changes, prepare]
+    if: needs.changes.outputs.integration == 'true'
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix: ${{ fromJSON(needs.prepare.outputs.individual) }}
+    env:
+      CHEF_LICENSE: accept-no-persist
+      CHEF_VERSION: latest
+      KITCHEN_LOCAL_YAML: kitchen.dokken.yml
+      KITCHEN_PRODUCT_NAME: cinc
+      MULTIPLE_CONVERGE: '2'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-integration
+        with:
+          dependencies: ${{ needs.prepare.outputs.dependencies }}
+          dependency-key: ${{ needs.prepare.outputs.dependency-key }}
+      - name: Dokken single suite
+        env:
+          KITCHEN_INSTANCES: ${{ toJSON(matrix.instances) }}
+        run: python3 .github/ci/integration.py run
 
   final:
     runs-on: ubuntu-slim
-    needs: [integration]
+    needs: [changes, lint-unit, prepare, integration, integration-baseline]
+    if: always()
     steps:
-      - run: |
-          echo "Integration result: ${{ needs.integration.result }}"
+      - name: Require successful checks or an intentional documentation skip
+        env:
+          CHANGES: ${{ needs.changes.result }}
+          LINT: ${{ needs.lint-unit.result }}
+          REQUIRED: ${{ needs.changes.outputs.integration }}
+          PREPARE: ${{ needs.prepare.result }}
+          INTEGRATION: ${{ needs.integration.result }}
+          BASELINE: ${{ needs.integration-baseline.result }}
+        run: |
+          test "$CHANGES" = success
+          test "$LINT" = success
+          if [ "$REQUIRED" = true ]; then
+            test "$PREPARE" = success
+            test "$INTEGRATION" = success
+            test "$BASELINE" = success
+          else
+            test "$REQUIRED" = false
+            echo 'Integration skipped: documentation-only changes.'
+          fi
