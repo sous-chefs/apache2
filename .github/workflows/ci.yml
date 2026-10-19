@@ -78,15 +78,13 @@ jobs:
       - name: Install Cinc Workstation
         uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
       - name: Dokken
-        uses: actionshub/test-kitchen@main
+        run: kitchen test "$KITCHEN_INSTANCE"
         env:
+          KITCHEN_INSTANCE: ${{ matrix.suite }}-${{ matrix.os }}
           CHEF_LICENSE: accept-no-persist
           CHEF_VERSION: latest
           KITCHEN_LOCAL_YAML: kitchen.dokken.yml
           KITCHEN_PRODUCT_NAME: cinc
-        with:
-          suite: ${{ matrix.suite }}
-          os: ${{ matrix.os }}
       - name: Print debug output on failure
         if: failure()
         env:
