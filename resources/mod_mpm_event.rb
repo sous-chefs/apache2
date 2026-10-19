@@ -4,36 +4,28 @@ provides :apache2_mod_mpm_event
 unified_mode true
 
 property :startservers, Integer,
-         default: 4,
-         description: ''
+         default: 4
 
 property :serverlimit, Integer,
-         default: 16,
-         description: ''
+         default: 16
 
 property :minsparethreads, Integer,
-         default: 64,
-         description: ''
+         default: 64
 
 property :maxsparethreads, Integer,
-         default: 192,
-         description: ''
+         default: 192
 
 property :threadlimit, Integer,
-         default: 192,
-         description: ''
+         default: 192
 
 property :threadsperchild, Integer,
-         default: 64,
-         description: ''
+         default: 64
 
 property :maxrequestworkers, Integer,
-         default: 1024,
-         description: ''
+         default: 1024
 
 property :maxconnectionsperchild, Integer,
-         default: 0,
-         description: ''
+         default: 0
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'mpm_event.conf') do

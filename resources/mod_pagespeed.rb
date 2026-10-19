@@ -5,30 +5,24 @@ unified_mode true
 include Apache2::Cookbook::Helpers
 
 property :apache_user, String,
-         default: lazy { default_apache_user },
-         description: ''
+         default: lazy { default_apache_user }
 
 property :apache_group, String,
-         default: lazy { default_apache_group },
-         description: ''
+         default: lazy { default_apache_group }
 
 property :mod_page_speed, String,
          equal_to: %w(on off),
-         default: 'on',
-         description: ''
+         default: 'on'
 
 property :file_cache_path, String,
-         default: '/var/cache/mod_pagespeed/',
-         description: ''
+         default: '/var/cache/mod_pagespeed/'
 
 property :output_filters, Array,
-         default: ['MOD_PAGESPEED_OUTPUT_FILTER text/html'],
-         description: ''
+         default: ['MOD_PAGESPEED_OUTPUT_FILTER text/html']
 
 property :inherit_vhost_config, String,
          default: 'on',
-         equal_to: %w(on off),
-         description: ''
+         equal_to: %w(on off)
 
 property :rewrite_level, String,
          default: '',
@@ -53,13 +47,11 @@ property :extra_config, Hash,
 
 property :file_cache_inode_limit, [String, Integer],
          default: '500000',
-         coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m },
-         description: ''
+         coerce: proc { |m| m.is_a?(Integer) ? m.to_s : m }
 
 property :avoid_renaming_introspective_javascript, String,
          equal_to: %w(on off),
-         default: 'on',
-         description: ''
+         default: 'on'
 
 property :library, Array,
         default: [

@@ -4,12 +4,10 @@ provides :apache2_mod_include
 unified_mode true
 
 property :add_type, Hash,
-         default: { 1 => 'text/html .shtml' },
-         description: ''
+         default: { 1 => 'text/html .shtml' }
 
 property :add_output_filter, Hash,
-         default: { 1 => 'INCLUDES .shtml' },
-         description: ''
+         default: { 1 => 'INCLUDES .shtml' }
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'include.conf') do

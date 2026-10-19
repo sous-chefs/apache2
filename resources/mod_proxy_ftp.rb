@@ -4,8 +4,7 @@ provides :apache2_mod_proxy_ftp
 unified_mode true
 
 property :proxy_ftp_dir_charset, String,
-         default: 'UTF-8',
-         description: ''
+         default: 'UTF-8'
 
 property :proxy_ftp_escape_wildcards, String,
          equal_to: ['on', 'off', ''],
