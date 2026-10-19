@@ -19,7 +19,7 @@ jobs:
 
   integration:
     needs: lint-unit
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-2vcpu-ubuntu-2404
     strategy:
       fail-fast: false
       max-parallel: 4
@@ -95,7 +95,7 @@ jobs:
           /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
 
   final:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs: [integration]
     steps:
       - run: |

@@ -6,7 +6,7 @@ name: Mark stale issues and pull requests
 
 jobs:
   stale:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/stale@v11
         with:
