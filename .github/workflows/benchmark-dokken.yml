@@ -1,0 +1,100 @@
+---
+name: Benchmark Dokken image delivery
+
+"on":
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/benchmark-dokken.yml
+      - .github/ci/docker_images.py
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dokken-benchmark-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  seed:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, almalinux-9, opensuse-leap-15]
+    steps:
+      - uses: actions/checkout@v7
+      - name: Pull exact images and export archive
+        id: seed
+        env:
+          PLATFORM_IMAGE: dokken/${{ matrix.os }}
+        run: python3 .github/ci/docker_images.py seed
+      - name: Save immutable image archive
+        uses: actions/cache/save@v5
+        with:
+          path: ${{ runner.temp }}/dokken-images.tar
+          key: ${{ steps.seed.outputs.key }}
+      - name: Record cache key
+        env:
+          CACHE_KEY: ${{ steps.seed.outputs.key }}
+        run: echo "$CACHE_KEY" > "$RUNNER_TEMP/cache-key.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: image-manifest-${{ matrix.os }}
+          path: |
+            ${{ runner.temp }}/images.json
+            ${{ runner.temp }}/cache-key.txt
+          retention-days: 7
+
+  measure:
+    needs: seed
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        os: [ubuntu-24.04, almalinux-9, opensuse-leap-15]
+        mode: [pull, load]
+        trial: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v4
+        with:
+          name: image-manifest-${{ matrix.os }}
+          path: ${{ runner.temp }}
+      - name: Read cache key
+        id: key
+        run: echo "key=$(cat "$RUNNER_TEMP/cache-key.txt")" >> "$GITHUB_OUTPUT"
+      - name: Verify cold runner and start timer
+        run: python3 .github/ci/docker_images.py start
+      - name: Restore image archive
+        if: matrix.mode == 'load'
+        uses: actions/cache/restore@v5
+        with:
+          path: ${{ runner.temp }}/dokken-images.tar
+          key: ${{ steps.key.outputs.key }}
+          fail-on-cache-miss: true
+      - name: Deliver images and verify identical contents
+        env:
+          PLATFORM: ${{ matrix.os }}
+          TRIAL: ${{ matrix.trial }}
+          DELIVERY: ${{ matrix.mode }}
+        run: python3 .github/ci/docker_images.py "$DELIVERY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docker-image-result-${{ matrix.os }}-${{ matrix.mode }}-${{ matrix.trial }}
+          path: result-*.json
+          retention-days: 7
+
+  report:
+    needs: measure
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: docker-image-result-*
+          path: results
+          merge-multiple: true
+      - name: Compare repeated measurements
+        run: python3 .github/ci/docker_images.py report

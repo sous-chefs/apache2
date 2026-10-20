@@ -29,7 +29,7 @@ jobs:
         run: python3 .github/ci/integration.py changes
 
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@9.0.1
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@codex/cache-cinc-workstation
     permissions:
       actions: write
       checks: write
