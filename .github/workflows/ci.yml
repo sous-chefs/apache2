@@ -44,25 +44,34 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       grouped: ${{ steps.plan.outputs.grouped }}
-      individual: ${{ steps.plan.outputs.individual }}
       dependencies: ${{ steps.plan.outputs.dependencies }}
       dependency-key: ${{ steps.plan.outputs.dependency_key }}
+      workstation-version: ${{ steps.workstation.outputs.version }}
     env:
       KITCHEN_LOCAL_YAML: kitchen.dokken.yml
       KITCHEN_PRODUCT_NAME: cinc
     steps:
       - uses: actions/checkout@v7
       - name: Restore Cinc Workstation
+        id: workstation
         uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
       - name: Plan identical suite coverage and dependency revisions
         id: plan
         run: python3 .github/ci/integration.py prepare
+      - name: Warm cookbook downloads before starting the matrix
+        uses: ./.github/actions/setup-integration
+        with:
+          dependencies: ${{ steps.plan.outputs.dependencies }}
+          dependency-key: ${{ steps.plan.outputs.dependency_key }}
+          workstation-version: ${{ steps.workstation.outputs.version }}
+          workstation-installed: 'true'
 
   integration:
     name: integration (${{ matrix.os }})
     needs: [changes, prepare]
     if: needs.changes.outputs.integration == 'true'
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       max-parallel: 8
@@ -73,47 +82,22 @@ jobs:
       KITCHEN_LOCAL_YAML: kitchen.dokken.yml
       KITCHEN_PRODUCT_NAME: cinc
       MULTIPLE_CONVERGE: '2'
+      KITCHEN_REUSE_IMAGES: 'true'
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-integration
         with:
           dependencies: ${{ needs.prepare.outputs.dependencies }}
           dependency-key: ${{ needs.prepare.outputs.dependency-key }}
+          workstation-version: ${{ needs.prepare.outputs.workstation-version }}
       - name: Dokken suites with fresh containers
-        env:
-          KITCHEN_INSTANCES: ${{ toJSON(matrix.instances) }}
-        run: python3 .github/ci/integration.py run
-
-  # Temporary comparison: same commit, dependency revisions and eight-job limit.
-  integration-baseline:
-    name: baseline (${{ matrix.instances[0] }})
-    needs: [changes, prepare]
-    if: needs.changes.outputs.integration == 'true'
-    runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      max-parallel: 8
-      matrix: ${{ fromJSON(needs.prepare.outputs.individual) }}
-    env:
-      CHEF_LICENSE: accept-no-persist
-      CHEF_VERSION: latest
-      KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-      KITCHEN_PRODUCT_NAME: cinc
-      MULTIPLE_CONVERGE: '2'
-    steps:
-      - uses: actions/checkout@v7
-      - uses: ./.github/actions/setup-integration
-        with:
-          dependencies: ${{ needs.prepare.outputs.dependencies }}
-          dependency-key: ${{ needs.prepare.outputs.dependency-key }}
-      - name: Dokken single suite
         env:
           KITCHEN_INSTANCES: ${{ toJSON(matrix.instances) }}
         run: python3 .github/ci/integration.py run
 
   final:
     runs-on: ubuntu-slim
-    needs: [changes, lint-unit, prepare, integration, integration-baseline]
+    needs: [changes, lint-unit, prepare, integration]
     if: always()
     steps:
       - name: Require successful checks or an intentional documentation skip
@@ -123,14 +107,12 @@ jobs:
           REQUIRED: ${{ needs.changes.outputs.integration }}
           PREPARE: ${{ needs.prepare.result }}
           INTEGRATION: ${{ needs.integration.result }}
-          BASELINE: ${{ needs.integration-baseline.result }}
         run: |
           test "$CHANGES" = success
           test "$LINT" = success
           if [ "$REQUIRED" = true ]; then
             test "$PREPARE" = success
             test "$INTEGRATION" = success
-            test "$BASELINE" = success
           else
             test "$REQUIRED" = false
             echo 'Integration skipped: documentation-only changes.'

@@ -94,7 +94,7 @@ def main():
             revision = subprocess.check_output(["git", "ls-remote", "--exit-code", url, "refs/heads/" + branch], text=True).split()[0]
             manifest[name] = dict(url=url, branch=branch, revision=revision)
         digest = hashlib.sha256((source + json.dumps(manifest, sort_keys=True)).encode()).hexdigest()
-        output(dict(grouped={"include": grouped}, individual={"include": individual},
+        output(dict(grouped={"include": grouped},
                     dependencies=manifest, dependency_key=digest))
         print(f"Planned {len(individual)} suites across {len(grouped)} fresh runners")
     elif args.action == "pin":

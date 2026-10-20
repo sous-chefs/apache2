@@ -8,12 +8,21 @@ inputs:
   dependency-key:
     description: Hash of the Policyfile and resolved Git dependencies.
     required: true
+  workstation-version:
+    description: Exact Workstation version selected by the prepare job.
+    default: latest
+  workstation-installed:
+    description: Skip restoring Workstation when prepare has already installed it.
+    default: 'false'
 runs:
   using: composite
   steps:
     - name: Restore Cinc Workstation
       id: workstation
+      if: inputs.workstation-installed != 'true'
       uses: sous-chefs/.github/.github/actions/install-workstation@codex/cache-cinc-workstation
+      with:
+        version: ${{ inputs.workstation-version }}
     - name: Configure dependency cache and pin Git revisions
       shell: bash
       env:
@@ -28,7 +37,7 @@ runs:
       uses: actions/cache/restore@v5
       with:
         path: ${{ runner.temp }}/chef-workstation/cache
-        key: policyfile-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.workstation.outputs.version }}-${{ inputs.dependency-key }}
+        key: policyfile-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.workstation.outputs.version || inputs.workstation-version }}-${{ inputs.dependency-key }}
     - name: Resolve cookbooks for this checkout
       shell: bash
       run: /opt/cinc-workstation/bin/chef-cli install Policyfile.rb
@@ -37,4 +46,4 @@ runs:
       uses: actions/cache/save@v5
       with:
         path: ${{ runner.temp }}/chef-workstation/cache
-        key: policyfile-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.workstation.outputs.version }}-${{ inputs.dependency-key }}
+        key: policyfile-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.workstation.outputs.version || inputs.workstation-version }}-${{ inputs.dependency-key }}
