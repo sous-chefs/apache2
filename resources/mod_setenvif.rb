@@ -19,16 +19,13 @@ property :browser_match, Array,
            '"^XML Spy" redirect-carefully',
            '"^Dreamweaver-WebDAV-SCM1" redirect-carefully',
            '"Konqueror/4" redirect-carefully',
-         ],
-         description: ''
+         ]
 
 property :browser_match_nocase, Array,
-         default: [],
-         description: ''
+         default: []
 
 property :set_env_if_no_case, Array,
-         default: [],
-         description: ''
+         default: []
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'setenvif.conf') do

@@ -4,12 +4,10 @@ provides :apache2_mod_proxy_balancer
 unified_mode true
 
 property :status_location, String,
-         default: '/balancer-manager',
-         description: ''
+         default: '/balancer-manager'
 
 property :set_handler, String,
-         default: 'balancer-manager',
-         description: ''
+         default: 'balancer-manager'
 
 property :require, String,
          default: 'local',

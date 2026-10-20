@@ -4,8 +4,7 @@ provides :apache2_mod_proxy
 unified_mode true
 
 property :proxy_requests, String,
-         default: 'Off',
-         description: ''
+         default: 'Off'
 
 property :require, String,
          default: 'all denied',

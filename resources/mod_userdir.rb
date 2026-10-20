@@ -4,12 +4,10 @@ provides :apache2_mod_userdir
 unified_mode true
 
 property :public_html_dir, String,
-         default: '/home/*/public_html',
-         description: ''
+         default: '/home/*/public_html'
 
 property :options, String,
-         default: 'MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec',
-         description: ''
+         default: 'MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec'
 
 property :allow_override, String,
          default: 'FileInfo AuthConfig Limit Indexes',

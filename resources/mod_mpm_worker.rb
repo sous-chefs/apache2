@@ -32,8 +32,7 @@ property :threadlimit, Integer,
          description: 'ThreadsPerChild can be changed to this maximum value during a graceful restart. ThreadLimit can only be changed by stopping and starting Apache.'
 
 property :serverlimit, Integer,
-         default: 16,
-         description: ''
+         default: 16
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'mpm_worker.conf') do

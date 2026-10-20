@@ -16,16 +16,14 @@ property :maxspareservers, Integer,
          description: 'maximum number of server processes which are kept spare'
 
 property :serverlimit, Integer,
-         default: 256,
-         description: ''
+         default: 256
 
 property :maxrequestworkers, Integer,
          default: 256,
          description: 'maximum number of server processes allowed to start'
 
 property :maxconnectionsperchild, Integer,
-         default: 10_000,
-         description: ''
+         default: 10_000
 
 action :create do
   template ::File.join(apache_dir, 'mods-available', 'mpm_prefork.conf') do

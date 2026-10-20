@@ -9,8 +9,7 @@ property :mod_name, String,
          description: 'The full name of the file'
 
 property :path, String,
-         default: lazy { "#{apache_libexec_dir}/#{mod_name}" },
-         description: ''
+         default: lazy { "#{apache_libexec_dir}/#{mod_name}" }
 
 property :identifier, String,
          default: lazy { "#{name}_module" },

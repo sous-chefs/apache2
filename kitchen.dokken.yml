@@ -1,6 +1,10 @@
 driver:
   name: dokken
   privileged: true
+  # CI runners start fresh; later suites can use the same downloaded base images.
+  # Containers and suite state are still destroyed after every test.
+  pull_chef_image: <%= ENV['KITCHEN_REUSE_IMAGES'] != 'true' %>
+  pull_platform_image: <%= ENV['KITCHEN_REUSE_IMAGES'] != 'true' %>
   chef_image: "<%= ENV.fetch('KITCHEN_PRODUCT_NAME', 'cinc') == 'cinc' ? 'cincproject/cinc' : 'chef/chef' %>"
   chef_version: "<%= ENV['CHEF_VERSION'] || (ENV.fetch('KITCHEN_PRODUCT_NAME', 'cinc') == 'cinc' ? 'latest' : 'current') %>"
 

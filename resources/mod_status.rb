@@ -4,8 +4,7 @@ provides :apache2_mod_status
 unified_mode true
 
 property :location, String,
-         default: '/server-status',
-         description: ''
+         default: '/server-status'
 
 property :status_allow_list, [String, Array],
          default: %w(127.0.0.1 ::1),
