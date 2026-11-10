@@ -8,6 +8,17 @@ This file is used to list changes made in each version of the apache2 cookbook.
 * Default generated Apache configuration to `ServerSignature Off`, `Timeout 60`, `KeepAliveTimeout 2`, `MaxKeepAliveRequests 1000`, and event MPM.
 * Remove stale unsupported-platform helper/spec branches and document current platform constraints in `AGENTS.md`.
 
+## [11.0.0](https://github.com/sous-chefs/apache2/compare/v10.1.0...v11.0.0) (2026-11-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove PageSpeed and add resource cleanup ([#967](https://github.com/sous-chefs/apache2/issues/967))
+
+### Features
+
+* remove PageSpeed and add resource cleanup ([#967](https://github.com/sous-chefs/apache2/issues/967)) ([377bb27](https://github.com/sous-chefs/apache2/commit/377bb27a8585a24f32d68a86d6f5b8c3e053c092))
+
 ## [10.1.0](https://github.com/sous-chefs/apache2/compare/v10.0.0...v10.1.0) (2026-08-15)
 
 
