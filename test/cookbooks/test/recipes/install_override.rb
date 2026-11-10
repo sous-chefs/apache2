@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 apt_update 'update'
 
 apache2_install 'default_install' do

@@ -32,6 +32,10 @@ action :create do
   end
 end
 
+action :delete do
+  remove_module_configuration 'autoindex'
+end
+
 action_class do
   include Apache2::Cookbook::Helpers
 end

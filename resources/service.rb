@@ -15,16 +15,14 @@ property :delay_start, [true, false],
 action_class do
   def do_service_action(resource_action)
     if %i(start restart reload).include?(resource_action) && new_resource.delay_start
-      declare_resource(:service, 'apache2') do
-        service_name new_resource.service_name
-        supports status: true, restart: true, reload: true
+      systemd_unit 'apache2.service' do
+        unit_name new_resource.service_name.end_with?('.service') ? new_resource.service_name : "#{new_resource.service_name}.service"
 
         delayed_action resource_action
       end
     else
-      declare_resource(:service, 'apache2') do
-        service_name new_resource.service_name
-        supports status: true, restart: true, reload: true
+      systemd_unit 'apache2.service' do
+        unit_name new_resource.service_name.end_with?('.service') ? new_resource.service_name : "#{new_resource.service_name}.service"
 
         action resource_action
       end

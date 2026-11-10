@@ -1,11 +1,13 @@
 # Upgrading
 
+For the current breaking changes and removal actions, see [migration.md](migration.md).
+
 All definitions have been removed and replaced with custom resources.
 As a result we are now providing the default assigned names:
 
-- apache_mod --> apache2_mod
-- apache_conf --> apache2_conf
-- apache_site --> apache2_site
+* apache_mod --> apache2_mod
+* apache_conf --> apache2_conf
+* apache_site --> apache2_site
 
 This helps as resource behaviours have been significantly changed to remove magic where possible.
 
@@ -91,14 +93,14 @@ A further example of this behaviour can be seen in the `apache2_default_site` re
 
 ## The service resource
 
-whilst `service['apache2']` is defined in the `apache2_install` resource, due to the notification system of nested resources, we are unable to notify or subscribe directly to it.
-
-To work around this issue, define the following helper in your cookbook:
+Declare `apache2_service` explicitly and send notifications to that custom resource:
 
 ```ruby
-service 'apache2' do
-  service_name lazy { apache_platform_service_name }
-  supports restart: true, status: true, reload: true
-  action :nothing
+apache2_service 'default' do
+  action [:enable, :start]
+end
+
+apache2_module 'headers' do
+  notifies :reload, 'apache2_service[default]', :delayed
 end
 ```

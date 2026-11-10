@@ -10,7 +10,7 @@ property :mod_name, String,
 
 property :path, String,
          default: lazy { "#{apache_libexec_dir}/#{mod_name}" },
-         description: ''
+         description: 'Absolute path to the module shared object.'
 
 property :identifier, String,
          default: lazy { "#{name}_module" },
@@ -65,6 +65,26 @@ action :disable do
   execute "a2dismod #{new_resource.name}" do
     command "/usr/sbin/a2dismod #{new_resource.name}"
     only_if { mod_enabled?(new_resource) }
+  end
+end
+
+action :delete do
+  if new_resource.conf && new_resource.template_cookbook.empty?
+    declare_resource("apache2_mod_#{new_resource.name}".to_sym, 'default') do
+      new_resource.mod_conf.each { |key, value| send(key, value) }
+      action new_resource.name == 'auth_cas' ? :remove : :delete
+    end
+  end
+
+  %w(conf load).each do |extension|
+    link ::File.join(apache_dir, 'mods-enabled', "#{new_resource.name}.#{extension}") do
+      action :delete
+    end
+
+    file ::File.join(apache_dir, 'mods-available', "#{new_resource.name}.#{extension}") do
+      backup false
+      action :delete
+    end
   end
 end
 

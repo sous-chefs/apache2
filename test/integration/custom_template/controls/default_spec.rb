@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include_controls 'apache2-default'
 
 control 'template-render' do

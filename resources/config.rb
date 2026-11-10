@@ -101,6 +101,14 @@ action :create do
   end
 end
 
+action :delete do
+  config_name = platform_family?('debian') ? 'apache2.conf' : 'httpd.conf'
+  file ::File.join(apache_conf_dir, config_name) do
+    backup false
+    action :delete
+  end
+end
+
 action_class do
   include Apache2::Cookbook::Helpers
 end

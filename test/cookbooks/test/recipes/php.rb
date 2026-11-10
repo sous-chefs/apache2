@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 extend Apache2::Cookbook::Helpers
 
 apt_update 'update'

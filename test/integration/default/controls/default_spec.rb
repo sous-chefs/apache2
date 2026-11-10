@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 control 'service' do
   impact 1
   desc 'Apache2 service is running'
