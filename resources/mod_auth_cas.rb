@@ -12,11 +12,11 @@ property :install_method, String,
          description: 'Install method for Mod auth CAS'
 
 property :source_revision, String,
-         default: 'v1.2',
+         default: 'v1.3',
          description: 'Revision for the mod auth cas source install'
 
 property :source_checksum, String,
-         default: 'b05a194f6c255f65a10537242648d8c0c2110960c03aff240bd8f52eaa454c29',
+         default: '7fed6c703ba060f4eb891a9c63a0d8cf0434249bd25d1faa6b8ea9075121c93e',
          description: 'Checksum for the mod auth cas source install'
 
 property :login_url, String,
@@ -51,7 +51,7 @@ property :directives, Hash,
 
 action :install do
   if new_resource.install_method.eql? 'source'
-    package [apache_devel_package(new_resource.mpm), apache_mod_auth_cas_devel_packages].flatten
+    package [apache_devel_package(new_resource.mpm), apache_mod_auth_cas_devel_packages(new_resource.source_revision)].flatten
 
     build_essential 'mod_auth_cas'
 
@@ -67,9 +67,20 @@ action :install do
     end
 
     execute 'compile mod_auth_cas' do
-      command 'autoreconf -ivf && ./configure && make && make install'
+      command '(test -x ./configure || autoreconf -ivf) && ./configure && make && make install'
       cwd "#{Chef::Config[:file_cache_path]}/mod_auth_cas/mod_auth_cas-#{new_resource.source_revision.gsub(/^v/, '')}"
-      not_if { ::File.exist?("#{apache_libexec_dir}/mod_auth_cas.so") }
+      not_if do
+        apache_mod_auth_cas_current?("#{apache_libexec_dir}/mod_auth_cas.so",
+                                     "#{apache_libexec_dir}/mod_auth_cas.source",
+                                     new_resource.source_revision, new_resource.source_checksum)
+      end
+    end
+
+    file "#{apache_libexec_dir}/mod_auth_cas.source" do
+      content "#{new_resource.source_revision}\n#{new_resource.source_checksum}\n"
+      owner 'root'
+      group new_resource.root_group
+      mode '0644'
     end
 
     template "#{apache_dir}/mods-available/auth_cas.load" do
@@ -143,6 +154,11 @@ action :remove do
 
   if new_resource.install_method == 'source'
     file "#{apache_libexec_dir}/mod_auth_cas.so" do
+      backup false
+      action :delete
+    end
+
+    file "#{apache_libexec_dir}/mod_auth_cas.source" do
       backup false
       action :delete
     end

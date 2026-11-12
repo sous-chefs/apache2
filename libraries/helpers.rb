@@ -412,13 +412,19 @@ module Apache2
         end
       end
 
-      def apache_mod_auth_cas_devel_packages
+      def apache_mod_auth_cas_current?(binary, marker, revision, checksum)
+        ::File.exist?(binary) && ::File.exist?(marker) &&
+          ::File.read(marker) == "#{revision}\n#{checksum}\n"
+      end
+
+      def apache_mod_auth_cas_devel_packages(revision = 'v1.3')
+        legacy_pcre = revision.match?(/\Av?1\.[012](?:\D|\z)/)
         if platform_family?('rhel', 'amazon', 'fedora')
-          %w(openssl-devel libcurl-devel pcre-devel libtool)
+          ['openssl-devel', 'libcurl-devel', legacy_pcre ? 'pcre-devel' : 'pcre2-devel', 'libtool']
         elsif platform_family?('debian')
-          %w(libssl-dev libcurl4-openssl-dev libpcre++-dev libtool)
+          ['libssl-dev', 'libcurl4-openssl-dev', legacy_pcre ? 'libpcre++-dev' : 'libpcre2-dev', 'libtool']
         elsif platform_family?('suse')
-          %w(libopenssl-devel libcurl-devel pcre-devel libtool)
+          ['libopenssl-devel', 'libcurl-devel', legacy_pcre ? 'pcre-devel' : 'pcre2-devel', 'libtool']
         end
       end
     end
