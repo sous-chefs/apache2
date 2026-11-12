@@ -93,5 +93,5 @@ Legacy Arch, FreeBSD, CentOS 7, Scientific Linux, Debian 10/11, Ubuntu 18.04/20.
   maintained cookbook baseline.
 
 * Full migration scope remains confirmed: no root recipes or attributes.
-* mod_auth_cas1.3 uses PCRE2, available on Fedora 45; its official v1.3 archive SHA256 is 7fed6c703ba060f4eb891a9c63a0d8cf0434249bd25d1faa6b8ea9075121c93e. Explicit 1.2 source revisions keep PCRE1 dependencies. Source: https://github.com/apereo/mod_auth_cas/tree/v1.3.
+* mod_auth_cas1.3 uses PCRE2, available on Fedora 45; its official v1.3 archive SHA256 is 7fed6c703ba060f4eb891a9c63a0d8cf0434249bd25d1faa6b8ea9075121c93e. Explicit 1.2 source revisions keep PCRE1 dependencies. Source: <https://github.com/apereo/mod_auth_cas/tree/v1.3>.
 * Official mod_auth_cas release archives include generated configure scripts. Prefer them; regenerating bundled legacy m4 macros with Fedora 45 Autoconf 2.73 fails before configuration. A pristine 1.3 archive builds with its shipped configure script.
