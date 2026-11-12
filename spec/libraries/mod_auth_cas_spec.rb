@@ -107,4 +107,29 @@ RSpec.describe Apache2::Cookbook::Helpers do
       it { expect(subject.apache_mod_auth_cas_devel_packages('v1.2')).to include 'pcre-devel' }
     end
   end
+
+  describe 'source revision reuse' do
+    it 'rebuilds an existing module when the requested revision changes' do
+      Dir.mktmpdir do |directory|
+        binary = File.join(directory, 'mod_auth_cas.so')
+        marker = File.join(directory, 'revision')
+        File.write(binary, 'compiled module')
+        File.write(marker, "v1.2\nold-checksum\n")
+        expect(subject.apache_mod_auth_cas_current?(binary, marker, 'v1.3', 'new-checksum')).to be false
+
+        File.write(marker, "v1.3\nnew-checksum\n")
+        expect(subject.apache_mod_auth_cas_current?(binary, marker, 'v1.3', 'new-checksum')).to be true
+      end
+    end
+
+    it 'rebuilds a missing module even when the marker matches' do
+      Dir.mktmpdir do |directory|
+        binary = File.join(directory, 'mod_auth_cas.so')
+        marker = File.join(directory, 'revision')
+        File.write(marker, "v1.3\nnew-checksum\n")
+
+        expect(subject.apache_mod_auth_cas_current?(binary, marker, 'v1.3', 'new-checksum')).to be false
+      end
+    end
+  end
 end

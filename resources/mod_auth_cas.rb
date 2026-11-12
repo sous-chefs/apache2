@@ -69,7 +69,18 @@ action :install do
     execute 'compile mod_auth_cas' do
       command '(test -x ./configure || autoreconf -ivf) && ./configure && make && make install'
       cwd "#{Chef::Config[:file_cache_path]}/mod_auth_cas/mod_auth_cas-#{new_resource.source_revision.gsub(/^v/, '')}"
-      not_if { ::File.exist?("#{apache_libexec_dir}/mod_auth_cas.so") }
+      not_if do
+        apache_mod_auth_cas_current?("#{apache_libexec_dir}/mod_auth_cas.so",
+                                     "#{apache_libexec_dir}/mod_auth_cas.source",
+                                     new_resource.source_revision, new_resource.source_checksum)
+      end
+    end
+
+    file "#{apache_libexec_dir}/mod_auth_cas.source" do
+      content "#{new_resource.source_revision}\n#{new_resource.source_checksum}\n"
+      owner 'root'
+      group new_resource.root_group
+      mode '0644'
     end
 
     template "#{apache_dir}/mods-available/auth_cas.load" do
@@ -143,6 +154,11 @@ action :remove do
 
   if new_resource.install_method == 'source'
     file "#{apache_libexec_dir}/mod_auth_cas.so" do
+      backup false
+      action :delete
+    end
+
+    file "#{apache_libexec_dir}/mod_auth_cas.source" do
       backup false
       action :delete
     end
