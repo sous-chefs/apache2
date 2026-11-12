@@ -19,7 +19,7 @@ This resource will call `_module` with the correct identifiers for you.
 | Name              | Type   | Default                                         | Description                                                                    |
 | ----------------- | ------ | ----------------------------------------------- | ------------------------------------------------------------------------------ |
 | `install_method`  | String | `apache_mod_auth_cas_install_method`            | Install method for Mod auth CAS                                                |
-| `source_revision` | String | `v1.2`                                          | Revision for the mod auth cas source install                                   |
+| `source_revision` | String | `v1.3`                                          | Revision for the mod auth cas source install                                   |
 | `source_checksum` | String | (see resource default)                          | Checksum for the mod auth cas source install                                   |
 | `login_url`       | String | `https://login.example.org/cas/login`           | The URL to redirect users when not already logged in.                          |
 | `validate_url`    | String | `https://login.example.org/cas/serviceValidate` | The URL to use when validating a ticket presented by a client                  |
